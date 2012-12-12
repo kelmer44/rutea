@@ -38,5 +38,10 @@ public class RutaServiceImpl implements RutaService {
 		return rutaDao.findById(id);
 	}
 
+	@Override
+	public Ruta save(Ruta ruta) {
+		return rutaDao.save(ruta);
+	}
+
 	
 }

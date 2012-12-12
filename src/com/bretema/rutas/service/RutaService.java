@@ -21,4 +21,7 @@ public interface RutaService {
      */
     public Ruta getRuta(Integer id);
     
+    
+    
+    public Ruta save(Ruta ruta);
 }

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.model.ruta.Ruta;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.db.DatabaseType;
@@ -28,17 +29,19 @@ import com.j256.ormlite.table.TableUtils;
  * @param <ID> ID type.
  */
 public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
-	
-	//Database filename
-    public static final String DATABASE = "rutas.db";
-    //Database version
-    public static final int VERSION = 1;
-
     /**
      * Logging
      */
     private static final String LOG_TAG = DatabaseHelper.class.getSimpleName();
 
+	/**
+	 * name of the database file for your application -- change to something appropriate for your app
+	 */
+    public static final String DATABASE = "rutas.db";
+    /**
+     *  any time you make changes to your database objects, you may have to increase the database version
+     */
+    public static final int VERSION = 1;
     /**
      * The database type.
      */
@@ -86,62 +89,66 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
             Log.e(LOG_TAG, "Excpetion while creating the database", e);
             throw new RuntimeException("Excpetion while creating the database", e);
         }
+        
+		
+		//routeList.add(ruta);
+		//routeList.add(ruta2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        if (newVersion < oldVersion) {
-            Log.w(LOG_TAG, "Trying to install an older database over a more recent one. Not executing update...");
-            Log.d(LOG_TAG, "Database path: " + database.getPath());
-            return;
-        }
-
-        Log.d(LOG_TAG, "Updating the database from version " + oldVersion + " to " + newVersion);
-        Log.d(LOG_TAG, "Database path: " + database.getPath());
-
-        DatabaseUpgrade[] databaseUpgrades = DatabaseUpgrade.values();
-        int upgradeSqlCount = 0;
-        int upgradeSqlBlockCount = 0;
-        for (DatabaseUpgrade databaseUpgrade : databaseUpgrades) {
-            if (oldVersion < databaseUpgrade.getToVersion()) {
-                String[] queries = databaseUpgrade.getSqlQueries();
-                for (String query : queries) {
-                    try {
-                        database.execSQL(query);
-                    } catch (android.database.SQLException e) {
-                        Log.d(LOG_TAG, "Exception while executing upgrade queries (toVersion: "
-                                + databaseUpgrade.getToVersion() + ") during query: " + query, e);
-                        throw new RuntimeException("Exception while executing upgrade queries (toVersion: "
-                                + databaseUpgrade.getToVersion() + ") during query: " + query, e);
-                    }
-                    Log.d(LOG_TAG, "Executed an upgrade query to version " + databaseUpgrade.getToVersion()
-                            + " with success: " + query);
-                    upgradeSqlCount++;
-                }
-                Log.d(LOG_TAG, "Upgrade queries for version " + databaseUpgrade.getToVersion()
-                        + " executed with success");
-                upgradeSqlBlockCount++;
-            }
-        }
-        if (upgradeSqlCount > 0) {
-            Log.d(LOG_TAG, "All upadate queries exected with success. Total number of upgrade queries executed: "
-                    + upgradeSqlCount + " in " + upgradeSqlBlockCount);
-        } else {
-            Log.d(LOG_TAG, "No database upgrade queries where necessary!");
-        }
 
 
-        /* This is the old code for upgrading a database: dropping the old one and creating a new one...
-        try {
+       // This is the old code for upgrading a database: dropping the old one and creating a new one...
+       try {
 
-            for(Tables table : Tables.values()) {
-                TableUtils.dropTable(databaseType, connectionSource, table.getTableClass(), true);
-            }
-            onCreate(database);
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, "Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
-            throw new RuntimeException("Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
-        }*/
+           for(Tables table : Tables.values()) {
+               TableUtils.dropTable(connectionSource, table.getTableClass(), true);
+           }
+           onCreate(database);
+       } catch (SQLException e) {
+           Log.e(LOG_TAG, "Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
+           throw new RuntimeException("Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
+       }
+//        if (newVersion < oldVersion) {
+//            Log.w(LOG_TAG, "Trying to install an older database over a more recent one. Not executing update...");
+//            Log.d(LOG_TAG, "Database path: " + database.getPath());
+//            return;
+//        }
+//
+//        Log.d(LOG_TAG, "Updating the database from version " + oldVersion + " to " + newVersion);
+//        Log.d(LOG_TAG, "Database path: " + database.getPath());
+//
+//        DatabaseUpgrade[] databaseUpgrades = DatabaseUpgrade.values();
+//        int upgradeSqlCount = 0;
+//        int upgradeSqlBlockCount = 0;
+//        for (DatabaseUpgrade databaseUpgrade : databaseUpgrades) {
+//            if (oldVersion < databaseUpgrade.getToVersion()) {
+//                String[] queries = databaseUpgrade.getSqlQueries();
+//                for (String query : queries) {
+//                    try {
+//                        database.execSQL(query);
+//                    } catch (android.database.SQLException e) {
+//                        Log.d(LOG_TAG, "Exception while executing upgrade queries (toVersion: "
+//                                + databaseUpgrade.getToVersion() + ") during query: " + query, e);
+//                        throw new RuntimeException("Exception while executing upgrade queries (toVersion: "
+//                                + databaseUpgrade.getToVersion() + ") during query: " + query, e);
+//                    }
+//                    Log.d(LOG_TAG, "Executed an upgrade query to version " + databaseUpgrade.getToVersion()
+//                            + " with success: " + query);
+//                    upgradeSqlCount++;
+//                }
+//                Log.d(LOG_TAG, "Upgrade queries for version " + databaseUpgrade.getToVersion()
+//                        + " executed with success");
+//                upgradeSqlBlockCount++;
+//            }
+//        }
+//        if (upgradeSqlCount > 0) {
+//            Log.d(LOG_TAG, "All upadate queries exected with success. Total number of upgrade queries executed: "
+//                    + upgradeSqlCount + " in " + upgradeSqlBlockCount);
+//        } else {
+//            Log.d(LOG_TAG, "No database upgrade queries where necessary!");
+//        }
     }
 
     @Override
