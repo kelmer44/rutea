@@ -22,6 +22,7 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_layout);
 		
+		
 		Handler handler = new Handler();
 		
 		// run a thread after 2 seconds to start the home screen
