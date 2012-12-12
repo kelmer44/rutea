@@ -20,11 +20,20 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 /**
- * A utility class to be used to setup and interact with a database.
+ * A utility class to be used to setup and interact with a database. 
+ * 
+ * Database helper class is used to manage the creation and upgrading of your database
+ * 
  * @param <T> Entity.
  * @param <ID> ID type.
  */
 public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
+	
+	//Database filename
+    public static final String DATABASE = "rutas.db";
+    //Database version
+    public static final int VERSION = 1;
+
     /**
      * Logging
      */
@@ -47,9 +56,9 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
      * @param context The context.
      */
     public DatabaseHelper(Context context) {
-        super(context, DaoConstants.DATABASE, null, DaoConstants.VERSION);
+        super(context, DATABASE, null, VERSION);
         this.context = context;
-        Log.i(LOG_TAG, "Installing database, databasename = " + DaoConstants.DATABASE + ", version = " + DaoConstants.VERSION);
+        Log.i(LOG_TAG, "Installing database, databasename = " + DATABASE + ", version = " + VERSION);
     }
 
     /**
