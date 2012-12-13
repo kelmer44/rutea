@@ -2,6 +2,7 @@ package com.bretema.rutas.activities;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
@@ -11,6 +12,7 @@ import org.mapsforge.map.reader.header.FileOpenResult;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.model.poi.Poi;
+import com.bretema.rutas.model.ruta.Ruta;
 
 public class RouteMapActivity extends MapActivity {
 
@@ -36,9 +40,13 @@ public class RouteMapActivity extends MapActivity {
 	private Gallery				selectedPOIgallery;
 	private Context				mContext;
 	private AssetManager		assetManager;
-	
-	//Static images for the moment
-	private String[]			mThumbIds	= {"ruta1/thumb1.jpg",
+
+	private String				id_ruta;
+	private Ruta				ruta;
+	private List<Poi>			simplePoiList;
+
+	// Static images for the moment
+	private String[]			mThumbIds	= { "ruta1/thumb1.jpg",
 			"ruta1/thumb2.jpg", "ruta1/thumb3.jpg", "ruta1/thumb4.jpg",
 			"ruta1/thumb5.jpg", "ruta1/thumb6.jpg", "ruta1/thumb7.jpg",
 			"ruta1/thumb8.jpg", "ruta1/thumb9.jpg", "ruta1/thumb10.jpg" };
@@ -53,10 +61,13 @@ public class RouteMapActivity extends MapActivity {
 
 		setContentView(R.layout.activity_map);
 
-		
+		// obtenemos la llamada a esta activity
+		Intent i = getIntent();
+		// y recogemos el id de la linea que nos han pasado
+		id_ruta = i.getStringExtra("id_ruta");
+
 		assetManager = getAssets();
-		
-		
+
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this));
 
@@ -66,11 +77,11 @@ public class RouteMapActivity extends MapActivity {
 
 		mapController = mapView.getController();
 
-		File mapFile = new File(Environment.getExternalStorageDirectory().getPath()
-				+ "/maps/galicia.map");
+		File mapFile = new File(Environment.getExternalStorageDirectory()
+				.getPath() + "/maps/galicia.map");
 
 		Log.d(LOG_TAG, "Trying to load file" + mapFile.getName());
-		
+
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
 			Log.d(LOG_TAG, "Map file could not be loaded");
@@ -78,18 +89,18 @@ public class RouteMapActivity extends MapActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(RouteMapActivity.this);
 			builder.setMessage(getResources().getString(R.string.no_map));
 			builder.setCancelable(false);
-			builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					RouteMapActivity.this.finish();
-				}
-			});
+			builder.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							RouteMapActivity.this.finish();
+						}
+					});
 			AlertDialog alert = builder.create();
 			alert.show();
 			mapView.setWillNotDraw(false);
 			mapView = null;
 			return;
-		}
-		else {
+		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 		}
 	}
@@ -115,10 +126,12 @@ public class RouteMapActivity extends MapActivity {
 			ImageView i = new ImageView(mContext);
 
 			try {
-				i.setImageBitmap(BitmapFactory.decodeStream(assetManager.open(mThumbIds[position])));
+				i.setImageBitmap(BitmapFactory.decodeStream(assetManager
+						.open(mThumbIds[position])));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				Log.d(LOG_TAG, "No se pudo abrir el recurso" + mThumbIds[position]);
+				Log.d(LOG_TAG, "No se pudo abrir el recurso"
+						+ mThumbIds[position]);
 			}
 			i.setAdjustViewBounds(true);
 			// i.setLayoutParams(new

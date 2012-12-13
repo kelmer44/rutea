@@ -9,8 +9,10 @@ import android.content.Context;
  */
 public class AbstractDaoOrmLiteImpl {
 
-	
-
+	/**
+	 * Application context
+	 * se pasa al instanciar cada dao
+	 */
     private Context context;
 
     public Context getContext() {
