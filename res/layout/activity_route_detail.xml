@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="2dp"
+    tools:context=".RouteDetailActivity" >
+
+    <ImageView
+        android:id="@+id/mainRouteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/rsa" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/routeDetailDescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/gotoRouteButton"
+            android:layout_alignLeft="@+id/routeDetailNameLabel"
+            android:layout_alignRight="@+id/routeDetailNameLabel"
+            android:layout_below="@+id/routeDetailNameLabel"
+            android:gravity="right"
+            android:text="Desc" />
+
+        <TextView
+            android:id="@+id/routeDetailNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back_noborder"
+            android:gravity="right"
+            android:text="Nombre de la ruta"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/gotoRouteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Ir a la ruta" />
+    </RelativeLayout>
+
+</LinearLayout>

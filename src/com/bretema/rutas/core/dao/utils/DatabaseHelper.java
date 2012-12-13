@@ -12,7 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bretema.rutas.R;
-import com.bretema.rutas.model.ruta.Ruta;
+import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.enums.PoiType;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.db.DatabaseType;
@@ -41,7 +42,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     /**
      *  any time you make changes to your database objects, you may have to increase the database version
      */
-    public static final int VERSION = 1;
+    public static final int VERSION = 3;
     /**
      * The database type.
      */
@@ -85,16 +86,71 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
             for(Tables table : Tables.values()) {
                 TableUtils.createTable(connectionSource, table.getTableClass());
             }
+            
+            insertDefaultData(database);
+            
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Excpetion while creating the database", e);
             throw new RuntimeException("Excpetion while creating the database", e);
         }
+    }
+    
+    
+    public void insertDefaultData(SQLiteDatabase database) {
+        int defaultProjectId = 1;
+
+        Log.d(LOG_TAG, "Inserting default route");
+        ContentValues routeValues = new ContentValues();
+        routeValues.put("id", 1);
+        routeValues.put("nombre", "Ribeira Sacra");
+        routeValues.put("description", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        routeValues.put("mainImagePath", "ruta1/rsa.jpg");
+        routeValues.put("shortDescription", "Un roteiro polos cañóns do Sil.");
+        database.insert("ruta", null, routeValues);
+
+        Log.d(LOG_TAG, "Inserting default POIS for route 1");
+        ContentValues poiValues = new ContentValues();
+        poiValues.put("nombre", "San Pedro de Rocas");
+        poiValues.put("descripcion", "Pues aquí iría la descripción del punto");
+        poiValues.put("tipo", PoiType.SimplePoi.toString());
+        poiValues.put("latitude", Constants.geoLatDegToDouble(42, 20, 30.70f, true));
+        poiValues.put("longitude", Constants.geoLonDegToDouble(7, 42, 48.66f, false));
+        database.insert("poi", null, poiValues);
         
-		
-		//routeList.add(ruta);
-		//routeList.add(ruta2);
+        ContentValues poiValues2 = new ContentValues();
+        poiValues2.put("nombre", "Santo Estevo de Ribas de Sil");
+        poiValues2.put("descripcion", "Pues aquí iría la descripción del punto");
+        poiValues2.put("tipo", PoiType.SimplePoi.toString());
+        poiValues2.put("latitude", Constants.geoLatDegToDouble(42, 25, 1.30f, true));
+        poiValues2.put("longitude", Constants.geoLonDegToDouble(7, 41, 10.33f, false));
+        database.insert("poi", null, poiValues2);
+        
+        ContentValues poiValues3 = new ContentValues();
+        poiValues3.put("nombre", "Santa Cristina de Ribas de Sil");
+        poiValues3.put("descripcion", "Pues aquí iría la descripción del punto");
+        poiValues3.put("tipo", PoiType.SimplePoi.toString());
+        poiValues3.put("latitude", Constants.geoLatDegToDouble(42, 23, 42.87f, true));
+        poiValues3.put("longitude", Constants.geoLonDegToDouble(7, 35, 19.39f, false));
+        database.insert("poi", null, poiValues3);
+        
+        ContentValues poiValues4 = new ContentValues();
+        poiValues4.put("nombre", "Balcones de Madrid");
+        poiValues4.put("descripcion", "Pues aquí iría la descripción del punto");
+        poiValues4.put("tipo", PoiType.SimplePoi.toString());
+        poiValues4.put("latitude", Constants.geoLatDegToDouble(42, 23, 20.33f, true));
+        poiValues4.put("longitude", Constants.geoLonDegToDouble(7, 33, 59.67f, false));
+        database.insert("poi", null, poiValues4);
+        
+        ContentValues poiValues5 = new ContentValues();
+        poiValues5.put("nombre", "Barxacova");
+        poiValues5.put("descripcion", "Pues aquí iría la descripción del punto");
+        poiValues5.put("tipo", PoiType.SimplePoi.toString());
+        poiValues5.put("latitude", Constants.geoLatDegToDouble(42, 22, 54.68f, true));
+        poiValues5.put("longitude", Constants.geoLonDegToDouble(7, 29, 47.69f, false));
+        database.insert("poi", null, poiValues5);
     }
 
+    
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 

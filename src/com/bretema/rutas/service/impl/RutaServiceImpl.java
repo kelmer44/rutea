@@ -43,5 +43,10 @@ public class RutaServiceImpl implements RutaService {
 		return rutaDao.save(ruta);
 	}
 
+	@Override
+	public void deleteAllRutas() {
+		rutaDao.deleteAll();
+	}
+
 	
 }

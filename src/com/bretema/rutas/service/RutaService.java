@@ -13,7 +13,6 @@ public interface RutaService {
      */
     public List<Ruta> findAll();
     
-    
     /**
      * REcupera una ruta dado un id
      * @param id de la ruta
@@ -21,7 +20,15 @@ public interface RutaService {
      */
     public Ruta getRuta(Integer id);
     
-    
-    
+    /**
+     * Persiste una ruta en base de datos
+     * @param ruta
+     * @return el objeto introducido
+     */
     public Ruta save(Ruta ruta);
+    
+    /**
+     * Elimina todas las rutas almacenadas
+     */
+    public void deleteAllRutas();
 }

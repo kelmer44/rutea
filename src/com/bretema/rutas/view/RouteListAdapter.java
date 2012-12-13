@@ -42,12 +42,13 @@ public class RouteListAdapter extends BaseAdapter{
         View vi=convertView;
         if(convertView==null)
             vi = inflater.inflate(R.layout.routelist_item, null);
-
+        TextView id_ruta = (TextView) vi.findViewById(R.id.id_ruta);
         TextView nombre=(TextView)vi.findViewById(R.id.nombreRouteListLabel);
         TextView descripcion=(TextView)vi.findViewById(R.id.descRouteListLabel);
         Ruta current = routeList.get(position);
         nombre.setText("" + current.getNombre());
-        descripcion.setText(current.getDescription());
+        id_ruta.setText(current.getId().toString());
+        descripcion.setText(current.getShortDescription());
         return vi;
     }
 }

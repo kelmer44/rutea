@@ -12,7 +12,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable
-public class Ruta implements Serializable{
+public class Ruta {
 
 	@DatabaseField(generatedId = true)
 	private Integer id;
@@ -23,9 +23,33 @@ public class Ruta implements Serializable{
 	@DatabaseField
 	private String description;
 
+	@DatabaseField
+	private String mainImagePath;
+	
+	@DatabaseField
+	private String shortDescription;
 	
 	
-	
+
+	public Ruta() {
+		super();
+	}
+
+	public Ruta(String nombre, String description, String mainImagePath) {
+		super();
+		this.nombre = nombre;
+		this.description = description;
+		this.mainImagePath = mainImagePath;
+	}
+
+	public String getMainImagePath() {
+		return mainImagePath;
+	}
+
+	public void setMainImagePath(String mainImagePath) {
+		this.mainImagePath = mainImagePath;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -50,6 +74,13 @@ public class Ruta implements Serializable{
 		this.description = description;
 	}
 	
-	
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
 	
 }

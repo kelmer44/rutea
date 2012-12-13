@@ -14,5 +14,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/eclipseM/libs/ormlite-core-4.42-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/mapsforge-map-0.3.0-jar-with-dependencies.jar" sourcepath="C:/eclipseM/libs/mapsforge"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
