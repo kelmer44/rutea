@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.model.poi.Poi;
@@ -67,7 +68,7 @@ public class RouteMapActivity extends MapActivity {
 			"ruta1/thumb8.jpg", "ruta1/thumb9.jpg", "ruta1/thumb10.jpg" };
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -85,7 +86,7 @@ public class RouteMapActivity extends MapActivity {
 		poiService = new PoiServiceImpl(getApplicationContext());
 
 		assetManager = getAssets();
-		
+
 		
 		initData();
 		initMapData();
@@ -110,6 +111,7 @@ public class RouteMapActivity extends MapActivity {
 
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
+			Toast.makeText(this, fileOpenResult.getErrorMessage(), Toast.LENGTH_LONG).show();
 			Log.d(LOG_TAG, "Map file could not be loaded");
 			finish();
 		} else {
@@ -145,23 +147,23 @@ public class RouteMapActivity extends MapActivity {
 	}
 
 	public class ImageAdapter extends BaseAdapter {
-		public ImageAdapter(Context c) {
+		public ImageAdapter(final Context c) {
 			mContext = c;
 		}
 
-		public int getCount() {
+		public final int getCount() {
 			return mThumbIds.length;
 		}
 
-		public Object getItem(int position) {
+		public final Object getItem(final int position) {
 			return position;
 		}
 
-		public long getItemId(int position) {
+		public final long getItemId(final int position) {
 			return position;
 		}
 
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public final View getView(final int position, final View convertView, final ViewGroup parent) {
 			ImageView i = new ImageView(mContext);
 
 			try {
