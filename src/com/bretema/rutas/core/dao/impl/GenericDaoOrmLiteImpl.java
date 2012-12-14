@@ -15,6 +15,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 
 /**
  * generic DAO implementation to retrieve a DAO object and retrieving certain
@@ -73,7 +75,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @param e
 	 *            The exception.
 	 */
-	protected void throwFatalException(SQLException e) {
+	protected final void throwFatalException(final SQLException e) {
 		String message = "An unknown SQL exception occured while executing a basic SQL command!";
 		Log.e(LOG_TAG, message, e);
 		throw new RuntimeException(message, e);
@@ -84,7 +86,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * 
 	 * @return The project-custom database helper ({@link DatabaseHelper}).
 	 */
-	protected DatabaseHelper<E, PK> getDatabaseHelper() {
+	protected final DatabaseHelper<E, PK> getDatabaseHelper() {
 		DatabaseHelper<E, PK> databaseHelper = (DatabaseHelper<E, PK>) OpenHelperManager
 				.getHelper(getContext(), DatabaseHelper.class);
 		return databaseHelper;
@@ -94,7 +96,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public E findById(PK id) {
+	public final E findById(final PK id) {
 		E result = null;
 		try {
 			result = dao.queryForId(id);
@@ -108,7 +110,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public boolean exists(PK id) {
+	public final boolean exists(final PK id) {
 		try {
 			return dao.idExists(id);
 		} catch (SQLException e) {
@@ -121,7 +123,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public List<E> findAll() {
+	public final List<E> findAll() {
 		List<E> results = null;
 		try {
 			results = dao.queryForAll();
@@ -135,7 +137,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public E save(E entity) {
+	public final E save(final E entity) {
 		try {
 			dao.create(entity);
 		} catch (SQLException e) {
@@ -148,7 +150,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public E update(E entity) {
+	public final E update(final E entity) {
 		try {
 			dao.update(entity);
 		} catch (SQLException e) {
@@ -161,7 +163,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * @Override
 	 */
 	@Override
-	public void delete(E entity) {
+	public final void delete(final E entity) {
 		int result = 0;
 		try {
 			result = dao.delete(entity);
@@ -175,7 +177,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Long count() {
+	public final Long count() {
 		Long result = 0L;
 		try {
 			result = dao.countOf();
@@ -186,7 +188,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	}
 
 	@Override
-	public void deleteAll() {
+	public final void deleteAll() {
 		DeleteBuilder<E, PK> deleteBuilder = dao.deleteBuilder();
 		try {
 			dao.delete(deleteBuilder.prepare());
@@ -196,7 +198,7 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 	}
 
 	@Override
-	public List<E> findByProperty(String propertyName, Object propertyValue) {
+	public final List<E> findByProperty(final String propertyName, final Object propertyValue) {
 		List<E> results = null;
 		try {
 			results = dao.queryForEq(propertyName, propertyValue);
@@ -205,16 +207,113 @@ public abstract class GenericDaoOrmLiteImpl<E, PK extends Serializable> extends
 		}
 		return results;
 	}
-	
+
 	@Override
-	public List<E> findByProperties(Map<String, Object> values){
+	public final List<E> findByProperties(final Map<String, Object> values) {
 		List<E> results = null;
-		try{
+		try {
 			results = dao.queryForFieldValues(values);
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			throwFatalException(e);
 		}
-		
+
+		return results;
+	}
+
+	@Override
+	public final List<E> findAll(final String orderBy, final boolean isOrderAsc) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			builder.orderBy(orderBy, isOrderAsc);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
+		return results;
+	}
+
+	@Override
+	public final List<E> findAll(final String orderBy, final boolean isOrderAsc, final long firstResult, final long maxResults) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			builder.orderBy(orderBy, isOrderAsc);
+			builder.offset(firstResult);
+			builder.limit(maxResults);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
+		return results;
+	}
+
+	@Override
+	public final List<E> findByProperty(final String propertyName, final Object propertyValue, final String orderBy, final boolean isOrderAsc) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			builder.where().eq(propertyName, propertyValue);
+			builder.orderBy(orderBy, isOrderAsc);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
+		return results;
+	}
+
+	@Override
+	public final List<E> findByProperty(final String propertyName, final Object propertyValue, final String orderBy, final boolean isOrderAsc, final long firstResult, final long maxResults) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			builder.where().eq(propertyName, propertyValue);
+			builder.orderBy(orderBy, isOrderAsc);
+			builder.offset(firstResult);
+			builder.limit(maxResults);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
+		return results;
+	}
+
+	@Override
+	public final List<E> findByProperties(final Map<String, Object> values, final String orderBy, final boolean isOrderAsc) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			Where<E, PK> whereStatement = builder.where();
+			boolean firsTimeflag = true;
+			for (Map.Entry<String, Object> pair : values.entrySet()) {
+				whereStatement.eq(pair.getKey(), pair.getValue());
+			}
+			whereStatement.and(values.size());
+			builder.orderBy(orderBy, isOrderAsc);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
+		return results;
+	}
+	@Override
+	public final List<E> findByProperties(final Map<String, Object> values, final String orderBy, final boolean isOrderAsc, final long firstResult, final long maxResults) {
+		List<E> results = null;
+		try {
+			QueryBuilder<E, PK> builder = dao.queryBuilder();
+			Where<E, PK> whereStatement = builder.where();
+			boolean firsTimeflag = true;
+			for (Map.Entry<String, Object> pair : values.entrySet()) {
+				whereStatement.eq(pair.getKey(), pair.getValue());
+			}
+			whereStatement.and(values.size());
+			builder.orderBy(orderBy, isOrderAsc);
+			builder.offset(firstResult);
+			builder.limit(maxResults);
+			results = builder.query();
+		} catch (SQLException e) {
+			throwFatalException(e);
+		}
 		return results;
 	}
 

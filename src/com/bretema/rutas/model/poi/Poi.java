@@ -7,7 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Define un punto de interés en el mapa
+ * Define un punto de interés en el mapa.
  * 
  * @author Gabriel Sanmartín Díaz
  *
@@ -20,22 +20,6 @@ public class Poi {
 	
 	@DatabaseField
 	private String nombre;
-	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
 
 	@DatabaseField
 	private String descripcion;
@@ -52,11 +36,14 @@ public class Poi {
 	@DatabaseField
 	private double longitude;
 	
+	@DatabaseField
+	private int orden;
+	
 	public Poi() {
 		super();
 	}
 
-	public Poi(Integer id, String nombre, String descripcion, PoiType tipo, Ruta ruta, double latitude, double longitude) {
+	public Poi(final Integer id, final String nombre, final String descripcion, final PoiType tipo, final Ruta ruta, final double latitude, final double longitude) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -67,47 +54,71 @@ public class Poi {
 		this.longitude = longitude;
 	}
 
-	public Integer getId() {
+	public final Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public final void setId(final Integer id) {
 		this.id = id;
 	}
 
-	public PoiType getTipo() {
+	public final PoiType getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(PoiType tipo) {
+	public final void setTipo(final PoiType tipo) {
 		this.tipo = tipo;
 	}
 
-	public Ruta getRuta() {
+	public final Ruta getRuta() {
 		return ruta;
 	}
 
-	public void setRuta(Ruta ruta) {
+	public final void setRuta(final Ruta ruta) {
 		this.ruta = ruta;
 	}
 
-	public double getLatitude() {
+	public final double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public final void setLatitude(final double latitude) {
 		this.latitude = latitude;
 	}
 
-	public double getLongitude() {
+	public final double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public final void setLongitude(final double longitude) {
 		this.longitude = longitude;
 	}
 	
 	
+
 	
+	public final String getNombre() {
+		return nombre;
+	}
+
+	public final void setNombre(final String nombre) {
+		this.nombre = nombre;
+	}
+
+	public final String getDescripcion() {
+		return descripcion;
+	}
+
+	public final void setDescripcion(final String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public final int getOrden() {
+		return orden;
+	}
+
+	public final void setOrden(final int orden) {
+		this.orden = orden;
+	}
 	
 }

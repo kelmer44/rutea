@@ -12,7 +12,8 @@ import com.bretema.rutas.model.ruta.Ruta;
  */
 public enum Tables {
     RUTA(Ruta.class),
-    POI(Poi.class)
+    POI(Poi.class),
+    MULTIMEDIA(Multimedia.class)
     ;
 
     Tables(Class tableClass) {

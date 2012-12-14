@@ -19,6 +19,6 @@ public interface PoiService {
 	
 	public List<Poi> getPoiByRuta(Integer rutaId);
 	
-	public List<Poi> getSimplePoiByRuta(Integer rutaId);
+	public List<Poi> getSimplePoiOrderedByRuta(Integer rutaId);
 	
 }

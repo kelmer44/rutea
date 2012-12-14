@@ -42,7 +42,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     /**
      *  any time you make changes to your database objects, you may have to increase the database version
      */
-    public static final int VERSION = 6;
+    public static final int VERSION = 9;
     /**
      * The database type.
      */
@@ -106,6 +106,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         routeValues.put("description", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         routeValues.put("mainImagePath", "ruta1/rsa.jpg");
         routeValues.put("shortDescription", "Un roteiro polos cañóns do Sil.");
+        routeValues.put("routeFile", "ruta1/pruebaruta.gpx");
         database.insert("ruta", null, routeValues);
 
         Log.d(LOG_TAG, "Inserting default POIS for route 1");
@@ -115,6 +116,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues.put("tipo", PoiType.SimplePoi.toString());
         poiValues.put("latitude", 42.341861);
         poiValues.put("longitude", -7.713517);
+        poiValues.put("orden", 1);
         poiValues.put("rutaId", 1);
         database.insert("poi", null, poiValues);
         
@@ -124,6 +126,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues2.put("tipo", PoiType.SimplePoi.toString());
         poiValues2.put("latitude", 42.417028);
         poiValues2.put("longitude", -7.686203);
+        poiValues2.put("orden", 2);
         poiValues2.put("rutaId", 1);
         database.insert("poi", null, poiValues2);
         
@@ -133,6 +136,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues3.put("tipo", PoiType.SimplePoi.toString());
         poiValues3.put("latitude", 42.395242);
         poiValues3.put("longitude", -7.588719);
+        poiValues3.put("orden", 3);
         poiValues3.put("rutaId", 1);
         database.insert("poi", null, poiValues3);
         
@@ -142,6 +146,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues4.put("tipo", PoiType.SimplePoi.toString());
         poiValues4.put("latitude", 42.388981);
         poiValues4.put("longitude", -7.566575);
+        poiValues4.put("orden", 4);
         poiValues4.put("rutaId", 1);
         database.insert("poi", null, poiValues4);
         
@@ -151,6 +156,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues5.put("tipo", PoiType.SimplePoi.toString());
         poiValues5.put("latitude", 42.381856);
         poiValues5.put("longitude", -7.496581);
+        poiValues5.put("orden", 5);
         poiValues5.put("rutaId", 1);
         database.insert("poi", null, poiValues5);
     }

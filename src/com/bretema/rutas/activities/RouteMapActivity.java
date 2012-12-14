@@ -2,23 +2,32 @@ package com.bretema.rutas.activities;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
+import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
+import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.core.GeoPoint;
 import org.mapsforge.map.reader.header.FileOpenResult;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -32,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.PoiService;
@@ -41,28 +51,36 @@ import com.bretema.rutas.service.impl.RutaServiceImpl;
 
 public class RouteMapActivity extends MapActivity {
 
-	private static final String	LOG_TAG		= RouteMapActivity.class
-													.getSimpleName();
+	private static final String		LOG_TAG				= RouteMapActivity.class
+																.getSimpleName();
 
-	private MapView				mapView;
-	private MapController		mapController;
-	private Gallery				selectedPOIgallery;
-	private Context				mContext;
-	private AssetManager		assetManager;
+	private MapView					mapView;
+	private MapController			mapController;
+	private Gallery					selectedPOIgallery;
+	private Context					mContext;
+	private AssetManager			assetManager;
 
-	private String				id_ruta;
-	private Ruta				ruta;
-	private List<Poi>			simplePoiList;
+	private String					id_ruta;
+	// Route object
+	private Ruta					ruta;
+	// simple poi list
+	private List<Poi>				simplePoiList;
+
+	// GEoPoint defining the painted route
+	int								numberRoutePoints;
+	List<GeoPoint>					routePoints;
+	boolean							routeIsDisplayed	= false;
 
 	// Servicio desde el que abstraemos la base de datos
-	private RutaService			rutaService;
-	private PoiService			poiService;
-	
-	//Overlays de pois
+	private RutaService				rutaService;
+	private PoiService				poiService;
+
+	// Overlays de pois
 	private ArrayItemizedOverlay	itemsOverlay;
+	private ArrayWayOverlay			arrayWayOverlay;
 
 	// Static images for the moment
-	private String[]			mThumbIds	= { "ruta1/thumb1.jpg",
+	private String[]				mThumbIds			= { "ruta1/thumb1.jpg",
 			"ruta1/thumb2.jpg", "ruta1/thumb3.jpg", "ruta1/thumb4.jpg",
 			"ruta1/thumb5.jpg", "ruta1/thumb6.jpg", "ruta1/thumb7.jpg",
 			"ruta1/thumb8.jpg", "ruta1/thumb9.jpg", "ruta1/thumb10.jpg" };
@@ -87,17 +105,42 @@ public class RouteMapActivity extends MapActivity {
 
 		assetManager = getAssets();
 
-		
 		initData();
 		initMapData();
+		new RouteLoader().execute(ruta.getRouteFile());
 
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this));
 	}
 
+	public void overlayRoute() {
+		Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
+		wayDefaultPaintFill.setStyle(Paint.Style.STROKE);
+		wayDefaultPaintFill.setColor(Color.BLUE);
+		wayDefaultPaintFill.setAlpha(160);
+		wayDefaultPaintFill.setStrokeWidth(7);
+		wayDefaultPaintFill.setStrokeJoin(Paint.Join.ROUND);
+		wayDefaultPaintFill.setPathEffect(new DashPathEffect(new float[] { 20,
+				20 }, 0));
+
+		Paint wayDefaultPaintOutline = new Paint(Paint.ANTI_ALIAS_FLAG);
+		wayDefaultPaintOutline.setStyle(Paint.Style.STROKE);
+		wayDefaultPaintOutline.setColor(Color.BLUE);
+		wayDefaultPaintOutline.setAlpha(128);
+		wayDefaultPaintOutline.setStrokeWidth(7);
+		wayDefaultPaintOutline.setStrokeJoin(Paint.Join.ROUND);
+
+		arrayWayOverlay = new ArrayWayOverlay(wayDefaultPaintFill, wayDefaultPaintOutline);
+		OverlayWay way = new OverlayWay(Constants.toGeoPointArray(routePoints));
+		
+		arrayWayOverlay.addWay(way);
+		mapView.getOverlays().add(arrayWayOverlay);
+		mapView.invalidate();
+
+	}
+
 	private void initMapData() {
-		
-		
+
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
@@ -111,37 +154,39 @@ public class RouteMapActivity extends MapActivity {
 
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
-			Toast.makeText(this, fileOpenResult.getErrorMessage(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, fileOpenResult.getErrorMessage(),
+					Toast.LENGTH_LONG).show();
 			Log.d(LOG_TAG, "Map file could not be loaded");
 			finish();
 		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 		}
-		
 
 		Drawable marker = getResources().getDrawable(R.drawable.mapmarker);
-		
-		
+
 		itemsOverlay = new ArrayItemizedOverlay(marker);
-		
+
 		Log.d(LOG_TAG, "Loading overlay items into map");
-		for(Poi p: simplePoiList){
-			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
+		for (Poi p : simplePoiList) {
+			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p
+					.getLongitude()), p.getNombre(), p.getDescripcion());
 			itemsOverlay.addItem(overlay);
 		}
-		
+
 		mapView.getOverlays().add(itemsOverlay);
 	}
 
 	private void initData() {
-		
+
 		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
 		Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
-		//simplePoiList = poiService.findAll(); 
-		simplePoiList = poiService.getSimplePoiByRuta(ruta.getId());
-		
-		for(Poi p: simplePoiList){
-			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude());
+		// simplePoiList = poiService.findAll();
+		//simplePoiList = poiService.findAll();
+		simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
+
+		for (Poi p : simplePoiList) {
+			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude()
+					+ ", " + p.getLongitude() + "; orden " + p.getOrden());
 		}
 
 	}
@@ -170,7 +215,6 @@ public class RouteMapActivity extends MapActivity {
 				i.setImageBitmap(BitmapFactory.decodeStream(assetManager
 						.open(mThumbIds[position])));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				Log.d(LOG_TAG, "No se pudo abrir el recurso"
 						+ mThumbIds[position]);
 			}
@@ -184,4 +228,85 @@ public class RouteMapActivity extends MapActivity {
 
 	}
 
+	private class RouteLoader extends AsyncTask<String, String, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+			// This pattern takes more than one param but we'll just use the
+			// first
+			try {
+				String filePath = params[0];
+
+				XmlPullParserFactory parserCreator;
+
+				parserCreator = XmlPullParserFactory.newInstance();
+
+				XmlPullParser parser = parserCreator.newPullParser();
+
+				InputStream is = getAssets().open(filePath);
+				parser.setInput(new InputStreamReader(is));
+
+				// publishProgress("Parsing XML...");
+
+				int parserEvent = parser.getEventType();
+				int pointCounter = -1;
+				int wptCounter = -1;
+				int totalWaypoints = -1;
+				double lat = -1;
+				double lon = -1;
+				String wptDescription = "";
+				int grade = -1;
+
+				routePoints = new ArrayList<GeoPoint>();
+				// Parse the XML returned on the network
+				while (parserEvent != XmlPullParser.END_DOCUMENT) {
+					switch (parserEvent) {
+						case XmlPullParser.START_TAG:
+							String tag = parser.getName();
+							if (tag.compareTo("trkpt") == 0) {
+								pointCounter++;
+								lat = Double.parseDouble(parser
+										.getAttributeValue(null, "lat"));
+								lon = Double.parseDouble(parser
+										.getAttributeValue(null, "lon"));
+								routePoints.add(new GeoPoint(lat, lon));
+								//Log.i(LOG_TAG, "   trackpoint=" + pointCounter
+										//+ " latitude=" + lat + " longitude="
+										//+ lon);
+							}
+							break;
+					}
+
+					parserEvent = parser.next();
+				}
+				numberRoutePoints = routePoints.size();
+
+			} catch (Exception e) {
+				Log.d("RouteLoader", "Failed in parsing XML", e);
+				return "Finished with failure.";
+			}
+
+			return "Done...";
+		}
+
+		protected void onCancelled() {
+			Log.i("RouteLoader", "GetRoute task Cancelled");
+		}
+
+		// Now that route data are loaded, execute the method to overlay the
+		// route on the map
+		protected void onPostExecute(String result) {
+			Log.i(LOG_TAG, "Route data transfer complete");
+			overlayRoute();
+		}
+
+		protected void onPreExecute() {
+			Log.i(LOG_TAG, "Ready to load URL");
+		}
+
+		protected void onProgressUpdate(String... values) {
+			super.onProgressUpdate(values);
+		}
+
+	}
 }

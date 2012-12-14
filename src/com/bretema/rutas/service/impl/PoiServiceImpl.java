@@ -45,11 +45,11 @@ public class PoiServiceImpl implements PoiService {
 	}
 
 	@Override
-	public List<Poi> getSimplePoiByRuta(Integer rutaId) {
+	public List<Poi> getSimplePoiOrderedByRuta(Integer rutaId) {
 		HashMap<String, Object> filterValues = new HashMap<String, Object>();
 		filterValues.put("rutaId", rutaId);
 		filterValues.put("tipo", PoiType.SimplePoi);
-		return poiDao.findByProperties(filterValues);
+		return poiDao.findByProperties(filterValues,"orden", true);
 	}
 
 }

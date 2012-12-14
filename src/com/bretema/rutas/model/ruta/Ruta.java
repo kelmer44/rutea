@@ -29,6 +29,9 @@ public class Ruta {
 	@DatabaseField
 	private String shortDescription;
 	
+	@DatabaseField
+	private String routeFile;
+
 	
 
 	public Ruta() {
@@ -81,6 +84,14 @@ public class Ruta {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public String getRouteFile() {
+		return routeFile;
+	}
+
+	public void setRouteFile(String routeFile) {
+		this.routeFile = routeFile;
 	}
 	
 }
