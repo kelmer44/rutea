@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.PoiService;
@@ -80,10 +81,7 @@ public class RouteMapActivity extends MapActivity {
 	private ArrayWayOverlay			arrayWayOverlay;
 
 	// Static images for the moment
-	private String[]				mThumbIds			= { "ruta1/thumb1.jpg",
-			"ruta1/thumb2.jpg", "ruta1/thumb3.jpg", "ruta1/thumb4.jpg",
-			"ruta1/thumb5.jpg", "ruta1/thumb6.jpg", "ruta1/thumb7.jpg",
-			"ruta1/thumb8.jpg", "ruta1/thumb9.jpg", "ruta1/thumb10.jpg" };
+	private List<String> mThumbList;
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
@@ -135,6 +133,7 @@ public class RouteMapActivity extends MapActivity {
 		
 		arrayWayOverlay.addWay(way);
 		mapView.getOverlays().add(arrayWayOverlay);
+		mapView.getOverlays().add(itemsOverlay);
 		mapView.invalidate();
 
 	}
@@ -162,7 +161,7 @@ public class RouteMapActivity extends MapActivity {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 		}
 
-		Drawable marker = getResources().getDrawable(R.drawable.mapmarker);
+		Drawable marker = getResources().getDrawable(R.drawable.marker_green);
 
 		itemsOverlay = new ArrayItemizedOverlay(marker);
 
@@ -173,11 +172,10 @@ public class RouteMapActivity extends MapActivity {
 			itemsOverlay.addItem(overlay);
 		}
 
-		mapView.getOverlays().add(itemsOverlay);
 	}
 
 	private void initData() {
-
+		mThumbList = new ArrayList<String>();
 		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
 		Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
 		// simplePoiList = poiService.findAll();
@@ -187,6 +185,9 @@ public class RouteMapActivity extends MapActivity {
 		for (Poi p : simplePoiList) {
 			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude()
 					+ ", " + p.getLongitude() + "; orden " + p.getOrden());
+			for(Multimedia mm:p.getMedia()){
+				mThumbList.add(mm.getThumbUri());
+			}
 		}
 
 	}
@@ -197,7 +198,7 @@ public class RouteMapActivity extends MapActivity {
 		}
 
 		public final int getCount() {
-			return mThumbIds.length;
+			return mThumbList.size();
 		}
 
 		public final Object getItem(final int position) {
@@ -213,10 +214,10 @@ public class RouteMapActivity extends MapActivity {
 
 			try {
 				i.setImageBitmap(BitmapFactory.decodeStream(assetManager
-						.open(mThumbIds[position])));
+						.open(mThumbList.get(position))));
 			} catch (IOException e) {
 				Log.d(LOG_TAG, "No se pudo abrir el recurso"
-						+ mThumbIds[position]);
+						+ mThumbList.get(position));
 			}
 			i.setAdjustViewBounds(true);
 			// i.setLayoutParams(new

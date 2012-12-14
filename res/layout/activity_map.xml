@@ -69,6 +69,6 @@
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:spacing="16dp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

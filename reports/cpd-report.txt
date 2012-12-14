@@ -1,0 +1,59 @@
+Found a 6 line (40 tokens) duplication in the following files: 
+Starting at line 23 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\activities\SplashActivity.java
+Starting at line 71 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\activities\RouteMapActivity.java
+
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.splash_layout);
+=====================================================================
+Found a 14 line (39 tokens) duplication in the following files: 
+Starting at line 67 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\activities\RouteListActivity.java
+Starting at line 75 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\activities\RouteDetailActivity.java
+
+					Intent in = new Intent(getApplicationContext(),	RouteDetailActivity.class);
+					// sending pid to next activity
+					in.putExtra("id_ruta", id_ruta);
+					// starting new activity and expecting some response back
+					startActivity(in);
+				}
+			}
+		);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_route_list, menu);
+=====================================================================
+Found a 11 line (25 tokens) duplication in the following files: 
+Starting at line 51 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\model\ruta\Ruta.java
+Starting at line 68 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\model\poi\Poi.java
+
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+=====================================================================
+Found a 9 line (25 tokens) duplication in the following files: 
+Starting at line 61 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\model\ruta\Ruta.java
+Starting at line 24 of C:\eclipseM\repo\rutas\src\com\bretema\rutas\model\poi\Poi.java
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescription() {

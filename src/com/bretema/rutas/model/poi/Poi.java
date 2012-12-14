@@ -1,9 +1,12 @@
 package com.bretema.rutas.model.poi;
 
 import com.bretema.rutas.enums.PoiType;
+import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.ruta.Ruta;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -27,7 +30,7 @@ public class Poi {
 	@DatabaseField(dataType = DataType.ENUM_STRING)
 	private PoiType tipo;
 	
-	@DatabaseField(foreign = true, columnName = "rutaId")
+	@DatabaseField(canBeNull = false, foreign = true, columnName = "rutaId")
 	private Ruta ruta;
 	
 	@DatabaseField
@@ -38,6 +41,9 @@ public class Poi {
 	
 	@DatabaseField
 	private int orden;
+	
+	@ForeignCollectionField(eager = true)
+    ForeignCollection<Multimedia> media;
 	
 	public Poi() {
 		super();
@@ -119,6 +125,14 @@ public class Poi {
 
 	public final void setOrden(final int orden) {
 		this.orden = orden;
+	}
+
+	public ForeignCollection<Multimedia> getMedia() {
+		return media;
+	}
+
+	public void setMedia(ForeignCollection<Multimedia> media) {
+		this.media = media;
 	}
 	
 }

@@ -27,6 +27,12 @@ public class Multimedia {
 	private String uri;
 	
 	/**
+	 * URI al thumb
+	 */
+	@DatabaseField
+	private String thumbUri;
+	
+	/**
 	 * Nombre del recurso multimedia
 	 */
 	@DatabaseField
@@ -111,6 +117,10 @@ public class Multimedia {
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
+	
+	public Multimedia(){
+		super();
+	}
 
 	public Multimedia(String uri, String nombre, String descripcion, MMType tipo, Poi poi, int orden) {
 		super();
@@ -120,6 +130,14 @@ public class Multimedia {
 		this.tipo = tipo;
 		this.poi = poi;
 		this.orden = orden;
+	}
+
+	public String getThumbUri() {
+		return thumbUri;
+	}
+
+	public void setThumbUri(String thumbUri) {
+		this.thumbUri = thumbUri;
 	}
 	
 	
