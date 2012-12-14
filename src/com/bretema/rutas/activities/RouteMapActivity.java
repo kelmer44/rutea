@@ -7,6 +7,9 @@ import java.util.List;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
+import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
+import org.mapsforge.android.maps.overlay.OverlayItem;
+import org.mapsforge.core.GeoPoint;
 import org.mapsforge.map.reader.header.FileOpenResult;
 
 import android.app.AlertDialog;
@@ -15,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -29,6 +33,10 @@ import android.widget.ImageView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
+import com.bretema.rutas.service.PoiService;
+import com.bretema.rutas.service.RutaService;
+import com.bretema.rutas.service.impl.PoiServiceImpl;
+import com.bretema.rutas.service.impl.RutaServiceImpl;
 
 public class RouteMapActivity extends MapActivity {
 
@@ -44,6 +52,13 @@ public class RouteMapActivity extends MapActivity {
 	private String				id_ruta;
 	private Ruta				ruta;
 	private List<Poi>			simplePoiList;
+
+	// Servicio desde el que abstraemos la base de datos
+	private RutaService			rutaService;
+	private PoiService			poiService;
+	
+	//Overlays de pois
+	private ArrayItemizedOverlay	itemsOverlay;
 
 	// Static images for the moment
 	private String[]			mThumbIds	= { "ruta1/thumb1.jpg",
@@ -66,11 +81,22 @@ public class RouteMapActivity extends MapActivity {
 		// y recogemos el id de la linea que nos han pasado
 		id_ruta = i.getStringExtra("id_ruta");
 
+		rutaService = new RutaServiceImpl(getApplicationContext());
+		poiService = new PoiServiceImpl(getApplicationContext());
+
 		assetManager = getAssets();
+		
+		
+		initData();
+		initMapData();
 
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this));
+	}
 
+	private void initMapData() {
+		
+		
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
@@ -85,24 +111,37 @@ public class RouteMapActivity extends MapActivity {
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
 			Log.d(LOG_TAG, "Map file could not be loaded");
-			mapView.setEnabled(false);
-			AlertDialog.Builder builder = new AlertDialog.Builder(RouteMapActivity.this);
-			builder.setMessage(getResources().getString(R.string.no_map));
-			builder.setCancelable(false);
-			builder.setPositiveButton("Ok",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							RouteMapActivity.this.finish();
-						}
-					});
-			AlertDialog alert = builder.create();
-			alert.show();
-			mapView.setWillNotDraw(false);
-			mapView = null;
-			return;
+			finish();
 		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 		}
+		
+
+		Drawable marker = getResources().getDrawable(R.drawable.mapmarker);
+		
+		
+		itemsOverlay = new ArrayItemizedOverlay(marker);
+		
+		Log.d(LOG_TAG, "Loading overlay items into map");
+		for(Poi p: simplePoiList){
+			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
+			itemsOverlay.addItem(overlay);
+		}
+		
+		mapView.getOverlays().add(itemsOverlay);
+	}
+
+	private void initData() {
+		
+		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
+		Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
+		//simplePoiList = poiService.findAll(); 
+		simplePoiList = poiService.getSimplePoiByRuta(ruta.getId());
+		
+		for(Poi p: simplePoiList){
+			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude());
+		}
+
 	}
 
 	public class ImageAdapter extends BaseAdapter {

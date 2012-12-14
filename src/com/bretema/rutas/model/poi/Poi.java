@@ -21,6 +21,22 @@ public class Poi {
 	@DatabaseField
 	private String nombre;
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	@DatabaseField
 	private String descripcion;
 	

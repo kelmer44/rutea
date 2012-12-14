@@ -42,7 +42,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     /**
      *  any time you make changes to your database objects, you may have to increase the database version
      */
-    public static final int VERSION = 3;
+    public static final int VERSION = 6;
     /**
      * The database type.
      */
@@ -113,40 +113,45 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         poiValues.put("nombre", "San Pedro de Rocas");
         poiValues.put("descripcion", "Pues aquí iría la descripción del punto");
         poiValues.put("tipo", PoiType.SimplePoi.toString());
-        poiValues.put("latitude", Constants.geoLatDegToDouble(42, 20, 30.70f, true));
-        poiValues.put("longitude", Constants.geoLonDegToDouble(7, 42, 48.66f, false));
+        poiValues.put("latitude", 42.341861);
+        poiValues.put("longitude", -7.713517);
+        poiValues.put("rutaId", 1);
         database.insert("poi", null, poiValues);
         
         ContentValues poiValues2 = new ContentValues();
         poiValues2.put("nombre", "Santo Estevo de Ribas de Sil");
         poiValues2.put("descripcion", "Pues aquí iría la descripción del punto");
         poiValues2.put("tipo", PoiType.SimplePoi.toString());
-        poiValues2.put("latitude", Constants.geoLatDegToDouble(42, 25, 1.30f, true));
-        poiValues2.put("longitude", Constants.geoLonDegToDouble(7, 41, 10.33f, false));
+        poiValues2.put("latitude", 42.417028);
+        poiValues2.put("longitude", -7.686203);
+        poiValues2.put("rutaId", 1);
         database.insert("poi", null, poiValues2);
         
         ContentValues poiValues3 = new ContentValues();
         poiValues3.put("nombre", "Santa Cristina de Ribas de Sil");
         poiValues3.put("descripcion", "Pues aquí iría la descripción del punto");
         poiValues3.put("tipo", PoiType.SimplePoi.toString());
-        poiValues3.put("latitude", Constants.geoLatDegToDouble(42, 23, 42.87f, true));
-        poiValues3.put("longitude", Constants.geoLonDegToDouble(7, 35, 19.39f, false));
+        poiValues3.put("latitude", 42.395242);
+        poiValues3.put("longitude", -7.588719);
+        poiValues3.put("rutaId", 1);
         database.insert("poi", null, poiValues3);
         
         ContentValues poiValues4 = new ContentValues();
         poiValues4.put("nombre", "Balcones de Madrid");
         poiValues4.put("descripcion", "Pues aquí iría la descripción del punto");
         poiValues4.put("tipo", PoiType.SimplePoi.toString());
-        poiValues4.put("latitude", Constants.geoLatDegToDouble(42, 23, 20.33f, true));
-        poiValues4.put("longitude", Constants.geoLonDegToDouble(7, 33, 59.67f, false));
+        poiValues4.put("latitude", 42.388981);
+        poiValues4.put("longitude", -7.566575);
+        poiValues4.put("rutaId", 1);
         database.insert("poi", null, poiValues4);
         
         ContentValues poiValues5 = new ContentValues();
         poiValues5.put("nombre", "Barxacova");
         poiValues5.put("descripcion", "Pues aquí iría la descripción del punto");
         poiValues5.put("tipo", PoiType.SimplePoi.toString());
-        poiValues5.put("latitude", Constants.geoLatDegToDouble(42, 22, 54.68f, true));
-        poiValues5.put("longitude", Constants.geoLonDegToDouble(7, 29, 47.69f, false));
+        poiValues5.put("latitude", 42.381856);
+        poiValues5.put("longitude", -7.496581);
+        poiValues5.put("rutaId", 1);
         database.insert("poi", null, poiValues5);
     }
 
