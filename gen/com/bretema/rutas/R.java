@@ -24,11 +24,11 @@ public final class R {
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f070000;
-        public static final int buttonNextPoi=0x7f070003;
-        public static final int buttonPrevPoi=0x7f070005;
-        public static final int buttonQuitRoute=0x7f070004;
+        public static final int buttonNextPoi=0x7f070004;
+        public static final int buttonPrevPoi=0x7f070006;
+        public static final int buttonQuitRoute=0x7f070005;
         public static final int descRouteListLabel=0x7f07000e;
-        public static final int gotoRouteButton=0x7f070006;
+        public static final int gotoRouteButton=0x7f070003;
         public static final int id_ruta=0x7f07000c;
         public static final int imageButton1=0x7f070008;
         public static final int leftMenuBarRoute=0x7f070002;

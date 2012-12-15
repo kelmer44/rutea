@@ -11,10 +11,9 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" >
-
     </org.mapsforge.android.maps.MapView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/leftMenuBarRoute"
         android:layout_width="82dp"
         android:layout_height="match_parent"
@@ -23,7 +22,18 @@
         android:background="@drawable/back_noborder"
         android:orientation="vertical" >
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/gotoRouteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="12dp"
+            android:src="@android:drawable/ic_menu_mylocation" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/buttonNextPoi"
@@ -50,14 +60,6 @@
         android:layout_alignRight="@+id/buttonNextPoi"
         android:layout_below="@+id/buttonNextPoi"
         android:text="Punto anterior" />
-
-    <ImageButton
-        android:id="@+id/gotoRouteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="12dp"
-        android:src="@android:drawable/ic_menu_mylocation" />
 
     <Gallery
         android:id="@+id/selectedPOIgallery"

@@ -23,13 +23,18 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bretema.rutas.R;
@@ -48,6 +53,10 @@ public class RouteMapActivity extends MapActivity {
 	private static final String		LOG_TAG				= RouteMapActivity.class
 																.getSimpleName();
 
+	//UI elements
+	private Button nextPoiButton;
+	private Button prevPoiButton;
+	private ImageButton gotoRouteButton;
 	private MapView					mapView;
 	private MapController			mapController;
 	private Gallery					selectedPOIgallery;
@@ -72,6 +81,8 @@ public class RouteMapActivity extends MapActivity {
 	private ArrayItemizedOverlay	itemsOverlay;
 	// Overlay de ruta
 	private ArrayWayOverlay			arrayWayOverlay;
+	//Overlay de elemento seleccionado
+	private ArrayItemizedOverlay 	selectedOverlay;
 
 	// Images to show in gallery
 	private List<String> mThumbList;
@@ -90,6 +101,37 @@ public class RouteMapActivity extends MapActivity {
 		Intent i = getIntent();
 		// y recogemos el id de la linea que nos han pasado
 		id_ruta = i.getStringExtra("id_ruta");
+		
+		
+		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
+		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
+		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
+		
+		gotoRouteButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "?q=" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "(" + selectedPoi.getNombre() + ")&z=17"));
+				startActivity(intent);
+			}
+		});
+		
+		nextPoiButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				selectNextPoi();
+			}
+		});
+		
+		prevPoiButton.setOnClickListener(new OnClickListener(
+				) {
+			
+			@Override
+			public void onClick(View v) {
+				selectPreviousPoi();
+			}
+		});
 
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
@@ -99,8 +141,7 @@ public class RouteMapActivity extends MapActivity {
 		initMapData();
 		new RouteLoader().execute(ruta.getRouteFile());
 
-		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
-		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
+		//selectPoi(0);
 	}
 
 	public void overlayRoute() {
@@ -124,8 +165,10 @@ public class RouteMapActivity extends MapActivity {
 		OverlayWay way = new OverlayWay(Constants.toGeoPointArray(routePoints));
 		
 		arrayWayOverlay.addWay(way);
+		selectPoi(0);
 		mapView.getOverlays().add(arrayWayOverlay);
 		mapView.getOverlays().add(itemsOverlay);
+		mapView.getOverlays().add(selectedOverlay);
 		mapView.invalidate();
 
 	}
@@ -154,9 +197,10 @@ public class RouteMapActivity extends MapActivity {
 		}
 
 		Drawable marker = getResources().getDrawable(R.drawable.marker_green);
-
+		Drawable marker_red = getResources().getDrawable(R.drawable.marker_red);
+		
 		itemsOverlay = new ArrayItemizedOverlay(marker);
-
+		selectedOverlay = new ArrayItemizedOverlay(marker_red);
 		Log.d(LOG_TAG, "Loading overlay items into map");
 		for (Poi p : simplePoiList) {
 			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p
@@ -173,17 +217,58 @@ public class RouteMapActivity extends MapActivity {
 		// simplePoiList = poiService.findAll();
 		//simplePoiList = poiService.findAll();
 		simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
-
+		
+		//We select first element
+		selectedPoi = simplePoiList.get(0);
 		for (Poi p : simplePoiList) {
 			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude()
 					+ ", " + p.getLongitude() + "; orden " + p.getOrden());
-			for(Multimedia mm:p.getMedia()){
-				mThumbList.add(mm.getThumbUri());
-			}
+
 		}
 
 	}
 
+	private void selectNextPoi(){
+		int indexOfCurrentPoi = simplePoiList.indexOf(selectedPoi);
+		if(indexOfCurrentPoi<simplePoiList.size()-1){
+			selectPoi(indexOfCurrentPoi+1);
+		}
+		else
+			selectPoi(0);
+	}
+	
+	private void selectPreviousPoi(){
+		int indexOfCurrentPoi = simplePoiList.indexOf(selectedPoi);
+		if(indexOfCurrentPoi>0){
+			selectPoi(indexOfCurrentPoi-1);
+		}
+		else
+			selectPoi(simplePoiList.size()-1);
+	}
+	private void selectPoi(int index){
+		if(index<simplePoiList.size()){
+			Log.d(LOG_TAG, "Selecting poi " + index);
+			selectedPoi = simplePoiList.get(index);
+			//mapView.getOverlays().remove(selectedOverlay);
+			
+			selectedOverlay.clear();
+			selectedOverlay.addItem(new OverlayItem(new GeoPoint(selectedPoi.getLatitude(), selectedPoi.getLongitude()), "",""));
+			
+			//mapView.getOverlays().add(selectedOverlay);
+			mapView.invalidate();
+			getImagesFromSelectedPoi();
+		}
+	}
+	
+	private void getImagesFromSelectedPoi(){
+		mThumbList.clear();
+		for(Multimedia mm:selectedPoi.getMedia()){
+			mThumbList.add(mm.getThumbUri());
+		}
+		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
+		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
+	}
+	
 	private class RouteLoader extends AsyncTask<String, String, String> {
 
 		@Override
