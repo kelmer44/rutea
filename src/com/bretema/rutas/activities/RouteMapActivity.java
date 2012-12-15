@@ -111,7 +111,10 @@ public class RouteMapActivity extends MapActivity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "?q=" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "(" + selectedPoi.getNombre() + ")&z=17"));
+				//Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "?q=" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude() + "(" + selectedPoi.getNombre() + ")&z=17"));
+				//startActivity(intent);
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" +selectedPoi.getLatitude()+","+selectedPoi.getLongitude()));
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
 			}
 		});
