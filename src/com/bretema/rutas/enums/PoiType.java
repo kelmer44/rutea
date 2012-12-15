@@ -7,7 +7,7 @@ package com.bretema.rutas.enums;
  */
 public enum PoiType {
 	SimplePoi(0), FarmaciaPoi(1), RestaurantePoi(2), CentroSaludPoi(3), PoliciaPoi(
-			4), GasolineraPoi(5), BarPoi(6), OITPoi(7);
+			4), GasolineraPoi(5), BarPoi(6), OITPoi(7), SecondaryPoi(8);
 
 	PoiType(int position) {
 		this.position = position;

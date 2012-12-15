@@ -1,7 +1,6 @@
 package com.bretema.rutas.activities;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,10 +18,7 @@ import org.mapsforge.map.reader.header.FileOpenResult;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -31,13 +27,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.Gallery;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bretema.rutas.R;
@@ -49,6 +41,7 @@ import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
+import com.bretema.rutas.view.ImageAdapter;
 
 public class RouteMapActivity extends MapActivity {
 
@@ -58,14 +51,13 @@ public class RouteMapActivity extends MapActivity {
 	private MapView					mapView;
 	private MapController			mapController;
 	private Gallery					selectedPOIgallery;
-	private Context					mContext;
-	private AssetManager			assetManager;
 
 	private String					id_ruta;
 	// Route object
 	private Ruta					ruta;
 	// simple poi list
 	private List<Poi>				simplePoiList;
+	private Poi 					selectedPoi;
 
 	// GEoPoint defining the painted route
 	int								numberRoutePoints;
@@ -78,9 +70,10 @@ public class RouteMapActivity extends MapActivity {
 
 	// Overlays de pois
 	private ArrayItemizedOverlay	itemsOverlay;
+	// Overlay de ruta
 	private ArrayWayOverlay			arrayWayOverlay;
 
-	// Static images for the moment
+	// Images to show in gallery
 	private List<String> mThumbList;
 
 	@Override
@@ -101,14 +94,13 @@ public class RouteMapActivity extends MapActivity {
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
 
-		assetManager = getAssets();
 
 		initData();
 		initMapData();
 		new RouteLoader().execute(ruta.getRouteFile());
 
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
-		selectedPOIgallery.setAdapter(new ImageAdapter(this));
+		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
 	}
 
 	public void overlayRoute() {
@@ -188,43 +180,6 @@ public class RouteMapActivity extends MapActivity {
 			for(Multimedia mm:p.getMedia()){
 				mThumbList.add(mm.getThumbUri());
 			}
-		}
-
-	}
-
-	public class ImageAdapter extends BaseAdapter {
-		public ImageAdapter(final Context c) {
-			mContext = c;
-		}
-
-		public final int getCount() {
-			return mThumbList.size();
-		}
-
-		public final Object getItem(final int position) {
-			return position;
-		}
-
-		public final long getItemId(final int position) {
-			return position;
-		}
-
-		public final View getView(final int position, final View convertView, final ViewGroup parent) {
-			ImageView i = new ImageView(mContext);
-
-			try {
-				i.setImageBitmap(BitmapFactory.decodeStream(assetManager
-						.open(mThumbList.get(position))));
-			} catch (IOException e) {
-				Log.d(LOG_TAG, "No se pudo abrir el recurso"
-						+ mThumbList.get(position));
-			}
-			i.setAdjustViewBounds(true);
-			// i.setLayoutParams(new
-			// Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
-			// LayoutParams.WRAP_CONTENT));
-			// i.setBackgroundResource(R.drawable.picture_frame);
-			return i;
 		}
 
 	}
