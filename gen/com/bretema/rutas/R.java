@@ -23,32 +23,41 @@ public final class R {
         public static final int back=0x7f020001;
         public static final int back_noborder=0x7f020002;
         public static final int back_oneborder=0x7f020003;
-        public static final int drop_shadow=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int mapmarker=0x7f020006;
-        public static final int marker_green=0x7f020007;
-        public static final int marker_red=0x7f020008;
-        public static final int round_corners=0x7f020009;
-        public static final int round_label_fromleft=0x7f02000a;
-        public static final int round_label_fromright=0x7f02000b;
-        public static final int rsa=0x7f02000c;
-        public static final int splash_screen=0x7f02000d;
+        public static final int balloon_overlay_bg_selector=0x7f020004;
+        public static final int balloon_overlay_close=0x7f020005;
+        public static final int balloon_overlay_focused=0x7f020006;
+        public static final int balloon_overlay_unfocused=0x7f020007;
+        public static final int drop_shadow=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int mapmarker=0x7f02000a;
+        public static final int marker_green=0x7f02000b;
+        public static final int marker_red=0x7f02000c;
+        public static final int round_corners=0x7f02000d;
+        public static final int round_label_fromleft=0x7f02000e;
+        public static final int round_label_fromright=0x7f02000f;
+        public static final int rsa=0x7f020010;
+        public static final int splash_screen=0x7f020011;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000a;
         public static final int RelativeLayout1=0x7f090000;
+        public static final int balloon_inner_layout=0x7f090013;
+        public static final int balloon_item_snippet=0x7f090015;
+        public static final int balloon_item_title=0x7f090014;
+        public static final int balloon_main_layout=0x7f090012;
         public static final int buttonHideGallery=0x7f090003;
         public static final int buttonNextPoi=0x7f090006;
         public static final int buttonPrevPoi=0x7f090008;
         public static final int buttonQuitRoute=0x7f090007;
-        public static final int descRouteListLabel=0x7f090014;
+        public static final int close_img_button=0x7f090016;
+        public static final int descRouteListLabel=0x7f090019;
         public static final int gotoRouteButton=0x7f090005;
-        public static final int id_ruta=0x7f090012;
+        public static final int id_ruta=0x7f090017;
         public static final int leftMenuBarRoute=0x7f090002;
         public static final int mainRouteImage=0x7f090009;
         public static final int mapView=0x7f090001;
-        public static final int menu_settings=0x7f090015;
-        public static final int nombreRouteListLabel=0x7f090013;
+        public static final int menu_settings=0x7f09001a;
+        public static final int nombreRouteListLabel=0x7f090018;
         public static final int routeDetailDescriptionLabel=0x7f090010;
         public static final int routeDetailNameLabel=0x7f09000b;
         public static final int selectedPOIgallery=0x7f090004;
@@ -62,8 +71,9 @@ public final class R {
         public static final int activity_map=0x7f030000;
         public static final int activity_route_detail=0x7f030001;
         public static final int activity_route_list=0x7f030002;
-        public static final int routelist_item=0x7f030003;
-        public static final int splash_layout=0x7f030004;
+        public static final int balloon_overlay=0x7f030003;
+        public static final int routelist_item=0x7f030004;
+        public static final int splash_layout=0x7f030005;
     }
     public static final class menu {
         public static final int activity_route_detail=0x7f080000;

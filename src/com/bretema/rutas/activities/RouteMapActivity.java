@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
@@ -80,7 +81,7 @@ public class RouteMapActivity extends MapActivity {
 	private PoiService				poiService;
 
 	// Overlays de pois
-	private ArrayItemizedOverlay	itemsOverlay;
+	private OverlayForge	itemsOverlay;
 	// Overlay de ruta
 	private ArrayWayOverlay			arrayWayOverlay;
 	//Overlay de elemento seleccionado
@@ -227,13 +228,15 @@ public class RouteMapActivity extends MapActivity {
 		Drawable marker = getResources().getDrawable(R.drawable.marker_green);
 		Drawable marker_red = getResources().getDrawable(R.drawable.marker_red);
 		
-		itemsOverlay = new ArrayItemizedOverlay(marker);
+		
+		itemsOverlay = new OverlayForge(marker, mapView);
+		itemsOverlay.setBalloonBottomOffset(10);
 		selectedOverlay = new ArrayItemizedOverlay(marker_red);
 		Log.d(LOG_TAG, "Loading overlay items into map");
 		for (Poi p : simplePoiList) {
 			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p
 					.getLongitude()), p.getNombre(), p.getDescripcion());
-			itemsOverlay.addItem(overlay);
+			itemsOverlay.addOverlay(overlay);
 		}
 
 	}
