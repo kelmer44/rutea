@@ -2,50 +2,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
     android:paddingTop="2dp"
     tools:context=".RouteDetailActivity" >
 
-    <ImageView
-        android:id="@+id/mainRouteImage"
-        android:layout_width="307dp"
-        android:layout_height="247dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/rsa" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/routeDetailDescriptionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/gotoRouteButton"
-            android:layout_alignLeft="@+id/routeDetailNameLabel"
-            android:layout_alignRight="@+id/routeDetailNameLabel"
-            android:layout_below="@+id/routeDetailNameLabel"
-            android:gravity="right"
-            android:text="Desc" />
+        <ImageView
+            android:id="@+id/mainRouteImage"
+            android:layout_width="0dp"
+            android:layout_height="247dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="false"
+            android:baselineAlignBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/rsa" />
 
-        <TextView
-            android:id="@+id/routeDetailNameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/back_noborder"
-            android:gravity="right"
-            android:text="Nombre de la ruta"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/gotoRouteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="Ir a la ruta" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/routeDetailNameLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_label_fromright"
+                android:gravity="right"
+                android:paddingRight="5dp"
+                android:text="Nombre de la ruta"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColorHint="#FFFFFF" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/routeDetailDescriptionLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="5dp"
+                android:gravity="right"
+                android:text="Desc" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/gotoRouteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Ir a la ruta" />
 
 </LinearLayout>

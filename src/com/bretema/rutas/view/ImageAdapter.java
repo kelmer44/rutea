@@ -48,7 +48,7 @@ public class ImageAdapter extends BaseAdapter {
 			Log.d(LOG_TAG,
 					"No se pudo abrir el recurso" + mThumbList.get(position));
 		}
-		i.setAdjustViewBounds(true);
+		//i.setAdjustViewBounds(true);
 		// i.setLayoutParams(new
 		// Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
 		// LayoutParams.WRAP_CONTENT));

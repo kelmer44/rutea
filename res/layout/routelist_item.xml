@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
     
     <!-- Line id will be HIDDEN - used to pass to other activity -->
     <TextView
@@ -16,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nombre de la ruta"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/greekBlue" />
 
     <TextView
         android:id="@+id/descRouteListLabel"

@@ -37,30 +37,29 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	/**
 	 * Logging
 	 */
-	private static final String		LOG_TAG			= DatabaseHelper.class
-															.getSimpleName();
+	private static final String LOG_TAG = DatabaseHelper.class.getSimpleName();
 
 	/**
 	 * name of the database file for your application -- change to something
 	 * appropriate for your app
 	 */
-	public static final String		DATABASE		= "rutas.db";
+	public static final String DATABASE = "rutas.db";
 	/**
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 15;
+	public static final int VERSION = 17;
 	/**
 	 * The database type.
 	 */
-	private DatabaseType			databaseType	= new SqliteAndroidDatabaseType();
+	private DatabaseType databaseType = new SqliteAndroidDatabaseType();
 
 	/**
 	 * The context.
 	 */
-	private Context					context			= null;
+	private Context context = null;
 
-	private Map<String, Dao<T, ID>>	daoCache		= new HashMap<String, Dao<T, ID>>();
+	private Map<String, Dao<T, ID>> daoCache = new HashMap<String, Dao<T, ID>>();
 
 	/**
 	 * Create a new database helper.
@@ -87,7 +86,9 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * @param databaseVersion
 	 *            The database version.
 	 */
-	public DatabaseHelper(final Context context, final String databaseName, final SQLiteDatabase.CursorFactory factory, final int databaseVersion) {
+	public DatabaseHelper(final Context context, final String databaseName,
+			final SQLiteDatabase.CursorFactory factory,
+			final int databaseVersion) {
 		super(context, databaseName, factory, databaseVersion);
 		this.context = context;
 		Log.i(LOG_TAG, "Installing database, databasename = " + databaseName
@@ -95,7 +96,8 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	}
 
 	@Override
-	public final void onCreate(final SQLiteDatabase database, final ConnectionSource connectionSource) {
+	public final void onCreate(final SQLiteDatabase database,
+			final ConnectionSource connectionSource) {
 		try {
 			Log.d(LOG_TAG, "Creating the database");
 			Log.d(LOG_TAG, "Database path: " + database.getPath());
@@ -107,29 +109,88 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 
 		} catch (SQLException e) {
 			Log.e(LOG_TAG, "Excpetion while creating the database", e);
-			throw new RuntimeException("Excpetion while creating the database", e);
+			throw new RuntimeException("Excpetion while creating the database",
+					e);
 		}
 	}
-	
+
 	/**
 	 * Inserta datos de prueba.
 	 * 
-	 * @param database base de datos sobre la que se introducirán estos
+	 * @param database
+	 *            base de datos sobre la que se introducirán estos
 	 */
 	public final void insertDefaultData(final SQLiteDatabase database) {
 
 		Log.d(LOG_TAG, "Inserting default route");
 		ContentValues routeValues = new ContentValues();
 		routeValues.put("id", 1);
-		routeValues.put("nombre", "Ribeira Sacra");
+		routeValues.put("nombre", "La Ribeira Sacra en un día");
 		routeValues
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 		routeValues.put("mainImagePath", "ruta1/rsa.jpg");
-		routeValues.put("shortDescription", "Un roteiro polos cañóns do Sil.");
+		routeValues.put("shortDescription", "Descripción de esta ruta.");
 		routeValues.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues);
 
+		ContentValues routeValues2 = new ContentValues();
+		routeValues2.put("id", 2);
+		routeValues2.put("nombre", "La Ribeira Sacra del Sil");
+		routeValues2
+				.put("description",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		routeValues2.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues2.put("shortDescription", "Descripción de esta ruta 2.");
+		routeValues2.put("routeFile", "ruta1/pruebaruta.gpx");
+		database.insert("ruta", null, routeValues2);
+
+		ContentValues routeValues3 = new ContentValues();
+		routeValues3.put("id", 4);
+		routeValues3.put("nombre", "Románico en la Ribeira Sacra (Día 1)");
+		routeValues3
+				.put("description",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		routeValues3.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues3.put("shortDescription", "Descripción de esta ruta 3.");
+		routeValues3.put("routeFile", "ruta1/pruebaruta.gpx");
+		database.insert("ruta", null, routeValues3);
+
+		ContentValues routeValues4 = new ContentValues();
+		routeValues4.put("id", 5);
+		routeValues4.put("nombre", "Románico en la Ribeira Sacra (Día 2)");
+		routeValues4
+				.put("description",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		routeValues4.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues4.put("shortDescription", "Descripción de esta ruta 4.");
+		routeValues4.put("routeFile", "ruta1/pruebaruta.gpx");
+		database.insert("ruta", null, routeValues4);
+
+		ContentValues routeValues5 = new ContentValues();
+		routeValues5.put("id", 3);
+		routeValues5.put("nombre", "La Ribeira Sacra del Miño");
+		routeValues5
+				.put("description",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		routeValues5.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues5.put("shortDescription", "Descripción de esta ruta 5.");
+		routeValues5.put("routeFile", "ruta1/pruebaruta.gpx");
+		database.insert("ruta", null, routeValues5);
+
+		
+		ContentValues routeValues6 = new ContentValues();
+		routeValues6.put("id", 6);
+		routeValues6.put("nombre", "Cultura, Naturaleza y Enología de la Ribeira Sacra");
+		routeValues6
+				.put("description",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		routeValues6.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues6.put("shortDescription", "Descripción de esta ruta 6.");
+		routeValues6.put("routeFile", "ruta1/pruebaruta.gpx");
+		database.insert("ruta", null, routeValues6);
+		
+		
 		Log.d(LOG_TAG, "Inserting default POIS for route 1");
 		ContentValues poiValues = new ContentValues();
 		poiValues.put("id", 1);
@@ -292,7 +353,9 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	}
 
 	@Override
-	public final void onUpgrade(final SQLiteDatabase database, final ConnectionSource connectionSource, final int oldVersion, final int newVersion) {
+	public final void onUpgrade(final SQLiteDatabase database,
+			final ConnectionSource connectionSource, final int oldVersion,
+			final int newVersion) {
 
 		// This is the old code for upgrading a database: dropping the old one
 		// and creating a new one...
@@ -307,8 +370,9 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 			Log.e(LOG_TAG,
 					"Excpetion while updating the database from version "
 							+ oldVersion + "to " + newVersion, e);
-			throw new RuntimeException("Excpetion while updating the database from version "
-					+ oldVersion + "to " + newVersion, e);
+			throw new RuntimeException(
+					"Excpetion while updating the database from version "
+							+ oldVersion + "to " + newVersion, e);
 		}
 		// if (newVersion < oldVersion) {
 		// Log.w(LOG_TAG,
@@ -363,8 +427,12 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		Log.d(LOG_TAG, "Closing connection");
 		super.close();
 	}
-	/** Convierte a formato de fecha de SQLite.
-	 * @param date fecha en formato regular
+
+	/**
+	 * Convierte a formato de fecha de SQLite.
+	 * 
+	 * @param date
+	 *            fecha en formato regular
 	 * @return Fecha formateada
 	 */
 	public static Date convertDateToSqliteDate(final Date date) {

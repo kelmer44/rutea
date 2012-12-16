@@ -60,6 +60,8 @@ public class RouteMapActivity extends MapActivity {
 	private MapView					mapView;
 	private MapController			mapController;
 	private Gallery					selectedPOIgallery;
+	private ImageButton				buttonHideGallery;
+	private boolean					galleryHidden;
 
 	private String					id_ruta;
 	// Route object
@@ -101,11 +103,34 @@ public class RouteMapActivity extends MapActivity {
 		Intent i = getIntent();
 		// y recogemos el id de la linea que nos han pasado
 		id_ruta = i.getStringExtra("id_ruta");
+		galleryHidden = false;
 		
 		
+		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
+		
+		buttonHideGallery.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(galleryHidden){
+					buttonHideGallery.setImageResource(android.R.drawable.arrow_down_float);
+					galleryHidden = false;
+					selectedPOIgallery.setVisibility(Gallery.VISIBLE);
+					selectedPOIgallery.invalidate();
+				}
+				else {
+					buttonHideGallery.setImageResource(android.R.drawable.arrow_up_float);
+					galleryHidden = true;
+					selectedPOIgallery.setVisibility(Gallery.GONE);
+					selectedPOIgallery.invalidate();
+				}
+				
+			}
+		});
+		
 		
 		gotoRouteButton.setOnClickListener(new OnClickListener() {
 			
@@ -255,8 +280,9 @@ public class RouteMapActivity extends MapActivity {
 			//mapView.getOverlays().remove(selectedOverlay);
 			
 			selectedOverlay.clear();
-			selectedOverlay.addItem(new OverlayItem(new GeoPoint(selectedPoi.getLatitude(), selectedPoi.getLongitude()), "",""));
-			
+			GeoPoint selectedPoint = new GeoPoint(selectedPoi.getLatitude(), selectedPoi.getLongitude());
+			selectedOverlay.addItem(new OverlayItem(selectedPoint, "",""));
+			mapController.setCenter(selectedPoint);
 			//mapView.getOverlays().add(selectedOverlay);
 			mapView.invalidate();
 			getImagesFromSelectedPoi();

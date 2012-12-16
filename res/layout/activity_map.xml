@@ -3,6 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_oneborder"
     tools:context=".MapActivity" >
 
     <org.mapsforge.android.maps.MapView
@@ -13,13 +14,40 @@
         android:layout_alignParentRight="true" >
     </org.mapsforge.android.maps.MapView>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/leftMenuBarRoute"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/buttonHideGallery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginRight="-5dp"
+            android:src="@android:drawable/arrow_down_float" />
+
+        <Gallery
+            android:id="@+id/selectedPOIgallery"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:background="@color/tussaYellow"
+            android:scrollbars="horizontal"
+            android:spacing="2dp"
+            android:visibility="visible" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/leftMenuBarRoute"
         android:layout_width="82dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/back_noborder"
+        android:background="@drawable/back_oneborder"
         android:orientation="vertical" >
 
         <ImageButton
@@ -32,8 +60,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="12dp"
             android:src="@android:drawable/ic_menu_mylocation" />
-
     </RelativeLayout>
+
+    <View
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/leftMenuBarRoute"
+        android:background="@drawable/drop_shadow" >
+    </View>
 
     <Button
         android:id="@+id/buttonNextPoi"
@@ -41,7 +75,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Siguiente punto" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/round_label_fromleft"
+        android:gravity="center_vertical|center_horizontal|left"
+        android:minHeight="0dip"
+        android:minWidth="0dip"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="Siguiente punto"
+        android:textColor="@android:color/primary_text_dark" />
 
     <Button
         android:id="@+id/buttonQuitRoute"
@@ -50,7 +94,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/buttonPrevPoi"
         android:layout_below="@+id/buttonPrevPoi"
-        android:text="Salir de ruta" />
+        android:background="@drawable/round_label_fromleft"
+        android:gravity="left|center_vertical|center_horizontal"
+        android:minHeight="0dip"
+        android:minWidth="0dip"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="Salir de ruta"
+        android:textColor="@android:color/primary_text_dark" />
 
     <Button
         android:id="@+id/buttonPrevPoi"
@@ -59,18 +111,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/buttonNextPoi"
         android:layout_below="@+id/buttonNextPoi"
-        android:text="Punto anterior" />
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_label_fromleft"
+        android:gravity="center_vertical|center_horizontal|left"
+        android:minHeight="0dip"
+        android:minWidth="0dip"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="Punto anterior"
+        android:textColor="@android:color/primary_text_dark" />
 
-    <Gallery
-        android:id="@+id/selectedPOIgallery"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/imageButton1"
-        android:layout_toRightOf="@+id/leftMenuBarRoute"
-        android:background="#FFFFFF"
-        android:gravity="center_vertical"
-        android:spacing="16dp"
-        android:visibility="visible" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
 
 </RelativeLayout>
