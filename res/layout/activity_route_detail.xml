@@ -2,24 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginBottom="10dp"
     android:orientation="vertical"
-    android:paddingTop="2dp"
     tools:context=".RouteDetailActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight="0.8" >
 
         <ImageView
             android:id="@+id/mainRouteImage"
             android:layout_width="0dp"
-            android:layout_height="247dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
+            android:layout_height="255dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1.13"
             android:adjustViewBounds="false"
-            android:baselineAlignBottom="true"
-            android:scaleType="fitXY"
+            android:baselineAlignBottom="false"
+            android:scaleType="fitEnd"
             android:src="@drawable/rsa" />
 
         <LinearLayout
@@ -81,11 +80,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/gotoRouteButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Ir a la ruta" />
+        android:background="@drawable/sup_border"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/gotoRouteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border_round_label_fromright"
+            android:gravity="center_vertical|center_horizontal|left"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="ir a ruta"
+            android:textColor="@android:color/primary_text_dark" />
+
+    </LinearLayout>
 
 </LinearLayout>

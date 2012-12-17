@@ -20,6 +20,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/layoutLeftPanel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -43,7 +44,7 @@
             android:background="@color/tussaYellow"
             android:scrollbars="horizontal"
             android:spacing="2dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout
@@ -94,7 +95,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:text="Siguiente punto"
+            android:text="siguiente punto"
             android:textColor="@android:color/primary_text_dark" />
 
         <Button
@@ -111,7 +112,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:text="Punto anterior"
+            android:text="punto anterior"
             android:textColor="@android:color/primary_text_dark" />
 
         <Button
@@ -127,7 +128,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:text="Salir de ruta"
+            android:text="salir de ruta"
             android:textColor="@android:color/primary_text_dark" />
     </LinearLayout>
 

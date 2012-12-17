@@ -10,7 +10,9 @@ import org.mapsforge.android.maps.overlay.Overlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,23 +31,32 @@ import com.bretema.rutas.R;
 
 public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 
-	private ArrayList<OverlayItem> m_overlays = new ArrayList<OverlayItem>();
-	private Context c;
-	private OverlayItem currentFocusedItem;
-	private View clickRegion;
-	private int currentFocusedIndex;
-	private int viewOffset;
-	private MapView mapView;
-	private BalloonOverlay<OverlayItem> balloonView;
-	private LinearLayout layout;
-	private TextView title;
-	private TextView snippet;
+	private ArrayList<OverlayItem>		m_overlays	= new ArrayList<OverlayItem>();
+	private Context						c;
+	private OverlayItem					currentFocusedItem;
+	private View						clickRegion;
+	private int							currentFocusedIndex;
+	private int							viewOffset;
+	private MapView						mapView;
+	private BalloonOverlay<OverlayItem>	balloonView;
+	private LinearLayout				layout;
+	private TextView					title;
+	private TextView					snippet;
 
 	public OverlayForge(Drawable defaultMarker, MapView mapView) {
 		super(boundCenterBottom(defaultMarker));
 		// super(defaultMarker);
 		this.c = mapView.getContext();
 		this.mapView = mapView;
+		this.mapView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (layout != null)
+					layout.setVisibility(LinearLayout.GONE);
+				return false;
+			}
+		});
 	}
 
 	public void addOverlay(OverlayItem overlay) {
@@ -62,10 +73,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 	public int size() {
 		return m_overlays.size();
 	}
-
-	@Override
-	protected final boolean onTap(int index) {
-
+	
+	public void doShowBallon(int index){
 		currentFocusedIndex = index;
 		currentFocusedItem = createItem(index);
 
@@ -82,7 +91,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		layout = new LinearLayout(c);
 		layout.setVisibility(View.VISIBLE);
 
-		LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) c
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate(R.layout.balloon_overlay, layout);
 
 		title = (TextView) v.findViewById(R.id.balloon_item_title);
@@ -106,10 +116,13 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
 
-		layout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-		params.topMargin -= layout.getMeasuredHeight() - (layout.getMeasuredHeight() / 2);
+		layout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		params.topMargin -= layout.getMeasuredHeight()
+				- (layout.getMeasuredHeight() / 2);
 
-		ImageView imgClose = (ImageView) layout.findViewById(R.id.close_img_button);
+		ImageView imgClose = (ImageView) layout
+				.findViewById(R.id.close_img_button);
 		imgClose.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -124,12 +137,20 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		clickRegion.setOnTouchListener(createBalloonTouchListener());
 
 		((ViewGroup) mapView.getParent()).addView(layout, params);
+	}
 
+	@Override
+	protected final boolean onTap(int index) {
+
+		doShowBallon(index);
 		return true;
 	}
 
 	protected boolean onBalloonTap(int index, OverlayItem item) {
-
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q="
+				+ item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		c.startActivity(intent);
 		/*
 		 * Intent i = null; i = new Intent(c,LSNetInfoActivity.class);
 		 * 
@@ -150,6 +171,15 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		}
 	}
 
+	public void hideAllBallooons() {
+		for (Overlay overlay : mapView.getOverlays()) {
+			if (overlay instanceof OverlayForge && overlay != this) {
+				((OverlayForge) overlay).hideBalloon();
+
+			}
+		}
+	}
+
 	private void hideOtherBalloons(List<Overlay> overlays) {
 
 		for (Overlay overlay : overlays) {
@@ -165,7 +195,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		return new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 
-				View l = ((View) v.getParent()).findViewById(R.id.balloon_main_layout);
+				View l = ((View) v.getParent())
+						.findViewById(R.id.balloon_main_layout);
 				Drawable d = l.getBackground();
 
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {

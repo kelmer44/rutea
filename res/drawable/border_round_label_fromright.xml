@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+       <item>
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle" >
+            <solid android:color="@color/appBlue" />
+
+            <stroke
+                android:width="2dp"
+                android:color="#35586C" />
+
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            
+    <corners
+        android:bottomLeftRadius="15dp"
+        android:bottomRightRadius="0dp"
+        android:topLeftRadius="15dp"
+        android:topRightRadius="0dp" />
+        </shape>
+    </item>
+    <!-- <item>your transparent image</item> -->
+</layer-list>
