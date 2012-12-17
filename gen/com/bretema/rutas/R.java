@@ -27,16 +27,21 @@ public final class R {
         public static final int balloon_overlay_close=0x7f020005;
         public static final int balloon_overlay_focused=0x7f020006;
         public static final int balloon_overlay_unfocused=0x7f020007;
-        public static final int drop_shadow=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int mapmarker=0x7f02000a;
-        public static final int marker_green=0x7f02000b;
-        public static final int marker_red=0x7f02000c;
-        public static final int round_corners=0x7f02000d;
-        public static final int round_label_fromleft=0x7f02000e;
-        public static final int round_label_fromright=0x7f02000f;
-        public static final int rsa=0x7f020010;
-        public static final int splash_screen=0x7f020011;
+        public static final int border_round_label_fromleft=0x7f020008;
+        public static final int drop_shadow=0x7f020009;
+        public static final int ic_compose=0x7f02000a;
+        public static final int ic_compose_inverse=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int ic_refresh=0x7f02000d;
+        public static final int ic_refresh_inverse=0x7f02000e;
+        public static final int mapmarker=0x7f02000f;
+        public static final int marker_green=0x7f020010;
+        public static final int marker_red=0x7f020011;
+        public static final int round_corners=0x7f020012;
+        public static final int round_label_fromleft=0x7f020013;
+        public static final int round_label_fromright=0x7f020014;
+        public static final int rsa=0x7f020015;
+        public static final int splash_screen=0x7f020016;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000a;
@@ -47,8 +52,8 @@ public final class R {
         public static final int balloon_main_layout=0x7f090012;
         public static final int buttonHideGallery=0x7f090003;
         public static final int buttonNextPoi=0x7f090006;
-        public static final int buttonPrevPoi=0x7f090008;
-        public static final int buttonQuitRoute=0x7f090007;
+        public static final int buttonPrevPoi=0x7f090007;
+        public static final int buttonQuitRoute=0x7f090008;
         public static final int close_img_button=0x7f090016;
         public static final int descRouteListLabel=0x7f090019;
         public static final int gotoRouteButton=0x7f090005;

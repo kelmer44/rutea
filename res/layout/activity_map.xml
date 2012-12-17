@@ -74,61 +74,62 @@
         android:background="@drawable/drop_shadow" >
     </View>
 
-    <Button
-        android:id="@+id/buttonNextPoi"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/round_label_fromleft"
-        android:gravity="center_vertical|center_horizontal|left"
-        android:minHeight="0dip"
-        android:minWidth="0dip"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:text="Siguiente punto"
-        android:textColor="@android:color/primary_text_dark" />
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/buttonQuitRoute"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/buttonPrevPoi"
-        android:layout_below="@+id/buttonPrevPoi"
-        android:background="@drawable/round_label_fromleft"
-        android:gravity="left|center_vertical|center_horizontal"
-        android:minHeight="0dip"
-        android:minWidth="0dip"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:text="Salir de ruta"
-        android:textColor="@android:color/primary_text_dark" />
+        <Button
+            android:id="@+id/buttonNextPoi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border_round_label_fromleft"
+            android:gravity="center_vertical|center_horizontal|left"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="Siguiente punto"
+            android:textColor="@android:color/primary_text_dark" />
 
-    <Button
-        android:id="@+id/buttonPrevPoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/buttonNextPoi"
-        android:layout_below="@+id/buttonNextPoi"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/round_label_fromleft"
-        android:gravity="center_vertical|center_horizontal|left"
-        android:minHeight="0dip"
-        android:minWidth="0dip"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:text="Punto anterior"
-        android:textColor="@android:color/primary_text_dark" />
+        <Button
+            android:id="@+id/buttonPrevPoi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/border_round_label_fromleft"
+            android:gravity="center_vertical|center_horizontal|left"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="Punto anterior"
+            android:textColor="@android:color/primary_text_dark" />
+
+        <Button
+            android:id="@+id/buttonQuitRoute"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/border_round_label_fromleft"
+            android:gravity="left|center_vertical|center_horizontal"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="Salir de ruta"
+            android:textColor="@android:color/primary_text_dark" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"

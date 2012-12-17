@@ -7,11 +7,9 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,21 +23,23 @@ import com.bretema.rutas.view.RouteListAdapter;
 public class RouteListActivity extends ListActivity {
 
 	private static final String LOG_TAG = RouteListActivity.class.getSimpleName();
-	
-	//Servicio desde el que abstraemos la base de datos 
+
+	// Servicio desde el que abstraemos la base de datos
 	private RutaService rutaService;
-	
-	//Lista de rutas
+
+	// Lista de rutas
 	private List<Ruta> routeList;
-	
-	//list view de la ListActivity
+
+	// list view de la ListActivity
 	private ListView listView;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_list);
 
+        
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		//rutaService.deleteAllRutas();
 		//rutaService.save(new Ruta("Ribeira sacra", "Un paseiño polos cañons do sil", "rsa.jpg"));
@@ -73,12 +73,6 @@ public class RouteListActivity extends ListActivity {
 			}
 		);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_route_list, menu);
-		return true;
-	}
+	
 
 }
