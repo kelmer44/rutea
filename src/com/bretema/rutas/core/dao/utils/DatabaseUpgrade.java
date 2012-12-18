@@ -1,5 +1,7 @@
 package com.bretema.rutas.core.dao.utils;
 
+import com.bretema.rutas.R;
+
 
 /**
  * User: DIRK VRANCKAERT

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.model.ruta.dao.RutaDao;
 import com.bretema.rutas.model.ruta.dao.impl.RutaDaoImpl;

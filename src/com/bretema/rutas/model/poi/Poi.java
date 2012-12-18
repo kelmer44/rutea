@@ -1,5 +1,6 @@
 package com.bretema.rutas.model.poi;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.ruta.Ruta;

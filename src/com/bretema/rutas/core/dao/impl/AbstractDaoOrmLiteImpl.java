@@ -1,6 +1,7 @@
 package com.bretema.rutas.core.dao.impl;
 
 import android.content.Context;
+import com.bretema.rutas.R;
 
 /**
  * Clase abstracta que centraliza la definición de un DAO de OrmLite

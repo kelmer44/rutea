@@ -2,6 +2,7 @@ package com.bretema.rutas.service;
 
 import java.util.List;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
 
 public interface RutaService {

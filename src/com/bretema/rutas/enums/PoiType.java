@@ -1,5 +1,7 @@
 package com.bretema.rutas.enums;
 
+import com.bretema.rutas.R;
+
 /**
  * Restringe los tipos posibles de Puntos de interés
  * @author Gabriel Sanmartín Díaz

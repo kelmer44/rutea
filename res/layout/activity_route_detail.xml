@@ -19,7 +19,7 @@
             android:adjustViewBounds="false"
             android:baselineAlignBottom="false"
             android:scaleType="fitEnd"
-            android:src="@drawable/rsa" />
+            android:src="@drawable/rsa" android:contentDescription="@string/mainImage"/>
 
         <LinearLayout
             android:id="@+id/LinearLayout1"
@@ -35,7 +35,7 @@
                 android:background="@drawable/round_label_fromright"
                 android:gravity="right"
                 android:paddingRight="5dp"
-                android:text="Nombre de la ruta"
+                android:text="@string/nombre_de_la_ruta"
                 android:textAppearance="?android:attr/textAppearanceLargeInverse"
                 android:textColorHint="#FFFFFF" />
 
@@ -74,7 +74,7 @@
                 android:layout_height="fill_parent"
                 android:layout_margin="5dp"
                 android:gravity="right"
-                android:text="Desc" />
+                android:text="@string/desc" />
 
         </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="5dp"
-            android:text="ir a ruta"
+            android:text="@string/ir_a_ruta"
             android:textColor="@android:color/primary_text_dark" />
 
     </LinearLayout>

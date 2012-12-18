@@ -8,4 +8,14 @@
     <string name="title_activity_route_detail">Detalles de ruta</string>
     <string name="title_activity_map">MapActivity</string>
 	<string name="no_map">No se encontró el fichero de mapas</string>
+	<string name="punto_anterior">punto anterior</string>
+	<string name="siguiente_punto">siguiente punto</string>
+	<string name="salir_de_ruta">salir de ruta</string>
+	<string name="ir_a">Ir a</string>
+	<string name="hide_gallery">Ocultar galería</string>
+	<string name="elija_una_ruta_">Elija una ruta:</string>
+	<string name="nombre_de_la_ruta">Nombre de la ruta</string>
+	<string name="desc">Desc</string>
+	<string name="ir_a_ruta">ir a ruta</string>
+	<string name="mainImage">Imagen principal de la ruta</string>
 </resources>

@@ -9,6 +9,7 @@ import java.util.Map;
 import android.content.Context;
 import android.util.Log;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.core.dao.GenericDao;
 import com.bretema.rutas.core.dao.utils.DatabaseHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;

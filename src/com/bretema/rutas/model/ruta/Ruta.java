@@ -2,6 +2,7 @@ package com.bretema.rutas.model.ruta;
 
 import java.io.Serializable;
 
+import com.bretema.rutas.R;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 

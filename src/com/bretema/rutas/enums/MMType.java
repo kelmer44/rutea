@@ -1,5 +1,7 @@
 package com.bretema.rutas.enums;
 
+import com.bretema.rutas.R;
+
 public enum MMType {
 	Imagen(0), Video(1);
 

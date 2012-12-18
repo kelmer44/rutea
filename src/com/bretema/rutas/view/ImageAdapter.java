@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import com.bretema.rutas.R;
 
 public class ImageAdapter extends BaseAdapter {
 

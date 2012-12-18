@@ -16,7 +16,7 @@
         android:background="@drawable/round_label_fromleft"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Elija una ruta:"
+        android:text="@string/elija_una_ruta_"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
 
     <ListView
@@ -27,6 +27,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
+        android:divider="@color/appBlue"
+        android:dividerHeight="1dp"
         android:background="@drawable/round_corners" >
 
     </ListView>

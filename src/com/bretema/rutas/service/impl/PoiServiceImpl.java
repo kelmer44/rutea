@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.poi.dao.PoiDao;

@@ -1,5 +1,6 @@
 package com.bretema.rutas.core.dao;
 
+import com.bretema.rutas.R;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;

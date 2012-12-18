@@ -1,5 +1,6 @@
 package com.bretema.rutas.core.util;
 
+import com.bretema.rutas.R;
 import java.util.Collection;
 
 import org.mapsforge.core.GeoPoint;

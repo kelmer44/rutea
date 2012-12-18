@@ -1,5 +1,6 @@
 package com.bretema.rutas.model.media;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.enums.MMType;
 import com.bretema.rutas.model.poi.Poi;
 import com.j256.ormlite.field.DataType;
