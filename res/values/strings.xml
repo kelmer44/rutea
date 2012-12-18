@@ -18,4 +18,5 @@
 	<string name="desc">Desc</string>
 	<string name="ir_a_ruta">ir a ruta</string>
 	<string name="mainImage">Imagen principal de la ruta</string>
+	<string name="mi_posici_n">Mi posición</string>
 </resources>

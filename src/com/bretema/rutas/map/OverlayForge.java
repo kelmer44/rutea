@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.activities.RouteMapActivity;
 
 public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 
@@ -42,9 +43,15 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 	private LinearLayout				layout;
 	private TextView					title;
 	private TextView					snippet;
+	private Drawable					defaultMarker;
+	private Drawable					selectMarker;
+	private RouteMapActivity			activity;
 
-	public OverlayForge(Drawable defaultMarker, MapView mapView) {
+	public OverlayForge(Drawable defaultMarker, Drawable selectMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
+		this.defaultMarker = boundCenterBottom(defaultMarker);
+		this.selectMarker = boundCenterBottom(selectMarker);
+		this.activity = activity;
 		// super(defaultMarker);
 		this.c = mapView.getContext();
 		this.mapView = mapView;
@@ -59,9 +66,20 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		});
 	}
 
+	public void selectOverlay(int idx) {
+		for (int i = 0; i < this.size(); i++) {
+			getOverlay(i).setMarker(defaultMarker);
+		}
+		getOverlay(idx).setMarker(selectMarker);
+	}
+
 	public void addOverlay(OverlayItem overlay) {
 		m_overlays.add(overlay);
 		populate();
+	}
+
+	public OverlayItem getOverlay(int i) {
+		return m_overlays.get(i);
 	}
 
 	@Override
@@ -73,8 +91,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 	public int size() {
 		return m_overlays.size();
 	}
-	
-	public void doShowBallon(int index){
+
+	public void doShowBallon(int index) {
 		currentFocusedIndex = index;
 		currentFocusedItem = createItem(index);
 
@@ -119,7 +137,7 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		layout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
 				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 		params.topMargin -= layout.getMeasuredHeight()
-				- (layout.getMeasuredHeight() / 2);
+				- (layout.getMeasuredHeight() / 2) + viewOffset;
 
 		ImageView imgClose = (ImageView) layout
 				.findViewById(R.id.close_img_button);
@@ -143,12 +161,15 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 	protected final boolean onTap(int index) {
 
 		doShowBallon(index);
+		activity.selectPoi(index);
 		return true;
 	}
 
 	protected boolean onBalloonTap(int index, OverlayItem item) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q="
-				+ item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+				+ item.getPoint().getLatitude()
+				+ ","
+				+ item.getPoint().getLongitude()));
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		c.startActivity(intent);
 		/*

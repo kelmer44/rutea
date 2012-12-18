@@ -11,6 +11,7 @@ import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
+import org.mapsforge.android.maps.overlay.ItemizedOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.core.GeoPoint;
@@ -37,12 +38,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.map.MyLocationOverlay;
 import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
@@ -55,53 +56,55 @@ import com.bretema.rutas.view.ImageAdapter;
 
 public class RouteMapActivity extends MapActivity {
 
-	private static final String		LOG_TAG				= RouteMapActivity.class
-																.getSimpleName();
+	private static final String	LOG_TAG				= RouteMapActivity.class.getSimpleName();
 
 	// UI elements
-	private Button					nextPoiButton;
-	private Button					prevPoiButton;
-	private ImageButton				gotoRouteButton;
-	private MapView					mapView;
-	private MapController			mapController;
-	private Gallery					selectedPOIgallery;
-	private ImageButton				buttonHideGallery;
-	private RelativeLayout			linearLayoutLeftPanel;
-	private boolean					galleryHidden;
+	private Button				nextPoiButton;
+	private Button				prevPoiButton;
+	private ImageButton			gotoRouteButton;
+	private MapView				mapView;
+	private MapController		mapController;
+	private Gallery				selectedPOIgallery;
+	private ImageButton			buttonHideGallery;
+	private RelativeLayout		linearLayoutLeftPanel;
+	private boolean				galleryHidden;
 
-	private String					id_ruta;
+	private String				id_ruta;
 	// Route object
-	private Ruta					ruta;
+	private Ruta				ruta;
 	// simple poi list
-	private List<Poi>				simplePoiList;
-	private Poi						selectedPoi;
+	private List<Poi>			simplePoiList;
+	private Poi					selectedPoi;
 
 	// GEoPoint defining the painted route
-	int								numberRoutePoints;
-	List<GeoPoint>					routePoints;
-	boolean							routeIsDisplayed	= false;
+	int							numberRoutePoints;
+	List<GeoPoint>				routePoints;
+	boolean						routeIsDisplayed	= false;
 
 	// Servicio desde el que abstraemos la base de datos
-	private RutaService				rutaService;
-	private PoiService				poiService;
+	private RutaService			rutaService;
+	private PoiService			poiService;
 
 	// Overlays de pois
-	private OverlayForge			itemsOverlay;
+	private OverlayForge		itemsOverlay;
 	// Overlay de ruta
-	private ArrayWayOverlay			arrayWayOverlay;
-	// Overlay de elemento seleccionado
-	private ArrayItemizedOverlay	selectedOverlay;
+	private ArrayWayOverlay		arrayWayOverlay;
+	// Overlay con mi posicion
+	private MyLocationOverlay	myLocationOverlay;
 
 	// Images to show in gallery
-	private List<String>			mThumbList;
+	private List<String>		mThumbList;
+
+	private Drawable			marker_red;
+
+	private Drawable			marker;
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.activity_map);
 
@@ -111,7 +114,6 @@ public class RouteMapActivity extends MapActivity {
 		id_ruta = i.getStringExtra("id_ruta");
 		galleryHidden = true;
 
-		
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
@@ -119,31 +121,24 @@ public class RouteMapActivity extends MapActivity {
 		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
 
 		linearLayoutLeftPanel.setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
+				// DO NOTHING, this is just to intercept touch events and
+				// prevent balloons from disappearing
 				return true;
 			}
 		});
-		
-		
+
 		buttonHideGallery.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				if (galleryHidden) {
-					buttonHideGallery
-							.setImageResource(android.R.drawable.arrow_down_float);
-					galleryHidden = false;
-					selectedPOIgallery.setVisibility(Gallery.VISIBLE);
-					selectedPOIgallery.invalidate();
+					showGallery();
+
 				} else {
-					buttonHideGallery
-							.setImageResource(android.R.drawable.arrow_up_float);
-					galleryHidden = true;
-					selectedPOIgallery.setVisibility(Gallery.GONE);
-					selectedPOIgallery.invalidate();
+					hideGallery();
 				}
 
 			}
@@ -159,10 +154,8 @@ public class RouteMapActivity extends MapActivity {
 				// selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()
 				// + "(" + selectedPoi.getNombre() + ")&z=17"));
 				// startActivity(intent);
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-						.parse("google.navigation:q="
-								+ selectedPoi.getLatitude() + ","
-								+ selectedPoi.getLongitude()));
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + ","
+						+ selectedPoi.getLongitude()));
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
 			}
@@ -188,10 +181,25 @@ public class RouteMapActivity extends MapActivity {
 		poiService = new PoiServiceImpl(getApplicationContext());
 
 		initData();
-		initMapData();
 		new RouteLoader().execute(ruta.getRouteFile());
 
 		// selectPoi(0);
+	}
+
+	protected void showGallery() {
+		buttonHideGallery.setImageResource(android.R.drawable.arrow_down_float);
+		galleryHidden = false;
+		selectedPOIgallery.setVisibility(Gallery.VISIBLE);
+		selectedPOIgallery.invalidate();
+
+	}
+
+	protected void hideGallery() {
+
+		buttonHideGallery.setImageResource(android.R.drawable.arrow_up_float);
+		galleryHidden = true;
+		selectedPOIgallery.setVisibility(Gallery.GONE);
+		selectedPOIgallery.invalidate();
 	}
 
 	public void overlayRoute() {
@@ -201,8 +209,7 @@ public class RouteMapActivity extends MapActivity {
 		wayDefaultPaintFill.setAlpha(160);
 		wayDefaultPaintFill.setStrokeWidth(7);
 		wayDefaultPaintFill.setStrokeJoin(Paint.Join.ROUND);
-		wayDefaultPaintFill.setPathEffect(new DashPathEffect(new float[] { 20,
-				20 }, 0));
+		wayDefaultPaintFill.setPathEffect(new DashPathEffect(new float[] { 20, 20 }, 0));
 
 		Paint wayDefaultPaintOutline = new Paint(Paint.ANTI_ALIAS_FLAG);
 		wayDefaultPaintOutline.setStyle(Paint.Style.STROKE);
@@ -216,9 +223,13 @@ public class RouteMapActivity extends MapActivity {
 
 		arrayWayOverlay.addWay(way);
 		selectPoi(0);
+		Drawable me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
+		myLocationOverlay = new MyLocationOverlay(me_drawable, this, this.mapView);
+		myLocationOverlay.enableMyLocation();
 		mapView.getOverlays().add(arrayWayOverlay);
 		mapView.getOverlays().add(itemsOverlay);
-		mapView.getOverlays().add(selectedOverlay);
+		// mapView.getOverlays().add(selectedOverlay);
+		mapView.getOverlays().add(myLocationOverlay);
 		mapView.invalidate();
 
 	}
@@ -227,35 +238,30 @@ public class RouteMapActivity extends MapActivity {
 
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
-		mapView.setBuiltInZoomControls(true);
-
+		mapView.setBuiltInZoomControls(false);
 		mapController = mapView.getController();
 
-		File mapFile = new File(Environment.getExternalStorageDirectory()
-				.getPath() + "/maps/galicia.map");
+		File mapFile = new File(Environment.getExternalStorageDirectory().getPath() + "/maps/galicia.map");
 
 		Log.d(LOG_TAG, "Trying to load file" + mapFile.getName());
 
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
-			Toast.makeText(this, fileOpenResult.getErrorMessage(),
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(this, fileOpenResult.getErrorMessage(), Toast.LENGTH_LONG).show();
 			Log.d(LOG_TAG, "Map file could not be loaded");
 			finish();
 		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 		}
 
-		Drawable marker = getResources().getDrawable(R.drawable.marker_green);
-		Drawable marker_red = getResources().getDrawable(R.drawable.marker_red);
+		marker = getResources().getDrawable(R.drawable.marker_green);
+		marker_red = getResources().getDrawable(R.drawable.marker_red);
 
-		itemsOverlay = new OverlayForge(marker, mapView);
-		itemsOverlay.setBalloonBottomOffset(10);
-		selectedOverlay = new ArrayItemizedOverlay(marker_red);
+		itemsOverlay = new OverlayForge(marker, marker_red, mapView, this);
+		itemsOverlay.setBalloonBottomOffset(100);
 		Log.d(LOG_TAG, "Loading overlay items into map");
 		for (Poi p : simplePoiList) {
-			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p
-					.getLongitude()), p.getNombre(), p.getDescripcion());
+			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
 			itemsOverlay.addOverlay(overlay);
 		}
 
@@ -269,12 +275,16 @@ public class RouteMapActivity extends MapActivity {
 		// simplePoiList = poiService.findAll();
 		simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
 
-		// We select first element
-		selectedPoi = simplePoiList.get(0);
-		for (Poi p : simplePoiList) {
-			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude()
-					+ ", " + p.getLongitude() + "; orden " + p.getOrden());
+		// We select first element+
+		if (simplePoiList.size() != 0) {
+			selectedPoi = simplePoiList.get(0);
+			for (Poi p : simplePoiList) {
+				Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
 
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
+			finish();
 		}
 
 	}
@@ -295,21 +305,18 @@ public class RouteMapActivity extends MapActivity {
 			selectPoi(simplePoiList.size() - 1);
 	}
 
-	private void selectPoi(int index) {
+	public void selectPoi(int index) {
 		if (index < simplePoiList.size()) {
 			Log.d(LOG_TAG, "Selecting poi " + index);
 			selectedPoi = simplePoiList.get(index);
 			// mapView.getOverlays().remove(selectedOverlay);
-
-			selectedOverlay.clear();
-			GeoPoint selectedPoint = new GeoPoint(selectedPoi.getLatitude(), selectedPoi
-					.getLongitude());
-			selectedOverlay.addItem(new OverlayItem(selectedPoint, "", ""));
+			itemsOverlay.selectOverlay(index);
+			GeoPoint selectedPoint = new GeoPoint(selectedPoi.getLatitude(), selectedPoi.getLongitude());
 			mapController.setCenter(selectedPoint);
 			// mapView.getOverlays().add(selectedOverlay);
 			mapView.invalidate();
 			getImagesFromSelectedPoi();
-			
+
 			itemsOverlay.doShowBallon(index);
 		}
 	}
@@ -330,6 +337,8 @@ public class RouteMapActivity extends MapActivity {
 			// This pattern takes more than one param but we'll just use the
 			// first
 			try {
+
+				initMapData();
 				String filePath = params[0];
 
 				XmlPullParserFactory parserCreator;
@@ -360,10 +369,8 @@ public class RouteMapActivity extends MapActivity {
 							String tag = parser.getName();
 							if (tag.compareTo("trkpt") == 0) {
 								pointCounter++;
-								lat = Double.parseDouble(parser
-										.getAttributeValue(null, "lat"));
-								lon = Double.parseDouble(parser
-										.getAttributeValue(null, "lon"));
+								lat = Double.parseDouble(parser.getAttributeValue(null, "lat"));
+								lon = Double.parseDouble(parser.getAttributeValue(null, "lon"));
 								routePoints.add(new GeoPoint(lat, lon));
 								// Log.i(LOG_TAG, "   trackpoint=" +
 								// pointCounter
@@ -377,8 +384,18 @@ public class RouteMapActivity extends MapActivity {
 				}
 				numberRoutePoints = routePoints.size();
 
+			} catch (IllegalArgumentException iae) {
+				Log.d(LOG_TAG, "Error Illegal Argument: " + iae.getMessage());
+				RouteMapActivity.this.finish();
+			} catch (SecurityException se) {
+				Log.d(LOG_TAG, "Error de seguridad: " + se.getMessage());
+				RouteMapActivity.this.finish();
+			} catch (RuntimeException re) {
+				Log.d(LOG_TAG, "Error Runtime: " + re.getMessage());
+				RouteMapActivity.this.finish();
 			} catch (Exception e) {
 				Log.d("RouteLoader", "Failed in parsing XML", e);
+				RouteMapActivity.this.finish();
 				return "Finished with failure.";
 			}
 
