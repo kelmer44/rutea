@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bretema.rutas.R;
@@ -65,7 +66,7 @@ public class RouteMapActivity extends MapActivity {
 	private MapController			mapController;
 	private Gallery					selectedPOIgallery;
 	private ImageButton				buttonHideGallery;
-	private LinearLayout			linearLayoutLeftPanel;
+	private RelativeLayout			linearLayoutLeftPanel;
 	private boolean					galleryHidden;
 
 	private String					id_ruta;
@@ -111,7 +112,7 @@ public class RouteMapActivity extends MapActivity {
 		galleryHidden = true;
 
 		
-		linearLayoutLeftPanel = (LinearLayout) findViewById(R.id.layoutLeftPanel);
+		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);

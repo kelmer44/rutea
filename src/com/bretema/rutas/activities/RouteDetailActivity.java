@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -55,6 +56,7 @@ public class RouteDetailActivity extends Activity {
 
 		gotoRouteButton = (Button) findViewById(R.id.gotoRouteButton);
 		routeDetailDescriptionLabel = (TextView) findViewById(R.id.routeDetailDescriptionLabel);
+		routeDetailDescriptionLabel.setMovementMethod(new ScrollingMovementMethod());
 		routeDetailNameLabel = (TextView) findViewById(R.id.routeDetailNameLabel);
 		mainRouteImage = (ImageView) findViewById(R.id.mainRouteImage);
 		
