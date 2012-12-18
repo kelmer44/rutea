@@ -9,7 +9,7 @@
 <!-- This is the line -->
 <item android:right="2dp">
      <shape>
-           <solid android:color="@color/greekBlue" />
+           <solid android:color="@color/anotherBlue" />
      </shape>
 </item>
 </layer-list>

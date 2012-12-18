@@ -227,8 +227,6 @@ public class RouteMapActivity extends MapActivity {
 		myLocationOverlay = new MyLocationOverlay(me_drawable, this, this.mapView);
 		myLocationOverlay.enableMyLocation();
 		mapView.getOverlays().add(arrayWayOverlay);
-		mapView.getOverlays().add(itemsOverlay);
-		// mapView.getOverlays().add(selectedOverlay);
 		mapView.getOverlays().add(myLocationOverlay);
 		mapView.invalidate();
 

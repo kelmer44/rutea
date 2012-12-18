@@ -14,6 +14,7 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int anotherBlue=0x7f050003;
         public static final int appBlue=0x7f050000;
         public static final int greekBlue=0x7f050002;
         public static final int tussaYellow=0x7f050001;
@@ -29,22 +30,23 @@ public final class R {
         public static final int balloon_overlay_unfocused=0x7f020007;
         public static final int border_round_label_fromleft=0x7f020008;
         public static final int border_round_label_fromright=0x7f020009;
-        public static final int drop_shadow=0x7f02000a;
-        public static final int ic_compose=0x7f02000b;
-        public static final int ic_compose_inverse=0x7f02000c;
-        public static final int ic_launcher=0x7f02000d;
-        public static final int ic_maps_indicator_current_position_anim1=0x7f02000e;
-        public static final int ic_refresh=0x7f02000f;
-        public static final int ic_refresh_inverse=0x7f020010;
-        public static final int mapmarker=0x7f020011;
-        public static final int marker_green=0x7f020012;
-        public static final int marker_red=0x7f020013;
-        public static final int round_corners=0x7f020014;
-        public static final int round_label_fromleft=0x7f020015;
-        public static final int round_label_fromright=0x7f020016;
-        public static final int rsa=0x7f020017;
-        public static final int splash_screen=0x7f020018;
-        public static final int sup_border=0x7f020019;
+        public static final int bot_border=0x7f02000a;
+        public static final int drop_shadow=0x7f02000b;
+        public static final int ic_compose=0x7f02000c;
+        public static final int ic_compose_inverse=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int ic_maps_indicator_current_position_anim1=0x7f02000f;
+        public static final int ic_refresh=0x7f020010;
+        public static final int ic_refresh_inverse=0x7f020011;
+        public static final int mapmarker=0x7f020012;
+        public static final int marker_green=0x7f020013;
+        public static final int marker_red=0x7f020014;
+        public static final int round_corners=0x7f020015;
+        public static final int round_label_fromleft=0x7f020016;
+        public static final int round_label_fromright=0x7f020017;
+        public static final int rsa=0x7f020018;
+        public static final int splash_screen=0x7f020019;
+        public static final int sup_border=0x7f02001a;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000d;
@@ -66,7 +68,7 @@ public final class R {
         public static final int mainRouteImage=0x7f09000c;
         public static final int mapView=0x7f090001;
         public static final int me_pos_image=0x7f090006;
-        public static final int menu_settings=0x7f09001c;
+        public static final int menu_info=0x7f09001c;
         public static final int nombreRouteListLabel=0x7f09001a;
         public static final int routeDetailDescriptionLabel=0x7f090013;
         public static final int routeDetailNameLabel=0x7f09000e;
@@ -136,5 +138,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        public static final int MyActionBar=0x7f070003;
+        public static final int MyTheme=0x7f070002;
+        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f070004;
     }
 }
