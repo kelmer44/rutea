@@ -9,9 +9,8 @@ import java.util.List;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
+import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
-import org.mapsforge.android.maps.overlay.ItemizedOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.core.GeoPoint;
@@ -23,6 +22,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -320,7 +320,7 @@ public class RouteMapActivity extends MapActivity {
 			itemsOverlay.doShowBallon(index);
 		}
 	}
-
+	
 	private void getImagesFromSelectedPoi() {
 		mThumbList.clear();
 		for (Multimedia mm : selectedPoi.getMedia()) {

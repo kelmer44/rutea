@@ -53,4 +53,15 @@ public class PoiServiceImpl implements PoiService {
 		return poiDao.findByProperties(filterValues,"orden", true);
 	}
 
+	@Override
+	public List<Poi> getOtherPoiOrderedByRuta(Integer rutaId) {
+		//TODO IMPROVE
+		List<Poi> listaTodos = getPoiByRuta(rutaId);
+		for(Poi p: listaTodos){
+			if(p.getTipo() == PoiType.SimplePoi || p.getTipo() == PoiType.SecondaryPoi)
+				listaTodos.remove(p);
+		}
+		return listaTodos;
+	}
+
 }

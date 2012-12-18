@@ -48,7 +48,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int VERSION = 17;
+	public static final int VERSION = 18;
 	/**
 	 * The database type.
 	 */
@@ -251,6 +251,31 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		poiValues5.put("rutaId", 1);
 		database.insert("poi", null, poiValues5);
 
+		ContentValues farmaciaPoi = new ContentValues();
+		farmaciaPoi.put("id", 6);
+		farmaciaPoi.put("nombre", "Farmacia Ramírez");
+		farmaciaPoi
+				.put("descripcion", "Pues aquí iría la descripción del punto");
+		farmaciaPoi.put("tipo", PoiType.FarmaciaPoi.toString());
+		farmaciaPoi.put("latitude", 42.376173);
+		farmaciaPoi.put("longitude", -7.584356);
+		farmaciaPoi.put("orden", 6);
+		farmaciaPoi.put("rutaId", 1);
+		database.insert("poi", null, farmaciaPoi);
+	
+		ContentValues restaurantePoi = new ContentValues();
+		restaurantePoi.put("id", 7);
+		restaurantePoi.put("nombre", "Restaurante Pancracio");
+		restaurantePoi
+				.put("descripcion", "Pues aquí iría la descripción del punto");
+		restaurantePoi.put("tipo", PoiType.RestaurantePoi.toString());
+		restaurantePoi.put("latitude", 				42.369452);
+		restaurantePoi.put("longitude", -7.580401);
+		restaurantePoi.put("orden", 7);
+		restaurantePoi.put("rutaId", 1);
+		database.insert("poi", null, restaurantePoi);
+		
+		
 		ContentValues mmValue21 = new ContentValues();
 		mmValue21.put("uri", "ruta1/thumb4");
 		mmValue21.put("thumbUri", "ruta1/thumb4.jpg");
