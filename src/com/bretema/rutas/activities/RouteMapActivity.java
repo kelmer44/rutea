@@ -7,13 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapController;
-import org.mapsforge.android.maps.MapScaleBar;
 import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
-import org.mapsforge.android.maps.overlay.OverlayItem;
-import org.mapsforge.android.maps.overlay.OverlayWay;
-import org.mapsforge.core.GeoPoint;
+import org.mapsforge.core.model.GeoPoint;
 import org.mapsforge.map.reader.header.FileOpenResult;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -49,9 +44,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bretema.rutas.R;
-import com.bretema.rutas.core.util.Constants;
-import com.bretema.rutas.enums.PoiType;
-import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
@@ -70,7 +62,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
 	private ImageButton			gotoRouteButton;
 	private MapView				mapView;
-	private MapController		mapController;
 	private Gallery				selectedPOIgallery;
 	private ImageButton			buttonHideGallery;
 	private RelativeLayout		linearLayoutLeftPanel;
@@ -92,11 +83,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	// Servicio desde el que abstraemos la base de datos
 	private RutaService			rutaService;
 	private PoiService			poiService;
-
-	// Overlays de pois
-	private OverlayForge		itemsOverlay;
-	// Overlay de ruta
-	private ArrayWayOverlay		arrayWayOverlay;
 
 	// Images to show in gallery
 	private List<String>		mThumbList;
@@ -126,7 +112,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
 		mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
-		mapController = mapView.getController();
 
 		RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.RelativeLayout1);
 
@@ -189,15 +174,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	}
 
 	private void loadPoiOverlays(List<Poi> lista) {
-		for (Poi p : lista) {
-			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
-			//Drawable d = getResources().getDrawable(p.getTipo().getDrawable());
-			//overlay.setMarker(d);
-			if(p.getTipo()==PoiType.FarmaciaPoi)
-				itemsOverlay.addOverlay(overlay, getResources().getDrawable(R.drawable.red_cross));
-			else
-				itemsOverlay.addOverlay(overlay);
-		}
+
 	}
 
 	private void overlayRoute() {
@@ -216,7 +193,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		wayDefaultPaintOutline.setStrokeWidth(7);
 		wayDefaultPaintOutline.setStrokeJoin(Paint.Join.ROUND);
 
-		arrayWayOverlay = new ArrayWayOverlay(wayDefaultPaintFill, wayDefaultPaintOutline);
+		/*arrayWayOverlay = new ArrayWayOverlay(wayDefaultPaintFill, wayDefaultPaintOutline);
 		OverlayWay way = new OverlayWay(Constants.toGeoPointArray(routePoints));
 
 		arrayWayOverlay.addWay(way);
@@ -224,7 +201,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		mapView.getOverlays().add(arrayWayOverlay);
 		mapView.getOverlays().add(itemsOverlay);
-		mapView.invalidate();
+		mapView.invalidate();*/
 
 	}
 
@@ -246,9 +223,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
 
-			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
-			itemsOverlay.enableMyLocation();
-			itemsOverlay.setBalloonBottomOffset(100);
 			Log.d(LOG_TAG, "Loading overlay items into map");
 			loadPoiOverlays(simplePoiList);
 			return true;
@@ -302,7 +276,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		if (index < simplePoiList.size()) {
 			Log.d(LOG_TAG, "Selecting poi " + index);
 			selectedPoi = simplePoiList.get(index);
-			itemsOverlay.selectPOIOverlay(index);
 			getImagesFromSelectedPoi();
 
 		}
@@ -444,17 +417,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		this.mapView.destroyDrawingCache();
-		this.mapView.removeAllViews();
-		this.mapView.getOverlays().clear();
-		this.mapView = null;
-		this.itemsOverlay = null;
-		this.arrayWayOverlay = null;
-	}
-
-	@Override
 	public void onClick(View v) {
 
 		if (v == buttonHideGallery) {
@@ -491,13 +453,12 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		else if (v == quitRouteButton) {
 			vf.setInAnimation(animFlipInNext);
 			vf.setOutAnimation(animFlipOutPrevious);
-			itemsOverlay.removeAllPois();
 			loadPoiOverlays(secondaryPoiList);
 			vf.showNext();
 		} else if (v == buttonBackToRoute) {
 			vf.setInAnimation(animFlipInNext);
 			vf.setOutAnimation(animFlipOutPrevious);
-			itemsOverlay.removeAllPois();
+			
 			loadPoiOverlays(simplePoiList);
 			vf.showPrevious();
 		}
