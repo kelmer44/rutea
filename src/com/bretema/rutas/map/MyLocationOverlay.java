@@ -36,9 +36,9 @@ public class MyLocationOverlay extends ItemizedOverlay<OverlayItem> implements L
     private Context context;
     private MapView mapView;
     private Location lastFix = null;
+    private OverlayItem me_overlay;
     private Point cachedCenterPosition;
     private byte cachedZoomLevel;
-    private OverlayItem me_overlay;
 
     public MyLocationOverlay(Drawable marker, Context context, MapView mapView) {
         super(boundCenter(marker));

@@ -9,7 +9,6 @@ import java.util.List;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.OverlayWay;
@@ -18,11 +17,14 @@ import org.mapsforge.map.reader.header.FileOpenResult;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -57,7 +59,8 @@ import com.bretema.rutas.view.ImageAdapter;
 public class RouteMapActivity extends MapActivity {
 
 	private static final String	LOG_TAG				= RouteMapActivity.class.getSimpleName();
-
+	// Progress Dialog
+	private ProgressDialog		pDialog;
 	// UI elements
 	private Button				nextPoiButton;
 	private Button				prevPoiButton;
@@ -89,8 +92,6 @@ public class RouteMapActivity extends MapActivity {
 	private OverlayForge		itemsOverlay;
 	// Overlay de ruta
 	private ArrayWayOverlay		arrayWayOverlay;
-	// Overlay con mi posicion
-	private MyLocationOverlay	myLocationOverlay;
 
 	// Images to show in gallery
 	private List<String>		mThumbList;
@@ -98,6 +99,7 @@ public class RouteMapActivity extends MapActivity {
 	private Drawable			marker_red;
 
 	private Drawable			marker;
+	private Drawable	me_drawable;
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
@@ -119,6 +121,10 @@ public class RouteMapActivity extends MapActivity {
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
+		mapView = (MapView) findViewById(R.id.mapView);
+		mapView.setClickable(true);
+		mapView.setBuiltInZoomControls(false);
+		mapController = mapView.getController();
 
 		linearLayoutLeftPanel.setOnTouchListener(new OnTouchListener() {
 
@@ -181,8 +187,11 @@ public class RouteMapActivity extends MapActivity {
 		poiService = new PoiServiceImpl(getApplicationContext());
 
 		initData();
-		new RouteLoader().execute(ruta.getRouteFile());
 
+		//If everything went fine...
+		if(initMapData()){
+			new RouteLoader().execute(ruta.getRouteFile());
+		}
 		// selectPoi(0);
 	}
 
@@ -223,22 +232,14 @@ public class RouteMapActivity extends MapActivity {
 
 		arrayWayOverlay.addWay(way);
 		selectPoi(0);
-		Drawable me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
-		myLocationOverlay = new MyLocationOverlay(me_drawable, this, this.mapView);
-		myLocationOverlay.enableMyLocation();
+
 		mapView.getOverlays().add(arrayWayOverlay);
-		mapView.getOverlays().add(myLocationOverlay);
+		mapView.getOverlays().add(itemsOverlay);
 		mapView.invalidate();
 
 	}
 
-	private void initMapData() {
-
-		mapView = (MapView) findViewById(R.id.mapView);
-		mapView.setClickable(true);
-		mapView.setBuiltInZoomControls(false);
-		mapController = mapView.getController();
-
+	private boolean initMapData() {
 		File mapFile = new File(Environment.getExternalStorageDirectory().getPath() + "/maps/galicia.map");
 
 		Log.d(LOG_TAG, "Trying to load file" + mapFile.getName());
@@ -246,21 +247,25 @@ public class RouteMapActivity extends MapActivity {
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
 			Toast.makeText(this, fileOpenResult.getErrorMessage(), Toast.LENGTH_LONG).show();
+			RouteMapActivity.this.finish();
 			Log.d(LOG_TAG, "Map file could not be loaded");
-			finish();
+			return false;
 		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully");
-		}
+			marker = getResources().getDrawable(R.drawable.marker_green);
+			marker_red = getResources().getDrawable(R.drawable.marker_red);
 
-		marker = getResources().getDrawable(R.drawable.marker_green);
-		marker_red = getResources().getDrawable(R.drawable.marker_red);
-
-		itemsOverlay = new OverlayForge(marker, marker_red, mapView, this);
-		itemsOverlay.setBalloonBottomOffset(100);
-		Log.d(LOG_TAG, "Loading overlay items into map");
-		for (Poi p : simplePoiList) {
-			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
-			itemsOverlay.addOverlay(overlay);
+			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
+			
+			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
+			itemsOverlay.enableMyLocation();
+			itemsOverlay.setBalloonBottomOffset(100);
+			Log.d(LOG_TAG, "Loading overlay items into map");
+			for (Poi p : simplePoiList) {
+				OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
+				itemsOverlay.addOverlay(overlay);
+			}
+			return true;
 		}
 
 	}
@@ -307,18 +312,12 @@ public class RouteMapActivity extends MapActivity {
 		if (index < simplePoiList.size()) {
 			Log.d(LOG_TAG, "Selecting poi " + index);
 			selectedPoi = simplePoiList.get(index);
-			// mapView.getOverlays().remove(selectedOverlay);
-			itemsOverlay.selectOverlay(index);
-			GeoPoint selectedPoint = new GeoPoint(selectedPoi.getLatitude(), selectedPoi.getLongitude());
-			mapController.setCenter(selectedPoint);
-			// mapView.getOverlays().add(selectedOverlay);
-			mapView.invalidate();
+			itemsOverlay.selectPOIOverlay(index);
 			getImagesFromSelectedPoi();
 
-			itemsOverlay.doShowBallon(index);
 		}
 	}
-	
+
 	private void getImagesFromSelectedPoi() {
 		mThumbList.clear();
 		for (Multimedia mm : selectedPoi.getMedia()) {
@@ -328,15 +327,14 @@ public class RouteMapActivity extends MapActivity {
 		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
 	}
 
-	private class RouteLoader extends AsyncTask<String, String, String> {
+	private class RouteLoader extends AsyncTask<String, Integer, Boolean> {
 
 		@Override
-		protected String doInBackground(String... params) {
+		protected Boolean doInBackground(String... params) {
 			// This pattern takes more than one param but we'll just use the
 			// first
 			try {
 
-				initMapData();
 				String filePath = params[0];
 
 				XmlPullParserFactory parserCreator;
@@ -352,12 +350,8 @@ public class RouteMapActivity extends MapActivity {
 
 				int parserEvent = parser.getEventType();
 				int pointCounter = -1;
-				int wptCounter = -1;
-				int totalWaypoints = -1;
 				double lat = -1;
 				double lon = -1;
-				String wptDescription = "";
-				int grade = -1;
 
 				routePoints = new ArrayList<GeoPoint>();
 				// Parse the XML returned on the network
@@ -385,19 +379,22 @@ public class RouteMapActivity extends MapActivity {
 			} catch (IllegalArgumentException iae) {
 				Log.d(LOG_TAG, "Error Illegal Argument: " + iae.getMessage());
 				RouteMapActivity.this.finish();
+				return false;
 			} catch (SecurityException se) {
 				Log.d(LOG_TAG, "Error de seguridad: " + se.getMessage());
 				RouteMapActivity.this.finish();
+				return false;
 			} catch (RuntimeException re) {
 				Log.d(LOG_TAG, "Error Runtime: " + re.getMessage());
 				RouteMapActivity.this.finish();
+				return false;
 			} catch (Exception e) {
 				Log.d("RouteLoader", "Failed in parsing XML", e);
 				RouteMapActivity.this.finish();
-				return "Finished with failure.";
+				return false;
 			}
 
-			return "Done...";
+			return true;
 		}
 
 		protected void onCancelled() {
@@ -406,18 +403,64 @@ public class RouteMapActivity extends MapActivity {
 
 		// Now that route data are loaded, execute the method to overlay the
 		// route on the map
-		protected void onPostExecute(String result) {
-			Log.i(LOG_TAG, "Route data transfer complete");
-			overlayRoute();
+		protected void onPostExecute(Boolean result) {
+
+			// dismiss the dialog after processing
+			pDialog.dismiss();
+			if (result) {
+				// updating UI from Background Thread
+				runOnUiThread(new Runnable() {
+					public void run() {
+
+						Log.i(LOG_TAG, "Route data transfer complete");
+						overlayRoute();
+
+					}
+				});
+			} else {
+				AlertDialog.Builder builder = new AlertDialog.Builder(RouteMapActivity.this);
+				builder.setMessage(getResources().getString(R.string.errorfetching));
+				builder.setCancelable(false);
+				builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						RouteMapActivity.this.finish();
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
 		}
 
 		protected void onPreExecute() {
 			Log.i(LOG_TAG, "Ready to load URL");
+			pDialog = new ProgressDialog(RouteMapActivity.this);
+			pDialog.setMessage(getResources().getString(R.string.pleasewait));
+			pDialog.setIndeterminate(false);
+			pDialog.setTitle(getResources().getString(R.string.fetchingdata));
+			pDialog.setCancelable(true);
+			pDialog.show();
+
+			pDialog.setOnCancelListener(new OnCancelListener() {
+				public void onCancel(DialogInterface dialog) {
+					RouteLoader.this.cancel(true);
+				}
+			});
 		}
 
-		protected void onProgressUpdate(String... values) {
+		protected void onProgressUpdate(Integer... values) {
 			super.onProgressUpdate(values);
 		}
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		this.mapView.destroyDrawingCache();
+		this.mapView.removeAllViews();
+		this.mapView.getOverlays().clear();
+		this.mapView = null;
+		this.itemsOverlay = null;
+		this.arrayWayOverlay = null;
 	}
 }

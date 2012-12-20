@@ -41,12 +41,13 @@ public final class R {
         public static final int mapmarker=0x7f020012;
         public static final int marker_green=0x7f020013;
         public static final int marker_red=0x7f020014;
-        public static final int round_corners=0x7f020015;
-        public static final int round_label_fromleft=0x7f020016;
-        public static final int round_label_fromright=0x7f020017;
-        public static final int rsa=0x7f020018;
-        public static final int splash_screen=0x7f020019;
-        public static final int sup_border=0x7f02001a;
+        public static final int noimage=0x7f020015;
+        public static final int round_corners=0x7f020016;
+        public static final int round_label_fromleft=0x7f020017;
+        public static final int round_label_fromright=0x7f020018;
+        public static final int rsa=0x7f020019;
+        public static final int splash_screen=0x7f02001a;
+        public static final int sup_border=0x7f02001b;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000d;
@@ -56,18 +57,18 @@ public final class R {
         public static final int balloon_item_title=0x7f090016;
         public static final int balloon_main_layout=0x7f090014;
         public static final int buttonHideGallery=0x7f090004;
-        public static final int buttonNextPoi=0x7f090009;
-        public static final int buttonPrevPoi=0x7f09000a;
-        public static final int buttonQuitRoute=0x7f09000b;
+        public static final int buttonNextPoi=0x7f090007;
+        public static final int buttonPrevPoi=0x7f090008;
+        public static final int buttonQuitRoute=0x7f090009;
         public static final int close_img_button=0x7f090018;
         public static final int descRouteListLabel=0x7f09001b;
-        public static final int gotoRouteButton=0x7f090008;
+        public static final int gotoRouteButton=0x7f090006;
         public static final int id_ruta=0x7f090019;
         public static final int layoutLeftPanel=0x7f090002;
         public static final int leftMenuBarRoute=0x7f090003;
         public static final int mainRouteImage=0x7f09000c;
         public static final int mapView=0x7f090001;
-        public static final int me_pos_image=0x7f090006;
+        public static final int me_pos_image=0x7f09000a;
         public static final int menu_info=0x7f09001c;
         public static final int nombreRouteListLabel=0x7f09001a;
         public static final int routeDetailDescriptionLabel=0x7f090013;
@@ -77,15 +78,17 @@ public final class R {
         public static final int tableRow2=0x7f090010;
         public static final int tableRow3=0x7f090011;
         public static final int tableRow4=0x7f090012;
-        public static final int textView1=0x7f090007;
+        public static final int textView1=0x7f09000b;
     }
     public static final class layout {
         public static final int activity_map=0x7f030000;
         public static final int activity_route_detail=0x7f030001;
         public static final int activity_route_list=0x7f030002;
         public static final int balloon_overlay=0x7f030003;
-        public static final int routelist_item=0x7f030004;
-        public static final int splash_layout=0x7f030005;
+        public static final int menu_normal=0x7f030004;
+        public static final int menu_secondary=0x7f030005;
+        public static final int routelist_item=0x7f030006;
+        public static final int splash_layout=0x7f030007;
     }
     public static final class menu {
         public static final int activity_route_detail=0x7f080000;
@@ -95,6 +98,8 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int desc=0x7f06000e;
         public static final int elija_una_ruta_=0x7f06000c;
+        public static final int errorfetching=0x7f060014;
+        public static final int fetchingdata=0x7f060013;
         public static final int hello_world=0x7f060001;
         public static final int hide_gallery=0x7f06000b;
         public static final int ir_a=0x7f06000a;
@@ -104,6 +109,7 @@ public final class R {
         public static final int mi_posici_n=0x7f060011;
         public static final int no_map=0x7f060006;
         public static final int nombre_de_la_ruta=0x7f06000d;
+        public static final int pleasewait=0x7f060012;
         public static final int punto_anterior=0x7f060007;
         public static final int salir_de_ruta=0x7f060009;
         public static final int siguiente_punto=0x7f060008;

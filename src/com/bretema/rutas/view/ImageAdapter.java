@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
@@ -15,16 +16,18 @@ import com.bretema.rutas.R;
 
 public class ImageAdapter extends BaseAdapter {
 
-	private static final String LOG_TAG = ImageAdapter.class.getSimpleName();
-	
-	private Context			mContext;
-	private List<String>	mThumbList;
+	private static final String	LOG_TAG	= ImageAdapter.class.getSimpleName();
 
-	private AssetManager			assetManager;
+	private Context				mContext;
+	private List<String>		mThumbList;
+	private AssetManager		assetManager;
+	private Bitmap				mDefaultBitmap;
+
 	public ImageAdapter(final Context c, List<String> mThumbList) {
 		mContext = c;
 		this.mThumbList = mThumbList;
 		assetManager = mContext.getAssets();
+		mDefaultBitmap = BitmapFactory.decodeResource(c.getResources(), R.drawable.noimage);
 	}
 
 	public final int getCount() {
@@ -43,13 +46,18 @@ public class ImageAdapter extends BaseAdapter {
 		ImageView i = new ImageView(mContext);
 
 		try {
-			i.setImageBitmap(BitmapFactory.decodeStream(assetManager
-					.open(mThumbList.get(position))));
+			Bitmap b= BitmapFactory.decodeStream(assetManager.open(mThumbList.get(position)));
+			if(b!=null)
+				i.setImageBitmap(b);
+			else
+				i.setImageBitmap(mDefaultBitmap);
 		} catch (IOException e) {
-			Log.d(LOG_TAG,
-					"No se pudo abrir el recurso" + mThumbList.get(position));
+			Log.d(LOG_TAG, "No se pudo abrir el recurso" + mThumbList.get(position));
+			i.setImageBitmap(mDefaultBitmap);
 		}
-		//i.setAdjustViewBounds(true);
+		
+		i.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		// i.setAdjustViewBounds(true);
 		// i.setLayoutParams(new
 		// Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
 		// LayoutParams.WRAP_CONTENT));
