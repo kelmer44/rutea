@@ -20,6 +20,7 @@ public final class R {
     public static final class color {
         public static final int anotherBlue=0x7f050003;
         public static final int appBlue=0x7f050000;
+        public static final int azulDegradado=0x7f050004;
         public static final int greekBlue=0x7f050002;
         public static final int tussaYellow=0x7f050001;
     }
