@@ -1,5 +1,7 @@
 package com.bretema.rutas.enums;
 
+import android.graphics.drawable.Drawable;
+
 import com.bretema.rutas.R;
 
 /**
@@ -8,17 +10,25 @@ import com.bretema.rutas.R;
  *
  */
 public enum PoiType {
-	SimplePoi(0), FarmaciaPoi(1), RestaurantePoi(2), CentroSaludPoi(3), PoliciaPoi(
-			4), GasolineraPoi(5), BarPoi(6), OITPoi(7), SecondaryPoi(8);
+	
+	SimplePoi(0,R.drawable.marker_green), FarmaciaPoi(1,R.drawable.red_cross), RestaurantePoi(2,R.drawable.restaurant_blue_2_48), CentroSaludPoi(3,R.drawable.marker_green), PoliciaPoi(
+			4,R.drawable.marker_green), GasolineraPoi(5,R.drawable.marker_green), BarPoi(6,R.drawable.marker_green), OITPoi(7,R.drawable.marker_green), SecondaryPoi(8,R.drawable.marker_green);
 
-	PoiType(int position) {
+	PoiType(int position, int drawableresource) {
 		this.position = position;
+		this.drawableresource = drawableresource;
 	}
 
 	private int	position;
+	private int drawableresource;
 
 	public int getPosition() {
+		
 		return position;
+	}
+	
+	public int getDrawable(){
+		return drawableresource;
 	}
 
 	public static PoiType getByIndex(int index) {

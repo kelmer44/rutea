@@ -67,7 +67,7 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 		this.defaultMarker = boundCenterBottom(defaultMarker);
 		this.selectMarker = boundCenterBottom(selectedMarker);
 		this.myLocationMarker = boundCenter(myLocationMarker);
-
+		
 		this.routeActivity = activity;
 		this.context = mapView.getContext();
 		this.mapView = mapView;
@@ -115,6 +115,14 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 	}
 
 	public void addOverlay(OverlayItem overlay) {
+
+		m_overlays.add(overlay);
+		fullList.add(overlay);
+		populate();
+	}
+	
+	public void addOverlay(OverlayItem overlay, Drawable d) {
+		overlay.setMarker(boundCenter(context.getApplicationContext().getResources().getDrawable(R.drawable.red_cross)));
 		m_overlays.add(overlay);
 		fullList.add(overlay);
 		populate();
@@ -286,5 +294,12 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void removeAllPois() {
+		balloonLayout.setVisibility(LinearLayout.GONE);
+		fullList.removeAll(m_overlays);
+		m_overlays.clear();
+		populate();
 	}
 }

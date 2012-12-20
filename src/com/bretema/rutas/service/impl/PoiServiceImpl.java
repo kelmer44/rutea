@@ -1,5 +1,6 @@
 package com.bretema.rutas.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,10 +57,10 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public List<Poi> getOtherPoiOrderedByRuta(Integer rutaId) {
 		//TODO IMPROVE
-		List<Poi> listaTodos = getPoiByRuta(rutaId);
-		for(Poi p: listaTodos){
-			if(p.getTipo() == PoiType.SimplePoi || p.getTipo() == PoiType.SecondaryPoi)
-				listaTodos.remove(p);
+		List<Poi> listaTodos = new ArrayList<Poi>();
+		for(Poi p: getPoiByRuta(rutaId)){
+			if(p.getTipo() != PoiType.SimplePoi && p.getTipo() != PoiType.SecondaryPoi)
+				listaTodos.add(p);
 		}
 		return listaTodos;
 	}

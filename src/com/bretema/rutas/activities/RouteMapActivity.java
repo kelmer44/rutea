@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapController;
+import org.mapsforge.android.maps.MapScaleBar;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
@@ -31,21 +32,25 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
-import com.bretema.rutas.map.MyLocationOverlay;
+import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
@@ -56,14 +61,13 @@ import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageAdapter;
 
-public class RouteMapActivity extends MapActivity {
+public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	private static final String	LOG_TAG				= RouteMapActivity.class.getSimpleName();
 	// Progress Dialog
 	private ProgressDialog		pDialog;
 	// UI elements
-	private Button				nextPoiButton;
-	private Button				prevPoiButton;
+	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
 	private ImageButton			gotoRouteButton;
 	private MapView				mapView;
 	private MapController		mapController;
@@ -77,6 +81,7 @@ public class RouteMapActivity extends MapActivity {
 	private Ruta				ruta;
 	// simple poi list
 	private List<Poi>			simplePoiList;
+	private List<Poi>			secondaryPoiList;
 	private Poi					selectedPoi;
 
 	// GEoPoint defining the painted route
@@ -96,10 +101,10 @@ public class RouteMapActivity extends MapActivity {
 	// Images to show in gallery
 	private List<String>		mThumbList;
 
-	private Drawable			marker_red;
+	private Drawable			marker_red, marker, me_drawable;
 
-	private Drawable			marker;
-	private Drawable	me_drawable;
+	private ViewFlipper			vf;
+	private Animation			animFlipInNext, animFlipOutNext, animFlipInPrevious, animFlipOutPrevious;
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
@@ -116,15 +121,27 @@ public class RouteMapActivity extends MapActivity {
 		id_ruta = i.getStringExtra("id_ruta");
 		galleryHidden = true;
 
+		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
+		mapView = (MapView) findViewById(R.id.mapView);
+		mapView.setClickable(true);
+		mapView.setBuiltInZoomControls(true);
+		mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
+		mapController = mapView.getController();
+
+		RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.RelativeLayout1);
+
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
-		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
-		mapView = (MapView) findViewById(R.id.mapView);
-		mapView.setClickable(true);
-		mapView.setBuiltInZoomControls(false);
-		mapController = mapView.getController();
+		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
+		buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
+
+		vf = (ViewFlipper) findViewById(R.id.ViewFlipper01);
+		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
+		animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
+		animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
+		animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 
 		linearLayoutLeftPanel.setOnTouchListener(new OnTouchListener() {
 
@@ -136,60 +153,20 @@ public class RouteMapActivity extends MapActivity {
 			}
 		});
 
-		buttonHideGallery.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (galleryHidden) {
-					showGallery();
-
-				} else {
-					hideGallery();
-				}
-
-			}
-		});
-
-		gotoRouteButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// Intent intent = new Intent(Intent.ACTION_VIEW,
-				// Uri.parse("geo:" + selectedPoi.getLatitude() + "," +
-				// selectedPoi.getLongitude() + "?q=" +
-				// selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()
-				// + "(" + selectedPoi.getNombre() + ")&z=17"));
-				// startActivity(intent);
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + ","
-						+ selectedPoi.getLongitude()));
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			}
-		});
-
-		nextPoiButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				selectNextPoi();
-			}
-		});
-
-		prevPoiButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				selectPreviousPoi();
-			}
-		});
+		buttonHideGallery.setOnClickListener(this);
+		gotoRouteButton.setOnClickListener(this);
+		nextPoiButton.setOnClickListener(this);
+		prevPoiButton.setOnClickListener(this);
+		quitRouteButton.setOnClickListener(this);
+		buttonBackToRoute.setOnClickListener(this);
 
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
 
 		initData();
 
-		//If everything went fine...
-		if(initMapData()){
+		// If everything went fine...
+		if (initMapData()) {
 			new RouteLoader().execute(ruta.getRouteFile());
 		}
 		// selectPoi(0);
@@ -211,7 +188,19 @@ public class RouteMapActivity extends MapActivity {
 		selectedPOIgallery.invalidate();
 	}
 
-	public void overlayRoute() {
+	private void loadPoiOverlays(List<Poi> lista) {
+		for (Poi p : lista) {
+			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
+			//Drawable d = getResources().getDrawable(p.getTipo().getDrawable());
+			//overlay.setMarker(d);
+			if(p.getTipo()==PoiType.FarmaciaPoi)
+				itemsOverlay.addOverlay(overlay, getResources().getDrawable(R.drawable.red_cross));
+			else
+				itemsOverlay.addOverlay(overlay);
+		}
+	}
+
+	private void overlayRoute() {
 		Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 		wayDefaultPaintFill.setStyle(Paint.Style.STROKE);
 		wayDefaultPaintFill.setColor(Color.BLUE);
@@ -256,15 +245,12 @@ public class RouteMapActivity extends MapActivity {
 			marker_red = getResources().getDrawable(R.drawable.marker_red);
 
 			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
-			
+
 			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
 			itemsOverlay.enableMyLocation();
 			itemsOverlay.setBalloonBottomOffset(100);
 			Log.d(LOG_TAG, "Loading overlay items into map");
-			for (Poi p : simplePoiList) {
-				OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
-				itemsOverlay.addOverlay(overlay);
-			}
+			loadPoiOverlays(simplePoiList);
 			return true;
 		}
 
@@ -277,7 +263,7 @@ public class RouteMapActivity extends MapActivity {
 		// simplePoiList = poiService.findAll();
 		// simplePoiList = poiService.findAll();
 		simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
-
+		secondaryPoiList = poiService.getOtherPoiOrderedByRuta(ruta.getId());
 		// We select first element+
 		if (simplePoiList.size() != 0) {
 			selectedPoi = simplePoiList.get(0);
@@ -288,6 +274,10 @@ public class RouteMapActivity extends MapActivity {
 		} else {
 			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
 			finish();
+		}
+
+		for (Poi p : secondaryPoiList) {
+			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
 		}
 
 	}
@@ -462,5 +452,54 @@ public class RouteMapActivity extends MapActivity {
 		this.mapView = null;
 		this.itemsOverlay = null;
 		this.arrayWayOverlay = null;
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		if (v == buttonHideGallery) {
+			if (galleryHidden) {
+				showGallery();
+
+			} else {
+				hideGallery();
+			}
+
+		}
+
+		else if (v == gotoRouteButton) {
+			// Intent intent = new Intent(Intent.ACTION_VIEW,
+			// Uri.parse("geo:" + selectedPoi.getLatitude() + "," +
+			// selectedPoi.getLongitude() + "?q=" +
+			// selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()
+			// + "(" + selectedPoi.getNombre() + ")&z=17"));
+			// startActivity(intent);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + ","
+					+ selectedPoi.getLongitude()));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		}
+
+		else if (v == nextPoiButton) {
+			selectNextPoi();
+		}
+
+		else if (v == prevPoiButton) {
+			selectPreviousPoi();
+		}
+
+		else if (v == quitRouteButton) {
+			vf.setInAnimation(animFlipInNext);
+			vf.setOutAnimation(animFlipOutPrevious);
+			itemsOverlay.removeAllPois();
+			loadPoiOverlays(secondaryPoiList);
+			vf.showNext();
+		} else if (v == buttonBackToRoute) {
+			vf.setInAnimation(animFlipInNext);
+			vf.setOutAnimation(animFlipOutPrevious);
+			itemsOverlay.removeAllPois();
+			loadPoiOverlays(simplePoiList);
+			vf.showPrevious();
+		}
 	}
 }

@@ -17,10 +17,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/anotherBlue" >
-
         </org.mapsforge.android.maps.MapView>
     </FrameLayout>
 
+    
+    <!--  galeria y boton de plegar/desplegar -->
     <LinearLayout
         android:id="@+id/layoutLeftPanel"
         android:layout_width="fill_parent"
@@ -36,7 +37,8 @@
             android:layout_marginBottom="-5dp"
             android:layout_marginLeft="-5dp"
             android:layout_marginRight="-5dp"
-            android:src="@android:drawable/arrow_up_float" android:contentDescription="@string/hide_gallery"/>
+            android:contentDescription="@string/hide_gallery"
+            android:src="@android:drawable/arrow_up_float" />
 
         <Gallery
             android:id="@+id/selectedPOIgallery"
@@ -48,7 +50,7 @@
             android:spacing="2dp"
             android:visibility="gone" />
     </LinearLayout>
-
+<!--  barra de menu -->
     <RelativeLayout
         android:id="@+id/leftMenuBarRoute"
         android:layout_width="110dp"
@@ -67,10 +69,10 @@
             android:layout_alignParentTop="false"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="12dp"
-            android:src="@android:drawable/ic_menu_mylocation" android:contentDescription="@string/ir_a"/>
-
+            android:contentDescription="@string/ir_a"
+            android:src="@android:drawable/ic_menu_mylocation" />
     </RelativeLayout>
-
+<!--  sombra de la barra de menu -->
     <View
         android:layout_width="15dp"
         android:layout_height="match_parent"
@@ -78,78 +80,109 @@
         android:background="@drawable/drop_shadow" >
     </View>
 
-    <LinearLayout
+    <!--  menus de la izquierda -->
+    <ViewFlipper
+        android:id="@+id/ViewFlipper01"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/buttonNextPoi"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="-5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border_round_label_fromleft"
-            android:gravity="center_vertical|center_horizontal|left"
-            android:minHeight="0dip"
-            android:minWidth="0dip"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/siguiente_punto"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/primary_text_dark" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/buttonPrevPoi"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="-5dp"
-            android:background="@drawable/border_round_label_fromleft"
-            android:gravity="center_vertical|center_horizontal|left"
-            android:minHeight="0dip"
-            android:minWidth="0dip"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/punto_anterior"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/primary_text_dark" />
+            <Button
+                android:id="@+id/buttonNextPoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_round_label_fromleft"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:minHeight="0dip"
+                android:minWidth="0dip"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="@string/siguiente_punto"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColor="@android:color/primary_text_dark" />
 
-        <Button
-            android:id="@+id/buttonQuitRoute"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="-5dp"
-            android:background="@drawable/border_round_label_fromleft"
-            android:gravity="left|center_vertical|center_horizontal"
-            android:minHeight="0dip"
-            android:minWidth="0dip"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:text="@string/salir_de_ruta"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/primary_text_dark" />
+            <Button
+                android:id="@+id/buttonPrevPoi"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="-5dp"
+                android:background="@drawable/border_round_label_fromleft"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:minHeight="0dip"
+                android:minWidth="0dip"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="@string/punto_anterior"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColor="@android:color/primary_text_dark" />
 
-        <ImageView
-            android:id="@+id/me_pos_image"
+            <Button
+                android:id="@+id/buttonQuitRoute"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="-5dp"
+                android:background="@drawable/border_round_label_fromleft"
+                android:gravity="left|center_vertical|center_horizontal"
+                android:minHeight="0dip"
+                android:minWidth="0dip"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="@string/salir_de_ruta"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <ImageView
+                android:id="@+id/me_pos_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_maps_indicator_current_position_anim1" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mi_posici_n"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_maps_indicator_current_position_anim1" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mi_posici_n"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/buttonBackToRoute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_round_label_fromleft"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:minHeight="0dip"
+                android:minWidth="0dip"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="Volver a ruta"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColor="@android:color/primary_text_dark" />
+        </LinearLayout>
+    </ViewFlipper>
 
 </RelativeLayout>
