@@ -58,7 +58,7 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000f;
-        public static final int RelativeLayout1=0x7f090000;
+        public static final int RelativeLayout1=0x7f090001;
         public static final int ViewFlipper01=0x7f090007;
         public static final int balloon_inner_layout=0x7f090017;
         public static final int balloon_item_snippet=0x7f090019;
@@ -76,7 +76,7 @@ public final class R {
         public static final int layoutLeftPanel=0x7f090002;
         public static final int leftMenuBarRoute=0x7f090003;
         public static final int mainRouteImage=0x7f09000e;
-        public static final int mapView=0x7f090001;
+        public static final int mapView=0x7f090000;
         public static final int me_pos_image=0x7f09000b;
         public static final int menu_info=0x7f09001e;
         public static final int nombreRouteListLabel=0x7f09001c;
@@ -90,14 +90,15 @@ public final class R {
         public static final int textView1=0x7f09000c;
     }
     public static final class layout {
-        public static final int activity_map=0x7f030000;
-        public static final int activity_route_detail=0x7f030001;
-        public static final int activity_route_list=0x7f030002;
-        public static final int balloon_overlay=0x7f030003;
-        public static final int menu_normal=0x7f030004;
-        public static final int menu_secondary=0x7f030005;
-        public static final int routelist_item=0x7f030006;
-        public static final int splash_layout=0x7f030007;
+        public static final int activity_main=0x7f030000;
+        public static final int activity_map=0x7f030001;
+        public static final int activity_route_detail=0x7f030002;
+        public static final int activity_route_list=0x7f030003;
+        public static final int balloon_overlay=0x7f030004;
+        public static final int menu_normal=0x7f030005;
+        public static final int menu_secondary=0x7f030006;
+        public static final int routelist_item=0x7f030007;
+        public static final int splash_layout=0x7f030008;
     }
     public static final class menu {
         public static final int activity_route_detail=0x7f080000;

@@ -221,8 +221,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		arrayWayOverlay.addWay(way);
 		selectPoi(0);
-
+		//Adding route overlay
+		Log.d(LOG_TAG, "Adding route overlay");
 		mapView.getOverlays().add(arrayWayOverlay);
+		//Adding pois overlay
+		Log.d(LOG_TAG, "Adding pois overlay");
 		mapView.getOverlays().add(itemsOverlay);
 		mapView.invalidate();
 
@@ -243,17 +246,15 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			Log.d(LOG_TAG, "Map file loaded successfully");
 			marker = getResources().getDrawable(R.drawable.marker_green);
 			marker_red = getResources().getDrawable(R.drawable.marker_red);
-
 			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
-
+//
 			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
-			itemsOverlay.enableMyLocation();
+			//itemsOverlay.enableMyLocation();
 			itemsOverlay.setBalloonBottomOffset(100);
 			Log.d(LOG_TAG, "Loading overlay items into map");
 			loadPoiOverlays(simplePoiList);
 			return true;
 		}
-
 	}
 
 	private void initData() {
@@ -267,18 +268,18 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		// We select first element+
 		if (simplePoiList.size() != 0) {
 			selectedPoi = simplePoiList.get(0);
-			for (Poi p : simplePoiList) {
-				Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
-
-			}
+//			for (Poi p : simplePoiList) {
+//				Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
+//
+//			}
 		} else {
 			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
 			finish();
 		}
 
-		for (Poi p : secondaryPoiList) {
-			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
-		}
+//		for (Poi p : secondaryPoiList) {
+//			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
+//		}
 
 	}
 
@@ -313,6 +314,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		for (Multimedia mm : selectedPoi.getMedia()) {
 			mThumbList.add(mm.getThumbUri());
 		}
+		Log.d(LOG_TAG, "Creating new gallery");
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
 	}
@@ -445,13 +447,14 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
+		itemsOverlay.disableMyLocation();
 		this.mapView.destroyDrawingCache();
 		this.mapView.removeAllViews();
 		this.mapView.getOverlays().clear();
 		this.mapView = null;
 		this.itemsOverlay = null;
 		this.arrayWayOverlay = null;
+		super.onDestroy();
 	}
 
 	@Override
@@ -502,4 +505,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			vf.showPrevious();
 		}
 	}
+	
+	
 }

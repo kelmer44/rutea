@@ -36,7 +36,7 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
 
-public class OverlayForge extends ItemizedOverlay<OverlayItem> implements LocationListener {
+public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 
 	private RouteMapActivity			routeActivity;
 	private Context						context;
@@ -60,6 +60,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 	private int							currentFocusedIndex;
 
 	private Location					lastKnownLocation	= null;
+	private LocationManager	mgr;
+	private String	bestProvider;
 
 	public OverlayForge(Drawable defaultMarker, Drawable selectedMarker, Drawable myLocationMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
@@ -93,6 +95,13 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 				return false;
 			}
 		});
+		
+
+		mgr = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		bestProvider = mgr.getBestProvider(new Criteria(), true);
+		if (bestProvider != null && !bestProvider.equals("")) {
+			//mgr.requestLocationUpdates(bestProvider, 0, 0, onLocationChange);
+		}
 	}
 
 	/**
@@ -245,25 +254,10 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 	}
 
 	public void onLocationChanged(Location location) {
-		lastKnownLocation = location;
-		me_overlay.setPoint(getMyLocation());
-		super.requestRedraw();
-	}
 
-	public boolean enableMyLocation() {
-		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		String bestProvider = lm.getBestProvider(new Criteria(), true);
-		if (bestProvider != null && !bestProvider.equals("")) {
-			lm.requestLocationUpdates(bestProvider, 0, 0, this);
-			return true;
-		} else {
-			return false;
-		}
 	}
-
 	public void disableMyLocation() {
-		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		lm.removeUpdates(this);
+		mgr.removeUpdates(onLocationChange);
 	}
 
 	protected boolean dispatchTap() {
@@ -278,28 +272,31 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> implements Locati
 		}
 	}
 
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void removeAllPois() {
 		balloonLayout.setVisibility(LinearLayout.GONE);
 		fullList.removeAll(m_overlays);
 		m_overlays.clear();
 		populate();
 	}
+	
+	LocationListener onLocationChange=new LocationListener() {
+	    public void onLocationChanged(Location location) {
+			lastKnownLocation = location;
+			me_overlay.setPoint(getMyLocation());
+			OverlayForge.this.requestRedraw();
+	    }
+	    
+	    public void onProviderDisabled(String provider) {
+	      // required for interface, not used
+	    }
+	    
+	    public void onProviderEnabled(String provider) {
+	      // required for interface, not used
+	    }
+	    
+	    public void onStatusChanged(String provider, int status,
+	                                  Bundle extras) {
+	      // required for interface, not used
+	    }
+	  };
 }
