@@ -36,12 +36,11 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
 
-public class OverlayForge extends ItemizedOverlay<OverlayItem>{
+public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 
 	private RouteMapActivity			routeActivity;
 	private Context						context;
 
-	private BalloonOverlay<OverlayItem>	balloonView;
 	private LinearLayout				balloonLayout;
 	private TextView					balloonTitle;
 	private TextView					balloonSnippet;
@@ -53,15 +52,11 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 	private Drawable					selectMarker;
 	private Drawable					myLocationMarker;
 
-	private ArrayList<OverlayItem>		m_overlays			= new ArrayList<OverlayItem>();
-	private ArrayList<OverlayItem>		fullList			= new ArrayList<OverlayItem>();
-	private OverlayItem					me_overlay			= new OverlayItem();
+	private ArrayList<OverlayItem>		m_overlays	= new ArrayList<OverlayItem>();
+	private ArrayList<OverlayItem>		fullList	= new ArrayList<OverlayItem>();
+	private OverlayItem					me_overlay	= new OverlayItem();
 	private OverlayItem					currentFocusedItem;
 	private int							currentFocusedIndex;
-
-	private Location					lastKnownLocation	= null;
-	private LocationManager	mgr;
-	private String	bestProvider;
 
 	public OverlayForge(Drawable defaultMarker, Drawable selectedMarker, Drawable myLocationMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
@@ -69,17 +64,17 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 		this.defaultMarker = boundCenterBottom(defaultMarker);
 		this.selectMarker = boundCenterBottom(selectedMarker);
 		this.myLocationMarker = boundCenter(myLocationMarker);
-		
+
 		this.routeActivity = activity;
 		this.context = mapView.getContext();
 		this.mapView = mapView;
 
 		this.me_overlay.setMarker(myLocationMarker);
 		this.fullList.add(me_overlay);
-		
+
 		this.balloonLayout = new LinearLayout(context);
 		this.balloonLayout.setVisibility(View.VISIBLE);
-		
+
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View balloonView = inflater.inflate(R.layout.balloon_overlay, balloonLayout);
 
@@ -95,31 +90,29 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 				return false;
 			}
 		});
-		
 
-		mgr = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		bestProvider = mgr.getBestProvider(new Criteria(), true);
-		if (bestProvider != null && !bestProvider.equals("")) {
-			//mgr.requestLocationUpdates(bestProvider, 0, 0, onLocationChange);
-		}
 	}
 
 	/**
-	 * selecciona el POI indicado, poniendo el marcador rojo, centrandoe l mapa y mostrando el bocadillo
-	 * @param idx DENTRO DEL ARRAY DE POIS, no incluyendo el marcador de localizacion del usuario
+	 * selecciona el POI indicado, poniendo el marcador rojo, centrandoe l mapa
+	 * y mostrando el bocadillo
+	 * 
+	 * @param idx
+	 *            DENTRO DEL ARRAY DE POIS, no incluyendo el marcador de
+	 *            localizacion del usuario
 	 */
 	public void selectPOIOverlay(int idx) {
 		for (int i = 0; i < m_overlays.size(); i++) {
-			//Ponemos el marcador verde al resto
+			// Ponemos el marcador verde al resto
 			m_overlays.get(i).setMarker(defaultMarker);
 		}
 		OverlayItem oi = m_overlays.get(idx);
-		//Y el rojo al seleccionado
+		// Y el rojo al seleccionado
 		m_overlays.get(idx).setMarker(selectMarker);
 		mapView.getController().setCenter(oi.getPoint());
-		
+
 		doShowBallon(idx);
-		
+
 		mapView.invalidate();
 	}
 
@@ -129,14 +122,13 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 		fullList.add(overlay);
 		populate();
 	}
-	
+
 	public void addOverlay(OverlayItem overlay, Drawable d) {
-		overlay.setMarker(boundCenter(context.getApplicationContext().getResources().getDrawable(R.drawable.red_cross)));
+		overlay.setMarker(boundCenter(d));
 		m_overlays.add(overlay);
 		fullList.add(overlay);
 		populate();
 	}
-
 
 	@Override
 	protected OverlayItem createItem(int i) {
@@ -151,7 +143,7 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 	public void doShowBallon(int index) {
 		currentFocusedIndex = index;
 		currentFocusedItem = m_overlays.get(index);
-		
+
 		((ViewGroup) mapView.getParent()).removeView(balloonLayout);
 
 		MapController mMapController = mapView.getController();
@@ -197,10 +189,10 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 
 	@Override
 	protected final boolean onTap(int index) {
-		if(index == fullList.indexOf(me_overlay))
+		if (index == fullList.indexOf(me_overlay))
 			return true;
-		doShowBallon(index-1);
-		routeActivity.selectPoi(index-1);
+		doShowBallon(index - 1);
+		routeActivity.selectPoi(index - 1);
 		return true;
 	}
 
@@ -253,23 +245,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 		return balloonOffset;
 	}
 
-	public void onLocationChanged(Location location) {
-
-	}
-	public void disableMyLocation() {
-		mgr.removeUpdates(onLocationChange);
-	}
-
 	protected boolean dispatchTap() {
 		return false;
-	}
-
-	public GeoPoint getMyLocation() {
-		if (lastKnownLocation != null) {
-			return new GeoPoint(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-		} else {
-			return null;
-		}
 	}
 
 	public void removeAllPois() {
@@ -278,25 +255,13 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem>{
 		m_overlays.clear();
 		populate();
 	}
+
+	public void setMyPosition(GeoPoint location){
+		me_overlay.setPoint(location);
+		requestRedraw();
+	}
 	
-	LocationListener onLocationChange=new LocationListener() {
-	    public void onLocationChanged(Location location) {
-			lastKnownLocation = location;
-			me_overlay.setPoint(getMyLocation());
-			OverlayForge.this.requestRedraw();
-	    }
-	    
-	    public void onProviderDisabled(String provider) {
-	      // required for interface, not used
-	    }
-	    
-	    public void onProviderEnabled(String provider) {
-	      // required for interface, not used
-	    }
-	    
-	    public void onStatusChanged(String provider, int status,
-	                                  Bundle extras) {
-	      // required for interface, not used
-	    }
-	  };
+	public OverlayItem getMeOverlayItem(){
+		return me_overlay;
+	}
 }

@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapController;
-import org.mapsforge.android.maps.MapScaleBar;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
@@ -20,6 +18,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -27,6 +26,9 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,7 +72,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
 	private ImageButton			gotoRouteButton;
 	private MapView				mapView;
-	private MapController		mapController;
 	private Gallery				selectedPOIgallery;
 	private ImageButton			buttonHideGallery;
 	private RelativeLayout		linearLayoutLeftPanel;
@@ -104,7 +105,12 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private Drawable			marker_red, marker, me_drawable;
 
 	private ViewFlipper			vf;
-	private Animation			animFlipInNext, animFlipOutNext, animFlipInPrevious, animFlipOutPrevious;
+	private Animation			animFlipInNext, animFlipOutPrevious;
+
+	private Location			lastKnownLocation	= null;
+	private LocationManager		mgr;
+	private MyLocationListener	locationListener;
+	private String				bestProvider;
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
@@ -126,9 +132,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
 		mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
-		mapController = mapView.getController();
-
-		RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.RelativeLayout1);
 
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
@@ -139,8 +142,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		vf = (ViewFlipper) findViewById(R.id.ViewFlipper01);
 		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
-		animFlipOutNext = AnimationUtils.loadAnimation(this, R.anim.flipoutnext);
-		animFlipInPrevious = AnimationUtils.loadAnimation(this, R.anim.flipinprevious);
 		animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
 
 		linearLayoutLeftPanel.setOnTouchListener(new OnTouchListener() {
@@ -169,6 +170,15 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		if (initMapData()) {
 			new RouteLoader().execute(ruta.getRouteFile());
 		}
+		/**
+		 * Esto es una caspa. Tengo que hacerlo asi porque si no hay un memory leak ilocalizable.
+		 */
+		locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
+		mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		bestProvider = mgr.getBestProvider(new Criteria(), true);
+		if (bestProvider != null && !bestProvider.equals("")) {
+			mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
+		}
 		// selectPoi(0);
 	}
 
@@ -191,10 +201,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private void loadPoiOverlays(List<Poi> lista) {
 		for (Poi p : lista) {
 			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
-			//Drawable d = getResources().getDrawable(p.getTipo().getDrawable());
-			//overlay.setMarker(d);
-			if(p.getTipo()==PoiType.FarmaciaPoi)
-				itemsOverlay.addOverlay(overlay, getResources().getDrawable(R.drawable.red_cross));
+			// Drawable d =
+			// getResources().getDrawable(p.getTipo().getDrawable());
+			// overlay.setMarker(d);
+			if (p.getTipo() != PoiType.SimplePoi && p.getTipo() != PoiType.SecondaryPoi)
+				itemsOverlay.addOverlay(overlay, getResources().getDrawable(p.getTipo().getDrawable()));
 			else
 				itemsOverlay.addOverlay(overlay);
 		}
@@ -221,10 +232,10 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		arrayWayOverlay.addWay(way);
 		selectPoi(0);
-		//Adding route overlay
+		// Adding route overlay
 		Log.d(LOG_TAG, "Adding route overlay");
 		mapView.getOverlays().add(arrayWayOverlay);
-		//Adding pois overlay
+		// Adding pois overlay
 		Log.d(LOG_TAG, "Adding pois overlay");
 		mapView.getOverlays().add(itemsOverlay);
 		mapView.invalidate();
@@ -247,9 +258,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			marker = getResources().getDrawable(R.drawable.marker_green);
 			marker_red = getResources().getDrawable(R.drawable.marker_red);
 			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
-//
+			//
 			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
-			//itemsOverlay.enableMyLocation();
+			// itemsOverlay.enableMyLocation();
 			itemsOverlay.setBalloonBottomOffset(100);
 			Log.d(LOG_TAG, "Loading overlay items into map");
 			loadPoiOverlays(simplePoiList);
@@ -268,18 +279,20 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		// We select first element+
 		if (simplePoiList.size() != 0) {
 			selectedPoi = simplePoiList.get(0);
-//			for (Poi p : simplePoiList) {
-//				Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
-//
-//			}
+			// for (Poi p : simplePoiList) {
+			// Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() +
+			// ", " + p.getLongitude() + "; orden " + p.getOrden());
+			//
+			// }
 		} else {
 			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
 			finish();
 		}
 
-//		for (Poi p : secondaryPoiList) {
-//			Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", " + p.getLongitude() + "; orden " + p.getOrden());
-//		}
+		// for (Poi p : secondaryPoiList) {
+		// Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", "
+		// + p.getLongitude() + "; orden " + p.getOrden());
+		// }
 
 	}
 
@@ -447,14 +460,16 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
-		itemsOverlay.disableMyLocation();
+		super.onDestroy();
+		mgr.removeUpdates(locationListener);
+		// onLocationChange = null;
 		this.mapView.destroyDrawingCache();
 		this.mapView.removeAllViews();
 		this.mapView.getOverlays().clear();
 		this.mapView = null;
 		this.itemsOverlay = null;
 		this.arrayWayOverlay = null;
-		super.onDestroy();
+		Log.d(LOG_TAG, "DESTROYED");
 	}
 
 	@Override
@@ -505,6 +520,12 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			vf.showPrevious();
 		}
 	}
-	
-	
+
+	public GeoPoint getMyLocation() {
+		if (lastKnownLocation != null) {
+			return new GeoPoint(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+		} else {
+			return null;
+		}
+	}
 }
