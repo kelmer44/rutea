@@ -9,7 +9,6 @@ import java.util.List;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
-import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.core.GeoPoint;
 import org.mapsforge.map.reader.header.FileOpenResult;
@@ -54,6 +53,7 @@ import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.map.OverlayForge;
+import com.bretema.rutas.map.PoiOverlayItem;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
@@ -170,9 +170,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		if (initMapData()) {
 			new RouteLoader().execute(ruta.getRouteFile());
 		}
-		/**
-		 * Esto es una caspa. Tengo que hacerlo asi porque si no hay un memory leak ilocalizable.
-		 */
 		locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
 		mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		bestProvider = mgr.getBestProvider(new Criteria(), true);
@@ -200,14 +197,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	private void loadPoiOverlays(List<Poi> lista) {
 		for (Poi p : lista) {
-			OverlayItem overlay = new OverlayItem(new GeoPoint(p.getLatitude(), p.getLongitude()), p.getNombre(), p.getDescripcion());
-			// Drawable d =
-			// getResources().getDrawable(p.getTipo().getDrawable());
-			// overlay.setMarker(d);
-			if (p.getTipo() != PoiType.SimplePoi && p.getTipo() != PoiType.SecondaryPoi)
-				itemsOverlay.addOverlay(overlay, getResources().getDrawable(p.getTipo().getDrawable()));
-			else
-				itemsOverlay.addOverlay(overlay);
+			PoiOverlayItem overlay = new PoiOverlayItem(p);
+			itemsOverlay.addOverlay(overlay, getResources().getDrawable(p.getTipo().getDrawable()), p.getTipo().isDrawableCenter());
+
 		}
 	}
 
@@ -511,14 +503,25 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(secondaryPoiList);
+			hideGallery();
+			disableGallery();
 			vf.showNext();
 		} else if (v == buttonBackToRoute) {
 			vf.setInAnimation(animFlipInNext);
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(simplePoiList);
+			enableGallery();
 			vf.showPrevious();
 		}
+	}
+
+	private void enableGallery() {
+		buttonHideGallery.setEnabled(true);
+	}
+
+	private void disableGallery() {
+		buttonHideGallery.setEnabled(false);
 	}
 
 	public GeoPoint getMyLocation() {

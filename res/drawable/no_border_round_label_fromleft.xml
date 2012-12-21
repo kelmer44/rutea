@@ -11,9 +11,7 @@
 	        android:angle="90"
 	        >
     	</gradient>
-             <stroke
-                android:width="2dp"
-                android:color="#35586C" />
+            
            
 
             <padding

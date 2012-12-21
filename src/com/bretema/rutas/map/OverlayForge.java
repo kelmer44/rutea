@@ -1,24 +1,17 @@
 package com.bretema.rutas.map;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mapsforge.android.maps.MapController;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ItemizedOverlay;
-import org.mapsforge.android.maps.overlay.Overlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,8 +28,9 @@ import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
+import com.bretema.rutas.model.poi.Poi;
 
-public class OverlayForge extends ItemizedOverlay<OverlayItem> {
+public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
 	private RouteMapActivity			routeActivity;
 	private Context						context;
@@ -50,26 +44,29 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 	private MapView						mapView;
 	private Drawable					defaultMarker;
 	private Drawable					selectMarker;
-	private Drawable					myLocationMarker;
 
-	private ArrayList<OverlayItem>		m_overlays	= new ArrayList<OverlayItem>();
-	private ArrayList<OverlayItem>		fullList	= new ArrayList<OverlayItem>();
-	private OverlayItem					me_overlay	= new OverlayItem();
-	private OverlayItem					currentFocusedItem;
+	private ArrayList<PoiOverlayItem>	m_overlays	= new ArrayList<PoiOverlayItem>();
+	private ArrayList<PoiOverlayItem>	fullList	= new ArrayList<PoiOverlayItem>();
+	private PoiOverlayItem				me_overlay	= new PoiOverlayItem();
+	private PoiOverlayItem				currentFocusedItem;
 	private int							currentFocusedIndex;
 
 	public OverlayForge(Drawable defaultMarker, Drawable selectedMarker, Drawable myLocationMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
+		
+		me_overlay = new PoiOverlayItem();
+		me_overlay.setTitle("Mi posición");
+		me_overlay.setSnippet("Usted está aquí");
+		me_overlay.setMarker(boundCenter(myLocationMarker));
+		
 		// Updating the markers
 		this.defaultMarker = boundCenterBottom(defaultMarker);
 		this.selectMarker = boundCenterBottom(selectedMarker);
-		this.myLocationMarker = boundCenter(myLocationMarker);
 
 		this.routeActivity = activity;
 		this.context = mapView.getContext();
 		this.mapView = mapView;
 
-		this.me_overlay.setMarker(myLocationMarker);
 		this.fullList.add(me_overlay);
 
 		this.balloonLayout = new LinearLayout(context);
@@ -116,22 +113,27 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		mapView.invalidate();
 	}
 
-	public void addOverlay(OverlayItem overlay) {
+	public void addOverlay(PoiOverlayItem overlay) {
 
 		m_overlays.add(overlay);
 		fullList.add(overlay);
 		populate();
 	}
 
-	public void addOverlay(OverlayItem overlay, Drawable d) {
-		overlay.setMarker(boundCenter(d));
+	public void addOverlay(PoiOverlayItem overlay, Drawable d, boolean center) {
+		if(center){
+			overlay.setMarker(boundCenter(d));
+		}
+		else{
+			overlay.setMarker(boundCenterBottom(d));
+		}
 		m_overlays.add(overlay);
 		fullList.add(overlay);
 		populate();
 	}
 
 	@Override
-	protected OverlayItem createItem(int i) {
+	protected PoiOverlayItem createItem(int i) {
 		return fullList.get(i);
 	}
 
@@ -192,7 +194,8 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		if (index == fullList.indexOf(me_overlay))
 			return true;
 		doShowBallon(index - 1);
-		routeActivity.selectPoi(index - 1);
+		if(m_overlays.get(index-1).isSelectable())
+			routeActivity.selectPoi(index - 1);
 		return true;
 	}
 
@@ -256,12 +259,12 @@ public class OverlayForge extends ItemizedOverlay<OverlayItem> {
 		populate();
 	}
 
-	public void setMyPosition(GeoPoint location){
+	public void setMyPosition(GeoPoint location) {
 		me_overlay.setPoint(location);
 		requestRedraw();
 	}
-	
-	public OverlayItem getMeOverlayItem(){
+
+	public OverlayItem getMeOverlayItem() {
 		return me_overlay;
 	}
 }
