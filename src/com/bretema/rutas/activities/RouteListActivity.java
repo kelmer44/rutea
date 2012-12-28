@@ -21,6 +21,14 @@ import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.RouteListAdapter;
 
+/**
+ * Representa la lista de rutas.
+ * 
+ * TODO: Transformar en una lista de imágenes (Table View)
+ * 
+ * @author kelmer
+ * 
+ */
 public class RouteListActivity extends ListActivity {
 
 	private static final String LOG_TAG = RouteListActivity.class.getSimpleName();
@@ -40,41 +48,34 @@ public class RouteListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_list);
 
-        
+		//obtenemos el servicio
 		rutaService = new RutaServiceImpl(getApplicationContext());
-		//rutaService.deleteAllRutas();
-		//rutaService.save(new Ruta("Ribeira sacra", "Un paseiño polos cañons do sil", "rsa.jpg"));
-		//rutaService.save(new Ruta("Monforte salvaxe", "Onde cazar xabaríns", "rsa.jpg"));
-		
-		routeList = new ArrayList<Ruta>();		
+		Log.d(LOG_TAG, "Obteniendo lista de rutas...");
 		routeList = rutaService.findAll();
-		
+
 		ListAdapter adapter = new RouteListAdapter(RouteListActivity.this, routeList);
 		// updating listview
 		setListAdapter(adapter);
-		
+
 		ListView lv = getListView();
-		
-		// Al pulsar un elemento de la lista se pasa a la vista detallada de línea
+
+		// Al pulsar un elemento de la lista se pasa a la vista detallada de
+		// línea
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+				// getting values from selected ListItem
+				String id_ruta = ((TextView) view.findViewById(R.id.id_ruta)).getText().toString();
 
-					// getting values from selected ListItem
-					String id_ruta = ((TextView) view.findViewById(R.id.id_ruta)).getText().toString();
-
-					Log.d(LOG_TAG, "Tryin to get route " + id_ruta);
-					// Starting new intent
-					Intent in = new Intent(getApplicationContext(),	RouteDetailActivity.class);
-					// sending pid to next activity
-					in.putExtra("id_ruta", id_ruta);
-					// starting new activity and expecting some response back
-					startActivity(in);
-				}
+				Log.d(LOG_TAG, "Trying to get route for id " + id_ruta + "...");
+				
+				Intent in = new Intent(getApplicationContext(), RouteDetailActivity.class);
+				in.putExtra("id_ruta", id_ruta);
+				startActivity(in);
 			}
-		);
+		});
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

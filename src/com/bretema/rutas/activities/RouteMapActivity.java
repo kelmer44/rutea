@@ -63,11 +63,20 @@ import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageAdapter;
 
+/**
+ * Epicentro del proyecto, clase que muestra el mapa de la ruta seleccionada por
+ * el usuario. VERY PRONE TO ERRORS TODO: REVISAR REVISAR REVISAR
+ * 
+ * @author kelmer
+ * 
+ */
 public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	private static final String	LOG_TAG				= RouteMapActivity.class.getSimpleName();
+
 	// Progress Dialog
 	private ProgressDialog		pDialog;
+
 	// UI elements
 	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
 	private ImageButton			gotoRouteButton;
@@ -115,30 +124,34 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		//Actividad en fullscreen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.activity_map);
 
+		
+		
 		// obtenemos la llamada a esta activity
 		Intent i = getIntent();
 		// y recogemos el id de la linea que nos han pasado
 		id_ruta = i.getStringExtra("id_ruta");
+		
+		//La galeria estará oculta por defecto
 		galleryHidden = true;
 
 		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
-		mapView = (MapView) findViewById(R.id.mapView);
-		mapView.setClickable(true);
-		mapView.setBuiltInZoomControls(true);
-		mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
-
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
 		buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
+		
+		mapView = (MapView) findViewById(R.id.mapView);
+		mapView.setClickable(true);
+		mapView.setBuiltInZoomControls(true);
+		mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
 
 		vf = (ViewFlipper) findViewById(R.id.ViewFlipper01);
 		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
@@ -161,30 +174,35 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		quitRouteButton.setOnClickListener(this);
 		buttonBackToRoute.setOnClickListener(this);
 
+		
+		
+		
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
 
+		//Location manager
 		mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		bestProvider = mgr.getBestProvider(new Criteria(), true);
-		
-		
 
 		// If everything went fine...
 		if (initData() && initMapData()) {
+			//Async activity for processing gpx files
 			new RouteLoader().execute(ruta.getRouteFile());
 			
+			//Nos registramos como lector de localización
 			locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
 			if (bestProvider != null && !bestProvider.equals("")) {
 				mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
 			}
-		}
-		else {
+		} else {
+			Log.e(LOG_TAG, "Algo ha ido mal");
+			//we set mapview to null so no need to destroy it
 			mapView = null;
 			finish();
 		}
-		// selectPoi(0);
 	}
 
+	//Muestra otra vez la galería
 	protected void showGallery() {
 		buttonHideGallery.setImageResource(android.R.drawable.arrow_down_float);
 		galleryHidden = false;
@@ -192,7 +210,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		selectedPOIgallery.invalidate();
 
 	}
-
+	//Oculta la galeria
 	protected void hideGallery() {
 
 		buttonHideGallery.setImageResource(android.R.drawable.arrow_up_float);
@@ -201,11 +219,12 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		selectedPOIgallery.invalidate();
 	}
 
+	
+	//Recarga la lista de puntos de interés
 	private void loadPoiOverlays(List<Poi> lista) {
 		for (Poi p : lista) {
 			PoiOverlayItem overlay = new PoiOverlayItem(p);
 			itemsOverlay.addOverlay(overlay, getResources().getDrawable(p.getTipo().getDrawable()), p.getTipo().isDrawableCenter());
-
 		}
 	}
 
@@ -229,6 +248,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		OverlayWay way = new OverlayWay(Constants.toGeoPointArray(routePoints));
 
 		arrayWayOverlay.addWay(way);
+		
+		//pedimos la selección
 		selectPoi(0);
 		// Adding route overlay
 		Log.d(LOG_TAG, "Adding route overlay");
@@ -240,6 +261,10 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	}
 
+	/**
+	 * Inicializa el fichero de mapa y si no funciona devuelve error.
+	 * @return
+	 */
 	private boolean initMapData() {
 		File mapFile = new File(Environment.getExternalStorageDirectory().getPath() + "/maps/galicia.map");
 
@@ -250,7 +275,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			Toast.makeText(this, "No se pudo cargar el mapa.", Toast.LENGTH_LONG).show();
 			mapView = null;
 			finish();
-			Log.d(LOG_TAG, "Map file could not be loaded: " + fileOpenResult.getErrorMessage());
+			Log.e(LOG_TAG, "Map file could not be loaded: " + fileOpenResult.getErrorMessage());
 			return false;
 		} else {
 			Log.d(LOG_TAG, "Map file loaded successfully!");
@@ -267,7 +292,10 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			return true;
 		}
 	}
-
+/**
+ * Recoge datos de la base de datos
+ * @return
+ */
 	private boolean initData() {
 		mThumbList = new ArrayList<String>();
 		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
@@ -286,7 +314,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			// }
 		} else {
 			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
-			
+
 			finish();
 			return false;
 		}
@@ -324,6 +352,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * Pide las imagenes para el punto seleccionado
+	 */
 	private void getImagesFromSelectedPoi() {
 		mThumbList.clear();
 		for (Multimedia mm : selectedPoi.getMedia()) {
@@ -364,19 +395,19 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 				// Parse the XML returned on the network
 				while (parserEvent != XmlPullParser.END_DOCUMENT) {
 					switch (parserEvent) {
-						case XmlPullParser.START_TAG:
-							String tag = parser.getName();
-							if (tag.compareTo("trkpt") == 0) {
-								pointCounter++;
-								lat = Double.parseDouble(parser.getAttributeValue(null, "lat"));
-								lon = Double.parseDouble(parser.getAttributeValue(null, "lon"));
-								routePoints.add(new GeoPoint(lat, lon));
-								// Log.i(LOG_TAG, "   trackpoint=" +
-								// pointCounter
-								// + " latitude=" + lat + " longitude="
-								// + lon);
-							}
-							break;
+					case XmlPullParser.START_TAG:
+						String tag = parser.getName();
+						if (tag.compareTo("trkpt") == 0) {
+							pointCounter++;
+							lat = Double.parseDouble(parser.getAttributeValue(null, "lat"));
+							lon = Double.parseDouble(parser.getAttributeValue(null, "lon"));
+							routePoints.add(new GeoPoint(lat, lon));
+							// Log.i(LOG_TAG, "   trackpoint=" +
+							// pointCounter
+							// + " latitude=" + lat + " longitude="
+							// + lon);
+						}
+						break;
 					}
 
 					parserEvent = parser.next();
@@ -463,7 +494,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(mapView!=null){
+		if (mapView != null) {
 			mgr.removeUpdates(locationListener);
 			this.mapView.destroyDrawingCache();
 			this.mapView.removeAllViews();
@@ -495,8 +526,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			// selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()
 			// + "(" + selectedPoi.getNombre() + ")&z=17"));
 			// startActivity(intent);
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + ","
-					+ selectedPoi.getLongitude()));
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()));
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		}
