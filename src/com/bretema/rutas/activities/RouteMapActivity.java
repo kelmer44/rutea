@@ -331,7 +331,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		}
 		Log.d(LOG_TAG, "Creating new gallery");
 		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
-		selectedPOIgallery.setAdapter(new ImageAdapter(this, mThumbList));
+		selectedPOIgallery.setAdapter(new ImageAdapter(this, selectedPoi, mThumbList));
 	}
 
 	private class RouteLoader extends AsyncTask<String, Integer, Boolean> {

@@ -17,18 +17,21 @@ import android.widget.ImageView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.SlideShowActivity;
+import com.bretema.rutas.model.poi.Poi;
 
 public class ImageAdapter extends BaseAdapter {
 
 	private static final String	LOG_TAG	= ImageAdapter.class.getSimpleName();
 
+	private Poi					mSelectedPoi;
 	private Context				mContext;
 	private List<String>		mThumbList;
 	private AssetManager		assetManager;
 	private Bitmap				mDefaultBitmap;
 
-	public ImageAdapter(final Context c, List<String> mThumbList) {
+	public ImageAdapter(final Context c, Poi poi, List<String> mThumbList) {
 		mContext = c;
+		this.mSelectedPoi = poi;
 		this.mThumbList = mThumbList;
 		assetManager = mContext.getAssets();
 		mDefaultBitmap = BitmapFactory.decodeResource(c.getResources(), R.drawable.noimage);
@@ -68,16 +71,13 @@ public class ImageAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				Intent in = new Intent(mContext, SlideShowActivity.class);
 				
-				//in.putExtra("id_ruta", id_ruta);
-				
+				in.putExtra("id_poi", mSelectedPoi.getId());
+				in.putExtra("current", position);
 				mContext.startActivity(in);
 			}
 		});
-		// i.setAdjustViewBounds(true);
-		// i.setLayoutParams(new
-		// Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,
-		// LayoutParams.WRAP_CONTENT));
-		// i.setBackgroundResource(R.drawable.picture_frame);
+		
+		
 		return i;
 	}
 

@@ -7,10 +7,24 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 
+/**
+ * Proporciona la posición actual del usuario. 
+ * He tenido que hacerlo asi debido a que usar una inner class 
+ * produce un memory leak, al igual que implementar la interfaz
+ * directamente
+ * @author kelmer
+ *
+ */
 public class MyLocationListener implements LocationListener {
 
 	private OverlayItem overlayItem;
 	
+	/**
+	 * Overlay item que representa la posición del usuario
+	 * cuya posición se cambiará cada vez que el usuario se
+	 * mueva.
+	 * @param meOverlayItem
+	 */
 	public MyLocationListener(OverlayItem meOverlayItem) {
 		super();
 		this.overlayItem = meOverlayItem;

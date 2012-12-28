@@ -19,7 +19,11 @@ import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
-
+/**
+ * Detalles de la ruta 
+ * @author kelmer
+ *
+ */
 public class RouteDetailActivity extends Activity {
 
 	private static final String	LOG_TAG	= RouteDetailActivity.class

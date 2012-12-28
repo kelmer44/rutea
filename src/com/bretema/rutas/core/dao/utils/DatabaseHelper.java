@@ -48,7 +48,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int VERSION = 18;
+	public static final int VERSION = 19;
 	/**
 	 * The database type.
 	 */
@@ -277,7 +277,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		
 		
 		ContentValues mmValue21 = new ContentValues();
-		mmValue21.put("uri", "ruta1/thumb4");
+		mmValue21.put("uri", "ruta1/imagen4.jpg");
 		mmValue21.put("thumbUri", "ruta1/thumb4.jpg");
 		mmValue21.put("nombre", "San Pedro de Rocas");
 		mmValue21.put("descripcion", "Fachada");
@@ -287,7 +287,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue21);
 
 		ContentValues mmValue22 = new ContentValues();
-		mmValue22.put("uri", "ruta1/thumb5");
+		mmValue22.put("uri", "ruta1/imagen5.jpg");
 		mmValue22.put("thumbUri", "ruta1/thumb5.jpg");
 		mmValue22.put("nombre", "San Pedro de Rocas");
 		mmValue22.put("descripcion", "Gárgola");
@@ -297,7 +297,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue22);
 
 		ContentValues mmValue10 = new ContentValues();
-		mmValue10.put("uri", "ruta1/thumb9");
+		mmValue10.put("uri", "ruta1/imagen9.jpg");
 		mmValue10.put("thumbUri", "ruta1/thumb9.jpg");
 		mmValue10.put("nombre", "Santo Estevo de Ribas de Sil");
 		mmValue10.put("descripcion", "Patio interior");
@@ -307,7 +307,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue10);
 
 		ContentValues mmValue11 = new ContentValues();
-		mmValue11.put("uri", "ruta1/thumb10");
+		mmValue11.put("uri", "ruta1/imagen10.jpg");
 		mmValue11.put("thumbUri", "ruta1/thumb10.jpg");
 		mmValue11.put("nombre", "Santo Estevo de Ribas de Sil");
 		mmValue11.put("descripcion", "Detalle fachada");
@@ -317,7 +317,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue11);
 
 		ContentValues mmValue31 = new ContentValues();
-		mmValue31.put("uri", "ruta1/thumb6");
+		mmValue31.put("uri", "ruta1/imagen6.jpg");
 		mmValue31.put("thumbUri", "ruta1/thumb6.jpg");
 		mmValue31.put("nombre", "Santa Cristina de Ribas de Sil 1");
 		mmValue31.put("descripcion", "Arcos");
@@ -327,7 +327,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue31);
 
 		ContentValues mmValue32 = new ContentValues();
-		mmValue32.put("uri", "ruta1/thumb7");
+		mmValue32.put("uri", "ruta1/imagen7.jpg");
 		mmValue32.put("thumbUri", "ruta1/thumb7.jpg");
 		mmValue32.put("nombre", "Santa Cristina de Ribas de Sil 2");
 		mmValue32.put("descripcion", "Soportal");
@@ -337,7 +337,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue32);
 
 		ContentValues mmValue33 = new ContentValues();
-		mmValue33.put("uri", "ruta1/thumb8");
+		mmValue33.put("uri", "ruta1/imagen8.jpg");
 		mmValue33.put("thumbUri", "ruta1/thumb8.jpg");
 		mmValue33.put("nombre", "Santa Cristina de Ribas de Sil 3");
 		mmValue33.put("descripcion", "Glifo");
@@ -347,7 +347,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue33);
 
 		ContentValues mmValue41 = new ContentValues();
-		mmValue41.put("uri", "ruta1/thumb1");
+		mmValue41.put("uri", "ruta1/imagen1.jpg");
 		mmValue41.put("thumbUri", "ruta1/thumb1.jpg");
 		mmValue41.put("nombre", "Balcons de Madrid");
 		mmValue41.put("descripcion", "Pano");
@@ -357,7 +357,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue41);
 
 		ContentValues mmValue42 = new ContentValues();
-		mmValue42.put("uri", "ruta1/thumb2");
+		mmValue42.put("uri", "ruta1/imagen2.jpg");
 		mmValue42.put("thumbUri", "ruta1/thumb2.jpg");
 		mmValue42.put("nombre", "Balcons de Madrid");
 		mmValue42.put("descripcion", "Pano");
@@ -367,7 +367,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		database.insert("multimedia", null, mmValue42);
 
 		ContentValues mmValue51 = new ContentValues();
-		mmValue51.put("uri", "ruta1/thumb2");
+		mmValue51.put("uri", "ruta1/imagen2.jpg");
 		mmValue51.put("thumbUri", "ruta1/thumb3.jpg");
 		mmValue51.put("nombre", "Barxacova");
 		mmValue51.put("descripcion", "Vexetación");

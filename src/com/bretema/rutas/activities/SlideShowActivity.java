@@ -1,19 +1,23 @@
 package com.bretema.rutas.activities;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.enums.MMType;
+import com.bretema.rutas.model.media.Multimedia;
+import com.bretema.rutas.model.poi.Poi;
+import com.bretema.rutas.service.PoiService;
+import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.view.ImageFragment;
 
 public class SlideShowActivity extends FragmentActivity {
@@ -21,16 +25,41 @@ public class SlideShowActivity extends FragmentActivity {
 
 	private MyAdapter mAdapter;
 	private ViewPager mPager;
-	private String imguri[] = { "ruta1/imagen1.jpg", "ruta1/imagen2.jpg", "ruta1/imagen3.jpg", "ruta1/imagen4.jpg", "ruta1/imagen5.jpg", "ruta1/imagen6.jpg", "ruta1/imagen7.jpg", "ruta1/imagen8.jpg", "ruta1/imagen9.jpg", "ruta1/imagen10.jpg" };
-
+	
+	private Integer				poiId;
+	
+	private Poi					currentPoi;
+	private PoiService			poiService;
+	
+	private ArrayList<Multimedia> multimediaList;
+	
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.slideshow);
+
+		
+		// obtenemos la llamada a esta activity
+		Intent i = getIntent();
+		// y recogemos el id del poi que nos han pasado
+		poiId = i.getIntExtra("id_poi", 0);
+		Integer currentItem = i.getIntExtra("current", 0);
+		poiService = new PoiServiceImpl(getApplicationContext());
+		
+		currentPoi = poiService.getPoi(poiId);
+		
+		multimediaList = new ArrayList<Multimedia>();
+		
+		multimediaList.addAll(currentPoi.getMedia());
+		
 		mAdapter = new MyAdapter(getSupportFragmentManager());
 
 		mPager = (ViewPager) findViewById(R.id.pager);
+		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);
 	}
 
@@ -41,17 +70,19 @@ public class SlideShowActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return imguri.length;
+			return multimediaList.size();
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			
-				try {
-					return new ImageFragment(Bitmap.createScaledBitmap(BitmapFactory.decodeStream(getAssets().open(imguri[position])),800, 480, true));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				Multimedia m = multimediaList.get(position);
+				if(m.getTipo() == MMType.Imagen){
+					ImageFragment ifragment = new ImageFragment();
+					Bundle bundle = new Bundle();
+					bundle.putString("uri", m.getUri());
+					bundle.putString("caption", m.getNombre());
+					ifragment.setArguments(bundle);
+					return ifragment;
 				}
 				return null;
 		}
