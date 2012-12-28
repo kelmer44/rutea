@@ -43,7 +43,7 @@
         <Gallery
             android:id="@+id/selectedPOIgallery"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="160dp"
             android:layout_gravity="left"
             android:background="@color/anotherBlue"
             android:scrollbars="horizontal"
