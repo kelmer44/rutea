@@ -164,17 +164,23 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
 
-		initData();
-
-		// If everything went fine...
-		if (initMapData()) {
-			new RouteLoader().execute(ruta.getRouteFile());
-		}
-		locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
 		mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		bestProvider = mgr.getBestProvider(new Criteria(), true);
-		if (bestProvider != null && !bestProvider.equals("")) {
-			mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
+		
+		
+
+		// If everything went fine...
+		if (initData() && initMapData()) {
+			new RouteLoader().execute(ruta.getRouteFile());
+			
+			locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
+			if (bestProvider != null && !bestProvider.equals("")) {
+				mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
+			}
+		}
+		else {
+			mapView = null;
+			finish();
 		}
 		// selectPoi(0);
 	}
@@ -241,12 +247,13 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		FileOpenResult fileOpenResult = mapView.setMapFile(mapFile);
 		if (!fileOpenResult.isSuccess()) {
-			Toast.makeText(this, fileOpenResult.getErrorMessage(), Toast.LENGTH_LONG).show();
-			RouteMapActivity.this.finish();
-			Log.d(LOG_TAG, "Map file could not be loaded");
+			Toast.makeText(this, "No se pudo cargar el mapa.", Toast.LENGTH_LONG).show();
+			mapView = null;
+			finish();
+			Log.d(LOG_TAG, "Map file could not be loaded: " + fileOpenResult.getErrorMessage());
 			return false;
 		} else {
-			Log.d(LOG_TAG, "Map file loaded successfully");
+			Log.d(LOG_TAG, "Map file loaded successfully!");
 			marker = getResources().getDrawable(R.drawable.marker_green);
 			marker_red = getResources().getDrawable(R.drawable.marker_red);
 			me_drawable = getResources().getDrawable(R.drawable.ic_maps_indicator_current_position_anim1);
@@ -254,13 +261,14 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
 			// itemsOverlay.enableMyLocation();
 			itemsOverlay.setBalloonBottomOffset(100);
-			Log.d(LOG_TAG, "Loading overlay items into map");
+			Log.d(LOG_TAG, "Loading overlay items into map...");
 			loadPoiOverlays(simplePoiList);
+			Log.d(LOG_TAG, "Done.");
 			return true;
 		}
 	}
 
-	private void initData() {
+	private boolean initData() {
 		mThumbList = new ArrayList<String>();
 		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
 		Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
@@ -278,14 +286,16 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			// }
 		} else {
 			Toast.makeText(getApplicationContext(), "No se encontraron POIs para la ruta seleccionada.", Toast.LENGTH_LONG).show();
+			
 			finish();
+			return false;
 		}
 
 		// for (Poi p : secondaryPoiList) {
 		// Log.d(LOG_TAG, p.getNombre() + " Lat,Lon: " + p.getLatitude() + ", "
 		// + p.getLongitude() + "; orden " + p.getOrden());
 		// }
-
+		return true;
 	}
 
 	private void selectNextPoi() {
@@ -453,15 +463,16 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mgr.removeUpdates(locationListener);
-		// onLocationChange = null;
-		this.mapView.destroyDrawingCache();
-		this.mapView.removeAllViews();
-		this.mapView.getOverlays().clear();
-		this.mapView = null;
-		this.itemsOverlay = null;
-		this.arrayWayOverlay = null;
-		Log.d(LOG_TAG, "DESTROYED");
+		if(mapView!=null){
+			mgr.removeUpdates(locationListener);
+			this.mapView.destroyDrawingCache();
+			this.mapView.removeAllViews();
+			this.mapView.getOverlays().clear();
+			this.mapView = null;
+			this.itemsOverlay = null;
+			this.arrayWayOverlay = null;
+			Log.d(LOG_TAG, "DESTROYED");
+		}
 	}
 
 	@Override

@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
 import com.bretema.rutas.R;
+import com.bretema.rutas.activities.SlideShowActivity;
 
 public class ImageAdapter extends BaseAdapter {
 
@@ -57,6 +61,18 @@ public class ImageAdapter extends BaseAdapter {
 		}
 		
 		i.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		
+		i.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(mContext, SlideShowActivity.class);
+				
+				//in.putExtra("id_ruta", id_ruta);
+				
+				mContext.startActivity(in);
+			}
+		});
 		// i.setAdjustViewBounds(true);
 		// i.setLayoutParams(new
 		// Gallery.LayoutParams(LayoutParams.WRAP_CONTENT,

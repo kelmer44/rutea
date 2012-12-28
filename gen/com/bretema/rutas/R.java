@@ -26,37 +26,39 @@ public final class R {
     }
     public static final class drawable {
         public static final int android_boot_image=0x7f020000;
-        public static final int back=0x7f020001;
-        public static final int back_noborder=0x7f020002;
-        public static final int back_oneborder=0x7f020003;
-        public static final int balloon_overlay_bg_selector=0x7f020004;
-        public static final int balloon_overlay_close=0x7f020005;
-        public static final int balloon_overlay_focused=0x7f020006;
-        public static final int balloon_overlay_unfocused=0x7f020007;
-        public static final int border_round_label_fromleft=0x7f020008;
-        public static final int border_round_label_fromleft_solid=0x7f020009;
-        public static final int border_round_label_fromright=0x7f02000a;
-        public static final int bot_border=0x7f02000b;
-        public static final int drop_shadow=0x7f02000c;
-        public static final int ic_compose=0x7f02000d;
-        public static final int ic_compose_inverse=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int ic_maps_indicator_current_position_anim1=0x7f020010;
-        public static final int ic_refresh=0x7f020011;
-        public static final int ic_refresh_inverse=0x7f020012;
-        public static final int mapmarker=0x7f020013;
-        public static final int marker_green=0x7f020014;
-        public static final int marker_red=0x7f020015;
-        public static final int no_border_round_label_fromleft=0x7f020016;
-        public static final int noimage=0x7f020017;
-        public static final int red_cross=0x7f020018;
-        public static final int restaurant_blue_2_48=0x7f020019;
-        public static final int round_corners=0x7f02001a;
-        public static final int round_label_fromleft=0x7f02001b;
-        public static final int round_label_fromright=0x7f02001c;
-        public static final int rsa=0x7f02001d;
-        public static final int splash_screen=0x7f02001e;
-        public static final int sup_border=0x7f02001f;
+        public static final int arrow_left=0x7f020001;
+        public static final int arrow_right=0x7f020002;
+        public static final int back=0x7f020003;
+        public static final int back_noborder=0x7f020004;
+        public static final int back_oneborder=0x7f020005;
+        public static final int balloon_overlay_bg_selector=0x7f020006;
+        public static final int balloon_overlay_close=0x7f020007;
+        public static final int balloon_overlay_focused=0x7f020008;
+        public static final int balloon_overlay_unfocused=0x7f020009;
+        public static final int border_round_label_fromleft=0x7f02000a;
+        public static final int border_round_label_fromleft_solid=0x7f02000b;
+        public static final int border_round_label_fromright=0x7f02000c;
+        public static final int bot_border=0x7f02000d;
+        public static final int drop_shadow=0x7f02000e;
+        public static final int ic_compose=0x7f02000f;
+        public static final int ic_compose_inverse=0x7f020010;
+        public static final int ic_launcher=0x7f020011;
+        public static final int ic_maps_indicator_current_position_anim1=0x7f020012;
+        public static final int ic_refresh=0x7f020013;
+        public static final int ic_refresh_inverse=0x7f020014;
+        public static final int mapmarker=0x7f020015;
+        public static final int marker_green=0x7f020016;
+        public static final int marker_red=0x7f020017;
+        public static final int no_border_round_label_fromleft=0x7f020018;
+        public static final int noimage=0x7f020019;
+        public static final int red_cross=0x7f02001a;
+        public static final int restaurant_blue_2_48=0x7f02001b;
+        public static final int round_corners=0x7f02001c;
+        public static final int round_label_fromleft=0x7f02001d;
+        public static final int round_label_fromright=0x7f02001e;
+        public static final int rsa=0x7f02001f;
+        public static final int splash_screen=0x7f020020;
+        public static final int sup_border=0x7f020021;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f09000f;
@@ -75,16 +77,21 @@ public final class R {
         public static final int descRouteListLabel=0x7f09001d;
         public static final int gotoRouteButton=0x7f090006;
         public static final int id_ruta=0x7f09001b;
+        public static final int imageViewCurrentImage=0x7f090020;
+        public static final int imgbuttonnext=0x7f090021;
+        public static final int imgbuttonprev=0x7f09001f;
         public static final int layoutLeftPanel=0x7f090002;
         public static final int leftMenuBarRoute=0x7f090003;
         public static final int mainRouteImage=0x7f09000e;
         public static final int mapView=0x7f090000;
         public static final int me_pos_image=0x7f09000b;
-        public static final int menu_info=0x7f09001e;
+        public static final int menu_info=0x7f090022;
+        public static final int menu_settings=0x7f090023;
         public static final int nombreRouteListLabel=0x7f09001c;
         public static final int routeDetailDescriptionLabel=0x7f090015;
         public static final int routeDetailNameLabel=0x7f090010;
         public static final int selectedPOIgallery=0x7f090005;
+        public static final int slideshow_layout=0x7f09001e;
         public static final int tableRow1=0x7f090011;
         public static final int tableRow2=0x7f090012;
         public static final int tableRow3=0x7f090013;
@@ -100,11 +107,13 @@ public final class R {
         public static final int menu_normal=0x7f030005;
         public static final int menu_secondary=0x7f030006;
         public static final int routelist_item=0x7f030007;
-        public static final int splash_layout=0x7f030008;
+        public static final int slideshow=0x7f030008;
+        public static final int splash_layout=0x7f030009;
     }
     public static final class menu {
         public static final int activity_route_detail=0x7f080000;
         public static final int activity_route_list=0x7f080001;
+        public static final int slide_show=0x7f080002;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
@@ -128,6 +137,7 @@ public final class R {
         public static final int title_activity_map=0x7f060005;
         public static final int title_activity_route_detail=0x7f060004;
         public static final int title_activity_route_list=0x7f060003;
+        public static final int title_activity_slide_show=0x7f060015;
     }
     public static final class style {
         /** 
