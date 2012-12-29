@@ -3,13 +3,13 @@
 <!-- This is the main color -->
 <item>
       <shape>
-            <solid android:color="@color/appBlue" />
+            <solid android:color="@color/anotherBlue" />
       </shape>
 </item>
 <!-- This is the line -->
 <item android:right="2dp">
      <shape>
-           <solid android:color="@color/anotherBlue" />
+           <solid android:color="@color/appBlue" />
      </shape>
 </item>
 </layer-list>

@@ -1,84 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maindetaillayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FFDDDDDD"
     android:orientation="vertical"
     tools:context=".RouteDetailActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8" >
+        android:layout_margin="20dp"
+        android:layout_weight="0.9"
+        android:background="@drawable/round_corners"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/mainRouteImage"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="0.5"
-            android:adjustViewBounds="false"
-            android:baselineAlignBottom="false"
-            android:contentDescription="@string/mainImage"
-            android:scaleType="fitXY"
-            android:src="@drawable/rsa" />
+        <TextView
+            android:id="@+id/routeDetailNameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_weight="2"
+            android:background="@drawable/round_label_fromright"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:text="@string/nombre_de_la_ruta"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:textColorHint="#FFFFFF"
+            android:textSize="34sp" />
 
         <LinearLayout
-            android:id="@+id/LinearLayout1"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.5"
-            android:orientation="vertical" >
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10" >
 
-            <TextView
-                android:id="@+id/routeDetailNameLabel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_label_fromright"
-                android:gravity="right"
-                android:paddingRight="5dp"
-                android:text="@string/nombre_de_la_ruta"
-                android:textAppearance="?android:attr/textAppearanceLargeInverse"
-                android:textColorHint="#FFFFFF" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TableRow
-                    android:id="@+id/tableRow1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                </TableRow>
-            </TableLayout>
+            <ImageView
+                android:id="@+id/mainRouteImage"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="false"
+                android:baselineAlignBottom="false"
+                android:contentDescription="@string/mainImage"
+                android:scaleType="fitXY"
+                android:src="@drawable/rsa" />
 
             <TextView
                 android:id="@+id/routeDetailDescriptionLabel"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_margin="5dp"
+                android:layout_weight="0.5"
                 android:gravity="right"
                 android:scrollbars="vertical"
                 android:text="@string/desc"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
         </LinearLayout>
 
     </LinearLayout>
@@ -87,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="right|center_vertical"
-        android:layout_weight="0.2"
+        android:layout_weight="0.1"
         android:background="@drawable/sup_border"
         android:gravity="center_vertical"
         android:orientation="vertical" >
@@ -98,9 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="-5dp"
+            android:layout_marginRight="-10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/border_round_label_fromright"
+            android:background="@drawable/button"
             android:gravity="center_vertical|center_horizontal|left"
             android:minHeight="0dip"
             android:minWidth="0dip"
