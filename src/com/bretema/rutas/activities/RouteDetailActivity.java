@@ -5,9 +5,11 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,7 +74,15 @@ public class RouteDetailActivity extends Activity {
 
 		//Asignación de valores
 		routeDetailDescriptionLabel.setText(ruta.getDescription());
+		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
+		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
+		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
 		routeDetailNameLabel.setText(ruta.getNombre());
+		routeDetailNameLabel.setTypeface(yanone);
+		routeDetailNameLabel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 48);
+		routeDetailDescriptionLabel.setTypeface(colab);
+		gotoRouteButton.setTypeface(colabMed);
+		
 		try {
 			mainRouteImage.setImageBitmap(BitmapFactory.decodeStream(getAssets().open(ruta.getMainImagePath())));
 		} catch (IOException e) {

@@ -7,18 +7,6 @@
     android:orientation="vertical"
     tools:context=".RouteListActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round_label_fromleft"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/elija_una_ruta_"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse" />
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -26,7 +14,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/round_corners"
         android:divider="@color/greekBlue"
         android:dividerHeight="1dp"

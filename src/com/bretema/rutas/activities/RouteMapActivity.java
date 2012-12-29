@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -174,8 +175,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		quitRouteButton.setOnClickListener(this);
 		buttonBackToRoute.setOnClickListener(this);
 
-		
-		
+		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
+		nextPoiButton.setTypeface(colab);
+		prevPoiButton.setTypeface(colab);
+		quitRouteButton.setTypeface(colab);
+		buttonBackToRoute.setTypeface(colab);
 		
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
