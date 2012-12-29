@@ -1,6 +1,5 @@
 package com.bretema.rutas.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -11,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +19,8 @@ import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
+import com.bretema.rutas.view.ImageAdapter;
+import com.bretema.rutas.view.ImageGridAdapter;
 import com.bretema.rutas.view.RouteListAdapter;
 
 /**
@@ -58,10 +60,12 @@ public class RouteListActivity extends ListActivity {
 		setListAdapter(adapter);
 
 		ListView lv = getListView();
-
+		GridView gridview = (GridView) findViewById(R.id.gridview);
+		gridview.setAdapter(new ImageGridAdapter(getApplicationContext(), routeList));
+		
 		// Al pulsar un elemento de la lista se pasa a la vista detallada de
 		// línea
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 				// getting values from selected ListItem

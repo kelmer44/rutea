@@ -48,7 +48,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int VERSION = 19;
+	public static final int VERSION = 21;
 	/**
 	 * The database type.
 	 */
@@ -140,7 +140,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues2
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		routeValues2.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues2.put("mainImagePath", "ruta2/rsa.jpg");
 		routeValues2.put("shortDescription", "Descripción de esta ruta 2.");
 		routeValues2.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues2);
@@ -151,7 +151,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues3
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		routeValues3.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues3.put("mainImagePath", "ruta4/rsa.jpg");
 		routeValues3.put("shortDescription", "Descripción de esta ruta 3.");
 		routeValues3.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues3);
@@ -162,7 +162,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues4
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		routeValues4.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues4.put("mainImagePath", "ruta5/rsa.jpg");
 		routeValues4.put("shortDescription", "Descripción de esta ruta 4.");
 		routeValues4.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues4);
@@ -173,8 +173,8 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues5
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		routeValues5.put("mainImagePath", "ruta1/rsa.jpg");
-		routeValues5.put("shortDescription", "Descripción de esta ruta 5.");
+		routeValues5.put("mainImagePath", "ruta3/rsa.jpg");
+		routeValues5.put("shortDescription", "Descripción de esta ruta 3.");
 		routeValues5.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues5);
 
@@ -185,7 +185,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues6
 				.put("description",
 						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		routeValues6.put("mainImagePath", "ruta1/rsa.jpg");
+		routeValues6.put("mainImagePath", "ruta6/rsa.jpg");
 		routeValues6.put("shortDescription", "Descripción de esta ruta 6.");
 		routeValues6.put("routeFile", "ruta1/pruebaruta.gpx");
 		database.insert("ruta", null, routeValues6);
