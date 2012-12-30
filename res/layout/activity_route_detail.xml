@@ -42,7 +42,7 @@
                 android:layout_margin="1dp"
                 android:layout_weight="0.5"
                 android:contentDescription="@string/mainImage"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/rsa" />
 
             <TextView
@@ -51,10 +51,11 @@
                 android:layout_height="fill_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="right"
+                android:gravity="left"
                 android:scrollbars="vertical"
                 android:text="@string/desc"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -64,7 +64,7 @@ public class ImageGridAdapter extends BaseAdapter {
         Ruta current = routeList.get(position);
 		try {
 	        Drawable d;
-			d = Drawable.createFromStream(mContext.getAssets().open(current.getMainImagePath()), null);
+			d = Drawable.createFromStream(mContext.getAssets().open("ruta" + (position+1) + "/title.jpg"), null);
 	        linLayout.setBackgroundDrawable(d);
 		} catch (IOException e) {
 			linLayout.setBackgroundResource(R.drawable.noimage);
