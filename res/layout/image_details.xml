@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
  
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/ic_launcher" />
-
     <TextView
         android:id="@+id/imageCaption"
         android:layout_width="wrap_content"
@@ -18,5 +11,12 @@
         android:layout_gravity="center_horizontal"
         android:text="TextView"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
  
 </LinearLayout>

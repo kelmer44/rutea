@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,8 +64,10 @@ public class ImageGridAdapter extends BaseAdapter {
         nombre.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 38);
         Ruta current = routeList.get(position);
 		try {
-	        Drawable d;
-			d = Drawable.createFromStream(mContext.getAssets().open("ruta" + (position+1) + "/title.jpg"), null);
+//	        Drawable d;
+//			d = Drawable.createFromStream(mContext.getAssets().open("ruta" + (position+1) + "/title.jpg"), null);
+			Bitmap b = BitmapFactory.decodeStream(mContext.getAssets().open("ruta" + (position+1) + "/title.jpg"));
+			StreamDrawable d = new StreamDrawable(b, 10, 0);
 	        linLayout.setBackgroundDrawable(d);
 		} catch (IOException e) {
 			linLayout.setBackgroundResource(R.drawable.noimage);
