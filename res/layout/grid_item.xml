@@ -15,6 +15,7 @@
         android:visibility="gone" />
 
     <TextView
+        style="@style/menuText"
         android:id="@+id/routenameGridLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

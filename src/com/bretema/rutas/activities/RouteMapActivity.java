@@ -482,7 +482,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			pDialog.setMessage(getResources().getString(R.string.pleasewait));
 			pDialog.setIndeterminate(false);
 			pDialog.setTitle(getResources().getString(R.string.fetchingdata));
-			pDialog.setCancelable(true);
+			pDialog.setCancelable(false);
 			pDialog.show();
 
 			pDialog.setOnCancelListener(new OnCancelListener() {

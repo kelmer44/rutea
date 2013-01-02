@@ -60,7 +60,6 @@ public class ImageGridAdapter extends BaseAdapter {
         TextView id_ruta = (TextView) vi.findViewById(R.id.id_ruta);
         TextView nombre=(TextView)vi.findViewById(R.id.routenameGridLabel);
         nombre.setTypeface(yanone);
-        nombre.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 38);
         Ruta current = routeList.get(position);
 		try {
 	        Drawable d;

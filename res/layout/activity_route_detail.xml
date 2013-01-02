@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+        android:layout_margin="20px"
         android:layout_weight="0.8"
         android:background="@drawable/round_corners"
         android:orientation="vertical" >
@@ -30,7 +30,7 @@
             android:text="@string/nombre_de_la_ruta"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textColorHint="#FFFFFF"
-            android:textSize="34sp" />
+            style="@style/Titular" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,16 +47,25 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/rsa" />
 
-            <TextView
-                android:id="@+id/routeDetailDescriptionLabel"
+            <LinearLayout
+                android:id="@+id/layoutMedia"
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:gravity="left"
-                android:scrollbars="vertical"
-                android:text="@string/desc"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/routeDetailDescriptionLabel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:scrollbars="vertical"
+                    android:text="@string/desc"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
