@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/imageViewSlideshow"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/ic_launcher" />
+        android:background="#FFDDDDDD"
+        android:src="@drawable/noimage" />
 
     <TextView
         android:id="@+id/imageCaptionSlideshow"

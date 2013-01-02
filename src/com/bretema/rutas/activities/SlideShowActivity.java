@@ -80,7 +80,6 @@ public class SlideShowActivity extends FragmentActivity {
 		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
 		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
 		poiNameTextView.setTypeface(yanone);
-		poiNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 48);
 		poiDescTextView.setTypeface(colab);
 		poiDescTextView.setText(currentPoi.getDescripcion());
 		
