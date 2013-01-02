@@ -149,6 +149,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
 		buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
 		
+		
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
@@ -167,7 +168,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 				return true;
 			}
 		});
-
+		buttonHideGallery.setEnabled(false);
 		buttonHideGallery.setOnClickListener(this);
 		gotoRouteButton.setOnClickListener(this);
 		nextPoiButton.setOnClickListener(this);
@@ -456,6 +457,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 						Log.i(LOG_TAG, "Route data transfer complete");
 						overlayRoute();
+						//Activamos el boton de galeria
+						buttonHideGallery.setEnabled(true);
 
 					}
 				});

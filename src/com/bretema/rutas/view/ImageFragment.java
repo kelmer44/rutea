@@ -35,8 +35,8 @@ public class ImageFragment extends Fragment {
 		View view = inflater.inflate(R.layout.image_details, container, false);
 		String imageURI = getArguments().getString("uri");
 		String imageCaption = getArguments().getString("caption");
-		TextView textView = (TextView) view.findViewById(R.id.imageCaption);
-		ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+		TextView textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
+		ImageView imageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
 		try {
 			Bitmap b = BitmapFactory.decodeStream(getActivity().getApplicationContext().getAssets().open(imageURI));
 			float ratio = (float) b.getHeight() / (float) b.getWidth();

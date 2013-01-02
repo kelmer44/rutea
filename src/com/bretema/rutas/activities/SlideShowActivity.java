@@ -3,14 +3,21 @@ package com.bretema.rutas.activities;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.enums.MMType;
@@ -35,6 +42,10 @@ public class SlideShowActivity extends FragmentActivity {
 	private PageIndicator			mIndicator;
 	private ArrayList<Multimedia>	multimediaList;
 
+	private TextView				poiNameTextView;
+	private TextView				poiDescTextView;
+	private Button					navigateButton;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,35 @@ public class SlideShowActivity extends FragmentActivity {
 
 		mAdapter = new MyAdapter(getSupportFragmentManager());
 
+		poiNameTextView =  (TextView) findViewById(R.id.textViewPOINameSlideShow);
+		poiDescTextView = (TextView) findViewById(R.id.textViewPOIDescSlideShow);
+		navigateButton = (Button) findViewById(R.id.buttonNavigateSlideShow);
+		
+		
+		poiNameTextView.setText(currentPoi.getNombre());
+		
+		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
+		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
+		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
+		poiNameTextView.setTypeface(yanone);
+		poiNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 48);
+		poiDescTextView.setTypeface(colab);
+		poiDescTextView.setText(currentPoi.getDescripcion());
+		
+
+		navigateButton.setTypeface(colabMed);
+		
+		navigateButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + currentPoi.getLatitude() + "," + currentPoi.getLongitude()));
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+		});
+		
+		
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);

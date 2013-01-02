@@ -83,6 +83,9 @@ public class RouteDetailActivity extends Activity {
 		routeDetailDescriptionLabel.setTypeface(colab);
 		gotoRouteButton.setTypeface(colabMed);
 		
+		
+		
+		
 		try {
 			mainRouteImage.setImageBitmap(BitmapFactory.decodeStream(getAssets().open(ruta.getMainImagePath())));
 		} catch (IOException e) {

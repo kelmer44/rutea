@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slideshow_layout"
+<LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.bretema.rutas">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textViewPOINameSlideShow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/appBlue"
+        android:gravity="center"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse" />
+
+    <TextView
+        android:id="@+id/textViewPOIDescSlideShow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RelativeLayout
+        android:id="@+id/slideshow_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:orientation="vertical" >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/black" />
+        android:layout_alignParentTop="true" />
 
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="#77000000"
         android:padding="10dip" />
 
     <!--
@@ -51,5 +73,19 @@
 
 	</LinearLayout>
     -->
-
 </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonNavigateSlideShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="-15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:text="Navegar"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@android:color/primary_text_dark" />
+
+</LinearLayout>

@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
- 
-    <TextView
-        android:id="@+id/imageCaption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="TextView"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse" />
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewSlideshow"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="fill_parent"
         android:src="@drawable/ic_launcher" />
 
- 
-</LinearLayout>
+    <TextView
+        android:id="@+id/imageCaptionSlideshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:background="#77000000"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="TextView"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse" />
+
+</RelativeLayout>

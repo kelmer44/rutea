@@ -35,11 +35,12 @@ class StreamDrawable extends Drawable {
 		mPaint.setShader(mBitmapShader);
 
 		mMargin = margin;
+		//mRect.set(mMargin, mMargin, bitmap.getWidth() - mMargin, bitmap.getHeight()- mMargin);
 	}
 
 	@Override
 	protected void onBoundsChange(Rect bounds) {
-		super.onBoundsChange(bounds);
+//		super.onBoundsChange(bounds);
 		mRect.set(mMargin, mMargin, bounds.width() - mMargin, bounds.height() - mMargin);
 
 		if (USE_VIGNETTE) {
