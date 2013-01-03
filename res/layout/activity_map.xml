@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="-10dp"
+        android:layout_marginLeft="0dp"
         android:background="@drawable/back_oneborder"
         android:orientation="vertical" >
 
@@ -156,14 +156,17 @@
                 android:id="@+id/me_pos_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
                 android:src="@drawable/ic_maps_indicator_current_position_anim1" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="@string/mi_posici_n"
                 android:textAppearance="?android:attr/textAppearanceMediumInverse" />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"

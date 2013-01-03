@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:background="@color/appBlue"
         android:gravity="center"
-        android:text="Large Text"
+        android:text="@string/poi_nombre_placeholder"
         style="@style/Titular"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
 
@@ -20,7 +20,8 @@
         android:id="@+id/textViewPOIDescSlideShow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:background="@drawable/bot_border_white"
+        android:text="@string/poi_desc_placeholder"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
@@ -82,7 +83,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/sup_border"
-        android:gravity="right"
         android:orientation="vertical" >
 
         <Button
@@ -90,11 +90,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="-15dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button"
-            android:text="Navegar"
+            android:text="@string/boton_navegar"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textColor="@android:color/primary_text_dark" />
 

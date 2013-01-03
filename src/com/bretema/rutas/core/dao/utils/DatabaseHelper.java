@@ -48,7 +48,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int VERSION = 21;
+	public static final int VERSION = 25;
 	/**
 	 * The database type.
 	 */
@@ -128,7 +128,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues.put("nombre", "La Ribeira Sacra en un día");
 		routeValues
 				.put("description",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nDonec molestie eros et ante aliquet vitae imperdiet odio dictum. Maecenas tempor, mi vitae fermentum posuere, mi nibh malesuada lacus, id dictum purus eros quis nisi. Curabitur vel dolor sem, a iaculis ante. Curabitur nisl dolor, adipiscing at egestas sit amet, adipiscing ut mauris. Aenean quis leo dignissim ante luctus gravida. Sed metus neque, convallis non vulputate sed, blandit nec turpis. Fusce ac lacinia sapien. Morbi nec mauris eget turpis facilisis vulputate nec non urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas auctor pretium leo, at iaculis tortor lacinia nec. Suspendisse nec viverra mi. Nulla imperdiet blandit nisl, sed condimentum elit porta non.");
 		routeValues.put("mainImagePath", "ruta1/rsa.jpg");
 		routeValues.put("shortDescription", "Descripción de esta ruta.");
 		routeValues.put("routeFile", "ruta1/pruebaruta.gpx");
@@ -195,7 +195,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues poiValues = new ContentValues();
 		poiValues.put("id", 1);
 		poiValues.put("nombre", "San Pedro de Rocas");
-		poiValues.put("descripcion", "Pues aquí iría la descripción del punto");
+		poiValues.put("descripcion", "Aenean est diam, mollis sed tempus non, laoreet et est.");
 		poiValues.put("tipo", PoiType.SimplePoi.toString());
 		poiValues.put("latitude", 42.341861);
 		poiValues.put("longitude", -7.713517);
@@ -207,7 +207,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		poiValues2.put("id", 2);
 		poiValues2.put("nombre", "Santo Estevo de Ribas de Sil");
 		poiValues2
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+				.put("descripcion", "Quisque non quam mauris, eget faucibus nisi.");
 		poiValues2.put("tipo", PoiType.SimplePoi.toString());
 		poiValues2.put("latitude", 42.417028);
 		poiValues2.put("longitude", -7.686203);
@@ -219,7 +219,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		poiValues3.put("id", 3);
 		poiValues3.put("nombre", "Santa Cristina de Ribas de Sil");
 		poiValues3
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+				.put("descripcion", "Sed quis ligula at ligula porttitor vehicula.");
 		poiValues3.put("tipo", PoiType.SimplePoi.toString());
 		poiValues3.put("latitude", 42.395242);
 		poiValues3.put("longitude", -7.588719);
@@ -231,7 +231,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		poiValues4.put("id", 4);
 		poiValues4.put("nombre", "Balcones de Madrid");
 		poiValues4
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+				.put("descripcion", "Morbi orci sem, posuere ut tincidunt vel, elementum a magna.");
 		poiValues4.put("tipo", PoiType.SimplePoi.toString());
 		poiValues4.put("latitude", 42.388981);
 		poiValues4.put("longitude", -7.566575);
@@ -243,7 +243,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		poiValues5.put("id", 5);
 		poiValues5.put("nombre", "Barxacova");
 		poiValues5
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+				.put("descripcion", "Quisque gravida, risus id consequat pellentesque.");
 		poiValues5.put("tipo", PoiType.SimplePoi.toString());
 		poiValues5.put("latitude", 42.381856);
 		poiValues5.put("longitude", -7.496581);

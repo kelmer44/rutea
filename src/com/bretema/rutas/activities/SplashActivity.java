@@ -17,7 +17,7 @@ import com.bretema.rutas.R;
  */
 public class SplashActivity extends Activity {
 
-	private static final int	DELAY_TIME	= 200; // millis to wait before
+	private static final int	DELAY_TIME	= 2000; // millis to wait before
 													// starting home act.
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

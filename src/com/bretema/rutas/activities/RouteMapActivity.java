@@ -290,7 +290,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			//
 			itemsOverlay = new OverlayForge(marker, marker_red, me_drawable, mapView, this);
 			// itemsOverlay.enableMyLocation();
-			itemsOverlay.setBalloonBottomOffset(100);
+			itemsOverlay.setBalloonBottomOffset(50);
 			Log.d(LOG_TAG, "Loading overlay items into map...");
 			loadPoiOverlays(simplePoiList);
 			Log.d(LOG_TAG, "Done.");

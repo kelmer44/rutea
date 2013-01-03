@@ -33,7 +33,7 @@ import com.bretema.rutas.service.impl.RutaServiceImpl;
  * @author kelmer
  * 
  */
-public class RouteDetailActivity extends Activity {
+public class RouteDetailActivity extends Activity implements MediaPlayer.OnPreparedListener{
 
 	private static final String	LOG_TAG	= RouteDetailActivity.class.getSimpleName();
 
@@ -116,11 +116,11 @@ public class RouteDetailActivity extends Activity {
 		
 		Log.d(LOG_TAG, "Trying to load audio file...");
 		mediaPlayer = new MediaPlayer();
+		mediaPlayer.setOnPreparedListener(this);
 		try {
 			afd = getAssets().openFd("ruta1/intro.mp3");
 			mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-			mediaPlayer.prepare();
-			mediaPlayer.start();
+			mediaPlayer.prepareAsync();
 		} catch (IOException e1) {
 			Log.e(LOG_TAG, "Could not open file " + "ruta1/intro.mp3" + " for playback.", e1);
 		}
@@ -151,6 +151,12 @@ public class RouteDetailActivity extends Activity {
 	        mediaPlayer.release();
 	        mediaPlayer = null;
 	    }
+	}
+
+	@Override
+	public void onPrepared(MediaPlayer mp) {
+		 Log.d(LOG_TAG, "onPrepared ready");
+		 mediaPlayer.start();
 	}
 
 }
