@@ -17,6 +17,7 @@
 
         <TextView
             android:id="@+id/routeDetailNameLabel"
+            style="@style/Titular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal|center"
@@ -29,8 +30,7 @@
             android:paddingTop="10dp"
             android:text="@string/nombre_de_la_ruta"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColorHint="#FFFFFF"
-            style="@style/Titular" />
+            android:textColorHint="#FFFFFF" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,16 +59,26 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="5dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="left"
                     android:scrollbars="vertical"
                     android:text="@string/desc"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
+                <ToggleButton
+                    android:id="@+id/playButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5px"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/ic_play_pause"
+                    android:enabled="false"
+                    android:textOff=""
+                    android:textOn="" >
+
+                </ToggleButton>
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

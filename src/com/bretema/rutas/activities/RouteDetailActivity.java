@@ -5,14 +5,11 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
@@ -53,7 +51,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 	private TextView			routeDetailDescriptionLabel;
 
 	private MediaPlayer			mediaPlayer;
-	private ImageButton			playButton;
+	private ToggleButton			playButton;
 
 	private AssetFileDescriptor	afd;
 
@@ -80,6 +78,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		routeDetailNameLabel = (TextView) findViewById(R.id.routeDetailNameLabel);
 		mainRouteImage = (ImageView) findViewById(R.id.mainRouteImage);
 		
+		playButton = (ToggleButton) findViewById(R.id.playButton);
 		
 		
 		// Asignación de valores
@@ -100,7 +99,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		routeDetailDescriptionLabel.setTypeface(colab);
 		gotoRouteButton.setTypeface(colabMed);
 
-		loadAudioFile();
+
 
 		gotoRouteButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -110,13 +109,25 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 				startActivity(in);
 			}
 		});
+		
+		
+		playButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(playButton.isChecked()){
+					mediaPlayer.start();
+				} else {
+					mediaPlayer.pause();
+				}
+			}
+		});
 	}
 
 	private void loadAudioFile() {
 		
 		Log.d(LOG_TAG, "Trying to load audio file...");
-		mediaPlayer = new MediaPlayer();
-		mediaPlayer.setOnPreparedListener(this);
 		try {
 			afd = getAssets().openFd("ruta1/intro.mp3");
 			mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
@@ -154,9 +165,20 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 	}
 
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mediaPlayer = new MediaPlayer();
+		mediaPlayer.setOnPreparedListener(this);
+		
+		loadAudioFile();
+	}
+
+	@Override
 	public void onPrepared(MediaPlayer mp) {
 		 Log.d(LOG_TAG, "onPrepared ready");
-		 mediaPlayer.start();
+		 //mediaPlayer.start();
+		 playButton.setEnabled(true);
 	}
 
 }

@@ -124,7 +124,7 @@ public class SlideShowActivity extends FragmentActivity {
 				ImageFragment ifragment = new ImageFragment();
 				Bundle bundle = new Bundle();
 				bundle.putString("uri", m.getUri());
-				bundle.putString("caption", m.getNombre());
+				bundle.putString("caption", m.getDescripcion());
 				ifragment.setArguments(bundle);
 				return ifragment;
 			}

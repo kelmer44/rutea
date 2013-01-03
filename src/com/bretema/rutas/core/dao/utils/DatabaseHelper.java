@@ -299,7 +299,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues mmValue10 = new ContentValues();
 		mmValue10.put("uri", "ruta1/imagen9.jpg");
 		mmValue10.put("thumbUri", "ruta1/thumb9.jpg");
-		mmValue10.put("nombre", "Santo Estevo de Ribas de Sil");
+		mmValue10.put("nombre", "Santo Estevo de Ribas de Sil 1");
 		mmValue10.put("descripcion", "Patio interior");
 		mmValue10.put("tipo", MMType.Imagen.toString());
 		mmValue10.put("poiId", 2);
@@ -309,7 +309,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues mmValue11 = new ContentValues();
 		mmValue11.put("uri", "ruta1/imagen10.jpg");
 		mmValue11.put("thumbUri", "ruta1/thumb10.jpg");
-		mmValue11.put("nombre", "Santo Estevo de Ribas de Sil");
+		mmValue11.put("nombre", "Santo Estevo de Ribas de Sil 2");
 		mmValue11.put("descripcion", "Detalle fachada");
 		mmValue11.put("tipo", MMType.Imagen.toString());
 		mmValue11.put("poiId", 2);
