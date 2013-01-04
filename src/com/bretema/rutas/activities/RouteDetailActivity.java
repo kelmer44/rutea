@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -95,6 +95,11 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 //		int width = size.x;
 //		int height = size.y;
 		
+		try {
+			mainRouteImage.setImageBitmap(BitmapFactory.decodeStream(getAssets().open(ruta.getMainImagePath())));
+		} catch (IOException e) {
+			Log.e(LOG_TAG, "No se pudo recuperar la imagen de ruta");
+		}
 		
 		routeDetailDescriptionLabel.setTypeface(colab);
 		gotoRouteButton.setTypeface(colabMed);

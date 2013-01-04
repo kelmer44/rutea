@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <style name="Titular">
-    	<item name="android:textSize">40sp</item> <!-- different values in different folders  -->
+    	<item name="android:textSize">20sp</item> <!-- different values in different folders  -->
 	</style>
 	
 <style name="menuText">

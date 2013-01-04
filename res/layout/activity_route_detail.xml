@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20px"
+        android:layout_margin="5dp"
         android:layout_weight="1.5"
         android:background="@drawable/round_corners"
         android:orientation="vertical" >
@@ -21,13 +21,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal|center"
-            android:layout_margin="1dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
             android:background="@drawable/round_label_fromright"
             android:gravity="center"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:text="@string/nombre_de_la_ruta"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textColorHint="#FFFFFF" />
@@ -41,7 +42,9 @@
                 android:id="@+id/mainRouteImage"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_margin="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
                 android:layout_weight="0.5"
                 android:contentDescription="@string/mainImage"
                 android:scaleType="centerCrop"
@@ -63,14 +66,12 @@
                     android:gravity="left"
                     android:scrollbars="vertical"
                     android:text="@string/desc"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <ToggleButton
                     android:id="@+id/playButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5px"
-                    android:layout_marginTop="5px"
                     android:background="@drawable/ic_play_pause"
                     android:enabled="false"
                     android:textOff=""
@@ -97,7 +98,7 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="-10dp"
             android:background="@drawable/button"
-            android:gravity="center_vertical|center_horizontal|left"
+            android:gravity="center_vertical"
             android:minHeight="0dip"
             android:minWidth="0dip"
             android:paddingBottom="5dp"
@@ -105,7 +106,7 @@
             android:paddingRight="15dp"
             android:paddingTop="5dp"
             android:text="@string/ir_a_ruta"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
             android:textColor="@android:color/primary_text_dark" />
     </LinearLayout>
 

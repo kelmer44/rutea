@@ -45,7 +45,7 @@
         <Gallery
             android:id="@+id/selectedPOIgallery"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:alpha="2"
             android:background="@color/anotherBlue"
@@ -58,7 +58,7 @@
 
     <RelativeLayout
         android:id="@+id/leftMenuBarRoute"
-        android:layout_width="120dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -113,7 +113,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="@string/siguiente_punto"
-                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
 
             <Button
@@ -131,7 +131,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="@string/punto_anterior"
-                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
 
             <Button
@@ -149,7 +149,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="@string/salir_de_ruta"
-                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
 
             <ImageView
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="@string/mi_posici_n"
-                android:textAppearance="?android:attr/textAppearanceMediumInverse" />
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
         </LinearLayout>
         <LinearLayout
@@ -189,7 +189,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="Volver a ruta"
-                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
         </LinearLayout>
     </ViewFlipper>
