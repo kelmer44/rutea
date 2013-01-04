@@ -13,18 +13,18 @@
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_margin="20px"
+        android:layout_margin="10dp"
         android:layout_weight="2"
         android:animateLayoutChanges="false"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:drawSelectorOnTop="true"
         android:gravity="center"
-        android:horizontalSpacing="10dp"
+        android:horizontalSpacing="5dp"
         android:numColumns="2"
         android:scrollingCache="false"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
+        android:verticalSpacing="5dp" />
 
     <ListView
         android:id="@android:id/list"

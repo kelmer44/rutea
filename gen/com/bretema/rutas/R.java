@@ -647,7 +647,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int mapView=0x7f050015;
         public static final int me_pos_image=0x7f050020;
         public static final int menu_info=0x7f05003d;
-        public static final int menu_settings=0x7f05003e;
+        public static final int menu_myroute=0x7f05003e;
+        public static final int menu_settings=0x7f05003f;
         public static final int nombreRouteListLabel=0x7f050035;
         public static final int none=0x7f050000;
         public static final int pager=0x7f05003a;

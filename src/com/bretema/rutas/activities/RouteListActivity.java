@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -19,7 +21,6 @@ import com.bretema.rutas.R;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
-import com.bretema.rutas.view.ImageAdapter;
 import com.bretema.rutas.view.ImageGridAdapter;
 import com.bretema.rutas.view.RouteListAdapter;
 
@@ -48,6 +49,10 @@ public class RouteListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		
+		//requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		setContentView(R.layout.activity_route_list);
 
 		//obtenemos el servicio
@@ -83,7 +88,7 @@ public class RouteListActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_route_detail, menu);
+		getMenuInflater().inflate(R.menu.activity_route_list, menu);
 		return true;
 	}
 
