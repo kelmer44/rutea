@@ -6,10 +6,17 @@
     android:background="@drawable/balloon_overlay_bg_selector"
     android:minWidth="200dip"
     android:orientation="horizontal"
-    android:paddingBottom="35dip"
+    android:paddingBottom="25dp"
     android:paddingLeft="10dip"
     android:paddingRight="0dip"
     android:paddingTop="0dip" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/balloon_inner_layout"
@@ -25,15 +32,18 @@
             android:layout_height="wrap_content"
             android:text="balloon_item_title"
             android:textColor="#FF000000"
-            android:textSize="16dip" >
+            android:textSize="16sp" >
         </TextView>
 
         <TextView
             android:id="@+id/balloon_item_snippet"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="balloon_item_snippet"
-            android:textSize="12dip" >
+            android:fitsSystemWindows="true"
+            android:maxLines="4"
+            android:text="balloon_item_snippet otra_mas_largo"
+            android:textSize="12sp" >
+
         </TextView>
     </LinearLayout>
 

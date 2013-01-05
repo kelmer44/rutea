@@ -2,13 +2,12 @@ package com.bretema.rutas.activities;
 
 import java.util.List;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,7 +31,7 @@ import com.bretema.rutas.view.RouteListAdapter;
  * @author kelmer
  * 
  */
-public class RouteListActivity extends ListActivity {
+public class RouteListActivity extends Activity{
 
 	private static final String LOG_TAG = RouteListActivity.class.getSimpleName();
 
@@ -42,8 +41,6 @@ public class RouteListActivity extends ListActivity {
 	// Lista de rutas
 	private List<Ruta> routeList;
 
-	// list view de la ListActivity
-	private ListView listView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +57,8 @@ public class RouteListActivity extends ListActivity {
 		Log.d(LOG_TAG, "Obteniendo lista de rutas...");
 		routeList = rutaService.findAll();
 
-		ListAdapter adapter = new RouteListAdapter(RouteListActivity.this, routeList);
-		// updating listview
-		setListAdapter(adapter);
-
-		ListView lv = getListView();
+		
+	
 		GridView gridview = (GridView) findViewById(R.id.gridview);
 		gridview.setAdapter(new ImageGridAdapter(getApplicationContext(), routeList));
 		

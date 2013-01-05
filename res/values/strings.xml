@@ -26,5 +26,6 @@
     <string name="boton_navegar">Navegar</string>
     <string name="poi_nombre_placeholder">Large Text</string>
     <string name="poi_desc_placeholder">Descripción del punto</string>
+    <string name="volver">volver</string>
 
 </resources>

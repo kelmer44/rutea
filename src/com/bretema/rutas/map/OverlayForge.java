@@ -162,6 +162,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		if (currentFocusedItem.getSnippet() != null) {
 			balloonSnippet.setVisibility(View.VISIBLE);
 			balloonSnippet.setText(currentFocusedItem.getSnippet());
+			balloonSnippet.setWidth(balloonTitle.getWidth());
 		} else {
 			balloonSnippet.setVisibility(View.GONE);
 		}
