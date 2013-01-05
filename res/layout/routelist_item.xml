@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Nombre de la ruta"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/greekBlue" />
+        android:textColor="@color/azulBotonClaro" />
 
     <TextView
         android:id="@+id/descRouteListLabel"

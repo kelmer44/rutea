@@ -28,6 +28,6 @@
     </style>
 
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance">
-        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColor">@color/colorTexto</item>
     </style>
 </resources>

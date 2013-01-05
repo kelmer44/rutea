@@ -19,6 +19,7 @@ public class PoiOverlayItem extends OverlayItem {
 		super(new GeoPoint(poi.getLatitude(), poi.getLongitude()), poi.getNombre(), poi.getDescripcion());
 		if(poi.getTipo() == PoiType.SimplePoi || poi.getTipo() == PoiType.SecondaryPoi)
 			selectable = true;
+		associatedPoi = poi;
 	}
 
 	public Poi getAssociatedPoi() {

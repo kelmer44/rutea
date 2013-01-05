@@ -1,10 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res/com.bretema.rutas"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFDDDDDD"
+    android:background="@color/grisFondo"
     android:orientation="vertical"
     tools:context=".RouteListActivity" >
 
@@ -12,7 +11,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="2"
         android:animateLayoutChanges="false"

@@ -3,7 +3,6 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_oneborder"
     tools:context=".MapActivity" >
 
     <FrameLayout
@@ -15,15 +14,15 @@
         <org.mapsforge.android.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/anotherBlue" >
+            android:layout_height="fill_parent" >
+
         </org.mapsforge.android.maps.MapView>
     </FrameLayout>
 
     
     <!--  galeria y boton de plegar/desplegar -->
 
-    <LinearLayout
+    <!--  <LinearLayout
         android:id="@+id/layoutLeftPanel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -54,6 +53,7 @@
             android:visibility="gone" />
 
     </LinearLayout>
+     -->
 <!--  barra de menu -->
 
     <RelativeLayout
@@ -63,20 +63,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="0dp"
-        android:background="@drawable/back_oneborder"
+        android:background="@drawable/back_side_mapmenu"
         android:orientation="vertical" >
-
-        <ImageButton
-            android:id="@+id/gotoRouteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="12dp"
-            android:contentDescription="@string/ir_a"
-            android:src="@android:drawable/ic_menu_mylocation" />
     </RelativeLayout>
 <!--  sombra de la barra de menu -->
     <View
@@ -99,11 +87,11 @@
 
             <Button
                 android:id="@+id/buttonNextPoi"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="-10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/button"
                 android:gravity="center_vertical|center_horizontal|left"
                 android:minHeight="0dip"
@@ -136,7 +124,7 @@
 
             <Button
                 android:id="@+id/buttonQuitRoute"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="-10dp"
@@ -156,14 +144,12 @@
                 android:id="@+id/me_pos_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
                 android:src="@drawable/ic_maps_indicator_current_position_anim1" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:text="@string/mi_posici_n"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
@@ -188,7 +174,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:text="Volver a ruta"
+                android:text="@string/volver_a_ruta"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
         </LinearLayout>

@@ -16,11 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="foto ruta"
         android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/balloon_inner_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
@@ -28,19 +31,21 @@
 
         <TextView
             android:id="@+id/balloon_item_title"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="balloon_item_title"
             android:textColor="#FF000000"
             android:textSize="16sp" >
+
         </TextView>
 
         <TextView
             android:id="@+id/balloon_item_snippet"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:fitsSystemWindows="true"
             android:maxLines="4"
+            android:minWidth="200dp"
             android:text="balloon_item_snippet otra_mas_largo"
             android:textSize="12sp" >
 

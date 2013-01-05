@@ -3,7 +3,7 @@
     android:id="@+id/maindetaillayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFDDDDDD"
+    android:background="@color/grisFondo"
     android:orientation="vertical"
     tools:context=".RouteDetailActivity" >
 
@@ -24,7 +24,7 @@
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/round_label_fromright"
+            android:background="@drawable/routedetail_title"
             android:gravity="center"
             android:paddingBottom="3dp"
             android:paddingLeft="3dp"
@@ -37,7 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:clipChildren="true" >
+            android:clipChildren="true" android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -79,7 +79,8 @@
                     <TableRow
                         android:id="@+id/tableRow2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|center_horizontal" >
 
                         <TextView
                             android:id="@+id/textView3"
@@ -103,10 +104,10 @@
                 <TextView
                     android:id="@+id/routeDetailDescriptionLabel"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="0dp"
                     android:layout_margin="0dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bot_border_white"
+                    android:background="@drawable/fondoblanco_bordeazulinferior"
                     android:gravity="left"
                     android:scrollbars="vertical"
                     android:text="@string/desc"
@@ -136,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:layout_weight="0.05"
-        android:background="@drawable/sup_border"
+        android:background="@drawable/fondoblanco_bordeazulsuperior"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 

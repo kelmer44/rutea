@@ -130,6 +130,14 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 				}
 			}
 		});
+		
+		backButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RouteDetailActivity.this.finish();
+			}
+		});
 	}
 
 	private void loadAudioFile() {

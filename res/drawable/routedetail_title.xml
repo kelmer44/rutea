@@ -7,7 +7,7 @@
         android:angle="270"
         >
     </gradient>-->
-     <solid android:color="@color/appBlue" >
+     <solid android:color="@color/azulOscuro" >
     </solid>
 
     <corners

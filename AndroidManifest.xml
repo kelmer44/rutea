@@ -49,6 +49,10 @@
             android:name="com.bretema.rutas.activities.SlideShowActivity"
             android:label="@string/title_activity_slide_show" >
         </activity>
+        <activity
+            android:name="com.bretema.rutas.activities.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/appBlue"
+        android:background="@color/azulOscuro"
         android:gravity="center"
         android:text="@string/poi_nombre_placeholder"
         style="@style/Titular"
@@ -20,7 +20,7 @@
         android:id="@+id/textViewPOIDescSlideShow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bot_border_white"
+        android:background="@drawable/fondoblanco_bordeazulinferior"
         android:text="@string/poi_desc_placeholder"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/sup_border" />
+        android:background="@drawable/fondoblanco_bordeazulsuperior" />
 
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
@@ -82,21 +82,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/sup_border"
+        android:background="@drawable/fondoblanco_bordeazulsuperior"
+        android:gravity="center"
         android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/buttonNavigateSlideShow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="-15dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/button"
-            android:text="@string/boton_navegar"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/primary_text_dark" />
+        
+                    <Button
+                        android:id="@+id/buttonNavigateSlideShow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="-10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:minHeight="0dip"
+                        android:minWidth="0dip"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/boton_navegar"
+                        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                        android:textColor="@android:color/primary_text_dark" />
 
     </LinearLayout>
 

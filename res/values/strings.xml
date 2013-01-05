@@ -10,7 +10,7 @@
     <string name="no_map">No se encontró el fichero de mapas</string>
     <string name="punto_anterior">punto anterior</string>
     <string name="siguiente_punto">siguiente punto</string>
-    <string name="salir_de_ruta">salir de ruta</string>
+    <string name="salir_de_ruta">mapa de servicios</string>
     <string name="ir_a">Ir a</string>
     <string name="hide_gallery">Ocultar galería</string>
     <string name="elija_una_ruta_">Elija una ruta:</string>
@@ -27,5 +27,7 @@
     <string name="poi_nombre_placeholder">Large Text</string>
     <string name="poi_desc_placeholder">Descripción del punto</string>
     <string name="volver">volver</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="volver_a_ruta">Volver a ruta</string>
 
 </resources>

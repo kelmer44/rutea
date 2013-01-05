@@ -80,7 +80,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	// UI elements
 	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
-	private ImageButton			gotoRouteButton;
 	private MapView				mapView;
 	private Gallery				selectedPOIgallery;
 	private ImageButton			buttonHideGallery;
@@ -140,10 +139,13 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		
 		//La galeria estará oculta por defecto
 		galleryHidden = true;
+		//buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 
-		gotoRouteButton = (ImageButton) findViewById(R.id.gotoRouteButton);
+		//buttonHideGallery.setEnabled(false);
+		//buttonHideGallery.setOnClickListener(this);
+		
+		
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
-		buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
@@ -168,9 +170,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 				return true;
 			}
 		});
-		buttonHideGallery.setEnabled(false);
-		buttonHideGallery.setOnClickListener(this);
-		gotoRouteButton.setOnClickListener(this);
 		nextPoiButton.setOnClickListener(this);
 		prevPoiButton.setOnClickListener(this);
 		quitRouteButton.setOnClickListener(this);
@@ -352,7 +351,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			Log.d(LOG_TAG, "Selecting poi " + index);
 			selectedPoi = simplePoiList.get(index);
 			itemsOverlay.selectPOIOverlay(index);
-			getImagesFromSelectedPoi();
+			//getImagesFromSelectedPoi();
 
 		}
 	}
@@ -366,7 +365,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			mThumbList.add(mm.getThumbUri());
 		}
 		Log.d(LOG_TAG, "Creating new gallery");
-		selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
+		//selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this, selectedPoi, mThumbList));
 	}
 
@@ -458,7 +457,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 						Log.i(LOG_TAG, "Route data transfer complete");
 						overlayRoute();
 						//Activamos el boton de galeria
-						buttonHideGallery.setEnabled(true);
+						//buttonHideGallery.setEnabled(true);
 
 					}
 				});
@@ -526,18 +525,6 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 		}
 
-		else if (v == gotoRouteButton) {
-			// Intent intent = new Intent(Intent.ACTION_VIEW,
-			// Uri.parse("geo:" + selectedPoi.getLatitude() + "," +
-			// selectedPoi.getLongitude() + "?q=" +
-			// selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()
-			// + "(" + selectedPoi.getNombre() + ")&z=17"));
-			// startActivity(intent);
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + selectedPoi.getLatitude() + "," + selectedPoi.getLongitude()));
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-		}
-
 		else if (v == nextPoiButton) {
 			selectNextPoi();
 		}
@@ -551,15 +538,15 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(secondaryPoiList);
-			hideGallery();
-			disableGallery();
+			//hideGallery();
+			//disableGallery();
 			vf.showNext();
 		} else if (v == buttonBackToRoute) {
 			vf.setInAnimation(animFlipInNext);
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(simplePoiList);
-			enableGallery();
+			//enableGallery();
 			vf.showPrevious();
 		}
 	}

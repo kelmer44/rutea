@@ -28,6 +28,8 @@ import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
+import com.bretema.rutas.activities.SlideShowActivity;
+import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.poi.Poi;
 
 public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
@@ -53,12 +55,12 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
 	public OverlayForge(Drawable defaultMarker, Drawable selectedMarker, Drawable myLocationMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
-		
+
 		me_overlay = new PoiOverlayItem();
 		me_overlay.setTitle("Mi posición");
 		me_overlay.setSnippet("Usted está aquí");
 		me_overlay.setMarker(boundCenter(myLocationMarker));
-		
+
 		// Updating the markers
 		this.defaultMarker = boundCenterBottom(defaultMarker);
 		this.selectMarker = boundCenterBottom(selectedMarker);
@@ -121,10 +123,9 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	}
 
 	public void addOverlay(PoiOverlayItem overlay, Drawable d, boolean center) {
-		if(center){
+		if (center) {
 			overlay.setMarker(boundCenter(d));
-		}
-		else{
+		} else {
 			overlay.setMarker(boundCenterBottom(d));
 		}
 		m_overlays.add(overlay);
@@ -162,7 +163,6 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		if (currentFocusedItem.getSnippet() != null) {
 			balloonSnippet.setVisibility(View.VISIBLE);
 			balloonSnippet.setText(currentFocusedItem.getSnippet());
-			balloonSnippet.setWidth(balloonTitle.getWidth());
 		} else {
 			balloonSnippet.setVisibility(View.GONE);
 		}
@@ -195,16 +195,29 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		if (index == fullList.indexOf(me_overlay))
 			return true;
 		doShowBallon(index - 1);
-		if(m_overlays.get(index-1).isSelectable())
+		if (m_overlays.get(index - 1).isSelectable())
 			routeActivity.selectPoi(index - 1);
 		return true;
 	}
 
-	protected boolean onBalloonTap(int index, OverlayItem item) {
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + item.getPoint().getLatitude() + ","
-				+ item.getPoint().getLongitude()));
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(intent);
+	protected boolean onBalloonTap(int index, PoiOverlayItem item) {
+		Poi whichPoi = item.getAssociatedPoi();
+		// Si es un poi turistico entonces abrimos slideshow, si no lanzamos el
+		// navegador ya
+		if (whichPoi.getTipo() == PoiType.SimplePoi || whichPoi.getTipo() == PoiType.SecondaryPoi) {
+
+			Intent in = new Intent(context, SlideShowActivity.class);
+
+			in.putExtra("id_poi", whichPoi.getId());
+			// in.putExtra("current", position);
+			context.startActivity(in);
+		} else {
+			String intentGeoUri = "geo:";
+			String intentNavUri = "google.navigation:q=";
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentGeoUri + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(intent);
+		}
 		return true;
 	}
 

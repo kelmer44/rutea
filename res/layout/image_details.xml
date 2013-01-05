@@ -20,7 +20,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:background="#77000000"
+        android:background="@color/grisTransparente"
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
