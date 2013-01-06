@@ -1,25 +1,23 @@
 package com.bretema.rutas.view;
 
-import java.io.IOException;
-
-import com.bretema.rutas.R;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import com.bretema.rutas.R;
 
 public class VideoFragment extends Fragment{
 	private static final String LOG_TAG = VideoFragment.class.getSimpleName();
 	
-	
+	private VideoView mVideoView;
+	private ConstantAnchorMediaController mMedia;
+	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,9 +36,15 @@ public class VideoFragment extends Fragment{
 		String imageURI = getArguments().getString("uri");
 		String videoCaption = getArguments().getString("caption");
 		TextView textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
-		VideoView videoView = (VideoView) view.findViewById(R.id.videoViewSlideShow);
-		videoView.setVideoPath("android.resource://com.bretema.rutas/raw/video");
-		videoView.start();
+		mVideoView = (VideoView) view.findViewById(R.id.videoViewSlideShow);
+		
+		
+		mMedia = new ConstantAnchorMediaController(getActivity(), mVideoView);
+		
+		mMedia.setMediaPlayer(mVideoView);
+	     
+	    mVideoView.setMediaController(mMedia);
+		mVideoView.setVideoPath("android.resource://com.bretema.rutas/raw/video");
 		textView.setText(videoCaption);
 		return view;
 	}

@@ -7,13 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
@@ -21,7 +20,6 @@ import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageGridAdapter;
-import com.bretema.rutas.view.RouteListAdapter;
 
 /**
  * Representa la lista de rutas.
@@ -86,4 +84,17 @@ public class RouteListActivity extends Activity{
 		return true;
 	}
 
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+	    switch (item.getItemId()) {
+	    	case R.id.menu_info:
+	    		Intent in = new Intent(getApplicationContext(), AboutActivity.class);
+	    		startActivity(in);
+	    		return true;
+	    	default:
+	    		return super.onOptionsItemSelected(item);
+	    }
+	}
 }
