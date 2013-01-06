@@ -42,10 +42,18 @@ public class VideoFragment extends Fragment{
 		mMedia = new ConstantAnchorMediaController(getActivity(), mVideoView);
 		
 		mMedia.setMediaPlayer(mVideoView);
-	     
+		mMedia.setPadding(0, 0, 0, 50);
 	    mVideoView.setMediaController(mMedia);
 		mVideoView.setVideoPath("android.resource://com.bretema.rutas/raw/video");
 		textView.setText(videoCaption);
 		return view;
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		mMedia.hide();
+		mVideoView.stopPlayback();
 	}
 }
