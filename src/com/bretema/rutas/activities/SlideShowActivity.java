@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -26,6 +25,7 @@ import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.view.ImageFragment;
+import com.bretema.rutas.view.VideoFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -122,6 +122,14 @@ public class SlideShowActivity extends FragmentActivity {
 			Multimedia m = multimediaList.get(position);
 			if (m.getTipo() == MMType.Imagen) {
 				ImageFragment ifragment = new ImageFragment();
+				Bundle bundle = new Bundle();
+				bundle.putString("uri", m.getUri());
+				bundle.putString("caption", m.getDescripcion());
+				ifragment.setArguments(bundle);
+				return ifragment;
+			}
+			else if (m.getTipo() == MMType.Video){
+				VideoFragment ifragment = new VideoFragment();
 				Bundle bundle = new Bundle();
 				bundle.putString("uri", m.getUri());
 				bundle.putString("caption", m.getDescripcion());

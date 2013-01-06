@@ -8,32 +8,70 @@ import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Define una instancia de rutas
+ * 
  * @author Gabriel Sanmartín Díaz
- *
+ * 
  */
 
 @DatabaseTable
 public class Ruta {
 
 	@DatabaseField(generatedId = true)
-	private Integer id;
-	
-	@DatabaseField
-	private String nombre;
-	
-	@DatabaseField
-	private String description;
+	private Integer	id;
 
+	/**
+	 * Nombre de la ruta
+	 */
 	@DatabaseField
-	private String mainImagePath;
-	
-	@DatabaseField
-	private String shortDescription;
-	
-	@DatabaseField
-	private String routeFile;
+	private String	nombre;
 
-	
+	/**
+	 * Descripción de la ruta (introducción)
+	 */
+	@DatabaseField
+	private String	description;
+
+	/**
+	 * Imagen principal
+	 */
+	@DatabaseField
+	private String	mainImagePath;
+
+	/**
+	 * Descripción corta (en desuso?)
+	 */
+	@DatabaseField
+	private String	shortDescription;
+
+	/**
+	 * URI del archivo GPX
+	 */
+	@DatabaseField
+	private String	routeFile;
+
+	/**
+	 * imagen de muestreo en la pantalla principal
+	 */
+	@DatabaseField
+	private String	listImagePath;
+
+	/**
+	 * Archivo de audio con la introducción de la ruta
+	 */
+	@DatabaseField
+	private String	introAudioPath;
+
+	/**
+	 * Duracion temporal de la ruta
+	 */
+	@DatabaseField
+	private String	duracion;
+
+	/**
+	 * km de longitud de la ruta
+	 */
+	@DatabaseField
+	private float	km;
 
 	public Ruta() {
 		super();
@@ -44,6 +82,38 @@ public class Ruta {
 		this.nombre = nombre;
 		this.description = description;
 		this.mainImagePath = mainImagePath;
+	}
+
+	public String getListImagePath() {
+		return listImagePath;
+	}
+
+	public void setListImagePath(String listImagePath) {
+		this.listImagePath = listImagePath;
+	}
+
+	public String getIntroAudioPath() {
+		return introAudioPath;
+	}
+
+	public void setIntroAudioPath(String introAudioPath) {
+		this.introAudioPath = introAudioPath;
+	}
+
+	public String getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
+	}
+
+	public float getKm() {
+		return km;
+	}
+
+	public void setKm(float km) {
+		this.km = km;
 	}
 
 	public String getMainImagePath() {
@@ -77,7 +147,6 @@ public class Ruta {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 
 	public String getShortDescription() {
 		return shortDescription;
@@ -94,5 +163,5 @@ public class Ruta {
 	public void setRouteFile(String routeFile) {
 		this.routeFile = routeFile;
 	}
-	
+
 }

@@ -37,29 +37,29 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	/**
 	 * Logging
 	 */
-	private static final String LOG_TAG = DatabaseHelper.class.getSimpleName();
+	private static final String		LOG_TAG			= DatabaseHelper.class.getSimpleName();
 
 	/**
 	 * name of the database file for your application -- change to something
 	 * appropriate for your app
 	 */
-	public static final String DATABASE = "rutas.db";
+	public static final String		DATABASE		= "rutas.db";
 	/**
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int VERSION = 25;
+	public static final int			VERSION			= 27;
 	/**
 	 * The database type.
 	 */
-	private DatabaseType databaseType = new SqliteAndroidDatabaseType();
+	private DatabaseType			databaseType	= new SqliteAndroidDatabaseType();
 
 	/**
 	 * The context.
 	 */
-	private Context context = null;
+	private Context					context			= null;
 
-	private Map<String, Dao<T, ID>> daoCache = new HashMap<String, Dao<T, ID>>();
+	private Map<String, Dao<T, ID>>	daoCache		= new HashMap<String, Dao<T, ID>>();
 
 	/**
 	 * Create a new database helper.
@@ -70,8 +70,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE, null, VERSION);
 		this.context = context;
-		Log.i(LOG_TAG, "Installing database, databasename = " + DATABASE
-				+ ", version = " + VERSION);
+		Log.i(LOG_TAG, "Installing database, databasename = " + DATABASE + ", version = " + VERSION);
 	}
 
 	/**
@@ -86,18 +85,14 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * @param databaseVersion
 	 *            The database version.
 	 */
-	public DatabaseHelper(final Context context, final String databaseName,
-			final SQLiteDatabase.CursorFactory factory,
-			final int databaseVersion) {
+	public DatabaseHelper(final Context context, final String databaseName, final SQLiteDatabase.CursorFactory factory, final int databaseVersion) {
 		super(context, databaseName, factory, databaseVersion);
 		this.context = context;
-		Log.i(LOG_TAG, "Installing database, databasename = " + databaseName
-				+ ", version = " + databaseVersion);
+		Log.i(LOG_TAG, "Installing database, databasename = " + databaseName + ", version = " + databaseVersion);
 	}
 
 	@Override
-	public final void onCreate(final SQLiteDatabase database,
-			final ConnectionSource connectionSource) {
+	public final void onCreate(final SQLiteDatabase database, final ConnectionSource connectionSource) {
 		try {
 			Log.d(LOG_TAG, "Creating the database");
 			Log.d(LOG_TAG, "Database path: " + database.getPath());
@@ -109,8 +104,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 
 		} catch (SQLException e) {
 			Log.e(LOG_TAG, "Excpetion while creating the database", e);
-			throw new RuntimeException("Excpetion while creating the database",
-					e);
+			throw new RuntimeException("Excpetion while creating the database", e);
 		}
 	}
 
@@ -132,6 +126,10 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues.put("mainImagePath", "ruta1/rsa.jpg");
 		routeValues.put("shortDescription", "Descripción de esta ruta.");
 		routeValues.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues.put("listImagePath", "ruta1/title.jpg");
+		routeValues.put("introAudioPath", "ruta1/intro.mp3");
+		routeValues.put("duracion", "6.5 horas");
+		routeValues.put("km", 11.3);
 		database.insert("ruta", null, routeValues);
 
 		ContentValues routeValues2 = new ContentValues();
@@ -143,6 +141,10 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues2.put("mainImagePath", "ruta2/rsa.jpg");
 		routeValues2.put("shortDescription", "Descripción de esta ruta 2.");
 		routeValues2.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues2.put("listImagePath", "ruta2/title.jpg");
+		routeValues2.put("introAudioPath", "ruta1/intro.mp3");
+		routeValues2.put("duracion", "5 horas");
+		routeValues2.put("km", 8.3);
 		database.insert("ruta", null, routeValues2);
 
 		ContentValues routeValues3 = new ContentValues();
@@ -154,6 +156,10 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues3.put("mainImagePath", "ruta4/rsa.jpg");
 		routeValues3.put("shortDescription", "Descripción de esta ruta 3.");
 		routeValues3.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues3.put("listImagePath", "ruta4/title.jpg");
+		routeValues3.put("introAudioPath", "ruta1/intro.mp3");		
+		routeValues3.put("duracion", "4 horas");
+		routeValues3.put("km", 6.3);
 		database.insert("ruta", null, routeValues3);
 
 		ContentValues routeValues4 = new ContentValues();
@@ -165,6 +171,10 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues4.put("mainImagePath", "ruta5/rsa.jpg");
 		routeValues4.put("shortDescription", "Descripción de esta ruta 4.");
 		routeValues4.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues4.put("listImagePath", "ruta5/title.jpg");
+		routeValues4.put("introAudioPath", "ruta1/intro.mp3");		
+		routeValues4.put("duracion", "4.5 horas");
+		routeValues4.put("km", 5.3);
 		database.insert("ruta", null, routeValues4);
 
 		ContentValues routeValues5 = new ContentValues();
@@ -176,9 +186,12 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues5.put("mainImagePath", "ruta3/rsa.jpg");
 		routeValues5.put("shortDescription", "Descripción de esta ruta 3.");
 		routeValues5.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues5.put("listImagePath", "ruta3/title.jpg");
+		routeValues5.put("introAudioPath", "ruta1/intro.mp3");
+		routeValues5.put("duracion", "7 horas");
+		routeValues5.put("km", 26.3);
 		database.insert("ruta", null, routeValues5);
 
-		
 		ContentValues routeValues6 = new ContentValues();
 		routeValues6.put("id", 6);
 		routeValues6.put("nombre", "Cultura, Naturaleza y Enología de la Ribeira Sacra");
@@ -188,9 +201,12 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		routeValues6.put("mainImagePath", "ruta6/rsa.jpg");
 		routeValues6.put("shortDescription", "Descripción de esta ruta 6.");
 		routeValues6.put("routeFile", "ruta1/pruebaruta.gpx");
+		routeValues6.put("listImagePath", "ruta6/title.jpg");
+		routeValues6.put("introAudioPath", "ruta1/intro.mp3");
+		routeValues6.put("duracion", "3.5 horas");
+		routeValues6.put("km", 3.3);
 		database.insert("ruta", null, routeValues6);
-		
-		
+
 		Log.d(LOG_TAG, "Inserting default POIS for route 1");
 		ContentValues poiValues = new ContentValues();
 		poiValues.put("id", 1);
@@ -206,8 +222,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues poiValues2 = new ContentValues();
 		poiValues2.put("id", 2);
 		poiValues2.put("nombre", "Santo Estevo de Ribas de Sil");
-		poiValues2
-				.put("descripcion", "Quisque non quam mauris, eget faucibus nisi.");
+		poiValues2.put("descripcion", "Quisque non quam mauris, eget faucibus nisi.");
 		poiValues2.put("tipo", PoiType.SimplePoi.toString());
 		poiValues2.put("latitude", 42.417028);
 		poiValues2.put("longitude", -7.686203);
@@ -218,8 +233,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues poiValues3 = new ContentValues();
 		poiValues3.put("id", 3);
 		poiValues3.put("nombre", "Santa Cristina de Ribas de Sil");
-		poiValues3
-				.put("descripcion", "Sed quis ligula at ligula porttitor vehicula.");
+		poiValues3.put("descripcion", "Sed quis ligula at ligula porttitor vehicula.");
 		poiValues3.put("tipo", PoiType.SimplePoi.toString());
 		poiValues3.put("latitude", 42.395242);
 		poiValues3.put("longitude", -7.588719);
@@ -230,8 +244,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues poiValues4 = new ContentValues();
 		poiValues4.put("id", 4);
 		poiValues4.put("nombre", "Balcones de Madrid");
-		poiValues4
-				.put("descripcion", "Morbi orci sem, posuere ut tincidunt vel, elementum a magna.");
+		poiValues4.put("descripcion", "Morbi orci sem, posuere ut tincidunt vel, elementum a magna.");
 		poiValues4.put("tipo", PoiType.SimplePoi.toString());
 		poiValues4.put("latitude", 42.388981);
 		poiValues4.put("longitude", -7.566575);
@@ -242,8 +255,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues poiValues5 = new ContentValues();
 		poiValues5.put("id", 5);
 		poiValues5.put("nombre", "Barxacova");
-		poiValues5
-				.put("descripcion", "Quisque gravida, risus id consequat pellentesque.");
+		poiValues5.put("descripcion", "Quisque gravida, risus id consequat pellentesque.");
 		poiValues5.put("tipo", PoiType.SimplePoi.toString());
 		poiValues5.put("latitude", 42.381856);
 		poiValues5.put("longitude", -7.496581);
@@ -254,28 +266,25 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		ContentValues farmaciaPoi = new ContentValues();
 		farmaciaPoi.put("id", 6);
 		farmaciaPoi.put("nombre", "Farmacia Ramírez");
-		farmaciaPoi
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+		farmaciaPoi.put("descripcion", "Pues aquí iría la descripción del punto");
 		farmaciaPoi.put("tipo", PoiType.FarmaciaPoi.toString());
 		farmaciaPoi.put("latitude", 42.376173);
 		farmaciaPoi.put("longitude", -7.584356);
 		farmaciaPoi.put("orden", 6);
 		farmaciaPoi.put("rutaId", 1);
 		database.insert("poi", null, farmaciaPoi);
-	
+
 		ContentValues restaurantePoi = new ContentValues();
 		restaurantePoi.put("id", 7);
 		restaurantePoi.put("nombre", "Restaurante Pancracio");
-		restaurantePoi
-				.put("descripcion", "Pues aquí iría la descripción del punto");
+		restaurantePoi.put("descripcion", "Pues aquí iría la descripción del punto");
 		restaurantePoi.put("tipo", PoiType.RestaurantePoi.toString());
-		restaurantePoi.put("latitude", 				42.369452);
+		restaurantePoi.put("latitude", 42.369452);
 		restaurantePoi.put("longitude", -7.580401);
 		restaurantePoi.put("orden", 7);
 		restaurantePoi.put("rutaId", 1);
 		database.insert("poi", null, restaurantePoi);
-		
-		
+
 		ContentValues mmValue21 = new ContentValues();
 		mmValue21.put("uri", "ruta1/imagen4.jpg");
 		mmValue21.put("thumbUri", "ruta1/thumb4.jpg");
@@ -375,29 +384,32 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		mmValue51.put("poiId", 5);
 		mmValue51.put("orden", 10);
 		database.insert("multimedia", null, mmValue51);
+		
+		ContentValues mmValue52 = new ContentValues();
+		mmValue52.put("uri", "ruta1/video.avi");
+		mmValue52.put("thumbUri", "ruta1/thumb3.jpg");
+		mmValue52.put("nombre", "Barxacova");
+		mmValue52.put("descripcion", "Shivers 2 trailer");
+		mmValue52.put("tipo", MMType.Video.toString());
+		mmValue52.put("poiId", 5);
+		mmValue52.put("orden", 11);
+		database.insert("multimedia", null, mmValue52);
 	}
 
 	@Override
-	public final void onUpgrade(final SQLiteDatabase database,
-			final ConnectionSource connectionSource, final int oldVersion,
-			final int newVersion) {
+	public final void onUpgrade(final SQLiteDatabase database, final ConnectionSource connectionSource, final int oldVersion, final int newVersion) {
 
 		// This is the old code for upgrading a database: dropping the old one
 		// and creating a new one...
 		try {
 
 			for (Tables table : Tables.values()) {
-				TableUtils.dropTable(connectionSource, table.getTableClass(),
-						true);
+				TableUtils.dropTable(connectionSource, table.getTableClass(), true);
 			}
 			onCreate(database);
 		} catch (SQLException e) {
-			Log.e(LOG_TAG,
-					"Excpetion while updating the database from version "
-							+ oldVersion + "to " + newVersion, e);
-			throw new RuntimeException(
-					"Excpetion while updating the database from version "
-							+ oldVersion + "to " + newVersion, e);
+			Log.e(LOG_TAG, "Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
+			throw new RuntimeException("Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
 		}
 		// if (newVersion < oldVersion) {
 		// Log.w(LOG_TAG,

@@ -1,0 +1,26 @@
+package com.bretema.rutas.activities;
+
+import com.bretema.rutas.R;
+import com.bretema.rutas.R.layout;
+import com.bretema.rutas.R.menu;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class AboutActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_about);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_about, menu);
+		return true;
+	}
+
+}
