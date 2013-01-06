@@ -1,6 +1,7 @@
 package com.bretema.rutas.activities;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -121,37 +122,39 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private MyLocationListener	locationListener;
 	private String				bestProvider;
 
+	private boolean				showLeftMenu		= true;
+
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//Actividad en fullscreen
+		// Actividad en fullscreen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.activity_map);
 
-		
-		
 		// obtenemos la llamada a esta activity
 		Intent i = getIntent();
 		// y recogemos el id de la linea que nos han pasado
 		id_ruta = i.getStringExtra("id_ruta");
-		
-		//La galeria estará oculta por defecto
-		galleryHidden = true;
-		//buttonHideGallery = (ImageButton) findViewById(R.id.buttonHideGallery);
 
-		//buttonHideGallery.setEnabled(false);
-		//buttonHideGallery.setOnClickListener(this);
-		
-		
+		// Determinamos si mostramos o no el menu de botones
+		showLeftMenu = i.getBooleanExtra("showmenu", true);
+
+		// La galeria estará oculta por defecto
+		galleryHidden = true;
+		// buttonHideGallery = (ImageButton)
+		// findViewById(R.id.buttonHideGallery);
+
+		// buttonHideGallery.setEnabled(false);
+		// buttonHideGallery.setOnClickListener(this);
+
 		linearLayoutLeftPanel = (RelativeLayout) findViewById(R.id.leftMenuBarRoute);
 		nextPoiButton = (Button) findViewById(R.id.buttonNextPoi);
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
 		buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
-		
-		
+
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
@@ -160,6 +163,10 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		vf = (ViewFlipper) findViewById(R.id.ViewFlipper01);
 		animFlipInNext = AnimationUtils.loadAnimation(this, R.anim.flipinnext);
 		animFlipOutPrevious = AnimationUtils.loadAnimation(this, R.anim.flipoutprevious);
+
+		if (!showLeftMenu) {
+			vf.setVisibility(ViewFlipper.GONE);
+		}
 
 		linearLayoutLeftPanel.setOnTouchListener(new OnTouchListener() {
 
@@ -180,33 +187,40 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		prevPoiButton.setTypeface(colab);
 		quitRouteButton.setTypeface(colab);
 		buttonBackToRoute.setTypeface(colab);
-		
+
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
 
-		//Location manager
+		// Location manager
 		mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		bestProvider = mgr.getBestProvider(new Criteria(), true);
 
+		
+		routePoints = new ArrayList<GeoPoint>();
 		// If everything went fine...
 		if (initData() && initMapData()) {
-			//Async activity for processing gpx files
-			new RouteLoader().execute(ruta.getRouteFile());
-			
-			//Nos registramos como lector de localización
+			// Async activity for processing gpx files
+			if(id_ruta.equals("all")){
+				overlayRoute();
+			}
+			else {
+				new RouteLoader().execute(ruta.getRouteFile());
+			}
+
+			// Nos registramos como lector de localización
 			locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
 			if (bestProvider != null && !bestProvider.equals("")) {
 				mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
 			}
 		} else {
 			Log.e(LOG_TAG, "Algo ha ido mal");
-			//we set mapview to null so no need to destroy it
+			// we set mapview to null so no need to destroy it
 			mapView = null;
 			finish();
 		}
 	}
 
-	//Muestra otra vez la galería
+	// Muestra otra vez la galería
 	protected void showGallery() {
 		buttonHideGallery.setImageResource(android.R.drawable.arrow_down_float);
 		galleryHidden = false;
@@ -214,7 +228,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		selectedPOIgallery.invalidate();
 
 	}
-	//Oculta la galeria
+
+	// Oculta la galeria
 	protected void hideGallery() {
 
 		buttonHideGallery.setImageResource(android.R.drawable.arrow_up_float);
@@ -223,8 +238,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		selectedPOIgallery.invalidate();
 	}
 
-	
-	//Recarga la lista de puntos de interés
+	// Recarga la lista de puntos de interés
 	private void loadPoiOverlays(List<Poi> lista) {
 		for (Poi p : lista) {
 			PoiOverlayItem overlay = new PoiOverlayItem(p);
@@ -252,8 +266,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		OverlayWay way = new OverlayWay(Constants.toGeoPointArray(routePoints));
 
 		arrayWayOverlay.addWay(way);
-		
-		//pedimos la selección
+
+		// pedimos la selección
 		selectPoi(0);
 		// Adding route overlay
 		Log.d(LOG_TAG, "Adding route overlay");
@@ -267,10 +281,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	/**
 	 * Inicializa el fichero de mapa y si no funciona devuelve error.
+	 * 
 	 * @return
 	 */
 	private boolean initMapData() {
-		File mapFile = new File(Environment.getExternalStorageDirectory().getPath() + "/maps/galicia.map");
+		File mapFile = new File(Constants.appPath + "galicia.map");
 
 		Log.d(LOG_TAG, "Trying to load file" + mapFile.getName());
 
@@ -296,18 +311,27 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			return true;
 		}
 	}
-/**
- * Recoge datos de la base de datos
- * @return
- */
+
+	/**
+	 * Recoge datos de la base de datos
+	 * 
+	 * @return
+	 */
 	private boolean initData() {
 		mThumbList = new ArrayList<String>();
-		ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
-		Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
-		// simplePoiList = poiService.findAll();
-		// simplePoiList = poiService.findAll();
-		simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
-		secondaryPoiList = poiService.getOtherPoiOrderedByRuta(ruta.getId());
+		if (id_ruta.equals("all")) {
+			Log.d(LOG_TAG, "Retrieving All simple POI list");
+			simplePoiList = poiService.getAllSimplePoi();
+			secondaryPoiList = new ArrayList<Poi>();
+		} else {
+			ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
+			Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
+			// simplePoiList = poiService.findAll();
+			// simplePoiList = poiService.findAll();
+			simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
+			secondaryPoiList = poiService.getOtherPoiOrderedByRuta(ruta.getId());
+		}
+
 		// We select first element+
 		if (simplePoiList.size() != 0) {
 			selectedPoi = simplePoiList.get(0);
@@ -351,7 +375,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			Log.d(LOG_TAG, "Selecting poi " + index);
 			selectedPoi = simplePoiList.get(index);
 			itemsOverlay.selectPOIOverlay(index);
-			//getImagesFromSelectedPoi();
+			// getImagesFromSelectedPoi();
 
 		}
 	}
@@ -365,7 +389,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			mThumbList.add(mm.getThumbUri());
 		}
 		Log.d(LOG_TAG, "Creating new gallery");
-		//selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
+		// selectedPOIgallery = (Gallery) findViewById(R.id.selectedPOIgallery);
 		selectedPOIgallery.setAdapter(new ImageAdapter(this, selectedPoi, mThumbList));
 	}
 
@@ -375,67 +399,66 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		protected Boolean doInBackground(String... params) {
 			// This pattern takes more than one param but we'll just use the
 			// first
-			try {
+				try {
 
-				String filePath = params[0];
+					String filePath = params[0];
 
-				XmlPullParserFactory parserCreator;
+					XmlPullParserFactory parserCreator;
 
-				parserCreator = XmlPullParserFactory.newInstance();
+					parserCreator = XmlPullParserFactory.newInstance();
 
-				XmlPullParser parser = parserCreator.newPullParser();
+					XmlPullParser parser = parserCreator.newPullParser();
 
-				InputStream is = getAssets().open(filePath);
-				parser.setInput(new InputStreamReader(is));
+					InputStream is = new FileInputStream(Constants.appPath + filePath);
+					parser.setInput(new InputStreamReader(is));
 
-				// publishProgress("Parsing XML...");
+					// publishProgress("Parsing XML...");
 
-				int parserEvent = parser.getEventType();
-				int pointCounter = -1;
-				double lat = -1;
-				double lon = -1;
+					int parserEvent = parser.getEventType();
+					int pointCounter = -1;
+					double lat = -1;
+					double lon = -1;
 
-				routePoints = new ArrayList<GeoPoint>();
-				// Parse the XML returned on the network
-				while (parserEvent != XmlPullParser.END_DOCUMENT) {
-					switch (parserEvent) {
-					case XmlPullParser.START_TAG:
-						String tag = parser.getName();
-						if (tag.compareTo("trkpt") == 0) {
-							pointCounter++;
-							lat = Double.parseDouble(parser.getAttributeValue(null, "lat"));
-							lon = Double.parseDouble(parser.getAttributeValue(null, "lon"));
-							routePoints.add(new GeoPoint(lat, lon));
-							// Log.i(LOG_TAG, "   trackpoint=" +
-							// pointCounter
-							// + " latitude=" + lat + " longitude="
-							// + lon);
+					routePoints = new ArrayList<GeoPoint>();
+					// Parse the XML returned on the network
+					while (parserEvent != XmlPullParser.END_DOCUMENT) {
+						switch (parserEvent) {
+						case XmlPullParser.START_TAG:
+							String tag = parser.getName();
+							if (tag.compareTo("trkpt") == 0) {
+								pointCounter++;
+								lat = Double.parseDouble(parser.getAttributeValue(null, "lat"));
+								lon = Double.parseDouble(parser.getAttributeValue(null, "lon"));
+								routePoints.add(new GeoPoint(lat, lon));
+								// Log.i(LOG_TAG, "   trackpoint=" +
+								// pointCounter
+								// + " latitude=" + lat + " longitude="
+								// + lon);
+							}
+							break;
 						}
-						break;
+
+						parserEvent = parser.next();
 					}
+					numberRoutePoints = routePoints.size();
 
-					parserEvent = parser.next();
+				} catch (IllegalArgumentException iae) {
+					Log.d(LOG_TAG, "Error Illegal Argument: " + iae.getMessage());
+					RouteMapActivity.this.finish();
+					return false;
+				} catch (SecurityException se) {
+					Log.d(LOG_TAG, "Error de seguridad: " + se.getMessage());
+					RouteMapActivity.this.finish();
+					return false;
+				} catch (RuntimeException re) {
+					Log.d(LOG_TAG, "Error Runtime: " + re.getMessage());
+					RouteMapActivity.this.finish();
+					return false;
+				} catch (Exception e) {
+					Log.d("RouteLoader", "Failed in parsing XML", e);
+					RouteMapActivity.this.finish();
+					return false;
 				}
-				numberRoutePoints = routePoints.size();
-
-			} catch (IllegalArgumentException iae) {
-				Log.d(LOG_TAG, "Error Illegal Argument: " + iae.getMessage());
-				RouteMapActivity.this.finish();
-				return false;
-			} catch (SecurityException se) {
-				Log.d(LOG_TAG, "Error de seguridad: " + se.getMessage());
-				RouteMapActivity.this.finish();
-				return false;
-			} catch (RuntimeException re) {
-				Log.d(LOG_TAG, "Error Runtime: " + re.getMessage());
-				RouteMapActivity.this.finish();
-				return false;
-			} catch (Exception e) {
-				Log.d("RouteLoader", "Failed in parsing XML", e);
-				RouteMapActivity.this.finish();
-				return false;
-			}
-
 			return true;
 		}
 
@@ -456,8 +479,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 						Log.i(LOG_TAG, "Route data transfer complete");
 						overlayRoute();
-						//Activamos el boton de galeria
-						//buttonHideGallery.setEnabled(true);
+						// Activamos el boton de galeria
+						// buttonHideGallery.setEnabled(true);
 
 					}
 				});
@@ -538,15 +561,15 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(secondaryPoiList);
-			//hideGallery();
-			//disableGallery();
+			// hideGallery();
+			// disableGallery();
 			vf.showNext();
 		} else if (v == buttonBackToRoute) {
 			vf.setInAnimation(animFlipInNext);
 			vf.setOutAnimation(animFlipOutPrevious);
 			itemsOverlay.removeAllPois();
 			loadPoiOverlays(simplePoiList);
-			//enableGallery();
+			// enableGallery();
 			vf.showPrevious();
 		}
 	}

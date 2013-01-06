@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 
 public class VideoFragment extends Fragment{
 	private static final String LOG_TAG = VideoFragment.class.getSimpleName();
@@ -44,7 +45,7 @@ public class VideoFragment extends Fragment{
 		mMedia.setMediaPlayer(mVideoView);
 		mMedia.setPadding(0, 0, 0, 50);
 	    mVideoView.setMediaController(mMedia);
-		mVideoView.setVideoPath("android.resource://com.bretema.rutas/raw/video");
+		mVideoView.setVideoPath(Constants.appPath + "ruta1/video.avi");
 		textView.setText(videoCaption);
 		return view;
 	}

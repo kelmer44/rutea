@@ -14,9 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 
 public class ImageFragment extends Fragment {
-	private static final String LOG_TAG = ImageFragment.class.getSimpleName();
+	private static final String	LOG_TAG	= ImageFragment.class.getSimpleName();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,14 @@ public class ImageFragment extends Fragment {
 		String imageCaption = getArguments().getString("caption");
 		TextView textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
-		try {
-			Bitmap b = BitmapFactory.decodeStream(getActivity().getApplicationContext().getAssets().open(imageURI));
+		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + imageURI);
+		if (b != null) {
 			float ratio = (float) b.getHeight() / (float) b.getWidth();
 			int width = (int) Math.ceil(480 / ratio);
 
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(b, width, 480, true));
 			b.recycle();
-		} catch (IOException e) {
-
+		} else {
 			Log.e(LOG_TAG, "Img not found " + imageURI);
 			imageView.setImageResource(R.drawable.noimage);
 		}

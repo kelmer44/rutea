@@ -64,5 +64,10 @@ public class PoiServiceImpl implements PoiService {
 		}
 		return listaTodos;
 	}
+	
+	@Override
+	public List<Poi> getAllSimplePoi(){
+		return poiDao.findByProperty("tipo", PoiType.SimplePoi);
+	}
 
 }

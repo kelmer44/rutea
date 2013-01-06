@@ -1,19 +1,29 @@
 package com.bretema.rutas.activities;
 
-import com.bretema.rutas.R;
-import com.bretema.rutas.R.layout;
-import com.bretema.rutas.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.bretema.rutas.R;
 
 public class AboutActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_about);
+		
+		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
+		TextView textViewAppName = (TextView)findViewById(R.id.textViewAppName);
+		TextView textViewAppDesc = (TextView)findViewById(R.id.textViewAppDesc);
+		textViewAppName.setTypeface(colab);
+		textViewAppDesc.setTypeface(colab);
 	}
 
 	@Override

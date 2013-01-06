@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.ruta.Ruta;
 
 public class ImageGridAdapter extends BaseAdapter {
@@ -62,27 +63,20 @@ public class ImageGridAdapter extends BaseAdapter {
 		TextView nombre = (TextView) vi.findViewById(R.id.routenameGridLabel);
 		nombre.setTypeface(yanone);
 		Ruta current = routeList.get(position);
-		try {
-			/*
-			 * Drawable d; d =
-			 * Drawable.createFromStream(mContext.getAssets().open("ruta" +
-			 * (position + 1) + "/title.jpg"), null);
-			 */
+		/*
+		 * Drawable d; d =
+		 * Drawable.createFromStream(mContext.getAssets().open("ruta" +
+		 * (position + 1) + "/title.jpg"), null);
+		 */
 
-			Bitmap b = BitmapFactory.decodeStream(mContext.getAssets().open("ruta" + (position + 1) + "/title.jpg"));
+		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + current.getListImagePath());
+		if (b != null) {
 			StreamDrawable d = new StreamDrawable(b, 10, 0);
 			linLayout.setBackgroundDrawable(d);
-
-			/*
-			 * LayoutParams lp = linLayout.getLayoutParams(); lp.width =
-			 * mContext.getResources().getDisplayMetrics().widthPixels;
-			 * lp.height = (int) (lp.width / ratio);
-			 */
-
-		} catch (IOException e) {
+		} else {
 			linLayout.setBackgroundResource(R.drawable.noimage);
 		}
-
+		
 		nombre.setText("" + current.getNombre());
 		id_ruta.setText(current.getId().toString());
 

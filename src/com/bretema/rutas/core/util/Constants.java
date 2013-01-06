@@ -7,8 +7,8 @@ import org.mapsforge.core.GeoPoint;
 
 public class Constants {
 
-	private static final float PI = 3.14159f;
-	
+	public static final float PI = 3.14159f;
+	public static final String appPath = "/sdcard/maps/";
 	
 	public static double geoLatDegToDouble(int deg, int min, float sec, boolean north){
 		

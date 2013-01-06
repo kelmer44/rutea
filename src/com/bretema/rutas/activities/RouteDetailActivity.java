@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -13,14 +14,15 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
@@ -54,8 +56,6 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 
 	private MediaPlayer			mediaPlayer;
 	private ToggleButton		playButton;
-
-	private AssetFileDescriptor	afd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,16 +99,17 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		// int width = size.x;
 		// int height = size.y;
 
-		try {
-			mainRouteImage.setImageBitmap(BitmapFactory.decodeStream(getAssets().open(ruta.getMainImagePath())));
-		} catch (IOException e) {
-			Log.e(LOG_TAG, "No se pudo recuperar la imagen de ruta");
+		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + ruta.getMainImagePath());
+		if (b != null) {
+			mainRouteImage.setImageBitmap(b);
+		} else {
+			mainRouteImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.noimage));
 		}
 
 		routeDetailDescriptionLabel.setTypeface(colab);
 		gotoRouteButton.setTypeface(colabMed);
 		backButton.setTypeface(colabMed);
-		
+
 		gotoRouteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,9 +131,9 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 				}
 			}
 		});
-		
+
 		backButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				RouteDetailActivity.this.finish();
@@ -144,11 +145,10 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 
 		Log.d(LOG_TAG, "Trying to load audio file...");
 		try {
-			afd = getAssets().openFd("ruta1/intro.mp3");
-			mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+			mediaPlayer.setDataSource(Constants.appPath + ruta.getIntroAudioPath());
 			mediaPlayer.prepareAsync();
 		} catch (IOException e1) {
-			Log.e(LOG_TAG, "Could not open file " + "ruta1/intro.mp3" + " for playback.", e1);
+			Log.e(LOG_TAG, "Could not open file " + ruta.getIntroAudioPath() + " for playback.", e1);
 		}
 
 	}
@@ -163,12 +163,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 	@Override
 	protected void onStop() {
 		super.onStop();
-		try {
-			afd.close();
-		} catch (IOException e) {
-			Log.e(LOG_TAG, "Could not close audio file!");
-			e.printStackTrace();
-		}
+
 		// deallocate all memory
 		if (mediaPlayer != null) {
 			if (mediaPlayer.isPlaying()) {
