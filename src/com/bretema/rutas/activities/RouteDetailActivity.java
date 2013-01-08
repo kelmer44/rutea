@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -56,6 +55,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 
 	private MediaPlayer			mediaPlayer;
 	private ToggleButton		playButton;
+	private ImageView			stopButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		mainRouteImage = (ImageView) findViewById(R.id.mainRouteImage);
 
 		playButton = (ToggleButton) findViewById(R.id.playButton);
-
+		stopButton = (ImageView) findViewById(R.id.stopButton);
 		// Asignación de valores
 		routeDetailDescriptionLabel.setText(ruta.getDescription());
 		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
@@ -139,6 +139,16 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 				RouteDetailActivity.this.finish();
 			}
 		});
+		
+		stopButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+					mediaPlayer.pause();
+					mediaPlayer.seekTo(0);
+					playButton.setChecked(false);
+			}
+		});
 	}
 
 	private void loadAudioFile() {
@@ -181,6 +191,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnPreparedListener(this);
 
+		playButton.setChecked(false);
 		loadAudioFile();
 	}
 
