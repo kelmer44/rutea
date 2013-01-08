@@ -67,6 +67,8 @@ public class Ruta {
 	@DatabaseField
 	private String	duracion;
 
+	@DatabaseField
+	private String balloonImagePath;
 	/**
 	 * km de longitud de la ruta
 	 */
@@ -162,6 +164,19 @@ public class Ruta {
 
 	public void setRouteFile(String routeFile) {
 		this.routeFile = routeFile;
+	}
+
+	public Ruta(String nombre, String description, String mainImagePath, String shortDescription, String routeFile, String listImagePath, String introAudioPath, String duracion, float km) {
+		super();
+		this.nombre = nombre;
+		this.description = description;
+		this.mainImagePath = mainImagePath;
+		this.shortDescription = shortDescription;
+		this.routeFile = routeFile;
+		this.listImagePath = listImagePath;
+		this.introAudioPath = introAudioPath;
+		this.duracion = duracion;
+		this.km = km;
 	}
 
 }

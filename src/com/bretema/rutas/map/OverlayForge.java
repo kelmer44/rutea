@@ -103,7 +103,12 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	public void selectPOIOverlay(int idx) {
 		for (int i = 0; i < m_overlays.size(); i++) {
 			// Ponemos el marcador verde al resto
-			m_overlays.get(i).setMarker(defaultMarker);
+			Drawable d = context.getResources().getDrawable(m_overlays.get(i).getAssociatedPoi().getTipo().getDrawable());
+			if(m_overlays.get(i).getAssociatedPoi().getTipo().isDrawableCenter())
+				d = boundCenter(d);
+			else
+				d = boundCenterBottom(d);
+			m_overlays.get(i).setMarker(d);
 		}
 		OverlayItem oi = m_overlays.get(idx);
 		// Y el rojo al seleccionado

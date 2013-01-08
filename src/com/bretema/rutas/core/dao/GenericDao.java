@@ -1,9 +1,10 @@
 package com.bretema.rutas.core.dao;
 
-import com.bretema.rutas.R;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * 
@@ -45,4 +46,6 @@ public interface GenericDao<E, PK extends Serializable> {
 	public Long count();
 
 	public void deleteAll();
+	
+	
 }

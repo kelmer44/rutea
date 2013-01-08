@@ -31,9 +31,6 @@ public class Poi {
 	@DatabaseField(dataType = DataType.ENUM_STRING)
 	private PoiType tipo;
 	
-	@DatabaseField(canBeNull = false, foreign = true, columnName = "rutaId")
-	private Ruta ruta;
-	
 	@DatabaseField
 	private double latitude;
 	
@@ -56,7 +53,6 @@ public class Poi {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
-		this.ruta = ruta;
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
@@ -75,14 +71,6 @@ public class Poi {
 
 	public final void setTipo(final PoiType tipo) {
 		this.tipo = tipo;
-	}
-
-	public final Ruta getRuta() {
-		return ruta;
-	}
-
-	public final void setRuta(final Ruta ruta) {
-		this.ruta = ruta;
 	}
 
 	public final double getLatitude() {

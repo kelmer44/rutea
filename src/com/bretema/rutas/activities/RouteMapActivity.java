@@ -321,7 +321,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		mThumbList = new ArrayList<String>();
 		if (id_ruta.equals("all")) {
 			Log.d(LOG_TAG, "Retrieving All simple POI list");
-			simplePoiList = poiService.getAllSimplePoi();
+			simplePoiList = poiService.getAllTouristPois();
 			secondaryPoiList = new ArrayList<Poi>();
 		} else {
 			ruta = rutaService.getRuta(Integer.parseInt(id_ruta));
