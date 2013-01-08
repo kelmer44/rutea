@@ -8,8 +8,8 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" >
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/leftMenuBarRoute" >
 
         <org.mapsforge.android.maps.MapView
             android:id="@+id/mapView"

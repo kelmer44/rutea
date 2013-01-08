@@ -590,13 +590,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int routedetail_title=0x7f02001e;
         public static final int rsa=0x7f02001f;
         public static final int splash_screen=0x7f020020;
-        public static final int vpi__tab_indicator=0x7f020021;
-        public static final int vpi__tab_selected_focused_holo=0x7f020022;
-        public static final int vpi__tab_selected_holo=0x7f020023;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020024;
-        public static final int vpi__tab_unselected_focused_holo=0x7f020025;
-        public static final int vpi__tab_unselected_holo=0x7f020026;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f020027;
+        public static final int stop=0x7f020021;
+        public static final int vpi__tab_indicator=0x7f020022;
+        public static final int vpi__tab_selected_focused_holo=0x7f020023;
+        public static final int vpi__tab_selected_holo=0x7f020024;
+        public static final int vpi__tab_selected_pressed_holo=0x7f020025;
+        public static final int vpi__tab_unselected_focused_holo=0x7f020026;
+        public static final int vpi__tab_unselected_holo=0x7f020027;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f020028;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f050015;
@@ -636,7 +637,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int imageView3=0x7f050019;
         public static final int imageViewSlideshow=0x7f050039;
         public static final int indicator=0x7f050041;
-        public static final int layoutMedia=0x7f05002b;
+        public static final int layoutMedia=0x7f050028;
         public static final int left=0x7f050009;
         public static final int leftMenuBarRoute=0x7f05001d;
         public static final int linearlayoutGridLabel=0x7f050036;
@@ -652,15 +653,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pager=0x7f050040;
         public static final int playButton=0x7f05002d;
         public static final int right=0x7f05000a;
-        public static final int routeDetailDescriptionLabel=0x7f05002c;
+        public static final int routeDetailDescriptionLabel=0x7f050029;
         public static final int routeDetailNameLabel=0x7f050026;
         public static final int routenameGridLabel=0x7f050038;
         public static final int slideshow_layout=0x7f05003f;
         public static final int start=0x7f050013;
-        public static final int tableRow1=0x7f050028;
-        public static final int tableRow2=0x7f050029;
+        public static final int tableRow1=0x7f05002a;
+        public static final int tableRow2=0x7f05002b;
         public static final int textView1=0x7f050023;
-        public static final int textView3=0x7f05002a;
+        public static final int textView3=0x7f05002c;
         public static final int textViewAppDesc=0x7f050018;
         public static final int textViewAppName=0x7f050016;
         public static final int textViewPOIDescSlideShow=0x7f05003e;

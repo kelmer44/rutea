@@ -328,7 +328,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			Log.d(LOG_TAG, "Retrieving POI list for ruta " + ruta.getId());
 			// simplePoiList = poiService.findAll();
 			// simplePoiList = poiService.findAll();
-			simplePoiList = poiService.getSimplePoiOrderedByRuta(ruta.getId());
+			//simplePoiList = poiService.getPoiByRuta(ruta.getId());
+			simplePoiList = poiService.getTouristPoiOrderedByRuta(ruta.getId());
 			secondaryPoiList = poiService.getOtherPoiOrderedByRuta(ruta.getId());
 		}
 

@@ -189,7 +189,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
 		});
 
-		balloonClickRegion = balloonLayout.findViewById(R.id.balloon_inner_layout);
+		balloonClickRegion = balloonLayout.findViewById(R.id.balloon_main_layout);
 		balloonClickRegion.setOnTouchListener(createBalloonTouchListener());
 
 		((ViewGroup) mapView.getParent()).addView(balloonLayout, params);

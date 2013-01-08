@@ -35,5 +35,21 @@ public class PoiDaoImpl extends GenericDaoOrmLiteImpl<Poi, Integer> implements P
 		return results;
 	}
 
-	
+	public List<Poi> getAllTouristPointsByRuta(Integer rutaId) {
+		List<Poi> results = null;
+//		try {x
+//			QueryBuilder<Poi, Integer> builder = dao.queryBuilder();
+//			Where<Poi,Integer> where = builder.where();
+//			where.eq("tipo", PoiType.SimplePoi);
+//			where.or();
+//			where.eq("tipo", PoiType.SecondaryPoi);
+//			
+//			
+//			
+//			results = builder.query();
+//		} catch (SQLException e) {
+//			throwFatalException(e);
+//		}
+		return results;
+	}
 }
