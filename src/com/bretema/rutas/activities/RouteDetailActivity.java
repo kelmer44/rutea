@@ -52,6 +52,10 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 	private ImageView			mainRouteImage;
 	private TextView			routeDetailNameLabel;
 	private TextView			routeDetailDescriptionLabel;
+	private TextView			duracionLabel;
+	private TextView			distanciaLabel;
+	private TextView			duracionPlaceholder;
+	private TextView			distanciaPlaceholder;
 
 	private MediaPlayer			mediaPlayer;
 	private ToggleButton		playButton;
@@ -82,6 +86,11 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		routeDetailDescriptionLabel.setMovementMethod(new ScrollingMovementMethod());
 		routeDetailNameLabel = (TextView) findViewById(R.id.routeDetailNameLabel);
 		mainRouteImage = (ImageView) findViewById(R.id.mainRouteImage);
+		
+		duracionLabel = (TextView) findViewById(R.id.duracionLabel);
+		distanciaLabel = (TextView) findViewById(R.id.distanciaLabel);	
+		duracionPlaceholder = (TextView) findViewById(R.id.duracionPlaceholder);
+		distanciaPlaceholder = (TextView) findViewById(R.id.distanciaPlaceholder2);
 
 		playButton = (ToggleButton) findViewById(R.id.playButton);
 		stopButton = (ImageView) findViewById(R.id.stopButton);
@@ -109,7 +118,14 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		routeDetailDescriptionLabel.setTypeface(colab);
 		gotoRouteButton.setTypeface(colabMed);
 		backButton.setTypeface(colabMed);
-
+		duracionLabel.setTypeface(colabMed);
+		distanciaLabel.setTypeface(colabMed);
+		duracionPlaceholder.setTypeface(colabMed);
+		distanciaPlaceholder.setTypeface(colabMed);
+	
+		duracionPlaceholder.setText(ruta.getDuracion());
+		distanciaPlaceholder.setText(ruta.getKm() + " km");
+		
 		gotoRouteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

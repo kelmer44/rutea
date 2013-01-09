@@ -3,10 +3,10 @@
 
     <string name="app_name">Rutas</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_settings">Configuración</string>
     <string name="title_activity_route_list">Lista de Rutas</string>
     <string name="title_activity_route_detail">Detalles de ruta</string>
-    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_map">Vista de mapa</string>
     <string name="no_map">No se encontró el fichero de mapas</string>
     <string name="punto_anterior">punto anterior</string>
     <string name="siguiente_punto">siguiente punto</string>
@@ -27,7 +27,9 @@
     <string name="poi_nombre_placeholder">Large Text</string>
     <string name="poi_desc_placeholder">Descripción del punto</string>
     <string name="volver">volver</string>
-    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about">Acerca de Rutas</string>
     <string name="volver_a_ruta">Volver a ruta</string>
+    <string name="duracion">Duración:</string>
+    <string name="distancia_">Distancia:</string>
 
 </resources>

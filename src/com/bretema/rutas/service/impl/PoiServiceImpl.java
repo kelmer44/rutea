@@ -65,7 +65,7 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public List<Poi> getTouristPoiOrderedByRuta(Integer rutaId) {
 		
-		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId);
+		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId, "orden", true);
 		List<Poi> pois = new ArrayList<Poi>();
 		
 		for(PoiRuta pr: poiRutas){
@@ -79,7 +79,7 @@ public class PoiServiceImpl implements PoiService {
 
 	@Override
 	public List<Poi> getOtherPoiOrderedByRuta(Integer rutaId) {
-		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId);
+		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId, "orden", true);
 		List<Poi> pois = new ArrayList<Poi>();
 		
 		for(PoiRuta pr: poiRutas){

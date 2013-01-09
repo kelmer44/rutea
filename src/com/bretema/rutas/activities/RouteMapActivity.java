@@ -1,7 +1,10 @@
 package com.bretema.rutas.activities;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -30,7 +33,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -53,7 +55,6 @@ import android.widget.ViewFlipper;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
-import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.map.PoiOverlayItem;
 import com.bretema.rutas.model.media.Multimedia;
@@ -279,6 +280,37 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
 	}
 
+	private void reorderRuta(){
+		//creamos copia de la lista con el mismo tamaño
+		List<Poi> simplePoiReordered = new ArrayList<Poi>(simplePoiList.size());
+		//Find the directory for the SD Card using the API
+		
+		//Get the text file
+		File file = new File(Constants.appPath + "ruta" + ruta.getId() +"/orden.cfg");
+
+		//Read text from file
+		StringBuilder text = new StringBuilder();
+
+		try {
+		    BufferedReader br = new BufferedReader(new FileReader(file));
+		    String line = br.readLine();
+		    int firstElement = Integer.parseInt(line);
+		    if(firstElement<simplePoiList.size()){
+				for(int i=firstElement;i<simplePoiList.size();i++){
+					simplePoiReordered.add(simplePoiList.get(i));
+				}
+				
+				for(int i=0;i<firstElement;i++){
+					simplePoiReordered.add(simplePoiList.get(i));	
+				}
+				simplePoiList = simplePoiReordered;
+			}
+		}
+		catch (IOException e) {
+			Log.e(LOG_TAG, "No se pudo leer el archivo orden.cfg, usando orden predeterminado:" +e.getMessage());
+		}
+	}
+	
 	/**
 	 * Inicializa el fichero de mapa y si no funciona devuelve error.
 	 * 
@@ -330,6 +362,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			// simplePoiList = poiService.findAll();
 			//simplePoiList = poiService.getPoiByRuta(ruta.getId());
 			simplePoiList = poiService.getTouristPoiOrderedByRuta(ruta.getId());
+			
+			reorderRuta();
+			
 			secondaryPoiList = poiService.getOtherPoiOrderedByRuta(ruta.getId());
 		}
 
