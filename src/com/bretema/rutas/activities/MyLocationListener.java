@@ -6,6 +6,7 @@ import org.mapsforge.core.GeoPoint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * Proporciona la posición actual del usuario. 
@@ -16,7 +17,7 @@ import android.os.Bundle;
  *
  */
 public class MyLocationListener implements LocationListener {
-
+	private static final String	LOG_TAG				= MyLocationListener.class.getSimpleName();
 	private OverlayItem overlayItem;
 	
 	/**
@@ -32,7 +33,9 @@ public class MyLocationListener implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
+		Log.d(LOG_TAG, "Updating location...");
 		overlayItem.setPoint(new GeoPoint(location.getLatitude(), location.getLongitude()));
+		Log.d(LOG_TAG, "Done...");
 
 	}
 

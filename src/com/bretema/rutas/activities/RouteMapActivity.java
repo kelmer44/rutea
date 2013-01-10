@@ -199,6 +199,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		
 		routePoints = new ArrayList<GeoPoint>();
 		// If everything went fine...
+		//initMapData();
 		if (initData() && initMapData()) {
 			// Async activity for processing gpx files
 			if(id_ruta.equals("all")){
@@ -560,10 +561,12 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	protected void onDestroy() {
 		super.onDestroy();
 		if (mapView != null) {
-			mgr.removeUpdates(locationListener);
-			this.mapView.destroyDrawingCache();
-			this.mapView.removeAllViews();
-			this.mapView.getOverlays().clear();
+			if(locationListener!=null){
+				mgr.removeUpdates(locationListener);
+			}
+			//this.mapView.destroyDrawingCache();
+			//this.mapView.removeAllViews();
+			//this.mapView.getOverlays().clear();
 			this.mapView = null;
 			this.itemsOverlay = null;
 			this.arrayWayOverlay = null;

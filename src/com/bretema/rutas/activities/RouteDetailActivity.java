@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -99,7 +100,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
 		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
 		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
-		routeDetailNameLabel.setText(ruta.getNombre());
+		routeDetailNameLabel.setText(Html.fromHtml(ruta.getNombre()));
 		routeDetailNameLabel.setTypeface(yanone);
 		// routeDetailNameLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
 		// Display display = getWindowManager().getDefaultDisplay();
