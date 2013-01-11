@@ -9,6 +9,7 @@ public class Constants {
 
 	public static final float PI = 3.14159f;
 	public static final String appPath = "/sdcard/maps/";
+	public static final String poisPath = appPath + "pois/";
 	
 	public static double geoLatDegToDouble(int deg, int min, float sec, boolean north){
 		

@@ -1,6 +1,5 @@
 package com.bretema.rutas.model.poi;
 
-import com.bretema.rutas.R;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.ruta.Ruta;
@@ -40,6 +39,17 @@ public class Poi {
 	@DatabaseField
 	private int orden;
 	
+	@DatabaseField
+	private String balloonUrl;
+	
+	public String getBalloonUrl() {
+		return balloonUrl;
+	}
+
+	public void setBalloonUrl(String balloonUrl) {
+		this.balloonUrl = balloonUrl;
+	}
+
 	@ForeignCollectionField(eager = true)
     ForeignCollection<Multimedia> media;
 	

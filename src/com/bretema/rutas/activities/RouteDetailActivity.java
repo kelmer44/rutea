@@ -96,11 +96,11 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		playButton = (ToggleButton) findViewById(R.id.playButton);
 		stopButton = (ImageView) findViewById(R.id.stopButton);
 		// Asignación de valores
-		routeDetailDescriptionLabel.setText(ruta.getDescription());
+		routeDetailDescriptionLabel.setText(Html.fromHtml(ruta.getDescription()));
 		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
 		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
 		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
-		routeDetailNameLabel.setText(Html.fromHtml(ruta.getNombre()));
+		routeDetailNameLabel.setText(ruta.getNombre());
 		routeDetailNameLabel.setTypeface(yanone);
 		// routeDetailNameLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
 		// Display display = getWindowManager().getDefaultDisplay();

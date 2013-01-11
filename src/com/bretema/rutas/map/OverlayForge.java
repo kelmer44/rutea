@@ -10,6 +10,8 @@ import org.mapsforge.core.GeoPoint;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.Gravity;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
 import com.bretema.rutas.activities.SlideShowActivity;
+import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.poi.Poi;
 
@@ -40,6 +43,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	private LinearLayout				balloonLayout;
 	private TextView					balloonTitle;
 	private TextView					balloonSnippet;
+	private ImageView					balloonImage;
 	private View						balloonClickRegion;
 	private int							balloonOffset;
 
@@ -79,7 +83,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
 		this.balloonTitle = (TextView) balloonView.findViewById(R.id.balloon_item_title);
 		this.balloonSnippet = (TextView) balloonView.findViewById(R.id.balloon_item_snippet);
-
+		this.balloonImage = (ImageView) balloonView.findViewById(R.id.balloon_item_image);
 		// This is done only to eliminate layot
 		this.mapView.setOnTouchListener(new OnTouchListener() {
 			@Override
@@ -172,6 +176,19 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 			balloonSnippet.setVisibility(View.GONE);
 		}
 
+		if(currentFocusedItem.getAssociatedPoi().getBalloonUrl()!=null){
+			balloonImage.setVisibility(View.VISIBLE);
+			Bitmap b = BitmapFactory.decodeFile(Constants.poisPath + currentFocusedItem.getAssociatedPoi().getBalloonUrl());
+			if (b != null) {
+				balloonImage.setImageBitmap(b);
+			}
+			else {
+				balloonImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.noimagesmall));
+			}
+		} else {
+			balloonImage.setVisibility(View.GONE);
+		}
+		
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
 
