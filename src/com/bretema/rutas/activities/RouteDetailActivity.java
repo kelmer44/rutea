@@ -13,6 +13,7 @@ import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -219,4 +220,17 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		playButton.setEnabled(true);
 	}
 
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+	    switch (item.getItemId()) {
+	    	case R.id.menu_info:
+	    		Intent in = new Intent(getApplicationContext(), AboutActivity.class);
+	    		startActivity(in);
+	    		return true;
+	    	default:
+	    		return super.onOptionsItemSelected(item);
+	    }
+	}
 }

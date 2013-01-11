@@ -81,7 +81,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 	private ProgressDialog		pDialog;
 
 	// UI elements
-	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute;
+	private Button				nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute, volverButton;
 	private MapView				mapView;
 	private Gallery				selectedPOIgallery;
 	private ImageButton			buttonHideGallery;
@@ -155,6 +155,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		prevPoiButton = (Button) findViewById(R.id.buttonPrevPoi);
 		quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
 		buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
+		volverButton = (Button) findViewById(R.id.botonMapVolver);
 
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setClickable(true);
@@ -182,12 +183,14 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 		prevPoiButton.setOnClickListener(this);
 		quitRouteButton.setOnClickListener(this);
 		buttonBackToRoute.setOnClickListener(this);
-
+		volverButton.setOnClickListener(this);
+		
 		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
 		nextPoiButton.setTypeface(colab);
 		prevPoiButton.setTypeface(colab);
 		quitRouteButton.setTypeface(colab);
 		buttonBackToRoute.setTypeface(colab);
+		volverButton.setTypeface(colab);
 
 		rutaService = new RutaServiceImpl(getApplicationContext());
 		poiService = new PoiServiceImpl(getApplicationContext());
@@ -610,6 +613,10 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 			loadPoiOverlays(simplePoiList);
 			// enableGallery();
 			vf.showPrevious();
+		}
+		else if (v == volverButton) {
+			RouteMapActivity.this.finish();
+			
 		}
 	}
 
