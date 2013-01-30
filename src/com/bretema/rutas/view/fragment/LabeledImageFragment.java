@@ -1,6 +1,4 @@
-package com.bretema.rutas.view;
-
-import java.io.IOException;
+package com.bretema.rutas.view.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,24 +13,39 @@ import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.model.media.Multimedia;
+import com.bretema.rutas.service.MMService;
+import com.bretema.rutas.service.impl.MMServiceImpl;
 
-public class ImageFragment extends Fragment {
-	private static final String	LOG_TAG	= ImageFragment.class.getSimpleName();
-
+public class LabeledImageFragment extends Fragment {
+	private static final String	LOG_TAG	= LabeledImageFragment.class.getSimpleName();
+	
+	private MMService multimediaService;
+	private Multimedia image;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(LOG_TAG, "initing Fragment");
-	}
+		multimediaService = new MMServiceImpl(getActivity().getApplicationContext());
 
+		int mmId = getArguments().getInt("caption");
+		image = multimediaService.getMultimedia(mmId);
+	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
+		
+		
 	}
-
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		
+
 		View view = inflater.inflate(R.layout.image_details, container, false);
 		String imageURI = getArguments().getString("uri");
 		String imageCaption = getArguments().getString("caption");

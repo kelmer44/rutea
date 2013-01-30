@@ -1,4 +1,4 @@
-package com.bretema.rutas.view;
+package com.bretema.rutas.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.VideoView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.view.ConstantAnchorMediaController;
 
 public class VideoFragment extends Fragment{
 	private static final String LOG_TAG = VideoFragment.class.getSimpleName();

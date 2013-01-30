@@ -24,8 +24,9 @@ import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
-import com.bretema.rutas.view.ImageFragment;
-import com.bretema.rutas.view.VideoFragment;
+import com.bretema.rutas.view.fragment.ImageFragment;
+import com.bretema.rutas.view.fragment.LabeledImageFragment;
+import com.bretema.rutas.view.fragment.VideoFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -135,6 +136,15 @@ public class SlideShowActivity extends FragmentActivity {
 				bundle.putString("caption", m.getDescripcion());
 				ifragment.setArguments(bundle);
 				return ifragment;
+			}
+			
+			else if (m.getTipo() == MMType.LabeledImage){
+				LabeledImageFragment ifragment = new LabeledImageFragment();
+				Bundle bundle = new Bundle();
+				bundle.putInt("id", m.getId());
+				ifragment.setArguments(bundle);
+				return ifragment;
+				
 			}
 			return null;
 		}
