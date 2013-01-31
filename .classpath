@@ -15,5 +15,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/mapsforge/mapsforge-map/0.3.0/mapsforge-map-0.3.0-jar-with-dependencies.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ImageMapTestActivity"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
