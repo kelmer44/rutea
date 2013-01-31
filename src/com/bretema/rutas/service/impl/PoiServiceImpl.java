@@ -79,15 +79,22 @@ public class PoiServiceImpl implements PoiService {
 
 	@Override
 	public List<Poi> getOtherPoiOrderedByRuta(Integer rutaId) {
-		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId, "orden", true);
-		List<Poi> pois = new ArrayList<Poi>();
+//		List<PoiRuta> poiRutas = poiRutaDao.findByProperty(PoiRuta.RUTA_ID_FIELD_NAME, rutaId, "orden", true);
+//		List<Poi> pois = new ArrayList<Poi>();
+//		
+//		for(PoiRuta pr: poiRutas){
+//			Poi p = getPoi(pr.getPoi().getId());
+//			if(p.getTipo() != PoiType.SecondaryPoi && p.getTipo() != PoiType.SimplePoi)
+//				pois.add(p);
+//		}
 		
-		for(PoiRuta pr: poiRutas){
-			Poi p = getPoi(pr.getPoi().getId());
+		List<Poi> allPois = poiDao.findAll();
+		List<Poi> selectedPois = new ArrayList<Poi>();
+		for(Poi p: allPois){
 			if(p.getTipo() != PoiType.SecondaryPoi && p.getTipo() != PoiType.SimplePoi)
-				pois.add(p);
+				selectedPois.add(p);
 		}
-		return pois;
+		return selectedPois;
 	}
 
 	@Override
