@@ -1,6 +1,7 @@
 package com.bretema.rutas.activities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,11 +10,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -111,13 +113,16 @@ public class SlideShowActivity extends FragmentActivity {
 			    return false;
 			}
 			});
+		mPager.setOffscreenPageLimit(0);
+		
 		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
 		mIndicator = indicator;
 		indicator.setViewPager(mPager);
 		indicator.setSnap(true);
 	}
 
-	public class MyAdapter extends FragmentPagerAdapter {
+	public class MyAdapter extends FragmentStatePagerAdapter {
+
 		public MyAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -126,6 +131,8 @@ public class SlideShowActivity extends FragmentActivity {
 		public int getCount() {
 			return multimediaList.size();
 		}
+		
+		
 
 		@Override
 		public Fragment getItem(int position) {
@@ -166,6 +173,7 @@ public class SlideShowActivity extends FragmentActivity {
 			}
 			return null;
 		}
+
 	}
 
 }

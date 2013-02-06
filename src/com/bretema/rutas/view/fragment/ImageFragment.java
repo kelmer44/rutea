@@ -20,7 +20,6 @@ import com.bretema.rutas.core.util.Constants;
 public class ImageFragment extends Fragment {
 	private static final String	LOG_TAG	= ImageFragment.class.getSimpleName();
 	private TextView	textView;
-	private ViewPager	parent;
 
 	
 	@Override
