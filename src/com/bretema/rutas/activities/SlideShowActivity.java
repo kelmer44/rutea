@@ -140,16 +140,14 @@ public class SlideShowActivity extends FragmentActivity {
 			if (m.getTipo() == MMType.Imagen) {
 				ImageFragment ifragment = new ImageFragment();
 				Bundle bundle = new Bundle();
-				bundle.putString("uri", m.getUri());
-				bundle.putString("caption", m.getDescripcion());
+				bundle.putInt("id", m.getId());
 				ifragment.setArguments(bundle);
 				return ifragment;
 			}
 			else if (m.getTipo() == MMType.Video){
 				VideoFragment ifragment = new VideoFragment();
 				Bundle bundle = new Bundle();
-				bundle.putString("uri", m.getUri());
-				bundle.putString("caption", m.getDescripcion());
+				bundle.putInt("id", m.getId());
 				ifragment.setArguments(bundle);
 				return ifragment;
 			}
@@ -165,8 +163,7 @@ public class SlideShowActivity extends FragmentActivity {
 			else if (m.getTipo() == MMType.Texto){
 				TextFragment ifragment = new TextFragment();
 				Bundle bundle = new Bundle();
-				bundle.putString("uri", m.getUri());
-				bundle.putString("caption", m.getDescripcion());
+				bundle.putInt("id", m.getId());
 				ifragment.setArguments(bundle);
 				return ifragment;
 				

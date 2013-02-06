@@ -7,13 +7,14 @@
 
     <TextView
         android:id="@+id/textViewPOINameSlideShow"
+        style="@style/Titular"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/azulOscuro"
         android:gravity="center"
+        android:paddingBottom="2dp"
         android:text="@string/poi_nombre_placeholder"
-        style="@style/Titular"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
 
     <TextView
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/fondoblanco_bordeazulinferior"
         android:text="@string/poi_desc_placeholder"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/slideshow_layout"

@@ -17,29 +17,18 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 
-public class ImageFragment extends Fragment {
+public class ImageFragment extends MultimediaFragment {
 	private static final String	LOG_TAG	= ImageFragment.class.getSimpleName();
 	private TextView	textView;
 
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.d(LOG_TAG, "initing Fragment");
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.image_details, container, false);
 
-		String imageURI = getArguments().getString("uri");
-		String imageCaption = getArguments().getString("caption");
+		String imageURI = getMultimedia().getUri();
+		String imageCaption = getMultimedia().getDescripcion();
 		textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);		
 		view.setOnTouchListener(new OnTouchListener() {

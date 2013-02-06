@@ -1,42 +1,34 @@
 package com.bretema.rutas.view.fragment;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.view.ConstantAnchorMediaController;
 
-public class VideoFragment extends Fragment{
+public class VideoFragment extends MultimediaFragment{
 	private static final String LOG_TAG = VideoFragment.class.getSimpleName();
 	
 	private VideoView mVideoView;
 	private ConstantAnchorMediaController mMedia;
-	   
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.d(LOG_TAG, "initing Fragment");
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-	}
-
+	//NO reproducimos si el video no se ha hallado o no funciona
+	private boolean doPlay = true;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.video_details, container, false);
-		String imageURI = getArguments().getString("uri");
-		String videoCaption = getArguments().getString("caption");
+		String imageURI = getMultimedia().getUri();
+		String videoCaption = getMultimedia().getDescripcion();
 		TextView textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
 		mVideoView = (VideoView) view.findViewById(R.id.videoViewSlideShow);
 		
@@ -47,6 +39,15 @@ public class VideoFragment extends Fragment{
 		mMedia.setPadding(0, 0, 0, 50);
 	    mVideoView.setMediaController(mMedia);
 		mVideoView.setVideoPath(Constants.appPath + "ruta1/video.avi");
+		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+
+	        public boolean onError(MediaPlayer mp, int what, int extra) {
+	        	Toast.makeText(getActivity(), "El vídeo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
+
+	            return true;
+	        }
+
+	    });
 		textView.setText(videoCaption);
 		return view;
 	}
