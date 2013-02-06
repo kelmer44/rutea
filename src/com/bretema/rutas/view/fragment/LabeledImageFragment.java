@@ -27,7 +27,8 @@ public class LabeledImageFragment extends MultimediaFragment {
 		
 
 		View view = inflater.inflate(R.layout.image_details, container, false);
-		TextView textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
+		TextView textView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
+		textView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
 		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri());
 		if (b != null) {
@@ -40,6 +41,7 @@ public class LabeledImageFragment extends MultimediaFragment {
 			Log.e(LOG_TAG, "Img not found " + getMultimedia().getUri());
 			imageView.setImageResource(R.drawable.noimage);
 		}
+		textView.setText(getMultimedia().getNombre());
 		//textView.setText(imageCaption);
 		return view;
 	}
