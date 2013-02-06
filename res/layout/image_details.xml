@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFDDDDDD"
     android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/imageViewSlideshow"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:background="#FFDDDDDD"
         android:src="@drawable/noimage" />
 
     <TextView
         android:id="@+id/imageCaptionSlideshow"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/imageViewSlideshow"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@id/imageViewSlideshow"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:background="@color/grisTransparente"
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="TextView"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:visibility="gone" />
 
 </RelativeLayout>

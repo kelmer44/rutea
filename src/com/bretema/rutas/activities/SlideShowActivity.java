@@ -101,7 +101,6 @@ public class SlideShowActivity extends FragmentActivity {
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);
-
 		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
 		mIndicator = indicator;
 		indicator.setViewPager(mPager);
@@ -122,7 +121,7 @@ public class SlideShowActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			Multimedia m = multimediaList.get(position);
 			if (m.getTipo() == MMType.Imagen) {
-				ImageFragment ifragment = new ImageFragment();
+				ImageFragment ifragment = new ImageFragment(mPager);
 				Bundle bundle = new Bundle();
 				bundle.putString("uri", m.getUri());
 				bundle.putString("caption", m.getDescripcion());
