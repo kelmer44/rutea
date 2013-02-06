@@ -576,9 +576,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
             // this.mapView.destroyDrawingCache();
             // this.mapView.removeAllViews();
             // this.mapView.getOverlays().clear();
-            this.mapView = null;
-            this.itemsOverlay = null;
-            this.arrayWayOverlay = null;
+           // this.mapView = null;
+            //this.itemsOverlay = null;
+            //this.arrayWayOverlay = null;
             Log.d(LOG_TAG, "DESTROYED");
         }
     }

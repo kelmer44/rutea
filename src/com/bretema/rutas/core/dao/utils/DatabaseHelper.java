@@ -46,7 +46,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 60;
+	public static final int			VERSION			= 63;
 	/**
 	 * The database type.
 	 */
@@ -136,6 +136,14 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	        
 	        
 	        br = new BufferedReader(new InputStreamReader(context.getAssets().open("Multimedia.sql")), 1024 * 4);
+	        line = null;
+	        while ((line = br.readLine()) != null) {
+	        	Log.d(LOG_TAG, line);
+	        	
+	        	database.execSQL(line);
+	        }
+	        
+	        br = new BufferedReader(new InputStreamReader(context.getAssets().open("secondarypoi.sql")), 1024 * 4);
 	        line = null;
 	        while ((line = br.readLine()) != null) {
 	        	Log.d(LOG_TAG, line);

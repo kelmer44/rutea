@@ -22,9 +22,6 @@ public class ImageFragment extends Fragment {
 	private TextView	textView;
 	private ViewPager	parent;
 
-	public ImageFragment(ViewPager pager){
-		this.parent = pager;
-	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,20 +47,6 @@ public class ImageFragment extends Fragment {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				
-				 switch (event.getAction()) {
-				    case MotionEvent.ACTION_MOVE: 
-				        parent.requestDisallowInterceptTouchEvent(true);
-				        break;
-				    case MotionEvent.ACTION_UP:
-				    	parent.requestDisallowInterceptTouchEvent(false);
-				        break;
-				    case MotionEvent.ACTION_CANCEL:
-				    	parent.requestDisallowInterceptTouchEvent(false);
-				        break;
-				    }
-				 
-				 
 				if(event.getAction() == MotionEvent.ACTION_DOWN){
 					
 					if(textView.getVisibility() == View.GONE){

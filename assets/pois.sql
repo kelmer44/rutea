@@ -49,6 +49,7 @@ INSERT INTO poi(id, nombre, latitude, longitude, tipo) VALUES(311, 'Mirador de C
 INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl) VALUES(108, 'Balcones de Madrid', 42.388981, -7.566018, 'SimplePoi', 'BalconesdeMadrid.jpg');
 INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl) VALUES(109, 'Molinos de Entrambosríos', 42.369453, -7.555761, 'SecondaryPoi', 'MuiñosEntrambosrios.jpg');
 INSERT INTO poi(id, nombre, latitude, longitude, tipo) VALUES(216, 'Mirador del Duque', 42.413319, -7.449696, 'SecondaryPoi');
+DELETE FROM poiruta;
 INSERT INTO poiruta(id_ruta, id_poi, orden) VALUES(1, 100, 0);
 INSERT INTO poiruta(id_ruta, id_poi, orden) VALUES(1, 101, 1);
 INSERT INTO poiruta(id_ruta, id_poi, orden) VALUES(1, 102, 2);

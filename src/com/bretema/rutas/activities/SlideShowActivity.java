@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -26,6 +27,7 @@ import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.view.fragment.ImageFragment;
 import com.bretema.rutas.view.fragment.LabeledImageFragment;
+import com.bretema.rutas.view.fragment.TextFragment;
 import com.bretema.rutas.view.fragment.VideoFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
@@ -101,6 +103,14 @@ public class SlideShowActivity extends FragmentActivity {
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);
+		mPager.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				mPager.getParent().requestDisallowInterceptTouchEvent(false);
+			    return false;
+			}
+			});
 		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
 		mIndicator = indicator;
 		indicator.setViewPager(mPager);
@@ -121,7 +131,7 @@ public class SlideShowActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			Multimedia m = multimediaList.get(position);
 			if (m.getTipo() == MMType.Imagen) {
-				ImageFragment ifragment = new ImageFragment(mPager);
+				ImageFragment ifragment = new ImageFragment();
 				Bundle bundle = new Bundle();
 				bundle.putString("uri", m.getUri());
 				bundle.putString("caption", m.getDescripcion());
@@ -141,6 +151,15 @@ public class SlideShowActivity extends FragmentActivity {
 				LabeledImageFragment ifragment = new LabeledImageFragment();
 				Bundle bundle = new Bundle();
 				bundle.putInt("id", m.getId());
+				ifragment.setArguments(bundle);
+				return ifragment;
+				
+			}
+			else if (m.getTipo() == MMType.Texto){
+				TextFragment ifragment = new TextFragment();
+				Bundle bundle = new Bundle();
+				bundle.putString("uri", m.getUri());
+				bundle.putString("caption", m.getDescripcion());
 				ifragment.setArguments(bundle);
 				return ifragment;
 				
