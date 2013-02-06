@@ -24,14 +24,15 @@ public class LabeledImageFragment extends MultimediaFragment {
 	private static final String	LOG_TAG	= LabeledImageFragment.class.getSimpleName();
 
 	private List<ImagePoint>	imagePoints;
-
+	private List<ImageView>		imageViews;
 	private ImageView			mainImageView;
 
 	public LabeledImageFragment() {
 		super();
 
 		imagePoints = new ArrayList<ImagePoint>();
-
+		imageViews = new ArrayList<ImageView>();
+		
 		imagePoints.add(new ImagePoint(1860, 95, "Cristosende"));
 		imagePoints.add(new ImagePoint(1935, 67, "Castelo de Castro Caldelas"));
 		imagePoints.add(new ImagePoint(2027, 99, "San Lourenzo"));
@@ -52,60 +53,72 @@ public class LabeledImageFragment extends MultimediaFragment {
 		TextView textView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
 		textView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 		mainImageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
-		
-		
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri(), options);
 		int imageHeight = options.outHeight;
 		int imageWidth = options.outWidth;
-		
 
-		int finalHeight = mainImageView.getMeasuredHeight();
-		int finalWidth = mainImageView.getMeasuredWidth();
-		Log.d(LOG_TAG, "Height: " + finalHeight + " Width: " + finalWidth);
-		
-		
 		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri());
-		
-		
-		/*ViewTreeObserver vto = mainImageView.getViewTreeObserver();
+
+		ViewTreeObserver vto = mainImageView.getViewTreeObserver();
 		vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 			private int	finalHeight;
 			private int	finalWidth;
 
 			public boolean onPreDraw() {
 
+				finalHeight = mainImageView.getMeasuredHeight();
+				finalWidth = mainImageView.getMeasuredWidth();
 
+				int iH = mainImageView.getDrawable().getIntrinsicHeight();// original
+																			// height of
+																			// underlying
+																			// image
+				int iW = mainImageView.getDrawable().getIntrinsicWidth();// original
+																			// width of
+																			// underlying
+																			// image
+				
+				for (int i= 0; i< imagePoints.size(); i++) {
+					ImagePoint imagePoint = imagePoints.get(i);
+					ImageView iview = imageViews.get(i);
+					
+
+					RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.labelimage_relativelayout);
+
+					RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+					lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+					
+					
+					float realx = imagePoint.getX() * finalWidth / 2257;
+					float realy = imagePoint.getY() * finalHeight / 553;
+					Log.d(LOG_TAG, "orX: " + imagePoint.getX() + " orY: " + imagePoint.getY());
+					Log.d(LOG_TAG, "X: " + realx + " Y: " + realy);
+					lp.leftMargin = (int) realx;
+					lp.topMargin = (int) realy;
+					
+					iview.setLayoutParams(lp);
+					Log.d(LOG_TAG, "Height: " + iH + " Width: " + iW);
+				}
 				return true;
 			}
-		});*/
+		});
 
-		/*for (ImagePoint imagePoint : imagePoints) {
+		for (ImagePoint imagePoint : imagePoints) {
 			ImageView imgView = new ImageView(getActivity());
-			RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.labelimage_relativelayout);
+
 			
-			
-			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-			lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		
+
 			imgView.setImageResource(R.drawable.imagepoint);
 
-			float realx = imagePoint.getX() * finalWidth / 2257;
-			float realy = imagePoint.getY() * finalHeight / 553;
-			Log.d(LOG_TAG, "orX: " + imagePoint.getX() + " orY: " + imagePoint.getY());
-			Log.d(LOG_TAG, "X: " + realx + " Y: " + realy);
-			lp.leftMargin = (int) realx;
-			lp.topMargin = (int) realy;
-			
+			RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.labelimage_relativelayout);
 
-			rl.addView(imgView, lp);
-		}*/
-			
-			
-			
-			
-			
+			imageViews.add(imgView);
+			rl.addView(imgView);
+		}
+
 		// textView.setText(imageCaption);
 		if (b != null) {
 			float ratio = (float) b.getHeight() / (float) b.getWidth();
@@ -117,6 +130,8 @@ public class LabeledImageFragment extends MultimediaFragment {
 			Log.e(LOG_TAG, "Img not found " + getMultimedia().getUri());
 			mainImageView.setImageResource(R.drawable.noimage);
 		}
+
+
 		textView.setText(getMultimedia().getNombre());
 
 		return view;
