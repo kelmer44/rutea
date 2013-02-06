@@ -58,10 +58,9 @@ public class ImageGridAdapter extends BaseAdapter {
 		}
 
 		LinearLayout linLayout = (LinearLayout) vi.findViewById(R.id.linearlayoutGridLabel);
-		Typeface yanone = Typeface.createFromAsset(mContext.getAssets(), "YanoneKaffeesatz-Regular.ttf");
 		TextView id_ruta = (TextView) vi.findViewById(R.id.id_ruta);
 		TextView nombre = (TextView) vi.findViewById(R.id.routenameGridLabel);
-		nombre.setTypeface(yanone);
+		nombre.setTypeface(Constants.getTitleFontRegular(mContext.getAssets()));
 		Ruta current = routeList.get(position);
 		/*
 		 * Drawable d; d =

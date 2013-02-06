@@ -1,9 +1,11 @@
 package com.bretema.rutas.core.util;
 
-import com.bretema.rutas.R;
 import java.util.Collection;
 
 import org.mapsforge.core.GeoPoint;
+
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 
 public class Constants {
 
@@ -47,5 +49,22 @@ public class Constants {
             result[0][i++] = geoPoint;
         }
         return result;
+    }
+    
+    
+    public static Typeface getTitleFont(AssetManager mgr){
+		return Typeface.createFromAsset(mgr, "YanoneKaffeesatz-Light.ttf");
+    }
+    
+    public static Typeface getTitleFontRegular(AssetManager mgr){
+		return Typeface.createFromAsset(mgr, "YanoneKaffeesatz-Regular.ttf");
+    }
+    
+    public static Typeface getTextFont(AssetManager mgr){
+		return Typeface.createFromAsset(mgr, "ColabReg.ttf");
+    }
+    
+    public static Typeface getSubtitleFont(AssetManager mgr){
+		return Typeface.createFromAsset(mgr, "ColabMed.ttf");
     }
 }

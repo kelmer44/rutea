@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 
 public class AboutActivity extends Activity {
 
@@ -22,8 +23,8 @@ public class AboutActivity extends Activity {
 		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
 		TextView textViewAppName = (TextView)findViewById(R.id.textViewAppName);
 		TextView textViewAppDesc = (TextView)findViewById(R.id.textViewAppDesc);
-		textViewAppName.setTypeface(colab);
-		textViewAppDesc.setTypeface(colab);
+		textViewAppName.setTypeface(Constants.getSubtitleFont(getAssets()));
+		textViewAppDesc.setTypeface(Constants.getSubtitleFont(getAssets()));
 	}
 
 	@Override

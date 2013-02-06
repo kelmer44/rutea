@@ -169,6 +169,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 			balloonTitle.setVisibility(View.GONE);
 		}
 
+		balloonTitle.setTypeface(Constants.getSubtitleFont(routeActivity.getAssets()));
 		if (currentFocusedItem.getSnippet() != null) {
 			balloonSnippet.setVisibility(View.VISIBLE);
 			balloonSnippet.setText(currentFocusedItem.getSnippet());
@@ -176,6 +177,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 			balloonSnippet.setVisibility(View.GONE);
 		}
 
+		balloonSnippet.setTypeface(Constants.getTextFont(routeActivity.getAssets()));
 		if(currentFocusedItem.getAssociatedPoi().getBalloonUrl()!=null){
 			balloonImage.setVisibility(View.VISIBLE);
 			Bitmap b = BitmapFactory.decodeFile(Constants.poisPath + currentFocusedItem.getAssociatedPoi().getBalloonUrl());

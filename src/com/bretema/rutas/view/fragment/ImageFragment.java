@@ -29,7 +29,10 @@ public class ImageFragment extends MultimediaFragment {
 
 		String imageURI = getMultimedia().getUri();
 		String imageCaption = getMultimedia().getDescripcion();
+		TextView nameTextView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
+		nameTextView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 		textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
+		textView.setTypeface(Constants.getTextFont(getActivity().getAssets()));
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);		
 		view.setOnTouchListener(new OnTouchListener() {
 			
@@ -58,6 +61,7 @@ public class ImageFragment extends MultimediaFragment {
 			imageView.setImageResource(R.drawable.noimage);
 		}
 		textView.setText(imageCaption);
+		nameTextView.setText(getMultimedia().getNombre());
 		return view;
 	}
 }

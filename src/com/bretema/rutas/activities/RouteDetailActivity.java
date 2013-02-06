@@ -98,11 +98,9 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 		stopButton = (ImageView) findViewById(R.id.stopButton);
 		// Asignación de valores
 		routeDetailDescriptionLabel.setText(Html.fromHtml(ruta.getDescription()));
-		Typeface yanone = Typeface.createFromAsset(getAssets(), "YanoneKaffeesatz-Light.ttf");
-		Typeface colab = Typeface.createFromAsset(getAssets(), "ColabReg.ttf");
-		Typeface colabMed = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
+
 		routeDetailNameLabel.setText(ruta.getNombre());
-		routeDetailNameLabel.setTypeface(yanone);
+		routeDetailNameLabel.setTypeface(Constants.getTitleFont(getAssets()));
 		// routeDetailNameLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
 		// Display display = getWindowManager().getDefaultDisplay();
 		// Point size = new Point();
@@ -117,13 +115,13 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 			mainRouteImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.noimage));
 		}
 
-		routeDetailDescriptionLabel.setTypeface(colab);
-		gotoRouteButton.setTypeface(colabMed);
-		backButton.setTypeface(colabMed);
-		duracionLabel.setTypeface(colabMed);
-		distanciaLabel.setTypeface(colabMed);
-		duracionPlaceholder.setTypeface(colabMed);
-		distanciaPlaceholder.setTypeface(colabMed);
+		routeDetailDescriptionLabel.setTypeface(Constants.getTextFont(getAssets()));
+		gotoRouteButton.setTypeface(Constants.getSubtitleFont(getAssets()));
+		backButton.setTypeface(Constants.getSubtitleFont(getAssets()));
+		duracionLabel.setTypeface(Constants.getSubtitleFont(getAssets()));
+		distanciaLabel.setTypeface(Constants.getSubtitleFont(getAssets()));
+		duracionPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
+		distanciaPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
 	
 		duracionPlaceholder.setText(ruta.getDuracion());
 		distanciaPlaceholder.setText(ruta.getKm() + " km");
