@@ -58,4 +58,13 @@
 		<area shape="poly" coords="531,139,540,153,534,153" id="@+id/area48" name = "Delaware"/>
 		<area shape="poly" coords="486,146,529,136,536,155,536,161,515,156,511,144" id="@+id/area46" name = "Maryland"/>
 	</map>
+	 <map name="balcones">
+		<area shape="rect" coords="204,82,254,132" id="@+id/areaI" name="I" />
+		<area shape="rect" coords="669,54,719,104"  id="@+id/areaH" name="H" />
+		<area shape="rect" coords="1170,60,1219,113" id="@+id/areaG" name="G"  />
+		<area shape="rect" coords="1104,112,1153,165" id="@+id/areaJ" name="J"    />
+		<area shape="rect" coords="1843,58,2049,157" id="@+id/areaABCD" name="ABCD" />
+		<area shape="rect" coords="1953,187,2025,254" id="@+id/areaF" name="F"   />
+		<area shape="rect" coords="2078,106,2150,173" id="@+id/areaE" name="E"   />
+	</map>
 </maps>

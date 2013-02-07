@@ -3,22 +3,17 @@ package com.bretema.rutas.view.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.imagepoint.ImagePoint;
+import com.bretema.rutas.view.ImageMap;
 
 public class LabeledImageFragment extends MultimediaFragment {
 	private static final String	LOG_TAG	= LabeledImageFragment.class.getSimpleName();
@@ -26,6 +21,8 @@ public class LabeledImageFragment extends MultimediaFragment {
 	private List<ImagePoint>	imagePoints;
 	private List<ImageView>		imageViews;
 	private ImageView			mainImageView;
+
+	private ImageMap	mImageMap;
 
 	public LabeledImageFragment() {
 		super();
@@ -52,7 +49,25 @@ public class LabeledImageFragment extends MultimediaFragment {
 		final View view = inflater.inflate(R.layout.labelimage_fragment, container, false);
 		TextView textView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
 		textView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
-		mainImageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
+		
+		mImageMap = (ImageMap)view.findViewById(R.id.imageViewMap);
+        
+        // add a click handler to react when areas are tapped
+        mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
+			@Override
+			public void onImageMapClicked(int id) {
+				// when the area is tapped, show the name in a 
+				// text bubble
+				mImageMap.showBubble(id);
+			}
+
+			@Override
+			public void onBubbleClicked(int id) {
+				// react to info bubble for area being tapped
+			}
+		});
+		
+		/*mainImageView = (ImageView) view.findViewById(R.id.imageViewSlideshow);
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
@@ -131,7 +146,7 @@ public class LabeledImageFragment extends MultimediaFragment {
 			mainImageView.setImageResource(R.drawable.noimage);
 		}
 
-
+*/
 		textView.setText(getMultimedia().getNombre());
 
 		return view;

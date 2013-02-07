@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ctc="http://schemas.android.com/apk/res/com.bretema.rutas"
     android:id="@+id/labelimage_relativelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFDDDDDD"
     android:orientation="vertical" >
 
-    <ImageView
+    <!--
+          <ImageView
         android:id="@+id/imageViewSlideshow"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -14,6 +16,17 @@
         android:layout_centerVertical="true"
         android:background="#FFDDDDDD"
         android:src="@drawable/noimage" />
+    -->
+
+    <com.bretema.rutas.view.ImageMap
+        android:id="@+id/imageViewMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"        
+        android:background="#FFDDDDDD"
+        android:src="@drawable/balcones"
+        ctc:map="balcones" />
 
     <TextView
         android:id="@+id/imageTitleSlideshow"
@@ -23,8 +36,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/grisTransparente"
         android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
     <TextView
         android:id="@+id/imageCaptionSlideshow"
