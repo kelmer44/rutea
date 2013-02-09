@@ -38,7 +38,7 @@ public class VideoFragment extends MultimediaFragment{
 		mMedia.setMediaPlayer(mVideoView);
 		mMedia.setPadding(0, 0, 0, 50);
 	    mVideoView.setMediaController(mMedia);
-		mVideoView.setVideoPath(Constants.appPath + "ruta1/video.avi");
+		mVideoView.setVideoPath(Constants.appPath + getMultimedia().getUri());
 		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
 	        public boolean onError(MediaPlayer mp, int what, int extra) {
