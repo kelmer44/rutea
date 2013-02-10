@@ -1308,12 +1308,13 @@ public class ImageMap extends ImageView {
 			return ret;
 		}
 
+
 		public float getOriginX() {
-			return _left;
+			return _left  + (_right-_left)/2;
 		}
 
 		public float getOriginY() {
-			return _top;
+			return _top + (_bottom-_top)/2;
 		}
 
 		public void onDraw(Canvas canvas) {
@@ -1526,6 +1527,7 @@ public class ImageMap extends ImageView {
 			_x = x * mResizeFactorX;
 			_y = y * mResizeFactorY;
 			Rect bounds = new Rect();
+			textPaint.setTextSize(20f);
 			textPaint.setTextScaleX(1.0f);
 			textPaint.getTextBounds(text, 0, _text.length(), bounds);
 			_h = bounds.bottom - bounds.top + 20;

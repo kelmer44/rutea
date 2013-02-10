@@ -67,4 +67,11 @@
 		<area shape="rect" coords="1953,187,2025,254" id="@+id/areaF" name="F"   />
 		<area shape="rect" coords="2078,106,2150,173" id="@+id/areaE" name="E"   />
 	</map>
+	
+	 <map name="cristina">
+		<area shape="rect" coords="219,318,314,436" id="@+id/cristinaA" name="El arco"    />
+		<area shape="rect" coords="371,244,474,441" id="@+id/cristinaB" name="Entrada de la iglesia"    />
+		<area shape="rect" coords="399,52,469,184"  id="@+id/cristinaC" name="Magnífico rosetón románico construido para iluminar el templo"    />
+		<area shape="rect" coords="788,117,861,213" id="@+id/cristinaD" name="El lateral de la iglesia está decorado con esculturas románicas"    />
+	</map>
 </maps>

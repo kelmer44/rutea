@@ -1,10 +1,8 @@
 package com.bretema.rutas.view.fragment;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +36,20 @@ public class VideoFragment extends MultimediaFragment{
 		mMedia.setMediaPlayer(mVideoView);
 		mMedia.setPadding(0, 0, 0, 50);
 	    mVideoView.setMediaController(mMedia);
+	    mVideoView.setOnPreparedListener(new OnPreparedListener() {
+			
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				mVideoView.setBackgroundColor(0);
+				
+			}
+		});
 		mVideoView.setVideoPath(Constants.appPath + getMultimedia().getUri());
 		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
 	        public boolean onError(MediaPlayer mp, int what, int extra) {
 	        	Toast.makeText(getActivity(), "El vídeo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
-
+	        	mVideoView.setBackgroundColor(0);
 	            return true;
 	        }
 
