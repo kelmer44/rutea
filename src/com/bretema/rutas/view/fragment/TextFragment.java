@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class TextFragment  extends MultimediaFragment{
 		imageCaption = imageCaption.replace("\\r", "\r");
 		textView.setTypeface(Constants.getTextFont(getActivity().getAssets()));
 		textView.setText(imageCaption);
+
+		textView.setMovementMethod(new ScrollingMovementMethod());
 		textView.setVisibility(View.VISIBLE);
 		return view;
 	}

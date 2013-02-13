@@ -11,6 +11,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:scrollbars="vertical"
+        
+        android:maxLines="20"
         android:text="TextView" />
 
     <LinearLayout
