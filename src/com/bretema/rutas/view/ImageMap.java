@@ -16,6 +16,7 @@
 
 package com.bretema.rutas.view;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ import java.util.HashMap;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-import com.bretema.rutas.R;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -45,6 +45,8 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.Scroller;
+
+import com.bretema.rutas.R;
 
 public class ImageMap extends ImageView {
 
@@ -141,6 +143,9 @@ public class ImageMap extends ImageView {
 	int									mViewHeight			= -1;
 	int									mViewWidth			= -1;
 
+	int									mXOffset			= 0;
+	int									mYOffset			= 0;
+
 	/*
 	 * containers for the image map areas
 	 */
@@ -159,6 +164,15 @@ public class ImageMap extends ImageView {
 	public ImageMap(Context context) {
 		super(context);
 		init();
+	}
+
+	public ImageMap(Context context, String mapFile, String imageFile) {
+		super(context);
+		Bitmap b = BitmapFactory.decodeFile(imageFile);
+		this.setImageBitmap(b);
+
+		init();
+		loadMapFromSDCard("maps.xml");
 	}
 
 	public ImageMap(Context context, AttributeSet attrs) {
@@ -192,8 +206,89 @@ public class ImageMap extends ImageView {
 	 * @param map
 	 *            - the name of the map to load
 	 */
-	private void loadMap(String map) {
+	private void loadMapFromSDCard(String map) {
 		boolean loading = false;
+		try {
+			XmlPullParser xpp = XmlPullParserFactory.newInstance().newPullParser();
+			xpp.setInput(new FileInputStream("/sdcard/maps/media/map/" + map), "UTF-8");
+
+			int eventType = xpp.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				if (eventType == XmlPullParser.START_DOCUMENT) {
+					// Start document
+					// This is a useful branch for a debug log if
+					// parsing is not working
+				} else if (eventType == XmlPullParser.START_TAG) {
+					String tag = xpp.getName();
+
+					if (tag.equalsIgnoreCase("map")) {
+						String mapname = xpp.getAttributeValue(null, "name");
+						if (mapname != null) {
+							if (mapname.equalsIgnoreCase(map)) {
+								loading = true;
+							}
+						}
+					}
+					if (loading) {
+						if (tag.equalsIgnoreCase("area")) {
+							Area a = null;
+							String shape = xpp.getAttributeValue(null, "shape");
+							String coords = xpp.getAttributeValue(null, "coords");
+							String id = xpp.getAttributeValue(null, "id");
+
+							// as a name for this area, try to find any of these
+							// attributes
+							// name attribute is custom to this impl (not
+							// standard in html area tag)
+							String name = xpp.getAttributeValue(null, "name");
+							if (name == null) {
+								name = xpp.getAttributeValue(null, "title");
+							}
+							if (name == null) {
+								name = xpp.getAttributeValue(null, "alt");
+							}
+
+							if ((shape != null) && (coords != null)) {
+								a = addShape(shape, name, coords, id);
+								if (a != null) {
+									// add all of the area tag attributes
+									// so that they are available to the
+									// implementation if needed (see
+									// getAreaAttribute)
+									for (int i = 0; i < xpp.getAttributeCount(); i++) {
+										String attrName = xpp.getAttributeName(i);
+										String attrVal = xpp.getAttributeValue(null, attrName);
+										a.addValue(attrName, attrVal);
+									}
+								}
+							}
+						}
+					}
+				} else if (eventType == XmlPullParser.END_TAG) {
+					String tag = xpp.getName();
+					if (tag.equalsIgnoreCase("map")) {
+						loading = false;
+					}
+				}
+				eventType = xpp.next();
+			}
+		} catch (XmlPullParserException xppe) {
+			// Having trouble loading? Log this exception
+		} catch (IOException ioe) {
+			// Having trouble loading? Log this exception
+		}
+	}
+
+	/**
+	 * parse the maps.xml resource and pull out the areas
+	 * 
+	 * @param map
+	 *            - the name of the map to load
+	 */
+	public void loadMap(String map) {
+		boolean loading = false;
+
+		mAreaList.clear();
 		try {
 			XmlResourceParser xpp = getResources().getXml(R.xml.maps);
 
@@ -385,8 +480,6 @@ public class ImageMap extends ImageView {
 		mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
 		mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
 
-		for (Area a : mAreaList)
-			showBubble("punto", a.getId());
 	}
 
 	/*
@@ -517,11 +610,10 @@ public class ImageMap extends ImageView {
 	void setInitialImageBoundsFitImageKeepAspectRatio() {
 		if (mImage != null) {
 			float aspect = mImage.getWidth() / mImage.getHeight();
-			if(mImage.getHeight()>mImage.getWidth()){
+			if (mImage.getHeight() > mImage.getWidth()) {
 				mMinHeight = mViewHeight;
 				mMinWidth = (int) (aspect * mMinHeight);
-			}
-			else {
+			} else {
 				mMinWidth = mViewWidth;
 				mMinHeight = (int) (mMinWidth / aspect);
 			}
@@ -533,8 +625,7 @@ public class ImageMap extends ImageView {
 			scaleBitmap(mMinWidth, mMinHeight);
 		}
 	}
-	
-	
+
 	/**
 	 * setInitialImageBoundsFitImage sets the initial image size to match the
 	 * screen size. aspect ratio may be broken
@@ -613,6 +704,11 @@ public class ImageMap extends ImageView {
 		}
 	}
 
+	public void resetExpandSize() {
+		mExpandWidth = 0;
+		mExpandHeight = 0;
+	}
+
 	/**
 	 * Set the image to new width and height create a new scaled bitmap and
 	 * dispose of the previous one recalculate scaling factor and right and
@@ -657,6 +753,11 @@ public class ImageMap extends ImageView {
 
 				mRightBound = mExpandWidth > mViewWidth ? 0 - (mExpandWidth - mViewWidth) : 0;
 				mBottomBound = mExpandHeight > mViewHeight ? 0 - (mExpandHeight - mViewHeight) : 0;
+
+				// canvas.drawBitmap(mImage, mScrollLeft, mScrollTop, null);
+				mXOffset = (int) ((mImage.getWidth() < mViewWidth) ? (mViewWidth - mImage.getWidth()) * 0.5 : 0);
+				mYOffset = (int) ((mImage.getHeight() <= mViewHeight) ? (mViewHeight - mImage.getHeight()) * 0.5 : 0);
+
 			}
 		}
 	}
@@ -696,7 +797,9 @@ public class ImageMap extends ImageView {
 
 		if (mImage != null) {
 			if (!mImage.isRecycled()) {
-				canvas.drawBitmap(mImage, mScrollLeft, mScrollTop, null);
+
+				canvas.drawBitmap(mImage, mXOffset, mYOffset, null);
+
 			}
 		}
 		canvas.restore();
@@ -755,54 +858,54 @@ public class ImageMap extends ImageView {
 		}
 
 		switch (action & MotionEvent.ACTION_MASK) {
-		case MotionEvent.ACTION_DOWN:
-			// Clear all touch points
-			// In the case where some view up chain is messing with our
-			// touch events, it is possible to miss UP and POINTER_UP
-			// events. Whenever ACTION_DOWN happens, it is intended
-			// to always be the first touch, so we will drop tracking
-			// for any points that may have been orphaned
-			for (TouchPoint t : mTouchPoints.values()) {
-				onLostTouch(t.getTrackingPointer());
-			}
-			// fall through planned
-		case MotionEvent.ACTION_POINTER_DOWN:
-			id = ev.getPointerId(index);
-			onTouchDown(id, ev.getX(index), ev.getY(index));
-			break;
-
-		case MotionEvent.ACTION_MOVE:
-			for (int p = 0; p < pointerCount; p++) {
-				id = ev.getPointerId(p);
-				TouchPoint t = mTouchPoints.get(id);
-				if (t != null) {
-					onTouchMove(t, ev.getX(p), ev.getY(p));
+			case MotionEvent.ACTION_DOWN:
+				// Clear all touch points
+				// In the case where some view up chain is messing with our
+				// touch events, it is possible to miss UP and POINTER_UP
+				// events. Whenever ACTION_DOWN happens, it is intended
+				// to always be the first touch, so we will drop tracking
+				// for any points that may have been orphaned
+				for (TouchPoint t : mTouchPoints.values()) {
+					onLostTouch(t.getTrackingPointer());
 				}
-				// after all moves, check to see if we need
-				// to process a zoom
-				processZoom();
-			}
-			break;
-		case MotionEvent.ACTION_UP:
-		case MotionEvent.ACTION_POINTER_UP:
-			id = ev.getPointerId(index);
-			onTouchUp(id);
-			break;
-		case MotionEvent.ACTION_CANCEL:
-			// Clear all touch points on ACTION_CANCEL
-			// according to the google devs, CANCEL means cancel
-			// tracking every touch.
-			// cf:
-			// http://groups.google.com/group/android-developers/browse_thread/thread/8b14591ead5608a0/ad711bf24520e5c4?pli=1
-			for (TouchPoint t : mTouchPoints.values()) {
-				onLostTouch(t.getTrackingPointer());
-			}
-			// let go of the velocity tracker per API Docs
-			if (mVelocityTracker != null) {
-				mVelocityTracker.recycle();
-				mVelocityTracker = null;
-			}
-			break;
+				// fall through planned
+			case MotionEvent.ACTION_POINTER_DOWN:
+				id = ev.getPointerId(index);
+				onTouchDown(id, ev.getX(index), ev.getY(index));
+				break;
+
+			case MotionEvent.ACTION_MOVE:
+				for (int p = 0; p < pointerCount; p++) {
+					id = ev.getPointerId(p);
+					TouchPoint t = mTouchPoints.get(id);
+					if (t != null) {
+						onTouchMove(t, ev.getX(p), ev.getY(p));
+					}
+					// after all moves, check to see if we need
+					// to process a zoom
+					processZoom();
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_POINTER_UP:
+				id = ev.getPointerId(index);
+				onTouchUp(id);
+				break;
+			case MotionEvent.ACTION_CANCEL:
+				// Clear all touch points on ACTION_CANCEL
+				// according to the google devs, CANCEL means cancel
+				// tracking every touch.
+				// cf:
+				// http://groups.google.com/group/android-developers/browse_thread/thread/8b14591ead5608a0/ad711bf24520e5c4?pli=1
+				for (TouchPoint t : mTouchPoints.values()) {
+					onLostTouch(t.getTrackingPointer());
+				}
+				// let go of the velocity tracker per API Docs
+				if (mVelocityTracker != null) {
+					mVelocityTracker.recycle();
+					mVelocityTracker = null;
+				}
+				break;
 		}
 		return true;
 	}
@@ -1056,8 +1159,8 @@ public class ImageMap extends ImageView {
 		boolean missed = true;
 		boolean bubble = false;
 		// adjust for scroll
-		int testx = x - mScrollLeft;
-		int testy = y - mScrollTop;
+		int testx = x - mScrollLeft - mXOffset;
+		int testy = y - mScrollTop - mYOffset;
 
 		// adjust for x y resize
 		testx = (int) ((float) testx / mResizeFactorX);
@@ -1067,7 +1170,7 @@ public class ImageMap extends ImageView {
 		// in case a bubble covers an area we want it to
 		// have precedent
 		for (Bubble b : mBubbleMap.values()) {
-			if (b.isInArea((float) x - mScrollLeft, (float) y - mScrollTop)) {
+			if (b.isInArea((float) x - mScrollLeft - mXOffset, (float) y - mScrollTop - mYOffset)) {
 				b.onTapped();
 				bubble = true;
 				missed = false;
@@ -1308,13 +1411,12 @@ public class ImageMap extends ImageView {
 			return ret;
 		}
 
-
 		public float getOriginX() {
-			return _left  + (_right-_left)/2;
+			return _left + (_right - _left) / 2;
 		}
 
 		public float getOriginY() {
-			return _top + (_bottom-_top)/2;
+			return _top + (_bottom - _top) / 2;
 		}
 
 		public void onDraw(Canvas canvas) {
@@ -1327,10 +1429,10 @@ public class ImageMap extends ImageView {
 			strokepaint.setStrokeWidth(1);
 			strokepaint.setARGB(255, 255, 0, 0);
 
-			float left = (_left * mResizeFactorX) + mScrollLeft;
-			float right = (_right * mResizeFactorX) + mScrollLeft;
-			float top = (_top * mResizeFactorY) + mScrollTop;
-			float bottom = (_bottom * mResizeFactorY) + mScrollTop;
+			float left = (_left * mResizeFactorX) + mScrollLeft + mXOffset;
+			float right = (_right * mResizeFactorX) + mScrollLeft + mXOffset;
+			float top = (_top * mResizeFactorY) + mScrollTop + mYOffset;
+			float bottom = (_bottom * mResizeFactorY) + mScrollTop + mYOffset;
 
 			canvas.drawRect(new Rect((int) left, (int) top, (int) right, (int) bottom), paint);
 			canvas.drawRect(new Rect((int) left, (int) top, (int) right, (int) bottom), strokepaint);
@@ -1527,7 +1629,6 @@ public class ImageMap extends ImageView {
 			_x = x * mResizeFactorX;
 			_y = y * mResizeFactorY;
 			Rect bounds = new Rect();
-			textPaint.setTextSize(20f);
 			textPaint.setTextScaleX(1.0f);
 			textPaint.getTextBounds(text, 0, _text.length(), bounds);
 			_h = bounds.bottom - bounds.top + 20;
@@ -1573,12 +1674,12 @@ public class ImageMap extends ImageView {
 		void onDraw(Canvas canvas) {
 			if (_a != null) {
 				// Draw a shadow of the bubble
-				float l = _left + mScrollLeft + 4;
-				float t = _top + mScrollTop + 4;
+				float l = _left + mScrollLeft + 4 + mXOffset;
+				float t = _top + mScrollTop + 4 + mYOffset;
 				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 20.0f, 20.0f, bubbleShadowPaint);
 				Path path = new Path();
-				float ox = _x + mScrollLeft + 1;
-				float oy = _y + mScrollTop + 1;
+				float ox = _x + mScrollLeft + 1  + mXOffset;
+				float oy = _y + mScrollTop + 1 + mYOffset;
 				int yoffset = -35;
 				if (_top > _y) {
 					yoffset = 35;
@@ -1592,12 +1693,12 @@ public class ImageMap extends ImageView {
 				canvas.drawPath(path, bubbleShadowPaint);
 
 				// draw the bubble
-				l = _left + mScrollLeft;
-				t = _top + mScrollTop;
+				l = _left + mScrollLeft + mXOffset;
+				t = _top + mScrollTop + mYOffset;
 				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 20.0f, 20.0f, bubblePaint);
 				path = new Path();
-				ox = _x + mScrollLeft;
-				oy = _y + mScrollTop;
+				ox = _x + mScrollLeft + mXOffset;
+				oy = _y + mScrollTop + mYOffset;
 				yoffset = -35;
 				if (_top > _y) {
 					yoffset = 35;
