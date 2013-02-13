@@ -25,7 +25,7 @@ public class ImageFragment extends MultimediaFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.image_details, container, false);
+		final View view = inflater.inflate(R.layout.image_details, container, false);
 
 		String imageURI = getMultimedia().getUri();
 		String imageCaption = getMultimedia().getDescripcion();
@@ -38,7 +38,7 @@ public class ImageFragment extends MultimediaFragment {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				if(event.getAction() == MotionEvent.ACTION_DOWN){
+				if(event.getAction() == MotionEvent.ACTION_UP){
 					
 					if(textView.getVisibility() == View.GONE){
 						textView.setVisibility(View.VISIBLE);
@@ -46,7 +46,7 @@ public class ImageFragment extends MultimediaFragment {
 					else
 						textView.setVisibility(View.GONE);
 				}
-				 return false;
+				 return true;
 			}
 		});
 		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + imageURI);

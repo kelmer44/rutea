@@ -1,7 +1,6 @@
 package com.bretema.rutas.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,10 +14,11 @@ import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
@@ -100,19 +100,11 @@ public class SlideShowActivity extends FragmentActivity {
 				startActivity(intent);
 			}
 		});
-		
+
 		
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);
-		mPager.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				mPager.getParent().requestDisallowInterceptTouchEvent(false);
-			    return false;
-			}
-			});
 		mPager.setOffscreenPageLimit(0);
 		
 		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);

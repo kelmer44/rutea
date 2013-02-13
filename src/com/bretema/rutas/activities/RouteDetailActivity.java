@@ -14,8 +14,10 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -115,6 +117,7 @@ public class RouteDetailActivity extends Activity implements MediaPlayer.OnPrepa
 			mainRouteImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.noimage));
 		}
 
+		
 		routeDetailDescriptionLabel.setTypeface(Constants.getTextFont(getAssets()));
 		gotoRouteButton.setTypeface(Constants.getSubtitleFont(getAssets()));
 		backButton.setTypeface(Constants.getSubtitleFont(getAssets()));
