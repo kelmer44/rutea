@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <maps xmlns:android="http://schemas.android.com/apk/res/android">
-    <map name="gridmap">
-        <area name="one" shape="rect" coords="118,124,219,226" id="@+id/area1001"/>
-        <area name="two" shape="rect" coords="474,374,574,476" id="@+id/area1002"/>        
-        <area name="four" shape="rect" coords="710,878,808,980" id="@+id/area1004"/>
-        <area name="red" shape="circle" coords="574,214,74" id="@+id/area1005"/>
-        <area name="blue" shape="poly" coords="250,780,250,951,405,951" id="@+id/area1006"/>
-        <area name="green" shape="poly" coords="592,502,592,730,808,730,808,502,709,502,709,603,690,603,690,502" id="@+id/area1007"/>
-    </map>
+
     <map name="usamap">
 		<area shape="poly" coords="230,35,294,38,299,57,299,79,228,79" id="@+id/area1" name = "N. Dakota"/>
 		<area shape="poly" coords="227,80,299,80,302,120,282,116,226,116" id="@+id/area2" name = "S. Dakota"/>
@@ -68,10 +61,14 @@
 		<area shape="rect" coords="2078,106,2150,173" id="@+id/areaE" name="E"   />
 	</map>
 	
-	 <map name="cristina">
-		<area shape="rect" coords="219,318,314,436" id="@+id/cristinaA" name="El arco"    />
-		<area shape="rect" coords="371,244,474,441" id="@+id/cristinaB" name="Entrada de la iglesia"    />
-		<area shape="rect" coords="399,52,469,184"  id="@+id/cristinaC" name="Magnífico rosetón románico construido para iluminar el templo"    />
-		<area shape="rect" coords="788,117,861,213" id="@+id/cristinaD" name="El lateral de la iglesia está decorado con esculturas románicas"    />
+	<map name="cristina">
+		<area shape="rect" coords="219,318,314,436" id="@+id/cristinaA" name="A"    />
+		<area shape="rect" coords="371,244,474,441" id="@+id/cristinaB" name="B"    />
+		<area shape="rect" coords="399,52,469,184"  id="@+id/cristinaC" name="C"    />
+		<area shape="rect" coords="788,117,861,213" id="@+id/cristinaD" name="D"    />
+	</map>
+	
+	<map name="none">
+	    
 	</map>
 </maps>

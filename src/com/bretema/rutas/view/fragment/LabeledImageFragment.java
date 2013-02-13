@@ -3,10 +3,13 @@ package com.bretema.rutas.view.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,18 +32,6 @@ public class LabeledImageFragment extends MultimediaFragment {
 
 		imagePoints = new ArrayList<ImagePoint>();
 		imageViews = new ArrayList<ImageView>();
-		
-		imagePoints.add(new ImagePoint(1860, 95, "Cristosende"));
-		imagePoints.add(new ImagePoint(1935, 67, "Castelo de Castro Caldelas"));
-		imagePoints.add(new ImagePoint(2027, 99, "San Lourenzo"));
-		imagePoints.add(new ImagePoint(1950, 125, "San Adrián: Lugar en el que existió un monasterio"));
-		imagePoints.add(new ImagePoint(2114, 137, "Sacardebois"));
-		imagePoints.add(new ImagePoint(1992, 214,
-				"Según la tradición, descendientes de Noé, llegados hasta Porta Brosmos remontando el río desde el mar, plantaron aquí las primeras viñas de la Ribeira."));
-		imagePoints.add(new ImagePoint(1201, 88, "La tradición atribuye numerosos milagros a la Virgen de Cadeiras, que cuenta con gran devoción en la comarca"));
-		imagePoints.add(new ImagePoint(699, 74, "Monforte de Lemos"));
-		imagePoints.add(new ImagePoint(220, 105, "A Arriba, Parroquia de Barantes (Sober)"));
-		imagePoints.add(new ImagePoint(1132, 132, "El desnivel llega en este punto hasta los 450 metros."));
 	}
 
 	@Override
@@ -51,7 +42,18 @@ public class LabeledImageFragment extends MultimediaFragment {
 		textView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 		
 		mImageMap = (ImageMap)view.findViewById(R.id.imageViewMap);
-        
+		mImageMap.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+            	mImageMap.resetExpandSize();
+                mImageMap.setImageBitmap(BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri()));
+                if(getMultimedia().getThumbUri()!= null && !getMultimedia().getThumbUri().equals(""))
+                	mImageMap.loadMap(getMultimedia().getThumbUri());
+                else
+                	mImageMap.loadMap("none");
+            }
+        });
+		
         // add a click handler to react when areas are tapped
         mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
 			@Override
