@@ -32,4 +32,10 @@ public class TextFragment  extends MultimediaFragment{
 		textView.setVisibility(View.VISIBLE);
 		return view;
 	}
+
+	@Override
+	public void onPageIsChanged() {
+		// TODO Auto-generated method stub
+		
+	}
 }

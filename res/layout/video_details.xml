@@ -25,6 +25,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="TextView"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:visibility="invisible" />
 
 </RelativeLayout>
