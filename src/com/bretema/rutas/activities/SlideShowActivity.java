@@ -11,14 +11,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
@@ -29,6 +27,7 @@ import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.view.fragment.ImageFragment;
 import com.bretema.rutas.view.fragment.LabeledImageFragment;
+import com.bretema.rutas.view.fragment.MultimediaFragment;
 import com.bretema.rutas.view.fragment.TextFragment;
 import com.bretema.rutas.view.fragment.VideoFragment;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -106,6 +105,8 @@ public class SlideShowActivity extends FragmentActivity {
 		mPager.setCurrentItem(currentItem);
 		mPager.setAdapter(mAdapter);
 		mPager.setOffscreenPageLimit(0);
+
+		
 		
 		CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
 		mIndicator = indicator;

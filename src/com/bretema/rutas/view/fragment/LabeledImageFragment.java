@@ -151,4 +151,10 @@ public class LabeledImageFragment extends MultimediaFragment {
 
 		return view;
 	}
+
+	@Override
+	public void onPageIsChanged() {
+		// TODO Auto-generated method stub
+		
+	}
 }

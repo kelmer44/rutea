@@ -1,13 +1,29 @@
 package com.bretema.rutas.view.fragment;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -72,11 +88,24 @@ public class VideoFragment extends MultimediaFragment {
 		return view;
 	}
 
+	
 	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		mMedia.hide();
-		mVideoView.stopPlayback();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+		mVideoView = (VideoView)view.findViewById(R.id.videoViewSlideShow);
+        super.onViewCreated(view, savedInstanceState);
+    }
+	
+	@Override
+	public void onPageIsChanged() {
+		if(mVideoView!=null){
+			if(mVideoView.isPlaying()){
+				mVideoView.pause();
+				mVideoView.seekTo(0);
+			}
+			mMedia.hide();
+		}
 	}
+
+	
+	
 }

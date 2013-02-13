@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-public class MultimediaFragment extends Fragment {
+public abstract class MultimediaFragment extends Fragment {
 	
 	private static final String	LOG_TAG	= MultimediaFragment.class.getSimpleName();
 	
@@ -39,4 +39,15 @@ public class MultimediaFragment extends Fragment {
 	public void setMultimedia(Multimedia multimedia) {
 		this.multimedia = multimedia;
 	}
+	
+	public abstract void onPageIsChanged();
+
+
+
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		onPageIsChanged();
+	}
+
 }

@@ -64,4 +64,13 @@ public class ImageFragment extends MultimediaFragment {
 		nameTextView.setText(getMultimedia().getNombre());
 		return view;
 	}
+
+
+
+	@Override
+	public void onPageIsChanged() {
+		if(textView!=null){
+			textView.setVisibility(View.GONE);
+		}
+	}
 }
