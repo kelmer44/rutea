@@ -52,6 +52,7 @@ public class LabeledImageFragment extends MultimediaFragment {
                 	mImageMap.loadMapFromAssets(getActivity().getAssets(), getMultimedia().getThumbUri());
                 else
                 	mImageMap.loadMap("none");
+                mImageMap.setBalloonTypeface(Constants.getTextFont(getActivity().getAssets()));
             }
         });
 		

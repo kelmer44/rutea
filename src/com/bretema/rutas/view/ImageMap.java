@@ -46,6 +46,7 @@ import android.widget.ImageView;
 import android.widget.Scroller;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 
 public class ImageMap extends ImageView {
 
@@ -506,6 +507,10 @@ public class ImageMap extends ImageView {
 		}
 	}
 
+	public void setBalloonTypeface(Typeface type){
+		textPaint.setTypeface(type);
+	}
+	
 	/**
 	 * setup the paint objects for drawing bubbles
 	 */
