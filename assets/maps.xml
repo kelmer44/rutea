@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<maps xmlns:android="http://schemas.android.com/apk/res/android">
+
+	 <map name="balcones">
+		<area shape="rect" coords="204,82,254,132" name="Parroquia de Barantes" id="I" />
+		<area shape="rect" coords="669,54,719,104"  name="Monforte de Lemos" id="H" />
+		<area shape="rect" coords="1170,60,1219,113" name="Virgen de Cadeiras" id="G"  />
+		<area shape="rect" coords="1104,112,1153,165" name="El desnivel llega en este punto hasta los 450 metros" id="J"    />
+		<area shape="rect" coords="1843,58,2049,157" name="Cristosende, Castelo de Castro Caldelas, San Lourenzo, San Adrián" id="ABCD" />
+		<area shape="rect" coords="1953,187,2025,254" name="Viñas de la Ribeira" id="F"   />
+		<area shape="rect" coords="2078,106,2150,173" name="Sacardebois" id="E"   />
+	</map>
+	
+	<map name="cristina">
+		<area shape="rect" coords="219,318,314,436" name="El arco" id="A"    />
+		<area shape="rect" coords="371,244,474,441" name="Entrada de la iglesia" id="B"    />
+		<area shape="rect" coords="399,52,469,184"  name="Rosetón románico" id="C"    />
+		<area shape="rect" coords="788,117,861,213" name="Lateral de la iglesia" id="D"    />
+	</map>
+</maps>

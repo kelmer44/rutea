@@ -466,13 +466,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int area7=0x7f060044;
         public static final int area8=0x7f060045;
         public static final int area9=0x7f060046;
-        public static final int areaABCD=0x7f060072;
-        public static final int areaE=0x7f060074;
-        public static final int areaF=0x7f060073;
-        public static final int areaG=0x7f060070;
-        public static final int areaH=0x7f06006f;
-        public static final int areaI=0x7f06006e;
-        public static final int areaJ=0x7f060071;
         public static final int backButtonDetail=0x7f060022;
         public static final int balloon_inner_layout=0x7f060027;
         public static final int balloon_item_image=0x7f060026;
@@ -487,10 +480,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int buttonPrevPoi=0x7f060011;
         public static final int buttonQuitRoute=0x7f060012;
         public static final int close_img_button=0x7f06002a;
-        public static final int cristinaA=0x7f060075;
-        public static final int cristinaB=0x7f060076;
-        public static final int cristinaC=0x7f060077;
-        public static final int cristinaD=0x7f060078;
         public static final int descRouteListLabel=0x7f060035;
         public static final int distanciaLabel=0x7f06001d;
         public static final int distanciaPlaceholder2=0x7f06001e;
@@ -516,9 +505,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int maindetaillayout=0x7f060016;
         public static final int mapView=0x7f06000b;
         public static final int me_pos_image=0x7f060013;
-        public static final int menu_info=0x7f06007a;
-        public static final int menu_myroute=0x7f06007b;
-        public static final int menu_settings=0x7f060079;
+        public static final int menu_info=0x7f06006f;
+        public static final int menu_myroute=0x7f060070;
+        public static final int menu_settings=0x7f06006e;
         public static final int multimediaTextView=0x7f06002b;
         public static final int nombreRouteListLabel=0x7f060034;
         public static final int none=0x7f060000;

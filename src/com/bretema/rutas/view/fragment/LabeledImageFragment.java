@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
@@ -48,7 +49,7 @@ public class LabeledImageFragment extends MultimediaFragment {
             	mImageMap.resetExpandSize();
                 mImageMap.setImageBitmap(BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri()));
                 if(getMultimedia().getThumbUri()!= null && !getMultimedia().getThumbUri().equals(""))
-                	mImageMap.loadMap(getMultimedia().getThumbUri());
+                	mImageMap.loadMapFromAssets(getActivity().getAssets(), getMultimedia().getThumbUri());
                 else
                 	mImageMap.loadMap("none");
             }
@@ -57,15 +58,16 @@ public class LabeledImageFragment extends MultimediaFragment {
         // add a click handler to react when areas are tapped
         mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
 			@Override
-			public void onImageMapClicked(int id) {
+			public void onImageMapClicked(String id) {
 				// when the area is tapped, show the name in a 
 				// text bubble
 				mImageMap.showBubble(id);
 			}
 
 			@Override
-			public void onBubbleClicked(int id) {
+			public void onBubbleClicked(String id) {
 				// react to info bubble for area being tapped
+				Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
 			}
 		});
 		

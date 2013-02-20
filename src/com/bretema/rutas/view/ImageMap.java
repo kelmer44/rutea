@@ -16,9 +16,7 @@
 
 package com.bretema.rutas.view;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,6 +25,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
@@ -150,13 +149,13 @@ public class ImageMap extends ImageView {
 	 * containers for the image map areas
 	 */
 	ArrayList<Area>						mAreaList			= new ArrayList<Area>();
-	HashMap<Integer, Area>				mIdToArea			= new HashMap<Integer, Area>();
+	HashMap<String, Area>				mIdToArea			= new HashMap<String, Area>();
 
 	// click handler list
 	ArrayList<OnImageMapClickedHandler>	mCallbackList;
 
 	// list of open info bubbles
-	HashMap<Integer, Bubble>			mBubbleMap			= new HashMap<Integer, Bubble>();
+	HashMap<String, Bubble>			mBubbleMap			= new HashMap<String, Bubble>();
 
 	/*
 	 * Constructors
@@ -166,14 +165,7 @@ public class ImageMap extends ImageView {
 		init();
 	}
 
-	public ImageMap(Context context, String mapFile, String imageFile) {
-		super(context);
-		Bitmap b = BitmapFactory.decodeFile(imageFile);
-		this.setImageBitmap(b);
 
-		init();
-		loadMapFromSDCard("maps.xml");
-	}
 
 	public ImageMap(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -206,11 +198,11 @@ public class ImageMap extends ImageView {
 	 * @param map
 	 *            - the name of the map to load
 	 */
-	private void loadMapFromSDCard(String map) {
+	public void loadMapFromAssets(AssetManager assets, String map) {
 		boolean loading = false;
 		try {
 			XmlPullParser xpp = XmlPullParserFactory.newInstance().newPullParser();
-			xpp.setInput(new FileInputStream("/sdcard/maps/media/map/" + map), "UTF-8");
+			xpp.setInput(assets.open("maps.xml"), "UTF-8");
 
 			int eventType = xpp.getEventType();
 			while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -373,33 +365,25 @@ public class ImageMap extends ImageView {
 		String rid = id.replace("@+id/", "");
 		int _id = 0;
 
-		try {
-			Class<R.id> res = R.id.class;
-			Field field = res.getField(rid);
-			_id = field.getInt(null);
-		} catch (Exception e) {
-			_id = 0;
-		}
-		if (_id != 0) {
+
 			if (shape.equalsIgnoreCase("rect")) {
 				String[] v = coords.split(",");
 				if (v.length == 4) {
-					a = new RectArea(_id, name, Float.parseFloat(v[0]), Float.parseFloat(v[1]), Float.parseFloat(v[2]), Float.parseFloat(v[3]));
+					a = new RectArea(id, name, Float.parseFloat(v[0]), Float.parseFloat(v[1]), Float.parseFloat(v[2]), Float.parseFloat(v[3]));
 				}
 			}
 			if (shape.equalsIgnoreCase("circle")) {
 				String[] v = coords.split(",");
 				if (v.length == 3) {
-					a = new CircleArea(_id, name, Float.parseFloat(v[0]), Float.parseFloat(v[1]), Float.parseFloat(v[2]));
+					a = new CircleArea(id, name, Float.parseFloat(v[0]), Float.parseFloat(v[1]), Float.parseFloat(v[2]));
 				}
 			}
 			if (shape.equalsIgnoreCase("poly")) {
-				a = new PolyArea(_id, name, coords);
+				a = new PolyArea(id, name, coords);
 			}
 			if (a != null) {
 				addArea(a);
 			}
-		}
 		return a;
 	}
 
@@ -410,20 +394,20 @@ public class ImageMap extends ImageView {
 
 	}
 
-	public void addBubble(String text, int areaId) {
+	public void addBubble(String text, String areaId) {
 		if (mBubbleMap.get(areaId) == null) {
 			Bubble b = new Bubble(text, areaId);
 			mBubbleMap.put(areaId, b);
 		}
 	}
 
-	public void showBubble(String text, int areaId) {
+	public void showBubble(String text, String areaId) {
 		mBubbleMap.clear();
 		addBubble(text, areaId);
 		invalidate();
 	}
 
-	public void showBubble(int areaId) {
+	public void showBubble(String areaId) {
 		mBubbleMap.clear();
 		Area a = mIdToArea.get(areaId);
 		if (a != null) {
@@ -432,7 +416,7 @@ public class ImageMap extends ImageView {
 		invalidate();
 	}
 
-	public void centerArea(int areaId) {
+	public void centerArea(String areaId) {
 		Area a = mIdToArea.get(areaId);
 		if (a != null) {
 			float x = a.getOriginX() * mResizeFactorX;
@@ -443,19 +427,19 @@ public class ImageMap extends ImageView {
 		}
 	}
 
-	public void centerAndShowArea(String text, int areaId) {
+	public void centerAndShowArea(String text, String areaId) {
 		centerArea(areaId);
 		showBubble(text, areaId);
 	}
 
-	public void centerAndShowArea(int areaId) {
+	public void centerAndShowArea(String areaId) {
 		Area a = mIdToArea.get(areaId);
 		if (a != null) {
 			centerAndShowArea(a.getName(), areaId);
 		}
 	}
 
-	public String getAreaAttribute(int areaId, String key) {
+	public String getAreaAttribute(String areaId, String key) {
 		String value = null;
 		Area a = mIdToArea.get(areaId);
 		if (a != null) {
@@ -1323,19 +1307,19 @@ public class ImageMap extends ImageView {
 	 * and focal point
 	 */
 	abstract class Area {
-		int						_id;
+		String						_id;
 		String					_name;
 		HashMap<String, String>	_values;
 		Bitmap					_decoration	= null;
 
-		public Area(int id, String name) {
+		public Area(String id, String name) {
 			_id = id;
 			if (name != null) {
 				_name = name;
 			}
 		}
 
-		public int getId() {
+		public String getId() {
 			return _id;
 		}
 
@@ -1393,7 +1377,7 @@ public class ImageMap extends ImageView {
 		float	_right;
 		float	_bottom;
 
-		RectArea(int id, String name, float left, float top, float right, float bottom) {
+		RectArea(String id, String name, float left, float top, float right, float bottom) {
 			super(id, name);
 			_left = left;
 			_top = top;
@@ -1459,7 +1443,7 @@ public class ImageMap extends ImageView {
 		int					left	= -1;
 		int					right	= -1;
 
-		public PolyArea(int id, String name, String coords) {
+		public PolyArea(String id, String name, String coords) {
 			super(id, name);
 
 			// split the list of coordinates into points of the
@@ -1565,7 +1549,7 @@ public class ImageMap extends ImageView {
 		float	_y;
 		float	_radius;
 
-		CircleArea(int id, String name, float x, float y, float radius) {
+		CircleArea(String id, String name, float x, float y, float radius) {
 			super(id, name);
 			_x = x;
 			_y = y;
@@ -1615,7 +1599,7 @@ public class ImageMap extends ImageView {
 			init(text, x, y);
 		}
 
-		Bubble(String text, int areaId) {
+		Bubble(String text, String areaId) {
 			_a = mIdToArea.get(areaId);
 			if (_a != null) {
 				float x = _a.getOriginX();
@@ -1735,13 +1719,13 @@ public class ImageMap extends ImageView {
 		 * 
 		 * @param id
 		 */
-		void onImageMapClicked(int id);
+		void onImageMapClicked(String id);
 
 		/**
 		 * Info bubble associated with area 'id' has been tapped
 		 * 
 		 * @param id
 		 */
-		void onBubbleClicked(int id);
+		void onBubbleClicked(String id);
 	}
 }
