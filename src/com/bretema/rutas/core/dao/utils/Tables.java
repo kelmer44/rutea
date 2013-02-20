@@ -1,6 +1,6 @@
 package com.bretema.rutas.core.dao.utils;
 
-import com.bretema.rutas.R;
+import com.bretema.rutas.model.mapimages.MapImage;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.poiruta.PoiRuta;
@@ -16,7 +16,8 @@ public enum Tables {
     RUTA(Ruta.class),
     POI(Poi.class),
     MULTIMEDIA(Multimedia.class),
-    POIRUTA(PoiRuta.class)
+    POIRUTA(PoiRuta.class),
+    MAPIMAGE(MapImage.class)
     ;
 
     Tables(Class tableClass) {
