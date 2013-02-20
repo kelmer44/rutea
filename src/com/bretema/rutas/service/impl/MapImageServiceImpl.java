@@ -1,5 +1,6 @@
 package com.bretema.rutas.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -40,6 +41,15 @@ public class MapImageServiceImpl implements MapImageService {
 	@Override
 	public List<MapImage> getMapImagesByMap(String mapName) {
 		return mapImageDao.findByProperty("mapa", mapName);
+	}
+
+	@Override
+	public List<MapImage> getMapImagesByMapAndArea(String mapName, String areaId) {
+		// TODO Auto-generated method stub
+		HashMap criteria = new HashMap<String, Object>();
+		criteria.put("mapa", mapName);
+		criteria.put("id_punto", areaId);
+		return mapImageDao.findByProperties(criteria);
 	}
 
 

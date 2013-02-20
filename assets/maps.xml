@@ -6,9 +6,12 @@
 		<area shape="rect" coords="669,54,719,104"  name="Monforte de Lemos" id="H" />
 		<area shape="rect" coords="1170,60,1219,113" name="Virgen de Cadeiras" id="G"  />
 		<area shape="rect" coords="1104,112,1153,165" name="El desnivel llega en este punto hasta los 450 metros" id="J"    />
-		<area shape="rect" coords="1843,58,2049,157" name="Cristosende, Castelo de Castro Caldelas, San Lourenzo, San Adrián" id="ABCD" />
+		<area shape="rect" coords="1837,73,1893,120" name="Cristosende" id="A" />
+		<area shape="rect" coords="1903,58,1959,107" name="Castelo de Castro Caldelas" id="B" />
+		<area shape="rect" coords="1993,73,2043,120" name="San Lourenzo" id="C" />
+		<area shape="rect" coords="1903,125,1959,175" name="San Adrián" id="D" />
 		<area shape="rect" coords="1953,187,2025,254" name="Viñas de la Ribeira" id="F"   />
-		<area shape="rect" coords="2078,106,2150,173" name="Sacardebois" id="E"   />
+		<area shape="rect" coords="2008,106,2150,173" name="Sacardebois" id="E"   />
 	</map>
 	
 	<map name="cristina">

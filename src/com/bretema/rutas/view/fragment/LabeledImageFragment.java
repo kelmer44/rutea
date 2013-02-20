@@ -1,10 +1,10 @@
 package com.bretema.rutas.view.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.model.mapimages.MapImage;
 import com.bretema.rutas.service.MapImageService;
-import com.bretema.rutas.service.impl.MMServiceImpl;
 import com.bretema.rutas.service.impl.MapImageServiceImpl;
 import com.bretema.rutas.view.ImageMap;
 
@@ -29,12 +29,7 @@ public class LabeledImageFragment extends MultimediaFragment {
 
 	private MapImageService		mapImageService;
 
-	public LabeledImageFragment() {
-		super();
-		//Obtenemos el servicio para recoger las imagenes asociadas a los puntos interactivos del mapa; 
-		// los capturaremos en CreateView ya que es donde se carga el xml
-		mapImageService = new MapImageServiceImpl(getActivity().getApplicationContext());
-	}
+	private List<MapImage>		areaImages;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,98 +49,34 @@ public class LabeledImageFragment extends MultimediaFragment {
 				else
 					mImageMap.loadMap("none");
 				mImageMap.setBalloonTypeface(Constants.getTextFont(getActivity().getAssets()));
+
 			}
 		});
 
-		
-		
-		
 		// add a click handler to react when areas are tapped
 		mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
+
 			@Override
 			public void onImageMapClicked(String id) {
 				// when the area is tapped, show the name in a
 				// text bubble
 				mImageMap.showBubble(id);
+				Log.d(LOG_TAG, "Fetching area images...");
+				areaImages = mapImageService.getMapImagesByMapAndArea(getMultimedia().getThumbUri(), id);
+
 			}
 
 			@Override
 			public void onBubbleClicked(String id) {
 				// react to info bubble for area being tapped
 				Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
+				for (MapImage m : areaImages) {
+					Log.d(LOG_TAG, m.getDescripcion());
+				}
 			}
 		});
 
-		/*
-		 * mainImageView = (ImageView)
-		 * view.findViewById(R.id.imageViewSlideshow);
-		 * 
-		 * BitmapFactory.Options options = new BitmapFactory.Options();
-		 * options.inJustDecodeBounds = true;
-		 * BitmapFactory.decodeFile(Constants.appPath +
-		 * getMultimedia().getUri(), options); int imageHeight =
-		 * options.outHeight; int imageWidth = options.outWidth;
-		 * 
-		 * Bitmap b = BitmapFactory.decodeFile(Constants.appPath +
-		 * getMultimedia().getUri());
-		 * 
-		 * ViewTreeObserver vto = mainImageView.getViewTreeObserver();
-		 * vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-		 * private int finalHeight; private int finalWidth;
-		 * 
-		 * public boolean onPreDraw() {
-		 * 
-		 * finalHeight = mainImageView.getMeasuredHeight(); finalWidth =
-		 * mainImageView.getMeasuredWidth();
-		 * 
-		 * int iH = mainImageView.getDrawable().getIntrinsicHeight();// original
-		 * // height of // underlying // image int iW =
-		 * mainImageView.getDrawable().getIntrinsicWidth();// original // width
-		 * of // underlying // image
-		 * 
-		 * for (int i= 0; i< imagePoints.size(); i++) { ImagePoint imagePoint =
-		 * imagePoints.get(i); ImageView iview = imageViews.get(i);
-		 * 
-		 * 
-		 * RelativeLayout rl = (RelativeLayout)
-		 * view.findViewById(R.id.labelimage_relativelayout);
-		 * 
-		 * RelativeLayout.LayoutParams lp = new
-		 * RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT,
-		 * LayoutParams.WRAP_CONTENT);
-		 * lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		 * 
-		 * 
-		 * float realx = imagePoint.getX() * finalWidth / 2257; float realy =
-		 * imagePoint.getY() * finalHeight / 553; Log.d(LOG_TAG, "orX: " +
-		 * imagePoint.getX() + " orY: " + imagePoint.getY()); Log.d(LOG_TAG,
-		 * "X: " + realx + " Y: " + realy); lp.leftMargin = (int) realx;
-		 * lp.topMargin = (int) realy;
-		 * 
-		 * iview.setLayoutParams(lp); Log.d(LOG_TAG, "Height: " + iH +
-		 * " Width: " + iW); } return true; } });
-		 * 
-		 * for (ImagePoint imagePoint : imagePoints) { ImageView imgView = new
-		 * ImageView(getActivity());
-		 * 
-		 * 
-		 * 
-		 * imgView.setImageResource(R.drawable.imagepoint);
-		 * 
-		 * RelativeLayout rl = (RelativeLayout)
-		 * view.findViewById(R.id.labelimage_relativelayout);
-		 * 
-		 * imageViews.add(imgView); rl.addView(imgView); }
-		 * 
-		 * // textView.setText(imageCaption); if (b != null) { float ratio =
-		 * (float) b.getHeight() / (float) b.getWidth(); int width = (int)
-		 * Math.ceil(480 / ratio);
-		 * 
-		 * mainImageView.setImageBitmap(Bitmap.createScaledBitmap(b, width, 480,
-		 * true)); b.recycle(); } else { Log.e(LOG_TAG, "Img not found " +
-		 * getMultimedia().getUri());
-		 * mainImageView.setImageResource(R.drawable.noimage); }
-		 */
+		
 		textView.setText(getMultimedia().getNombre());
 
 		return view;
@@ -155,5 +86,15 @@ public class LabeledImageFragment extends MultimediaFragment {
 	public void onPageIsChanged() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		// Obtenemos el servicio para recoger las imagenes asociadas a los
+		// puntos interactivos del mapa;
+		// los capturaremos en CreateView ya que es donde se carga el xml
+		mapImageService = new MapImageServiceImpl(getActivity().getApplicationContext());
 	}
 }

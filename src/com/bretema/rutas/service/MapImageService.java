@@ -12,4 +12,6 @@ public interface MapImageService {
 	public MapImage getMapImage(Integer id);
 	
 	public List<MapImage> getMapImagesByMap(String mapName);
+	
+	public List<MapImage> getMapImagesByMapAndArea(String mapName, String areaId);
 }

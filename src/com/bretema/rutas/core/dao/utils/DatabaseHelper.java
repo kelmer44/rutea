@@ -46,7 +46,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 66;
+	public static final int			VERSION			= 68;
 	/**
 	 * The database type.
 	 */
@@ -150,6 +150,15 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	        	
 	        	database.execSQL(line);
 	        }
+	        
+	        br = new BufferedReader(new InputStreamReader(context.getAssets().open("mapimage.sql")), 1024 * 4);
+	        line = null;
+	        while ((line = br.readLine()) != null) {
+	        	Log.d(LOG_TAG, line);
+	        	
+	        	database.execSQL(line);
+	        }
+	        
 	        
 	        database.setTransactionSuccessful();
 	    } catch(android.database.SQLException s){
