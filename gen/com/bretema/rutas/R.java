@@ -513,6 +513,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int menu_myroute=0x7f060074;
         public static final int menu_settings=0x7f060072;
         public static final int multimediaTextView=0x7f06002b;
+        public static final int myPosText=0x7f060014;
         public static final int nombreRouteListLabel=0x7f060036;
         public static final int none=0x7f060000;
         public static final int pager=0x7f06003c;
@@ -523,7 +524,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slideshowLayout=0x7f060038;
         public static final int slideshow_layout=0x7f06003b;
         public static final int stopButton=0x7f060021;
-        public static final int textView1=0x7f060014;
         public static final int textViewAppDesc=0x7f060008;
         public static final int textViewAppName=0x7f060006;
         public static final int textViewPOIDescSlideShow=0x7f06003a;

@@ -51,6 +51,7 @@ import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -193,6 +194,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         buttonBackToRoute.setTypeface(colab);
         volverButton.setTypeface(colab);
 
+        TextView myPosText = (TextView) findViewById(R.id.myPosText);
+        myPosText.setTypeface(colab);
+        
         rutaService = new RutaServiceImpl(getApplicationContext());
         poiService = new PoiServiceImpl(getApplicationContext());
 
