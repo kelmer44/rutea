@@ -621,6 +621,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b0008;
+        public static final int CustomDialogTheme=0x7f0b000c;
         public static final int MyActionBar=0x7f0b000a;
         public static final int MyTheme=0x7f0b0009;
         public static final int MyTheme_ActionBar_TitleTextStyle=0x7f0b000b;

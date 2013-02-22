@@ -30,4 +30,18 @@
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorTexto</item>
     </style>
+    
+    
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+	    <item name="android:bottomBright">@color/azulBarraTitulo</item>
+	    <item name="android:bottomDark">@color/azulBarraTitulo</item>
+	    <item name="android:bottomMedium">@color/azulBarraTitulo</item>
+	    <item name="android:centerBright">@color/azulBarraTitulo</item>
+	    <item name="android:centerDark">@color/azulBarraTitulo</item>
+	    <item name="android:centerMedium">@color/azulBarraTitulo</item>
+	    <item name="android:fullBright">@color/colorTexto</item>
+	    <item name="android:fullDark">@color/azulTransparente</item>
+	    <item name="android:topBright">@color/azulOscuro</item>
+	    <item name="android:topDark">@color/azulBotonClaro</item>
+	</style>
 </resources>
