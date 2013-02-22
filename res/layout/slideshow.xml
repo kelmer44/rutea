@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/slideshowLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slideshowLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textViewPOINameSlideShow"
@@ -33,22 +33,22 @@
         android:layout_weight="2"
         android:orientation="vertical" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
-    <com.viewpagerindicator.CirclePageIndicator
-        android:id="@+id/indicator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:padding="10dip" />
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10dip" />
 
-    <!--
+        <!--
     <LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content" >
@@ -75,37 +75,58 @@
 		    android:layout_weight="2"
 		    android:src="@android:drawable/ic_media_next" />
 
-	</LinearLayout>
-    -->
-</RelativeLayout>
+	</LinearLayout>
+        -->
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/fondoblanco_bordeazulsuperior"
-        android:gravity="center"
         android:orientation="vertical" >
-        
-                    <Button
-                        android:id="@+id/buttonNavigateSlideShow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="-10dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/button"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:minHeight="0dip"
-                        android:minWidth="0dip"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="5dp"
-                        android:text="@string/boton_navegar"
-                        android:textAppearance="?android:attr/textAppearanceSmallInverse"
-                        android:textColor="@android:color/primary_text_dark" />
 
-    </LinearLayout>
+  		<Button
+  		    android:id="@+id/buttonSlideShowBack"
+  		    android:layout_width="wrap_content"
+  		    android:layout_height="wrap_content"
+  		    android:layout_alignParentLeft="true"
+  		    android:layout_centerVertical="true"
+  		    android:layout_marginBottom="5dp"
+  		    android:layout_marginLeft="-10dp"
+  		    android:layout_marginTop="5dp"
+  		    android:background="@drawable/button"
+  		    android:minHeight="0dip"
+  		    android:minWidth="0dip"
+  		    android:paddingBottom="5dp"
+  		    android:paddingLeft="10dp"
+  		    android:paddingRight="10dp"
+  		    android:paddingTop="5dp"
+  		    android:text="@string/volver"
+  		    android:textAppearance="?android:attr/textAppearanceSmallInverse"
+  		    android:textColor="@android:color/primary_text_dark" />
+  
+        <Button
+            android:id="@+id/buttonNavigateSlideShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/boton_navegar"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
+            android:textColor="@android:color/primary_text_dark" />
+
+    </RelativeLayout>
 
 </LinearLayout>

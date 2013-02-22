@@ -50,6 +50,8 @@ public class SlideShowActivity extends FragmentActivity {
 	private TextView				poiDescTextView;
 	private Button					navigateButton;
 
+	private TextView	volverButton;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class SlideShowActivity extends FragmentActivity {
 		poiNameTextView =  (TextView) findViewById(R.id.textViewPOINameSlideShow);
 		poiDescTextView = (TextView) findViewById(R.id.textViewPOIDescSlideShow);
 		navigateButton = (Button) findViewById(R.id.buttonNavigateSlideShow);
-		
+		volverButton = (Button) findViewById(R.id.buttonSlideShowBack);
 		
 		poiNameTextView.setText(currentPoi.getNombre());
 		
@@ -87,9 +89,15 @@ public class SlideShowActivity extends FragmentActivity {
 		poiDescTextView.setTypeface(colab);
 		poiDescTextView.setText(currentPoi.getDescripcion());
 		
-
+		volverButton.setTypeface(colabMed);
 		navigateButton.setTypeface(colabMed);
-		
+		volverButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				SlideShowActivity.this.finish();
+			}
+		});
 		navigateButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

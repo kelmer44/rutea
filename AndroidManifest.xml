@@ -58,11 +58,13 @@
         </activity>
         <activity
             android:name="com.bretema.rutas.activities.SlideShowActivity"
-            android:label="@string/title_activity_slide_show" >
+            android:label="@string/title_activity_slide_show" 
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name="com.bretema.rutas.activities.AboutActivity"
-            android:label="@string/title_activity_about" >
+            android:label="@string/title_activity_about" 
+            android:screenOrientation="landscape">
         </activity>
     </application>
 

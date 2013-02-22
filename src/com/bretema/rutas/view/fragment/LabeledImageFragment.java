@@ -19,6 +19,7 @@ import com.bretema.rutas.model.mapimages.MapImage;
 import com.bretema.rutas.service.MapImageService;
 import com.bretema.rutas.service.impl.MapImageServiceImpl;
 import com.bretema.rutas.view.ImageMap;
+import com.bretema.rutas.view.dialog.GalleryDialogFragment;
 
 public class LabeledImageFragment extends MultimediaFragment {
 	private static final String	LOG_TAG	= LabeledImageFragment.class.getSimpleName();
@@ -72,6 +73,10 @@ public class LabeledImageFragment extends MultimediaFragment {
 				Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
 				for (MapImage m : areaImages) {
 					Log.d(LOG_TAG, m.getDescripcion());
+				}
+				if(areaImages.size()>0){
+					GalleryDialogFragment d = new GalleryDialogFragment(mImageMap.getAreaAttribute(id, "id"), mImageMap.getAreaAttribute(id, "name"), areaImages);
+					d.show(getFragmentManager(), "GALLERY");
 				}
 			}
 		});
