@@ -35,7 +35,7 @@ public class GalleryDialogFragment extends DialogFragment {
 		gallery.setAdapter(new MiniGalleryImageAdapter(id, mapImages, getActivity().getApplicationContext()));
 		
 		//builder.setMessage(mapImages.get(0).getDescripcion());
-		//builder.setTitle(title);
+		builder.setTitle(title);
 		builder.setView(view);
 
 		builder.setNeutralButton("Volver", new DialogInterface.OnClickListener() {

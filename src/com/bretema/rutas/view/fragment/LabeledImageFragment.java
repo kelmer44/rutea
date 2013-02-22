@@ -70,12 +70,12 @@ public class LabeledImageFragment extends MultimediaFragment {
 			@Override
 			public void onBubbleClicked(String id) {
 				// react to info bubble for area being tapped
-				Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
 				for (MapImage m : areaImages) {
 					Log.d(LOG_TAG, m.getDescripcion());
 				}
 				if(areaImages.size()>0){
-					GalleryDialogFragment d = new GalleryDialogFragment(mImageMap.getAreaAttribute(id, "id"), mImageMap.getAreaAttribute(id, "name"), areaImages);
+					GalleryDialogFragment d = new GalleryDialogFragment(getMultimedia().getThumbUri(), mImageMap.getAreaAttribute(id, "name"), areaImages);
 					d.show(getFragmentManager(), "GALLERY");
 				}
 			}
