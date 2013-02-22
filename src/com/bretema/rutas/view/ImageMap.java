@@ -31,6 +31,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -528,7 +529,7 @@ public class ImageMap extends ImageView {
 	private void initDrawingTools() {
 		textPaint = new Paint();
 		textPaint.setColor(0xFF000000);
-		textPaint.setTextSize(30);
+		textPaint.setTextSize(20);
 		textPaint.setTypeface(Typeface.SERIF);
 		textPaint.setTextAlign(Paint.Align.CENTER);
 		textPaint.setAntiAlias(true);
@@ -1610,6 +1611,7 @@ public class ImageMap extends ImageView {
 		int		_baseline;
 		float	_top;
 		float	_left;
+		String vermasText = "Ver más...";
 
 		Bubble(String text, float x, float y) {
 			init(text, x, y);
@@ -1629,11 +1631,15 @@ public class ImageMap extends ImageView {
 			_x = x * mResizeFactorX;
 			_y = y * mResizeFactorY;
 			Rect bounds = new Rect();
+			Rect boundsVerMas = new Rect();
 			textPaint.setTextScaleX(1.0f);
 			textPaint.getTextBounds(text, 0, _text.length(), bounds);
+			textPaint.getTextBounds(vermasText, 0, vermasText.length(), boundsVerMas);
+			
 			_h = bounds.bottom - bounds.top + 20;
-			_w = bounds.right - bounds.left + 20;
+			_w = Math.max(bounds.right, boundsVerMas.right) - Math.max(bounds.left, boundsVerMas.left) + 20;
 
+			
 			if (_w > mViewWidth) {
 				// too long for the display width...need to scale down
 				float newscale = ((float) mViewWidth / (float) _w);
@@ -1644,6 +1650,7 @@ public class ImageMap extends ImageView {
 			}
 
 			_baseline = _h - bounds.bottom;
+			_h *= 1.5;
 			_left = _x - (_w / 2);
 			_top = _y - _h - 30;
 
@@ -1676,7 +1683,7 @@ public class ImageMap extends ImageView {
 				// Draw a shadow of the bubble
 				float l = _left + mScrollLeft + 4 + mXOffset;
 				float t = _top + mScrollTop + 4 + mYOffset;
-				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 20.0f, 20.0f, bubbleShadowPaint);
+				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 10.0f, 10.0f, bubbleShadowPaint);
 				Path path = new Path();
 				float ox = _x + mScrollLeft + 1  + mXOffset;
 				float oy = _y + mScrollTop + 1 + mYOffset;
@@ -1695,7 +1702,7 @@ public class ImageMap extends ImageView {
 				// draw the bubble
 				l = _left + mScrollLeft + mXOffset;
 				t = _top + mScrollTop + mYOffset;
-				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 20.0f, 20.0f, bubblePaint);
+				canvas.drawRoundRect(new RectF(l, t, l + _w, t + _h), 10.0f, 10.0f, bubblePaint);
 				path = new Path();
 				ox = _x + mScrollLeft + mXOffset;
 				oy = _y + mScrollTop + mYOffset;
@@ -1710,9 +1717,12 @@ public class ImageMap extends ImageView {
 				path.lineTo(ox, oy);
 				path.close();
 				canvas.drawPath(path, bubblePaint);
-
+				
+				Paint linkPaint = new Paint(textPaint);
+				linkPaint.setColor(Color.BLUE);
 				// draw the message
 				canvas.drawText(_text, l + (_w / 2), t + _baseline - 10, textPaint);
+				canvas.drawText("Ver más...", l + (_w / 2), t + _baseline - 10 + 20, linkPaint);
 			}
 		}
 

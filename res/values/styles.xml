@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -32,16 +32,8 @@
     </style>
     
     
-    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
-	    <item name="android:bottomBright">@color/azulBarraTitulo</item>
-	    <item name="android:bottomDark">@color/azulBarraTitulo</item>
-	    <item name="android:bottomMedium">@color/azulBarraTitulo</item>
-	    <item name="android:centerBright">@color/azulBarraTitulo</item>
-	    <item name="android:centerDark">@color/azulBarraTitulo</item>
-	    <item name="android:centerMedium">@color/azulBarraTitulo</item>
-	    <item name="android:fullBright">@color/colorTexto</item>
-	    <item name="android:fullDark">@color/azulTransparente</item>
-	    <item name="android:topBright">@color/azulOscuro</item>
-	    <item name="android:topDark">@color/azulBotonClaro</item>
+    <style name="CustomDialogTheme" parent="@android:Theme.Holo.Light.Dialog">
+	    <item name="android:windowBackground">@color/azulBarraTitulo</item> 
+         <item name="android:colorForeground">#f0f0</item> 
 	</style>
 </resources>
