@@ -67,13 +67,13 @@ public class ImageMap extends ImageView {
 	// If you want to use less memory, and the image scaling up and down
 	// repeatedly
 	// does not blur or loose quality, set mScaleFromOriginal to false
-	private boolean						mScaleFromOriginal	= true;
+	private boolean						mScaleFromOriginal	= false;
 
 	// mMaxSize controls the maximum zoom size as a multiplier of the initial
 	// size.
 	// Allowing size to go too large may result in memory problems.
 	// set this to 1.0f to disable resizing
-	private float						mMaxSize			= 1.5f;
+	private float						mMaxSize			= 1.0f;
 
 	/*
 	 * Touch event handling variables
@@ -467,6 +467,16 @@ public class ImageMap extends ImageView {
 
 	}
 
+	public void setExternalImageBitmap(String uri){
+		resetExpandSize();
+		/*mImage.recycle();
+		mOriginal.recycle();
+		mImage = null;
+		mOriginal = null;*/
+		setImageBitmap(BitmapFactory.decodeFile(Constants.appPath + uri));
+	}
+	
+	
 	/*
 	 * These methods will be called when images or drawables are set in the XML
 	 * for the view. We handle either bitmaps or drawables
@@ -478,13 +488,14 @@ public class ImageMap extends ImageView {
 		if (mImage == mOriginal) {
 			mOriginal = null;
 		} else {
-			mOriginal.recycle();
+			//mOriginal.recycle();
 			mOriginal = null;
 		}
 		if (mImage != null) {
-			mImage.recycle();
+			//mImage.recycle();
 			mImage = null;
 		}
+		
 		mImage = bm;
 		mOriginal = bm;
 		mImageHeight = mImage.getHeight();

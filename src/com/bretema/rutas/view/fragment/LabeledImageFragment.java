@@ -22,15 +22,12 @@ import com.bretema.rutas.view.ImageMap;
 import com.bretema.rutas.view.dialog.GalleryDialogFragment;
 
 public class LabeledImageFragment extends MultimediaFragment {
-	private static final String	LOG_TAG	= LabeledImageFragment.class.getSimpleName();
-
-	private ImageView			mainImageView;
-
-	private ImageMap			mImageMap;
+	private static final String	LOG_TAG		= LabeledImageFragment.class.getSimpleName();
 
 	private MapImageService		mapImageService;
-
 	private List<MapImage>		areaImages;
+
+	private boolean				imageSet	= false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,22 +36,26 @@ public class LabeledImageFragment extends MultimediaFragment {
 		TextView textView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
 		textView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 
-		mImageMap = (ImageMap) view.findViewById(R.id.imageViewMap);
+		final ImageMap mImageMap = (ImageMap) view.findViewById(R.id.imageViewMap);
 		mImageMap.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 			@Override
 			public void onGlobalLayout() {
-				mImageMap.resetExpandSize();
-				mImageMap.setImageBitmap(BitmapFactory.decodeFile(Constants.appPath + getMultimedia().getUri()));
-				if (getMultimedia().getThumbUri() != null && !getMultimedia().getThumbUri().equals(""))
-					mImageMap.loadMapFromAssets(getActivity().getAssets(), getMultimedia().getThumbUri());
-				else
-					mImageMap.loadMap("none");
-				mImageMap.setBalloonTypeface(Constants.getTextFont(getActivity().getAssets()));
+				if (!imageSet) {
+					mImageMap.setExternalImageBitmap(getMultimedia().getUri());
+
+					if (getMultimedia().getThumbUri() != null && !getMultimedia().getThumbUri().equals(""))
+						mImageMap.loadMapFromAssets(getActivity().getAssets(), getMultimedia().getThumbUri());
+					else
+						mImageMap.loadMap("none");
+					mImageMap.setBalloonTypeface(Constants.getTextFont(getActivity().getAssets()));
+
+				}
+				imageSet = true;
 
 			}
 		});
 
-		// add a click handler to react when areas are tapped
+		// a click handler to react when areas are tapped
 		mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
 
 			@Override
@@ -70,18 +71,18 @@ public class LabeledImageFragment extends MultimediaFragment {
 			@Override
 			public void onBubbleClicked(String id) {
 				// react to info bubble for area being tapped
-				//Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id, "name"), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getActivity(), mImageMap.getAreaAttribute(id,
+				// "name"), Toast.LENGTH_SHORT).show();
 				for (MapImage m : areaImages) {
 					Log.d(LOG_TAG, m.getDescripcion());
 				}
-				if(areaImages.size()>0){
+				if (areaImages.size() > 0) {
 					GalleryDialogFragment d = new GalleryDialogFragment(getMultimedia().getThumbUri(), mImageMap.getAreaAttribute(id, "name"), areaImages);
 					d.show(getFragmentManager(), "GALLERY");
 				}
 			}
 		});
 
-		
 		textView.setText(getMultimedia().getNombre());
 
 		return view;
