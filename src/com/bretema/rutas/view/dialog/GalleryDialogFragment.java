@@ -17,6 +17,7 @@ import android.widget.Gallery;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.mapimages.MapImage;
 
 public class GalleryDialogFragment extends DialogFragment {
@@ -39,7 +40,7 @@ public class GalleryDialogFragment extends DialogFragment {
 		Gallery gallery = (Gallery)view.findViewById(R.id.mapImageGallery);
 		gallery.setAdapter(new MiniGalleryImageAdapter(id, mapImages, getActivity().getApplicationContext()));
 		final TextView text = (TextView)view.findViewById(R.id.imageCaptionMiniGallery);
-		
+		text.setTypeface(Constants.getTextFont(getActivity().getAssets()));
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 			
 			@Override
