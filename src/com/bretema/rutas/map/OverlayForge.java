@@ -238,7 +238,9 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		} else {
 			String intentGeoUri = "geo:";
 			String intentNavUri = "google.navigation:q=";
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentGeoUri + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+			//Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentGeoUri + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
+			
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(intent);
 		}

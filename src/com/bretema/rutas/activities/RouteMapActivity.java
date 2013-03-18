@@ -196,6 +196,14 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
         TextView myPosText = (TextView) findViewById(R.id.myPosText);
         myPosText.setTypeface(colab);
+        myPosText.setTextSize(10);
+        
+        TextView impText = (TextView) findViewById(R.id.text_imprescindible);
+        impText.setTypeface(colab);
+        impText.setTextSize(10);
+        TextView secText = (TextView) findViewById(R.id.text_sec);
+        secText.setTypeface(colab);
+        secText.setTextSize(10);
         
         rutaService = new RutaServiceImpl(getApplicationContext());
         poiService = new PoiServiceImpl(getApplicationContext());

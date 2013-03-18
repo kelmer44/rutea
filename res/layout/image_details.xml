@@ -46,4 +46,12 @@
         android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/info_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/info_blue" />
+
 </RelativeLayout>

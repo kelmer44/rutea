@@ -23,7 +23,7 @@
     <string name="fetchingdata">Recuperando información</string>
     <string name="errorfetching">No se pudo recuperar la información. Por favor consulte al proveedor.</string>
     <string name="title_activity_slide_show">SlideShow</string>
-    <string name="boton_navegar">Navegar</string>
+    <string name="boton_navegar">Ir a GPS</string>
     <string name="poi_nombre_placeholder">Large Text</string>
     <string name="poi_desc_placeholder">Descripción del punto</string>
     <string name="volver">volver</string>
