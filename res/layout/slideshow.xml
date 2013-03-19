@@ -48,35 +48,28 @@
             android:layout_alignParentLeft="true"
             android:padding="10dip" />
 
-        <!--
-    <LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+        <ImageButton
+            android:id="@+id/botonNExt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:cropToPadding="false"
+            android:src="@drawable/ic_go" 
+            android:layout_marginRight="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginTop="-5dp"/>
 
-		<ImageButton
-		    android:id="@+id/imgbuttonprev"
-		    android:layout_width="wrap_content"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="2"
-		    android:src="@android:drawable/ic_media_previous" />
+        <ImageButton
+            android:id="@+id/botonPRev"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_go_mirror"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginTop="-5dp" />
 
-		<ImageView
-		    android:id="@+id/imageViewCurrentImage"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:layout_weight="3"
-		    android:src="@drawable/android_boot_image" />
-
-		<ImageButton
-		    android:id="@+id/imgbuttonnext"
-		    android:layout_width="wrap_content"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="2"
-		    android:src="@android:drawable/ic_media_next" />
-
-	</LinearLayout>
-        -->
     </RelativeLayout>
 
     <RelativeLayout

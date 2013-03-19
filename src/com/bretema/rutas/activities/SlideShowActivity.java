@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
@@ -47,6 +48,8 @@ public class SlideShowActivity extends FragmentActivity {
 	private TextView				poiNameTextView;
 	private TextView				poiDescTextView;
 	private Button					navigateButton;
+	private ImageButton					prevButton;
+	private ImageButton					nextButton;
 
 	private TextView	volverButton;
 
@@ -77,6 +80,8 @@ public class SlideShowActivity extends FragmentActivity {
 		poiDescTextView = (TextView) findViewById(R.id.textViewPOIDescSlideShow);
 		navigateButton = (Button) findViewById(R.id.buttonNavigateSlideShow);
 		volverButton = (Button) findViewById(R.id.buttonSlideShowBack);
+		prevButton = (ImageButton) findViewById(R.id.botonPRev);
+		nextButton = (ImageButton) findViewById(R.id.botonNExt);
 		
 		poiNameTextView.setText(currentPoi.getNombre());
 		
@@ -118,6 +123,26 @@ public class SlideShowActivity extends FragmentActivity {
 		mIndicator = indicator;
 		indicator.setViewPager(mPager);
 		indicator.setSnap(true);
+		
+		
+		prevButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(mPager.getCurrentItem()>0){
+					mPager.setCurrentItem(mPager.getCurrentItem()-1, true);
+				}
+			}
+		});
+		
+		nextButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+					mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
+			}
+		});
+
 	}
 
 	public class MyAdapter extends FragmentStatePagerAdapter {

@@ -50,8 +50,8 @@
         android:id="@+id/info_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/info_blue" />
+        android:layout_alignBottom="@+id/imageViewSlideshow"
+        android:layout_alignLeft="@+id/imageViewSlideshow"
+        android:src="@drawable/ic_menu_info_details" />
 
 </RelativeLayout>
