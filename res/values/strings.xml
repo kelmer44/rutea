@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Rutas</string>
+    <string name="app_name">Rutea</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Configuración</string>
     <string name="title_activity_route_list">Lista de Rutas</string>
@@ -31,5 +31,6 @@
     <string name="volver_a_ruta">Volver a ruta</string>
     <string name="duracion">Duración:</string>
     <string name="distancia_">Distancia:</string>
+    <string name="descripcion">Rutea es una aplicación pensada para facilitar la tarea de trazar rutas turísticas por parajes sin conectividad</string>
 
 </resources>

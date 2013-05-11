@@ -21,14 +21,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse" />
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/info_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:src="@drawable/mapmarker" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/textViewAppDesc"
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center"
-            android:text="Nombre de la app es una aplicación pensada para facilitar la tarea de trazar rutas turísticas por parajes sin conectividad"
+            android:text="@string/descripcion"
             android:textAppearance="?android:attr/textAppearanceMediumInverse" />
 
     </LinearLayout>
@@ -46,19 +47,20 @@
         android:layout_height="wrap_content"
         android:gravity="bottom" >
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <TextView
+            android:id="@+id/sysInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/bretema" />
+            android:text="TextView"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/bretemaLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_alignParentRight="true"
+            android:layout_margin="3dp"
             android:src="@drawable/bretema" />
 
     </RelativeLayout>

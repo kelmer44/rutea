@@ -1,11 +1,12 @@
 package com.bretema.rutas.core.util;
 
-import java.util.Collection;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 
 import org.mapsforge.core.GeoPoint;
 
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
+import java.util.Collection;
+import java.util.zip.CRC32;
 
 public class Constants {
 
@@ -69,4 +70,14 @@ public class Constants {
     public static Typeface getSubtitleFont(AssetManager mgr){
 		return Typeface.createFromAsset(mgr, "ColabMed.ttf");
     }
+    
+    public static long calculateCrc32(String data){
+    	
+    	return calculateCrc32(data.getBytes());    	
+    }
+	public static long calculateCrc32(byte[] data){
+		  CRC32 crc = new CRC32();
+		  crc.update(data);
+		  return crc.getValue();
+		}
 }
