@@ -37,7 +37,7 @@ import com.bretema.rutas.service.impl.RutaServiceImpl;
  * @author kelmer
  * 
  */
-public class RouteDetailActivity extends Activity implements MediaPlayer.OnPreparedListener {
+public class RouteDetailActivity extends LicensedActivity implements MediaPlayer.OnPreparedListener {
 
 	private static final String	LOG_TAG	= RouteDetailActivity.class.getSimpleName();
 

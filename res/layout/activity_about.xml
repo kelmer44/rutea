@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/azulBotonClaro"
+    android:background="@drawable/radial_grad"
     android:orientation="vertical"
     tools:context=".AboutActivity" >
 
@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center"
             android:text="@string/descripcion"
-            android:textAppearance="?android:attr/textAppearanceMediumInverse" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ImageView
             android:id="@+id/bretemaLogo"

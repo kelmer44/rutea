@@ -33,4 +33,5 @@
     <string name="distancia_">Distancia:</string>
     <string name="descripcion">Rutea es una aplicación pensada para facilitar la tarea de trazar rutas turísticas por parajes sin conectividad</string>
 
+    <string name="licenseManager">Rutea License Manager</string>
 </resources>

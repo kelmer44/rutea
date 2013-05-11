@@ -1,16 +1,21 @@
 
 package com.bretema.rutas.activities;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -22,6 +27,7 @@ import android.widget.Toast;
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutActivity extends LicensedActivity {
 
 	private long crc32address;
@@ -30,6 +36,7 @@ public class AboutActivity extends LicensedActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_about);
@@ -119,7 +126,4 @@ public class AboutActivity extends LicensedActivity {
 		getMenuInflater().inflate(R.menu.activity_about, menu);
 		return true;
 	}
-	
-
-
 }

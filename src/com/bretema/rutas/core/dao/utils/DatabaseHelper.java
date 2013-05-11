@@ -13,6 +13,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.bretema.rutas.model.codigo.Codigo;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.db.DatabaseType;
@@ -46,7 +47,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 69;
+	public static final int			VERSION			= 70;
 	/**
 	 * The database type.
 	 */
@@ -484,13 +485,18 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		try {
 
 			for (Tables table : Tables.values()) {
-				TableUtils.dropTable(connectionSource, table.getTableClass(), true);
+				//La tabla de códigos no se toca!
+				if(table!=Tables.CODIGOS){
+					TableUtils.dropTable(connectionSource, table.getTableClass(), true);
+				}
 			}
 			onCreate(database);
 		} catch (SQLException e) {
 			Log.e(LOG_TAG, "Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
 			throw new RuntimeException("Excpetion while updating the database from version " + oldVersion + "to " + newVersion, e);
 		}
+		
+		
 		// if (newVersion < oldVersion) {
 		// Log.w(LOG_TAG,
 		// "Trying to install an older database over a more recent one. Not executing update...");
