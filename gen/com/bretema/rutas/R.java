@@ -581,17 +581,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slide_show=0x7f0d0003;
     }
     public static final class string {
+        public static final int activation_code=0x7f0c0024;
         public static final int app_name=0x7f0c0000;
         public static final int boton_navegar=0x7f0c0016;
+        public static final int cancel=0x7f0c0023;
+        public static final int code_already_used=0x7f0c0021;
         public static final int desc=0x7f0c000e;
         public static final int descripcion=0x7f0c001e;
         public static final int distancia_=0x7f0c001d;
         public static final int duracion=0x7f0c001c;
         public static final int elija_una_ruta_=0x7f0c000c;
+        public static final int enter_activation_code=0x7f0c0025;
         public static final int errorfetching=0x7f0c0014;
         public static final int fetchingdata=0x7f0c0013;
         public static final int hello_world=0x7f0c0001;
         public static final int hide_gallery=0x7f0c000b;
+        public static final int invalid_code=0x7f0c0020;
         public static final int ir_a=0x7f0c000a;
         public static final int ir_a_ruta=0x7f0c000f;
         public static final int licenseManager=0x7f0c001f;
@@ -600,6 +605,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int mi_posici_n=0x7f0c0011;
         public static final int no_map=0x7f0c0006;
         public static final int nombre_de_la_ruta=0x7f0c000d;
+        public static final int ok=0x7f0c0022;
         public static final int pleasewait=0x7f0c0012;
         public static final int poi_desc_placeholder=0x7f0c0018;
         public static final int poi_nombre_placeholder=0x7f0c0017;

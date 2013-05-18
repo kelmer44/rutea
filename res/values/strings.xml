@@ -34,4 +34,12 @@
     <string name="descripcion">Rutea es una aplicación pensada para facilitar la tarea de trazar rutas turísticas por parajes sin conectividad</string>
 
     <string name="licenseManager">Rutea License Manager</string>
+    
+    <string name="invalid_code">El código %s no es un código válido</string>
+    <string name="code_already_used">El código %s ya ha sido utilizado.</string>
+    
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="activation_code">Código de activación</string>
+    <string name="enter_activation_code">Introduzca el código de activación proporcionado por su proveedor.</string>
 </resources>

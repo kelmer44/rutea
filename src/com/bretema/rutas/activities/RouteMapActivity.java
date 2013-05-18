@@ -181,6 +181,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
                 return true;
             }
         });
+        
+        
         nextPoiButton.setOnClickListener(this);
         prevPoiButton.setOnClickListener(this);
         quitRouteButton.setOnClickListener(this);

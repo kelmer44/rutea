@@ -98,17 +98,13 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
 
 		playButton = (ToggleButton) findViewById(R.id.playButton);
 		stopButton = (ImageView) findViewById(R.id.stopButton);
+		
+		
 		// Asignación de valores
 		routeDetailDescriptionLabel.setText(Html.fromHtml(ruta.getDescription()));
-
 		routeDetailNameLabel.setText(ruta.getNombre());
 		routeDetailNameLabel.setTypeface(Constants.getTitleFont(getAssets()));
-		// routeDetailNameLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
-		// Display display = getWindowManager().getDefaultDisplay();
-		// Point size = new Point();
-		// display.getSize(size);
-		// int width = size.x;
-		// int height = size.y;
+
 
 		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + ruta.getMainImagePath());
 		if (b != null) {

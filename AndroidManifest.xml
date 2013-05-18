@@ -23,8 +23,7 @@
         android:theme="@style/MyTheme" >
         
         <service
-            android:name="MyService"
-            android:icon="@drawable/ic_launcher"
+            android:name="com.bretema.rutas.core.LicenseManagerService"
             android:label="@string/licenseManager" >
         </service>
 
