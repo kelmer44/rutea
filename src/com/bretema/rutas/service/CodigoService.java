@@ -11,9 +11,13 @@ public interface CodigoService {
 	
 	public Codigo getCodigo(Integer id);
 	
+	public Codigo getCodigoByCodigo(String codigo);
+	
 	public Codigo save(String codigo);
 	
 	public boolean codeUsed(String codigo);
+	
+	
 	
 	
 }

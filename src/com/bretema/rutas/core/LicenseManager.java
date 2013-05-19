@@ -1,18 +1,20 @@
 package com.bretema.rutas.core;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.bretema.rutas.R;
 import com.bretema.rutas.core.exception.CodeAlreadyUsedException;
 import com.bretema.rutas.core.exception.InvalidCodeException;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.codigo.Codigo;
 import com.bretema.rutas.service.CodigoService;
 import com.bretema.rutas.service.impl.CodigoServiceImpl;
-import com.bretema.rutas.view.PromptDialog;
+
+import java.util.Date;
 
 public class LicenseManager {
     private final static String LOG_TAG = LicenseManager.class.getName();
@@ -22,8 +24,9 @@ public class LicenseManager {
     private CodigoService codigoService;
     
     private String macAddress;
-    private long hashedMacAddress;
     private long crc32address;
+    
+    private SharedPreferences sharedPreferences;
     
     private static LicenseManager INSTANCE = null;
     
@@ -31,7 +34,52 @@ public class LicenseManager {
     {
         
     }
+
+    /**
+     * checks if the application is currently in an authorized state from the shared preferences
+     * First checks the shared preferences, then for the current code checks dates
+     * @return
+     */
+    public boolean isCurrentlyAuthorized()
+    {
+        boolean isAuthorized = sharedPreferences.getBoolean("auth", false);
+        
+        if(isAuthorized)
+        {
+            String code = sharedPreferences.getString("code", "");
+            if(code.equals(""))
+                return false;
+            
+            Codigo currentCode = codigoService.getCodigoByCodigo(code);
+            
+            if(currentCode==null){
+                deAuth();
+                return false;
+            }
+            
+            Date deactivationDate = currentCode.getDeactivationDate();
+            Date hoy = new Date();
+            if(deactivationDate.before(hoy)){
+                deAuth();
+                return false;
+            }
+        }
+        
+        return isAuthorized;
+    }
     
+    public void deAuth() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("auth", false);
+        editor.putString("code", "");
+    }
+    
+    public void auth(String code){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("auth", true);
+        editor.putString("code", code);
+    }
+
     private synchronized static void createInstance()
     {
         if(INSTANCE == null)
@@ -49,16 +97,20 @@ public class LicenseManager {
     public void init(Context context)
     {
         Log.d(LOG_TAG, "Iniciando License Manager...");
+        //grabs the context
         mContext = context;
+        
+        //gets macAddress from context
         macAddress = obtainMacAddress();
         crc32address = Constants.calculateCrc32(macAddress.toUpperCase());
+        //grabs service to store codes in database
         codigoService = new CodigoServiceImpl(mContext);
+        
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        
         Log.d(LOG_TAG, "Done.");
     }
-    
-
-    
-    
+   
     public boolean checkLicense(String inputCode) throws InvalidCodeException, CodeAlreadyUsedException
     {
         Log.d(LOG_TAG,"Checking code " + inputCode);

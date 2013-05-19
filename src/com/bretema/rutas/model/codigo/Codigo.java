@@ -11,13 +11,13 @@ public class Codigo {
 	@DatabaseField(generatedId = true)
 	private Integer id;
 	
-	@DatabaseField
+	@DatabaseField(canBeNull=false, unique=true)
 	private String fullCode;
 	
-	@DatabaseField
+	@DatabaseField(canBeNull=false)
 	private Date activationDate;
 	
-	@DatabaseField
+	@DatabaseField(canBeNull=false)
 	private Date deactivationDate;
 	
 	@DatabaseField

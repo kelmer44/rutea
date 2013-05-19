@@ -116,10 +116,12 @@ public class RouteListActivity extends Activity {
                 startActivity(in);
                 return true;
             case R.id.menu_myroute:
-                Intent in2 = new Intent(getApplicationContext(), RouteMapActivity.class);
-                in2.putExtra("showmenu", false);
-                in2.putExtra("id_ruta", "all");
-                startActivity(in2);
+                
+                    Intent in2 = new Intent(getApplicationContext(), RouteMapActivity.class);
+                    in2.putExtra("showmenu", false);
+                    in2.putExtra("id_ruta", "all");
+                    startActivity(in2);
+                    
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

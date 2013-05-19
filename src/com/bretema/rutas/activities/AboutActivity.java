@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.CodeInputterTextWatcher;
@@ -58,44 +59,57 @@ public class AboutActivity extends LicensedActivity {
 
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(AboutActivity.this);
-
-                alert.setTitle("Title");
-                alert.setMessage("Message");
-
-                // Set an EditText view to get user input
-                final EditText input = new EditText(AboutActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_PHONE);
                 
-                
-                input.addTextChangedListener(new CodeInputterTextWatcher());
-                alert.setView(input);
+                LicenseManager lManager = LicenseManager.getInstance();
+                boolean authorized = lManager.isCurrentlyAuthorized();
+                if(authorized){
+                    
+                    Toast.makeText(getApplicationContext(), "AUTHORIZED MATHAFACKA", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(AboutActivity.this);
 
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        try {
-                            LicenseManager lManager = LicenseManager.getInstance();
-                            lManager.checkLicense(value);
-                            Log.d(LOG_TAG, "Código correcto!");
-                        } catch (InvalidCodeException e) {
-                            Log.d(LOG_TAG, "Invalid code " + e.getCode());
-                            e.printStackTrace();
-                        } catch (CodeAlreadyUsedException e) {
-                            Log.d(LOG_TAG, "Invalid code " + e.getCode());
-                            e.printStackTrace();
+                    alert.setTitle("Title");
+                    alert.setMessage("Message");
+
+                    // Set an EditText view to get user input
+                    final EditText input = new EditText(AboutActivity.this);
+                    input.setInputType(InputType.TYPE_CLASS_PHONE);
+                    
+                    
+                    input.addTextChangedListener(new CodeInputterTextWatcher());
+                    alert.setView(input);
+
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String value = input.getText().toString();
+                            try {
+                                LicenseManager lManager = LicenseManager.getInstance();
+                                boolean validCode = lManager.checkLicense(value);
+                                if(validCode){
+                                    lManager.auth(value);
+                                }
+                                Log.d(LOG_TAG, "Código correcto!");
+                            } catch (InvalidCodeException e) {
+                                Log.d(LOG_TAG, "Invalid code " + e.getCode());
+                                e.printStackTrace();
+                            } catch (CodeAlreadyUsedException e) {
+                                Log.d(LOG_TAG, "Invalid code " + e.getCode());
+                                e.printStackTrace();
+                            }
+
                         }
+                    });
 
-                    }
-                });
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Canceled.
+                        }
+                    });
 
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                });
-
-                alert.show();
+                    alert.show();
+                }
+                
             }
         });
 
