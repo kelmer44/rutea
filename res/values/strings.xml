@@ -15,9 +15,11 @@
     <string name="hide_gallery">Ocultar galería</string>
     <string name="elija_una_ruta_">Elija una ruta:</string>
     <string name="nombre_de_la_ruta">Nombre de la ruta</string>
+    <string name="nombre_del_poi">Nombre del punto de interés</string>
     <string name="desc">Desc</string>
     <string name="ir_a_ruta">ir a ruta</string>
     <string name="mainImage">Imagen principal de la ruta</string>
+    <string name="mainVideo">Imagen principal del punto de interés</string>
     <string name="mi_posici_n">Mi posición</string>
     <string name="pleasewait">Por favor, espere&#8230;</string>
     <string name="fetchingdata">Recuperando información</string>

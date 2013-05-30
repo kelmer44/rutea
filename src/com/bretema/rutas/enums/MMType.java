@@ -3,7 +3,7 @@ package com.bretema.rutas.enums;
 import com.bretema.rutas.R;
 
 public enum MMType {
-	Imagen(0), Video(1), LabeledImage(2), Texto(3);
+	Imagen(0), Video(1), LabeledImage(2), Texto(3), MainInfo(4);
 
 	MMType(int position) {
 		this.position = position;

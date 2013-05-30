@@ -27,6 +27,7 @@ import com.bretema.rutas.view.fragment.ImageFragment;
 import com.bretema.rutas.view.fragment.LabeledImageFragment;
 import com.bretema.rutas.view.fragment.TextFragment;
 import com.bretema.rutas.view.fragment.VideoFragment;
+import com.bretema.rutas.view.fragment.poiInfoFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -191,6 +192,13 @@ public class SlideShowActivity extends FragmentActivity {
 				ifragment.setArguments(bundle);
 				return ifragment;
 				
+			}
+			else if (m.getTipo() == MMType.MainInfo){
+				poiInfoFragment ifragment = new poiInfoFragment();
+				Bundle bundle = new Bundle();
+				bundle.putInt("id", m.getId());
+				ifragment.setArguments(bundle);
+				return ifragment;				
 			}
 			return null;
 		}
