@@ -10,9 +10,6 @@ public class CodeInputterTextWatcher implements TextWatcher{
         if(s.length()==10){
             s.append("-");
         }
-        if(s.length() == 21){
-        	s.delete(s.length() - 1,s.length());      	
-        }
     }
 
     @Override

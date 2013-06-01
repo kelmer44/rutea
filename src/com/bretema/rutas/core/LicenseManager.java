@@ -7,6 +7,7 @@ import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.bretema.rutas.R;
 import com.bretema.rutas.core.exception.CodeAlreadyUsedException;
 import com.bretema.rutas.core.exception.InvalidCodeException;
 import com.bretema.rutas.core.util.Constants;
@@ -68,16 +69,25 @@ public class LicenseManager {
         return isAuthorized;
     }
     
+    /**
+     * Desautoriza al usuario al uso de la aplicación hasta la introducción de un nuevo código
+     */
     public void deAuth() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("auth", false);
         editor.putString("code", "");
+        editor.commit();
     }
     
+    /**
+     * Autoriza al usuario al uso de la aplicacion (simplemente modifica el contenido de las preferencias de la aplicacion)
+     * @param code
+     */
     public void auth(String code){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("auth", true);
         editor.putString("code", code);
+        editor.commit();
     }
 
     private synchronized static void createInstance()
@@ -111,6 +121,13 @@ public class LicenseManager {
         Log.d(LOG_TAG, "Done.");
     }
    
+    /**
+     * Comprueba si un código es válido para el dispositivo actual
+     * @param inputCode código a comprobar
+     * @return true si es válido
+     * @throws InvalidCodeException Cuando el código no es válido directamente
+     * @throws CodeAlreadyUsedException Cuando el código ya ha sido usado
+     */
     public boolean checkLicense(String inputCode) throws InvalidCodeException, CodeAlreadyUsedException
     {
         Log.d(LOG_TAG,"Checking code " + inputCode);
@@ -123,8 +140,7 @@ public class LicenseManager {
             if(result == crc32address){
                 if(!codigoService.codeUsed(inputCode))
                 {
-                    Log.d(LOG_TAG,"Code was valid. Storing in database");
-                    Codigo c = codigoService.save(inputCode);
+                    Log.d(LOG_TAG,"Code was valid. Storing in database...");
                     return true;
                 }
                 else {
@@ -144,14 +160,33 @@ public class LicenseManager {
             throw new InvalidCodeException(inputCode, mContext);
         }
     }
+    
+    public Codigo saveCode(String inputCode)
+    {
+        
+        Integer numHoras = Integer.parseInt(mContext.getString(R.string.code_ttl));
+        Codigo c = codigoService.save(inputCode, numHoras);
+        return c;
+    }
 
     private String obtainMacAddress() {
         WifiManager manager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
         String address = info.getMacAddress();
+        
+        //direccion mac por defecto
         if(address==null){
             address = "bc:0f:2b:a5:32:97";
         }
         return address;
+    }
+    
+    /**
+     * Resetea todos los códigos empleados en este dispositivo.
+     * No debería llamarse más que para propósitos de desarrollo.
+     */
+    public void deleteAllCodes()
+    {
+        codigoService.resetCodes();
     }
 }

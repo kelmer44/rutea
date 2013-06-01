@@ -10,9 +10,9 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Define un punto de interés en el mapa.
+ * Define un punto de interÃ©s en el mapa.
  * 
- * @author Gabriel Sanmartín Díaz
+ * @author Gabriel SanmartÃ­n DÃ­az
  *
  */
 @DatabaseTable

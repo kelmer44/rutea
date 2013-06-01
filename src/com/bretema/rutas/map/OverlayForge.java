@@ -61,8 +61,8 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		super(boundCenterBottom(defaultMarker));
 
 		me_overlay = new PoiOverlayItem();
-		me_overlay.setTitle("Mi posiciÛn");
-		me_overlay.setSnippet("Usted est· aquÌ");
+		me_overlay.setTitle("Mi posici√≥n");
+		me_overlay.setSnippet("Usted est√° aqu√≠");
 		me_overlay.setMarker(boundCenter(myLocationMarker));
 
 		// Updating the markers

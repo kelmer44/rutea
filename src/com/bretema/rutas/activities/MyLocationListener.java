@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * Proporciona la posiciÛn actual del usuario. 
+ * Proporciona la posici√≥n actual del usuario. 
  * He tenido que hacerlo asi debido a que usar una inner class 
  * produce un memory leak, al igual que implementar la interfaz
  * directamente
@@ -21,8 +21,8 @@ public class MyLocationListener implements LocationListener {
 	private OverlayItem overlayItem;
 	
 	/**
-	 * Overlay item que representa la posiciÛn del usuario
-	 * cuya posiciÛn se cambiar· cada vez que el usuario se
+	 * Overlay item que representa la posici√≥n del usuario
+	 * cuya posici√≥n se cambiar√° cada vez que el usuario se
 	 * mueva.
 	 * @param meOverlayItem
 	 */

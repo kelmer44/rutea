@@ -5,7 +5,9 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -52,64 +54,24 @@ public class AboutActivity extends LicensedActivity {
         TextView textViewAppDesc = (TextView) findViewById(R.id.textViewAppDesc);
         TextView textViewSysInfo = (TextView) findViewById(R.id.sysInfo);
         ImageView bretemaLogo = (ImageView) findViewById(R.id.bretemaLogo);
-
+        ImageView ruteaLogo = (ImageView) findViewById(R.id.info_blue);
         codigoService = new CodigoServiceImpl(getApplicationContext());
 
         bretemaLogo.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                
-                LicenseManager lManager = LicenseManager.getInstance();
-                boolean authorized = lManager.isCurrentlyAuthorized();
-                if(authorized){
-                    
-                    Toast.makeText(getApplicationContext(), "AUTHORIZED MATHAFACKA", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(AboutActivity.this);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.bretemasoftware.com"));
+                startActivity(browserIntent);
+            }
+        });
+        
+        ruteaLogo.setOnClickListener(new OnClickListener() {
 
-                    alert.setTitle("Title");
-                    alert.setMessage("Message");
-
-                    // Set an EditText view to get user input
-                    final EditText input = new EditText(AboutActivity.this);
-                    input.setInputType(InputType.TYPE_CLASS_PHONE);
-                    
-                    
-                    input.addTextChangedListener(new CodeInputterTextWatcher());
-                    alert.setView(input);
-
-                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            String value = input.getText().toString();
-                            try {
-                                LicenseManager lManager = LicenseManager.getInstance();
-                                boolean validCode = lManager.checkLicense(value);
-                                if(validCode){
-                                    lManager.auth(value);
-                                }
-                                Log.d(LOG_TAG, "Código correcto!");
-                            } catch (InvalidCodeException e) {
-                                Log.d(LOG_TAG, "Invalid code " + e.getCode());
-                                e.printStackTrace();
-                            } catch (CodeAlreadyUsedException e) {
-                                Log.d(LOG_TAG, "Invalid code " + e.getCode());
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            // Canceled.
-                        }
-                    });
-
-                    alert.show();
-                }
-                
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.rutea.es"));
+                startActivity(browserIntent);
             }
         });
 
@@ -137,7 +99,7 @@ public class AboutActivity extends LicensedActivity {
             // TODO Auto-generated catch block
             versionName = "N/A";
         }
-        String sysinfo = "Versión:" + versionName + "\nEspacio libre: " + gigaAvailable + " Gb \nMAC address: " + address + "(" + crc32address + ")";
+        String sysinfo = "VersiÃ³n:" + versionName + "\nEspacio libre: " + String.format("%1$,.2f", gigaAvailable) + " Gb \nMAC address: " + address;
 
         textViewSysInfo.setText(sysinfo);
     }

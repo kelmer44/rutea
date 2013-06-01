@@ -22,7 +22,7 @@ public class CodigoServiceImpl implements CodigoService {
 	
 	/**
 	 * En lugar de inyectar tenemos que hacerlo a mano, al no tener spring
-	 * Existe la opción de usar RoboGuice pero paso
+	 * Existe la opciÃ³n de usar RoboGuice pero paso
 	 * @param context
 	 */
 	public CodigoServiceImpl(Context context){
@@ -42,7 +42,7 @@ public class CodigoServiceImpl implements CodigoService {
 	
 
 	@Override
-	public Codigo save(String serial) {
+	public Codigo save(String serial, int numMins) {
 		// TODO Auto-generated method stub
 		Codigo codigo = new Codigo();
 		codigo.setFullCode(serial.trim());
@@ -50,7 +50,7 @@ public class CodigoServiceImpl implements CodigoService {
 		codigo.setActivationDate(new Date());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(Calendar.DAY_OF_YEAR, 1);
+		cal.add(Calendar.MINUTE, numMins);
 		codigo.setDeactivationDate(cal.getTime());
 		codigo.setValid(true);
 		return codigoDao.save(codigo);
@@ -74,6 +74,11 @@ public class CodigoServiceImpl implements CodigoService {
             return lista.get(0);
         else
             return null;
+    }
+
+    @Override
+    public void resetCodes() {
+        codigoDao.deleteAll();
     }
 
 }

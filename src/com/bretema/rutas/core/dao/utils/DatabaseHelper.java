@@ -47,7 +47,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 71;
+	public static final int			VERSION			= 74;
 	/**
 	 * The database type.
 	 */
@@ -113,12 +113,12 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * Inserta datos de prueba.
 	 * 
 	 * @param database
-	 *            base de datos sobre la que se introducirán estos
+	 *            base de datos sobre la que se introducirï¿½n estos
 	 */
 	public final void insertDefaultData(final SQLiteDatabase database) {
 		BufferedReader br = null;
 	    try {
-	        br = new BufferedReader(new InputStreamReader(context.getAssets().open("database.sql")), 1024 * 4);
+	        br = new BufferedReader(new InputStreamReader(context.getAssets().open("ruta.sql")), 1024 * 4);
 	        String line = null;
 	        database.beginTransaction();
 	       // database.execSQL("INSERT INTO ruta (id) VALUES (1)");
@@ -190,7 +190,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 		try {
 
 			for (Tables table : Tables.values()) {
-				//La tabla de códigos no se toca!
+				//La tabla de cï¿½digos no se toca!
 				if(table!=Tables.CODIGOS || resetCodes){
 					TableUtils.dropTable(connectionSource, table.getTableClass(), true);
 				}

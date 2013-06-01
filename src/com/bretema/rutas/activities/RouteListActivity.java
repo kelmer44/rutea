@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Representa la lista de rutas. TODO: Transformar en una lista de imágenes
+ * Representa la lista de rutas. TODO: Transformar en una lista de imï¿½genes
  * (Table View)
  * 
  * @author kelmer
@@ -61,18 +61,22 @@ public class RouteListActivity extends Activity {
         Log.d(LOG_TAG, "Obteniendo lista de rutas...");
         routeList = rutaService.findAll();
 
-        Log.d(LOG_TAG, "Iniciando servicio de comprobación de licencia");
+        //Log.d(LOG_TAG, "Iniciando servicio de comprobaciï¿½n de licencia");
 
-        setupLicenseService();
+        //setupLicenseService();
+        
+        //Inicializa el Singleton de gestiÃ³n de Licencias. MUY IMPORTANTE
+        Log.d(LOG_TAG, "Starting license manager...");
         LicenseManager manager = LicenseManager.getInstance();
         manager.init(getApplicationContext());
+        Log.d(LOG_TAG, "...started");
         
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageGridAdapter(getApplicationContext(), routeList));
 
         // Al pulsar un elemento de la lista se pasa a la vista detallada de
-        // línea
+        // lï¿½nea
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

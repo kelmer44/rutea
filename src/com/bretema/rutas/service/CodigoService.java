@@ -13,10 +13,11 @@ public interface CodigoService {
 	
 	public Codigo getCodigoByCodigo(String codigo);
 	
-	public Codigo save(String codigo);
+	public Codigo save(String codigo, int numMins);
 	
 	public boolean codeUsed(String codigo);
 	
+	public void resetCodes();
 	
 	
 	

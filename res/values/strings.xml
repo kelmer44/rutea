@@ -37,11 +37,16 @@
 
     <string name="licenseManager">Rutea License Manager</string>
     
-    <string name="invalid_code">El código %s no es un código válido</string>
-    <string name="code_already_used">El código %s ya ha sido utilizado.</string>
-    
+    <!--  GESTION DE CODIGOS -->
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="activation_code">Código de activación</string>
     <string name="enter_activation_code">Introduzca el código de activación proporcionado por su proveedor.</string>
+    <string name="valid_code_required">Debe introducir un código válido para acceder a la ruta.</string>
+    <string name="invalid_code">El código %s no es un código válido</string>
+    <string name="code_already_used">El código %s ya ha sido utilizado.</string>
+    <string name="code_ttl">1440</string>
+<!-- 	<string name="code_ttl">10</string> -->
+    
+    
 </resources>
