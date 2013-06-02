@@ -56,6 +56,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bretema.rutas.R;
+import com.bretema.rutas.core.LicenseManager;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.map.PoiOverlayItem;
@@ -144,7 +145,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         // Determinamos si mostramos o no el menu de botones
         showLeftMenu = i.getBooleanExtra("showmenu", true);
 
-        // La galeria estará oculta por defecto
+        // La galeria estarï¿½ oculta por defecto
         galleryHidden = true;
         // buttonHideGallery = (ImageButton)
         // findViewById(R.id.buttonHideGallery);
@@ -226,7 +227,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
                 new RouteLoader().execute(ruta.getRouteFile());
             }
 
-            // Nos registramos como lector de localización
+            // Nos registramos como lector de localizaciï¿½n
             locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
             if (bestProvider != null && !bestProvider.equals("")) {
                 mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
@@ -239,7 +240,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         }
     }
 
-    // Muestra otra vez la galería
+    // Muestra otra vez la galerï¿½a
     protected void showGallery() {
         buttonHideGallery.setImageResource(android.R.drawable.arrow_down_float);
         galleryHidden = false;
@@ -257,7 +258,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         selectedPOIgallery.invalidate();
     }
 
-    // Recarga la lista de puntos de interés
+    // Recarga la lista de puntos de interï¿½s
     private void loadPoiOverlays(List<Poi> lista) {
         for (Poi p : lista) {
             PoiOverlayItem overlay = new PoiOverlayItem(p);
@@ -289,7 +290,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
         arrayWayOverlay.addWay(way);
 
-        // pedimos la selección
+        // pedimos la selecciï¿½n
         selectPoi(0);
         // Adding route overlay
         Log.d(LOG_TAG, "Adding route overlay");
@@ -302,7 +303,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     }
 
     private void reorderRuta() {
-        // creamos copia de la lista con el mismo tamaño
+        // creamos copia de la lista con el mismo tamaï¿½o
         List<Poi> simplePoiReordered = new ArrayList<Poi>(simplePoiList.size());
         // Find the directory for the SD Card using the API
 
@@ -654,5 +655,17 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         } else {
             return null;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LicenseManager lManager = LicenseManager.getInstance();
+        //comprobamos si estÃ¡ autorizado, si no salimos de esta activity de vuelta al detalle
+        boolean authorized = lManager.isCurrentlyAuthorized();
+        if(!authorized){
+            this.finish();
+        }
+            
     }
 }

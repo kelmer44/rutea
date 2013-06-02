@@ -46,7 +46,7 @@
     <string name="invalid_code">El código %s no es un código válido</string>
     <string name="code_already_used">El código %s ya ha sido utilizado.</string>
     <string name="code_ttl">1440</string>
-<!-- 	<string name="code_ttl">10</string> -->
+<!-- 	<string name="code_ttl">2</string> -->
     
     
 </resources>

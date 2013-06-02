@@ -77,7 +77,7 @@ public class RouteListActivity extends LicensedActivity {
         gridview.setAdapter(new ImageGridAdapter(getApplicationContext(), routeList));
 
         // Al pulsar un elemento de la lista se pasa a la vista detallada de
-        // l�nea
+        // línea
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -128,7 +128,10 @@ public class RouteListActivity extends LicensedActivity {
                 if(!authorized) {
                     InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
                     codeDialog.show(this.getSupportFragmentManager(), "missiles");
-                }                    
+                }
+                else {
+                    launchIntent();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

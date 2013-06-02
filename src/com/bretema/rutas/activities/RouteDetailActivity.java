@@ -173,6 +173,9 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
              InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
              codeDialog.show(this.getSupportFragmentManager(), "missiles");
          }
+         else{
+             launchIntent();
+         }
 
     }
 

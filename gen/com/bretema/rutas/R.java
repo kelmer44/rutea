@@ -589,6 +589,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int boton_navegar=0x7f0c0018;
         public static final int cancel=0x7f0c0023;
         public static final int code_already_used=0x7f0c0028;
+        /**      <string name="code_ttl">1440</string> 
+         */
         public static final int code_ttl=0x7f0c0029;
         public static final int desc=0x7f0c000f;
         public static final int descripcion=0x7f0c0020;

@@ -64,6 +64,10 @@ public class LicenseManager {
                 deAuth();
                 return false;
             }
+            else {
+                long result = ((deactivationDate.getTime()/60000) - (hoy.getTime()/60000));
+                Log.d(LOG_TAG, "El código será válido durante " + result + " minutos más.");
+            } 
         }
         
         return isAuthorized;
