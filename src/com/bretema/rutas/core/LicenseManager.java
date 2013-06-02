@@ -132,6 +132,8 @@ public class LicenseManager {
     {
         Log.d(LOG_TAG,"Checking code " + inputCode);
         String[] codes = inputCode.split("-");
+        if(codes.length!=2)
+            throw new InvalidCodeException(inputCode, mContext);
         try{
             long checkCode = Long.parseLong(codes[0].trim());
             long encodedMac = Long.parseLong(codes[1].trim());

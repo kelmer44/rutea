@@ -2,6 +2,7 @@
 package com.bretema.rutas.activities;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +36,7 @@ import com.bretema.rutas.service.CodigoService;
 import com.bretema.rutas.service.impl.CodigoServiceImpl;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class AboutActivity extends LicensedActivity {
+public class AboutActivity extends Activity {
 
     private static final String LOG_TAG = AboutActivity.class.getName();
     private long crc32address;

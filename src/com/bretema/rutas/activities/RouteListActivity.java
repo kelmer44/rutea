@@ -23,6 +23,7 @@ import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageGridAdapter;
+import com.bretema.rutas.view.fragment.InsertCodeDialogFragment;
 
 import java.util.Calendar;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * 
  * @author kelmer
  */
-public class RouteListActivity extends Activity {
+public class RouteListActivity extends LicensedActivity {
 
     private static final String LOG_TAG = RouteListActivity.class.getSimpleName();
 
@@ -120,15 +121,25 @@ public class RouteListActivity extends Activity {
                 startActivity(in);
                 return true;
             case R.id.menu_myroute:
-                
-                    Intent in2 = new Intent(getApplicationContext(), RouteMapActivity.class);
-                    in2.putExtra("showmenu", false);
-                    in2.putExtra("id_ruta", "all");
-                    startActivity(in2);
-                    
+                LicenseManager lManager = LicenseManager.getInstance();
+                //comprobamos si está autorizado
+                boolean authorized = lManager.isCurrentlyAuthorized();
+                //si no lo está, pedimos código
+                if(!authorized) {
+                    InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
+                    codeDialog.show(this.getSupportFragmentManager(), "missiles");
+                }                    
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void launchIntent() {
+        Intent in2 = new Intent(getApplicationContext(), RouteMapActivity.class);
+        in2.putExtra("showmenu", false);
+        in2.putExtra("id_ruta", "all");
+        startActivity(in2);
     }
 }

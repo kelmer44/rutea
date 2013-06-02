@@ -1,45 +1,34 @@
 
 package com.bretema.rutas.activities;
 
-import java.io.IOException;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
-import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bretema.rutas.R;
-import com.bretema.rutas.core.CodeInputterTextWatcher;
 import com.bretema.rutas.core.LicenseManager;
-import com.bretema.rutas.core.exception.CodeAlreadyUsedException;
-import com.bretema.rutas.core.exception.InvalidCodeException;
 import com.bretema.rutas.core.util.Constants;
-import com.bretema.rutas.model.codigo.Codigo;
 import com.bretema.rutas.model.ruta.Ruta;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
+import com.bretema.rutas.view.fragment.InsertCodeDialogFragment;
+
+import java.io.IOException;
 
 /**
  * Detalles de la ruta, pantalla de bienvenida antes de mostrar la ruta en
@@ -74,6 +63,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
     private MediaPlayer mediaPlayer;
     private ToggleButton playButton;
     private ImageView stopButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,69 +170,14 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
          
          //si no lo está, pedimos código
          if(!authorized) {
-             AlertDialog.Builder alert = new AlertDialog.Builder(RouteDetailActivity.this);
-             
-             alert.setTitle(getString(R.string.activation_code));
-             alert.setMessage(getString(R.string.enter_activation_code));
-        
-             // Set an EditText view to get user input
-             final EditText input = new EditText(RouteDetailActivity.this);
-             input.setInputType(InputType.TYPE_CLASS_PHONE);
-        
-        
-             input.addTextChangedListener(new CodeInputterTextWatcher());
-             alert.setView(input);
-        
-             alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                 public void onClick(DialogInterface dialog, int whichButton) {
-                     String value = input.getText().toString();
-                     try {
-                         LicenseManager lManager = LicenseManager.getInstance();
-                         boolean validCode = lManager.checkLicense(value);
-                         if(validCode){
-                             //guardamos
-                             Codigo code = lManager.saveCode(value);
-                             if(code!=null){
-                                 //autorizamos
-                                 lManager.auth(value);
-                                 launchIntent();
-                             }
-                             else
-                             {
-                                 Log.d(LOG_TAG, "Error al guardar codigo");
-                             }
-                         }
-                         Log.d(LOG_TAG, "Código correcto");
-                     } catch (InvalidCodeException e) {
-                         Log.d(LOG_TAG, "Invalid code " + e.getCode());
-                         AlertDialog.Builder invalidCodeDialog = new AlertDialog.Builder(RouteDetailActivity.this);
-                         invalidCodeDialog.setMessage(getString(R.string.invalid_code));
-                     } catch (CodeAlreadyUsedException e) {
-                         Log.d(LOG_TAG, "This code was already used: " + e.getCode());
-                         AlertDialog.Builder codeUsedDialog = new AlertDialog.Builder(RouteDetailActivity.this);
-                         codeUsedDialog.setMessage(getString(R.string.code_already_used));
-                     }
-                 }
-             });
-        
-             alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                 public void onClick(DialogInterface dialog, int whichButton) {
-                     AlertDialog.Builder codeRequiredDialog = new AlertDialog.Builder(RouteDetailActivity.this);
-                     codeRequiredDialog.setMessage(getString(R.string.valid_code_required));
-                 }
-             });
-        
-             alert.show();
+             InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
+             codeDialog.show(this.getSupportFragmentManager(), "missiles");
          }
-         else
-         {
-             launchIntent();
-         }
-        
 
     }
 
-    private void launchIntent() {
+    @Override
+    protected void launchIntent() {
         Intent in = new Intent(getApplicationContext(), RouteMapActivity.class);
         in.putExtra("id_ruta", id_ruta);
         startActivity(in);
@@ -311,4 +246,6 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
