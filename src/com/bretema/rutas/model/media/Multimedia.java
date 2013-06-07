@@ -8,20 +8,20 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Define archivos multimedia, tanto imágenes como vídeos, asociados a la rutas
- * @author Gabriel Sanmartín Díaz
+ * Define archivos multimedia, tanto imï¿½genes como vï¿½deos, asociados a la rutas
+ * @author Gabriel SanmartÃ­n DÃ­az
  *
  */
 @DatabaseTable
 public class Multimedia {
 	/**
-	 * Identificador único
+	 * Identificador Ãºnico
 	 */
 	@DatabaseField(generatedId = true)
 	private Integer id;
 	
 	/**
-	 * URI dentro de la carpeta assets (solución temporal
+	 * URI dentro de la carpeta assets (soluciÃ³n temporal)
 	 * TODO: fix this shit
 	 */
 	@DatabaseField
@@ -40,28 +40,41 @@ public class Multimedia {
 	private String nombre;
 	
 	/**
-	 * Pequeña descripción de la foto o vídeo
+	 * Pequeï¿½a descripciï¿½n de la foto o vï¿½deo
 	 */
 	@DatabaseField
 	private String descripcion;
 	
 	/**
-	 * Tipo de recurso según el enum MMtype (Imagen, Vídeo, etc.)
+	 * Tipo de recurso segï¿½n el enum MMtype (Imagen, Vï¿½deo, etc.)
 	 */
 	@DatabaseField(dataType = DataType.ENUM_STRING)
 	private MMType tipo;
 	
 	/**
-	 * POI asociado (a través de él deberíamos acceder a la ruta)
+	 * POI asociado (a travï¿½s de ï¿½l deberï¿½amos acceder a la ruta)
 	 */
 	@DatabaseField(foreign = true, columnName = "poiId")
 	private Poi poi;
 	
 	/**
-	 * Orden de muestreo (en caso de que éste sea necesario)
+	 * Orden de muestreo (en caso de que ï¿½ste sea necesario)
 	 */
 	@DatabaseField
 	private int orden;
+	
+	/**
+	 * MÃ¡s informaciÃ³n / informkaciÃ³n adicional
+	 * @return
+	 */
+	@DatabaseField
+	private String mas_info;
+	
+	/**
+	 * De haber vÃ­deo/imagen o lo que sea irÃ­a aquÃ­ la ruta
+	 */
+	@DatabaseField
+	private String media_masinfo;
 
 	public Integer getId() {
 		return id;
@@ -140,6 +153,22 @@ public class Multimedia {
 	public void setThumbUri(String thumbUri) {
 		this.thumbUri = thumbUri;
 	}
+
+    public String getMas_info() {
+        return mas_info;
+    }
+
+    public void setMas_info(String mas_info) {
+        this.mas_info = mas_info;
+    }
+
+    public String getMedia_masinfo() {
+        return media_masinfo;
+    }
+
+    public void setMedia_masinfo(String media_masinfo) {
+        this.media_masinfo = media_masinfo;
+    }
 	
 	
 	

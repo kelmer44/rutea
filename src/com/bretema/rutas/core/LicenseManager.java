@@ -20,6 +20,7 @@ import java.util.Date;
 public class LicenseManager {
     private final static String LOG_TAG = LicenseManager.class.getName();
     
+    private boolean debug = true;
     
     private Context mContext;
     private CodigoService codigoService;
@@ -70,7 +71,11 @@ public class LicenseManager {
             } 
         }
         
-        return isAuthorized;
+        if(debug){
+            return true;
+        }
+        else 
+            return isAuthorized;
     }
     
     /**
