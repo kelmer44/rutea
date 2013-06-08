@@ -1,7 +1,9 @@
 package com.bretema.rutas.core.util;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 
 import org.mapsforge.core.GeoPoint;
 
@@ -11,10 +13,35 @@ import java.util.zip.CRC32;
 public class Constants {
 
 	public static final float PI = 3.14159f;
-	public static final String appPath = "/sdcard/maps/";
-	public static final String poisPath = appPath + "pois/";
-	public static final String mediaPath = appPath + "media/";
-	public static final String imageMapAssetsPath = mediaPath + "maps/";
+	public static final String APP_PATH = "/sdcard/maps/";
+	public static final String POIS_PATH = APP_PATH + "pois/";
+	public static final String MEDIA_PATH = APP_PATH + "media/";
+	public static final String IMAGE_MAP_ASSETS_PATH = MEDIA_PATH + "maps/";
+	public static final String CONFIG_FILE = APP_PATH + "config.properties";
+	
+	
+	public static final Integer GEO_INTENT_NAVIGATE = 0;
+	public static final Integer GEO_INTENT_GEO = 1;
+	public static final Integer CURRENT_INTENT_TYPE = GEO_INTENT_GEO;
+	
+	private static Intent launchGeoIntent(Integer tipo, String name, double lat, double lon){
+	    Intent intent = new Intent();
+	    if(tipo == GEO_INTENT_GEO){
+	        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lon));
+	    }
+	    else if (tipo == GEO_INTENT_NAVIGATE) 
+	    {
+	        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lon));
+	    }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
+	}
+	
+	
+	public static Intent launchGeoIntent(String name, double lat, double lon){
+        return launchGeoIntent(CURRENT_INTENT_TYPE, name, lat, lon);
+    }
+    
 	
 	public static double geoLatDegToDouble(int deg, int min, float sec, boolean north){
 		

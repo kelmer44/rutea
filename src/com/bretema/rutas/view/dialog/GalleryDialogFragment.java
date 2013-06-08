@@ -1,7 +1,5 @@
 package com.bretema.rutas.view.dialog;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -19,6 +17,8 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.mapimages.MapImage;
+
+import java.util.List;
 
 public class GalleryDialogFragment extends DialogFragment {
 	private String 			id;

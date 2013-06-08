@@ -3,9 +3,7 @@ package com.bretema.rutas.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
@@ -15,25 +13,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bretema.rutas.R;
-import com.bretema.rutas.core.CodeInputterTextWatcher;
-import com.bretema.rutas.core.LicenseManager;
-import com.bretema.rutas.core.exception.CodeAlreadyUsedException;
-import com.bretema.rutas.core.exception.InvalidCodeException;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.service.CodigoService;
 import com.bretema.rutas.service.impl.CodigoServiceImpl;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutActivity extends Activity {
@@ -58,6 +54,8 @@ public class AboutActivity extends Activity {
         ImageView ruteaLogo = (ImageView) findViewById(R.id.info_blue);
         codigoService = new CodigoServiceImpl(getApplicationContext());
 
+        
+        
         bretemaLogo.setOnClickListener(new OnClickListener() {
 
             @Override

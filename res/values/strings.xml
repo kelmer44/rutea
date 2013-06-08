@@ -26,6 +26,8 @@
     <string name="errorfetching">No se pudo recuperar la información. Por favor consulte al proveedor.</string>
     <string name="title_activity_slide_show">SlideShow</string>
     <string name="boton_navegar">Ir a GPS</string>
+    <string name="boton_masinfo">más info...</string>
+    
     <string name="poi_nombre_placeholder">Large Text</string>
     <string name="poi_desc_placeholder">Descripción del punto</string>
     <string name="volver">volver</string>
@@ -47,6 +49,9 @@
     <string name="code_already_used">El código %s ya ha sido utilizado.</string>
     <string name="code_ttl">1440</string>
 <!-- 	<string name="code_ttl">2</string> -->
+    <string name="volver_a_casa">Volver a casa</string>
+    <string name="imprescindibles">Imprescindibles</string>
+    <string name="secundarios">Secundarios</string>
     
     
 </resources>

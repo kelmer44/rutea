@@ -54,7 +54,7 @@ public class MiniGalleryImageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView i = new ImageView(mContext);
 
-		Bitmap b = BitmapFactory.decodeFile(Constants.imageMapAssetsPath + mapId + "/" + mImages.get(position).getUri());
+		Bitmap b = BitmapFactory.decodeFile(Constants.IMAGE_MAP_ASSETS_PATH + mapId + "/" + mImages.get(position).getUri());
 		
 		if (b != null)
 			i.setImageBitmap(b);

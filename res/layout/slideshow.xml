@@ -17,14 +17,21 @@
         android:text="@string/poi_nombre_placeholder"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
 
-    <TextView
-        android:id="@+id/textViewPOIDescSlideShow"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fondoblanco_bordeazulinferior"
-        android:text="@string/poi_desc_placeholder"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="gone" />
+        android:animateLayoutChanges="true" >
+
+        <TextView
+            android:id="@+id/textViewPOIDescSlideShow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoblanco_bordeazulinferior"
+            android:text="@string/poi_desc_placeholder"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/slideshow_layout"
@@ -117,6 +124,23 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:text="@string/boton_navegar"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
+            android:textColor="@android:color/primary_text_dark" />
+
+        <Button
+            android:id="@+id/buttonMasInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/boton_masinfo"
             android:textAppearance="?android:attr/textAppearanceSmallInverse"
             android:textColor="@android:color/primary_text_dark" />
 

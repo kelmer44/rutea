@@ -471,7 +471,7 @@ public class ImageMap extends ImageView {
          * mImage.recycle(); mOriginal.recycle(); mImage = null; mOriginal =
          * null;
          */
-        setImageBitmap(BitmapFactory.decodeFile(Constants.appPath + uri));
+        setImageBitmap(BitmapFactory.decodeFile(Constants.APP_PATH + uri));
     }
 
     /*

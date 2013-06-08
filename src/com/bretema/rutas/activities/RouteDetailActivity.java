@@ -104,7 +104,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
         routeDetailNameLabel.setText(ruta.getNombre());
         routeDetailNameLabel.setTypeface(Constants.getTitleFont(getAssets()));
 
-        Bitmap b = BitmapFactory.decodeFile(Constants.appPath + ruta.getMainImagePath());
+        Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + ruta.getMainImagePath());
         if (b != null) {
             mainRouteImage.setImageBitmap(b);
         } else {
@@ -190,7 +190,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
 
         Log.d(LOG_TAG, "Trying to load audio file...");
         try {
-            mediaPlayer.setDataSource(Constants.appPath + ruta.getIntroAudioPath());
+            mediaPlayer.setDataSource(Constants.APP_PATH + ruta.getIntroAudioPath());
             mediaPlayer.prepareAsync();
         } catch (IOException e1) {
             Log.e(LOG_TAG, "Could not open file " + ruta.getIntroAudioPath() + " for playback.", e1);

@@ -65,18 +65,18 @@ public class VideoFragment extends MultimediaFragment {
 				return true;
 			}
 		});
-		mVideoView.setVideoPath(Constants.appPath + getMultimedia().getUri());
+		mVideoView.setVideoPath(Constants.APP_PATH + getMultimedia().getUri());
 		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-				Toast.makeText(getActivity(), "El vídeo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "El vï¿½deo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
 				mVideoView.setBackgroundColor(0);
 				return true;
 			}
 
 		});
 		
-		//icono de play sobre el vídeo
+		//icono de play sobre el vï¿½deo
 		playButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

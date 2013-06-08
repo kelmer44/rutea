@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <maps xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <map id="usamap">
-		<area shape="poly" coords="230,35,294,38,299,57,299,79,228,79" name="area1" id = "N. Dakota"/>
-		<area shape="poly" coords="227,80,299,80,302,120,282,116,226,116" name="area2" id = "S. Dakota"/>
-		<area shape="poly" coords="229,35,226,87,154,81,145,86,131,69,123,21" name="area3" id = "Montana"/>
-		<area shape="poly" coords="224,89,223,143,148,136,156,83" name="area4" id = "Wyoming"/>
-		<area shape="poly" coords="169,141,241,147,241,197,162,191" name="area5" id = "Colorado"/>
-		<area shape="poly" coords="112,20,121,20,132,87,152,87,149,119,94,111" name="area6" id = "Idaho"/>
-		<area shape="poly" coords="42,10,66,7,111,18,104,57,48,51,40,36" name="area7" id = "Washington"/>
-		<area shape="poly" coords="40,42,47,54,104,60,92,111,18,94" name="area8" id = "Oregon"/>
-		<area shape="poly" coords="57,106,120,118,101,206,49,147" name="area9" id = "Nevada"/>
-		<area shape="poly" coords="122,118,149,122,146,138,167,141,159,191,110,183" name="area10" id = "Utah"/>
-		<area shape="poly" coords="16,96,55,104,46,145,98,209,96,239,71,239,24,185" name="area11" id = "California"/>
-		<area shape="poly" coords="109,185,159,193,151,271,138,269,101,247,103,208" name="area12" id = "Arizona"/>
-		<area shape="poly" coords="226,117,301,122,315,159,244,160,243,145,225,142" name="area13" id = "Nebraska"/>
-		<area shape="poly" coords="243,162,318,162,325,172,325,196,244,196" name="area14" id = "Kansas"/>
-		<area shape="poly" coords="231,198,324,199,328,249,265,233,264,204,233,203" name="area15" id = "Oklahoma"/>
-		<area shape="poly" coords="162,193,229,199,226,269,164,267,160,271,152,270" name="area16" id = "New Mexico"/>
-		<area shape="poly" coords="230,204,262,205,264,236,332,253,338,300,275,355,224,308" name="area17" id = "Texas"/>
-		<area shape="poly" coords="293,38,317,35,359,49,341,70,337,94,352,107,302,111" name="area18" id = "Minnesota"/>
-		<area shape="poly" coords="342,68,358,66,395,87,390,118,364,122,352,102,339,93" name="area19" id = "Wisconsin"/>
-		<area shape="poly" coords="303,114,352,109,365,129,353,151,316,156" name="area20" id = "Iowa"/>
-		<area shape="poly" coords="316,158,353,154,382,196,378,207,373,202,329,206,327,171" name="area21" id = "Missouri"/>
-		<area shape="poly" coords="327,209,370,205,376,211,374,223,363,255,336,256,331,248" name="area22" id = "Arkansas"/>
-		<area shape="poly" coords="335,259,363,258,362,282,383,282,392,306,337,300,342,283" name="area23" id = "Louisiana"/>
-		<area shape="poly" coords="365,124,389,120,393,133,398,172,393,185,382,193,355,155" name="area24" id = "Illinois"/>
-		<area shape="poly" coords="359,68,379,58,423,64,454,116,398,131,394,85" name="area25" id = "Michigan"/>
-		<area shape="poly" coords="396,133,427,127,431,166,405,185,391,191,402,172" name="area26" id = "Indiana"/>
-		<area shape="poly" coords="386,193,409,186,435,163,456,167,463,178,450,190,386,201" name="area27" id = "Kentucky"/>
-		<area shape="poly" coords="383,203,468,190,466,196,445,211,376,224" name="area28" id = "Tennessee"/>
-		<area shape="poly" coords="374,227,401,222,403,284,387,288,384,280,362,282,369,263" name="area29" id = "Mississippi"/>
-		<area shape="poly" coords="402,221,432,217,444,254,442,273,412,275,414,283,406,283" name="area30" id = "Alabama"/>
-		<area shape="poly" coords="427,127,468,117,472,147,457,165,433,160" name="area31" id = "Ohio"/>
-		<area shape="poly" coords="473,148,485,147,487,154,506,145,483,173,469,179,458,168" name="area32" id = "W. Virginia"/>
-		<area shape="poly" coords="484,174,502,147,528,160,533,174,453,191,464,180,483,176" name="area33" id = "Virginia"/>
-		<area shape="poly" coords="470,189,534,176,542,188,513,218,496,206,480,206,449,212" name="area34" id = "N. Carolina"/>
-		<area shape="poly" coords="460,211,494,208,510,218,488,250,460,218" name="area35" id = "S. Carolina"/>
-		<area shape="poly" coords="433,217,457,214,487,252,483,269,477,273,445,274,445,254" name="area36" id = "Georgia"/>
-		<area shape="poly" coords="412,277,483,272,513,322,505,342,476,307,460,283,420,285" name="area37" id = "Florida"/>
-		<area shape="poly" coords="555,19,573,12,588,46,563,69,556,47" name="area38" id = "Maine"/>
-		<area shape="poly" coords="549,50,556,48,563,69,565,83,552,85" name="area39" id = "New Hampshire"/>
-		<area shape="poly" coords="537,59,549,55,549,84,545,85,541,75" name="area40" id = "Vermont"/>
-		<area shape="poly" coords="474,106,534,57,546,107,544,112,531,109,528,102,478,112" name="area41" id = "New York"/>
-		<area shape="poly" coords="469,116,474,109,478,115,527,105,533,125,526,134,477,146" name="area42" id = "Pennsylvania"/>
-		<area shape="poly" coords="544,87,565,85,576,85,576,94,566,91,547,96" name="area43" id = "Massachusetts"/>
-		<area shape="poly" coords="560,94,565,92,569,96,563,100" name="area44" id = "Rhode Island"/>
-		<area shape="poly" coords="546,97,560,94,562,101,548,105" name="area47" id = "Connecticut"/>
-		<area shape="poly" coords="532,111,545,113,544,120,542,142,529,135,535,124,530,117" name="area45" id = "New Jersey"/>
-		<area shape="poly" coords="531,139,540,153,534,153" name="area48" id = "Delaware"/>
-		<area shape="poly" coords="486,146,529,136,536,155,536,161,515,156,511,144" name="area46" id = "Maryland"/>
-	</map>
 	
  <map name="BalconesdeMadrid1">
 	<area shape="rect" coords="204,82,254,132" name="Parroquia de Barantes" id="I" />
@@ -72,7 +22,7 @@
 	<area shape="rect" coords="788,117,861,213" name="Lateral de la iglesia" id="D"    />
 </map>
 
-<mapn name="SantaCristina7">
+<map name="SantaCristina7">
 	<area shape="rect" coords="531,270,591,340"  name="El claustro" id="A"    />
 	<area shape="rect" coords="465,2,548,60" name="El campanario" id="B"    />
 	<area shape="rect" coords="503,158,563,216"  name=") La torre" id="C"    />

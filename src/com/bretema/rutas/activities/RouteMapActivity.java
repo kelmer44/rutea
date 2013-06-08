@@ -4,12 +4,14 @@ package com.bretema.rutas.activities;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
@@ -86,7 +88,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     private Button nextPoiButton, prevPoiButton, quitRouteButton, buttonBackToRoute, volverButton;
     private MapView mapView;
     private Gallery selectedPOIgallery;
-    private ImageButton buttonHideGallery;
+    private ImageButton buttonHideGallery, homeButton;
     private RelativeLayout linearLayoutLeftPanel;
     private boolean galleryHidden;
 
@@ -159,7 +161,8 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         quitRouteButton = (Button) findViewById(R.id.buttonQuitRoute);
         buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
         volverButton = (Button) findViewById(R.id.botonMapVolver);
-
+        homeButton = (ImageButton) findViewById(R.id.homeButton);
+        
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
@@ -189,6 +192,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         quitRouteButton.setOnClickListener(this);
         buttonBackToRoute.setOnClickListener(this);
         volverButton.setOnClickListener(this);
+        homeButton.setOnClickListener(this);
 
         Typeface colab = Typeface.createFromAsset(getAssets(), "ColabMed.ttf");
         nextPoiButton.setTypeface(colab);
@@ -308,7 +312,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         // Find the directory for the SD Card using the API
 
         // Get the text file
-        File file = new File(Constants.appPath + "ruta" + ruta.getId() + "/orden.cfg");
+        File file = new File(Constants.APP_PATH + "ruta" + ruta.getId() + "/orden.cfg");
 
         // Read text from file
         StringBuilder text = new StringBuilder();
@@ -340,7 +344,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
      * @return
      */
     private boolean initMapData() {
-        File mapFile = new File(Constants.appPath + "galicia.map");
+        File mapFile = new File(Constants.APP_PATH + "galicia.map");
 
         Log.d(LOG_TAG, "Trying to load file" + mapFile.getName());
 
@@ -470,7 +474,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
                 XmlPullParser parser = parserCreator.newPullParser();
 
-                InputStream is = new FileInputStream(Constants.appPath + filePath);
+                InputStream is = new FileInputStream(Constants.APP_PATH + filePath);
                 parser.setInput(new InputStreamReader(is));
 
                 // publishProgress("Parsing XML...");
@@ -638,6 +642,29 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         else if (v == volverButton) {
             RouteMapActivity.this.finish();
 
+        }
+        else if(v == homeButton) {
+
+            Properties properties = new Properties();
+            
+            try {
+                properties.load(new FileInputStream(Constants.CONFIG_FILE));
+                String name = properties.getProperty("name");
+                String lat = properties.getProperty("lat");
+                String lon = properties.getProperty("lon");
+                
+                startActivity(Constants.launchGeoIntent(name, Double.parseDouble(lat), Double.parseDouble(lon)));
+                
+            } catch (FileNotFoundException e1) {
+                Toast.makeText(this.getApplicationContext(), "No se encontró el archivo de configuración", Toast.LENGTH_SHORT).show();
+                Log.e(LOG_TAG, e1.getMessage());
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                Toast.makeText(this.getApplicationContext(), "No se encontró el archivo de configuración", Toast.LENGTH_SHORT).show();
+                Log.e(LOG_TAG, e1.getMessage());
+                e1.printStackTrace();
+            }
+            
         }
     }
 

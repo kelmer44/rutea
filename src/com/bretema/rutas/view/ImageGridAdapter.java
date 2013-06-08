@@ -68,7 +68,7 @@ public class ImageGridAdapter extends BaseAdapter {
 		 * (position + 1) + "/title.jpg"), null);
 		 */
 
-		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + current.getListImagePath());
+		Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + current.getListImagePath());
 		if (b != null) {
 			StreamDrawable d = new StreamDrawable(b, 10, 0);
 			linLayout.setBackgroundDrawable(d);

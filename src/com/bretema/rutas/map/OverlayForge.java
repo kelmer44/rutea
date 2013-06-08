@@ -180,7 +180,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		balloonSnippet.setTypeface(Constants.getTextFont(routeActivity.getAssets()));
 		if(currentFocusedItem.getAssociatedPoi().getBalloonUrl()!=null){
 			balloonImage.setVisibility(View.VISIBLE);
-			Bitmap b = BitmapFactory.decodeFile(Constants.poisPath + currentFocusedItem.getAssociatedPoi().getBalloonUrl());
+			Bitmap b = BitmapFactory.decodeFile(Constants.POIS_PATH + currentFocusedItem.getAssociatedPoi().getBalloonUrl());
 			if (b != null) {
 				balloonImage.setImageBitmap(b);
 			}
@@ -236,13 +236,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 			// in.putExtra("current", position);
 			context.startActivity(in);
 		} else {
-			String intentGeoUri = "geo:";
-			String intentNavUri = "google.navigation:q=";
-			//Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentGeoUri + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + item.getPoint().getLatitude() + "," + item.getPoint().getLongitude()));
-			
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(intent);
+			context.startActivity(Constants.launchGeoIntent(item.getTitle(), item.getPoint().getLatitude(), item.getPoint().getLongitude()));
 		}
 		return true;
 	}

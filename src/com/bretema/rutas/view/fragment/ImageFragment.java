@@ -49,7 +49,7 @@ public class ImageFragment extends MultimediaFragment {
 				 return true;
 			}
 		});
-		Bitmap b = BitmapFactory.decodeFile(Constants.appPath + imageURI);
+		Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + imageURI);
 		if (b != null) {
 			float ratio = (float) b.getHeight() / (float) b.getWidth();
 			int width = (int) Math.ceil(480 / ratio);

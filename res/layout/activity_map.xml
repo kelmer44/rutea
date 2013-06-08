@@ -17,6 +17,16 @@
             android:layout_height="fill_parent" >
 
         </org.mapsforge.android.maps.MapView>
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/volver_a_casa"
+            android:src="@drawable/ic_menu_home" />
+
     </FrameLayout>
 
     
@@ -80,7 +90,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:text="volver"
+            android:text="@string/volver"
             android:textAppearance="?android:attr/textAppearanceSmallInverse"
             android:textColor="@android:color/primary_text_dark" />
 
@@ -159,46 +169,58 @@
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textColor="@android:color/primary_text_dark" />
 
-            <ImageView
-                android:id="@+id/me_pos_image"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_maps_indicator_current_position_anim1" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/myPosText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mi_posici_n"
-                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                <ImageView
+                    android:id="@+id/me_pos_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_maps_indicator_current_position_anim1" />
 
-            <ImageView
-                android:id="@+id/marker_imprescindible"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/marker_green" />
+                <TextView
+                    android:id="@+id/myPosText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/mi_posici_n"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
-            <TextView
-                android:id="@+id/text_imprescindible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Imprescindibles"
-                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                <ImageView
+                    android:id="@+id/marker_imprescindible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/marker_green" />
 
-            <ImageView
-                android:id="@+id/marker_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/marker_green_sec" />
+                <TextView
+                    android:id="@+id/text_imprescindible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/imprescindibles"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
-            <TextView
-                android:id="@+id/text_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Secundarios"
-                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                <ImageView
+                    android:id="@+id/marker_sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/marker_green_sec" />
+
+                <TextView
+                    android:id="@+id/text_sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/secundarios"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
