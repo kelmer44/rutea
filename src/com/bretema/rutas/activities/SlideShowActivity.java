@@ -1,26 +1,31 @@
 
 package com.bretema.rutas.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+import com.bretema.rutas.core.util.MultimediaOrdered;
 import com.bretema.rutas.enums.MMType;
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.model.poi.Poi;
@@ -35,6 +40,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SlideShowActivity extends FragmentActivity {
     private static final String LOG_TAG = SlideShowActivity.class.getSimpleName();
@@ -79,6 +85,7 @@ public class SlideShowActivity extends FragmentActivity {
         multimediaList = new ArrayList<Multimedia>();
 
         multimediaList.addAll(currentPoi.getMedia());
+        Collections.sort(multimediaList, new MultimediaOrdered());
 
         mAdapter = new MyAdapter(getSupportFragmentManager());
 
@@ -122,8 +129,15 @@ public class SlideShowActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SlideShowActivity.this);
                 Multimedia m = multimediaList.get(mPager.getCurrentItem());
-                Log.d(LOG_TAG, m.getMas_info());
+                Context mContext = getApplicationContext();
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.dialog_masinfo, null);
+                WebView webView = (WebView)layout.findViewById(R.id.webViewDialog);
+                webView.loadDataWithBaseURL(null, m.getMas_info(), "text/html", "utf-8", null);
+                builder.setView(layout);
+                builder.show();
 
             }
         });
@@ -132,10 +146,42 @@ public class SlideShowActivity extends FragmentActivity {
         mPager.setCurrentItem(currentItem);
         mPager.setAdapter(mAdapter);
         mPager.setOffscreenPageLimit(0);
-
+        
+        
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator = indicator;
         indicator.setViewPager(mPager);
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            
+            @Override
+            public void onPageSelected(int page) {
+                // TODO Auto-generated method stub
+                
+                Multimedia m =  multimediaList.get(page);
+                
+                if(m.getMas_info() == null || m.getMas_info().trim().equals(""))
+                {
+                    moreInfoButton.setVisibility(View.GONE);
+                }
+                else
+                {
+                    moreInfoButton.setVisibility(View.VISIBLE);
+                }
+            }
+            
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+        indicator.onPageSelected(0);
         indicator.setSnap(true);
 
         prevButton.setOnClickListener(new OnClickListener() {
@@ -210,6 +256,8 @@ public class SlideShowActivity extends FragmentActivity {
                 ifragment.setArguments(bundle);
                 return ifragment;
             }
+            
+         
             return null;
         }
 

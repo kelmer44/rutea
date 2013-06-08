@@ -25,7 +25,7 @@
 <map name="SantaCristina7">
 	<area shape="rect" coords="531,270,591,340"  name="El claustro" id="A"    />
 	<area shape="rect" coords="465,2,548,60" name="El campanario" id="B"    />
-	<area shape="rect" coords="503,158,563,216"  name=") La torre" id="C"    />
+	<area shape="rect" coords="503,158,563,216"  name="La torre" id="C"    />
 	<area shape="rect" coords="118,268,188,344" name="Lápidas" id="D"    />
 </map>
 	

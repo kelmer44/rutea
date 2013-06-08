@@ -604,7 +604,7 @@ public class ImageMap extends ImageView {
      */
     void setInitialImageBoundsFitImageKeepAspectRatio() {
         if (mImage != null) {
-            float aspect = mImage.getWidth() / mImage.getHeight();
+            float aspect = (float)mImage.getWidth() / mImage.getHeight();
             if (mImage.getHeight() > mImage.getWidth()) {
                 mMinHeight = mViewHeight;
                 mMinWidth = (int) (aspect * mMinHeight);
