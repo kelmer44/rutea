@@ -13,6 +13,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
@@ -26,7 +27,6 @@ public class ImageFragment extends MultimediaFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.image_details, container, false);
-
 		String imageURI = getMultimedia().getUri();
 		String imageCaption = getMultimedia().getDescripcion();
 		TextView nameTextView = (TextView) view.findViewById(R.id.imageTitleSlideshow);

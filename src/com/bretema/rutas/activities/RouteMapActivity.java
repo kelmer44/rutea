@@ -166,6 +166,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
+        mapView.getController().setZoom(10);
         mapView.getMapZoomControls().setZoomControlsGravity(Gravity.TOP | Gravity.RIGHT);
 
         vf = (ViewFlipper) findViewById(R.id.ViewFlipper01);

@@ -22,6 +22,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
@@ -60,6 +61,7 @@ public class SlideShowActivity extends FragmentActivity {
     private TextView textViewMasInfo;
     private Button navigateButton;
     private Button moreInfoButton;
+    private Button continuarButton;
     private ImageButton prevButton;
     private ImageButton nextButton;
 
@@ -73,6 +75,9 @@ public class SlideShowActivity extends FragmentActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.slideshow);
 
+
+        Toast.makeText(this, "Pulse sobre las imágenes para ver la descripción", Toast.LENGTH_SHORT).show();
+        
         // obtenemos la llamada a esta activity
         Intent i = getIntent();
         // y recogemos el id del poi que nos han pasado
@@ -94,6 +99,7 @@ public class SlideShowActivity extends FragmentActivity {
         navigateButton = (Button) findViewById(R.id.buttonNavigateSlideShow);
         volverButton = (Button) findViewById(R.id.buttonSlideShowBack);
         moreInfoButton = (Button) findViewById(R.id.buttonMasInfo);
+        continuarButton = (Button) findViewById(R.id.buttonContinuar);
         prevButton = (ImageButton) findViewById(R.id.botonPRev);
         nextButton = (ImageButton) findViewById(R.id.botonNExt);
 
@@ -109,7 +115,8 @@ public class SlideShowActivity extends FragmentActivity {
         volverButton.setTypeface(colabMed);
         navigateButton.setTypeface(colabMed);
         moreInfoButton.setTypeface(colabMed);
-
+        continuarButton.setTypeface(colabMed);
+        
         volverButton.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -148,6 +155,15 @@ public class SlideShowActivity extends FragmentActivity {
         mPager.setOffscreenPageLimit(0);
         
         
+
+        continuarButton.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+            }
+        });
+        
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator = indicator;
         indicator.setViewPager(mPager);
@@ -166,6 +182,11 @@ public class SlideShowActivity extends FragmentActivity {
                 else
                 {
                     moreInfoButton.setVisibility(View.VISIBLE);
+                }
+                
+
+                if(m.getTipo() != MMType.Video){
+                    continuarButton.setVisibility(View.GONE);
                 }
             }
             

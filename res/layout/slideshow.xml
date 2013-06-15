@@ -146,6 +146,24 @@
             android:text="@string/boton_masinfo"
             android:textAppearance="?android:attr/textAppearanceSmallInverse"
             android:textColor="@android:color/primary_text_dark" />
+        
+         <Button
+            android:id="@+id/buttonContinuar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="-10dp"
+            android:background="@drawable/button"
+            android:minHeight="0dip"
+            android:minWidth="0dip"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/continuar_visita"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
+            android:textColor="@android:color/primary_text_dark" />
 
     </RelativeLayout>
 

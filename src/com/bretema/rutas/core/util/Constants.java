@@ -22,7 +22,8 @@ public class Constants {
 	
 	public static final Integer GEO_INTENT_NAVIGATE = 0;
 	public static final Integer GEO_INTENT_GEO = 1;
-	public static final Integer CURRENT_INTENT_TYPE = GEO_INTENT_GEO;
+	public static final Integer GEO_INTENT_SYGIC = 2;
+	public static final Integer CURRENT_INTENT_TYPE = GEO_INTENT_SYGIC;
 	
 	private static Intent launchGeoIntent(Integer tipo, String name, double lat, double lon){
 	    Intent intent = new Intent();
@@ -32,6 +33,10 @@ public class Constants {
 	    else if (tipo == GEO_INTENT_NAVIGATE) 
 	    {
 	        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lon));
+	    }
+	    else if(tipo == GEO_INTENT_SYGIC)
+	    {
+	        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("com.sygic.aura://coordinate|" + lon + "|" + lat + "|drive"));
 	    }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
