@@ -57,14 +57,15 @@
 
         <ImageButton
             android:id="@+id/botonNExt"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
-            android:cropToPadding="false"
-            android:src="@drawable/ic_go" 
-            android:layout_marginRight="-5dp"
             android:layout_marginBottom="-5dp"
-            android:layout_marginTop="-5dp"/>
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="-5dp"
+            android:cropToPadding="false"
+            android:src="@drawable/ic_go"
+            android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/botonPRev"
@@ -72,10 +73,11 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_go_mirror"
-            android:layout_marginLeft="-5dp"
             android:layout_marginBottom="-5dp"
-            android:layout_marginTop="-5dp" />
+            android:layout_marginLeft="-5dp"
+            android:layout_marginTop="-5dp"
+            android:src="@drawable/ic_go_mirror"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

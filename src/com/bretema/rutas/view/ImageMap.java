@@ -940,43 +940,43 @@ public class ImageMap extends ImageView {
     void onTouchMove(TouchPoint t, float x, float y) {
         // mMainTouch will drag the view, be part of a
         // pinch zoom, or trigger a tap
-        if (t == mMainTouch) {
-            if (mPinchTouch == null) {
-                // only on point down, this is a move
-                final int deltaX = (int) (t.getX() - x);
-                final int xDiff = (int) Math.abs(t.getX() - x);
-
-                final int deltaY = (int) (t.getY() - y);
-                final int yDiff = (int) Math.abs(t.getY() - y);
-
-                if (!mIsBeingDragged) {
-                    if ((xDiff > mTouchSlop) || (yDiff > mTouchSlop)) {
-                        // start dragging about once the user has
-                        // moved the point far enough
-                        mIsBeingDragged = true;
-                    }
-                } else {
-                    // being dragged, move the image
-                    if (xDiff > 0) {
-                        moveX(-deltaX);
-                    }
-                    if (yDiff > 0) {
-                        moveY(-deltaY);
-                    }
-                    t.setPosition(x, y);
-                }
-            } else {
-                // two fingers down means zoom
-                t.setPosition(x, y);
-                onZoom();
-            }
-        } else {
-            if (t == mPinchTouch) {
-                // two fingers down means zoom
-                t.setPosition(x, y);
-                onZoom();
-            }
-        }
+//        if (t == mMainTouch) {
+//            if (mPinchTouch == null) {
+//                // only on point down, this is a move
+//                final int deltaX = (int) (t.getX() - x);
+//                final int xDiff = (int) Math.abs(t.getX() - x);
+//
+//                final int deltaY = (int) (t.getY() - y);
+//                final int yDiff = (int) Math.abs(t.getY() - y);
+//
+//                if (!mIsBeingDragged) {
+//                    if ((xDiff > mTouchSlop) || (yDiff > mTouchSlop)) {
+//                        // start dragging about once the user has
+//                        // moved the point far enough
+//                        mIsBeingDragged = true;
+//                    }
+//                } else {
+//                    // being dragged, move the image
+//                    if (xDiff > 0) {
+//                        moveX(-deltaX);
+//                    }
+//                    if (yDiff > 0) {
+//                        moveY(-deltaY);
+//                    }
+//                    t.setPosition(x, y);
+//                }
+//            } else {
+//                // two fingers down means zoom
+//                t.setPosition(x, y);
+//                onZoom();
+//            }
+//        } else {
+//            if (t == mPinchTouch) {
+//                // two fingers down means zoom
+//                t.setPosition(x, y);
+//                onZoom();
+//            }
+//        }
     }
 
     /*
