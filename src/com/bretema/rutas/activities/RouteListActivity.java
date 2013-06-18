@@ -62,7 +62,7 @@ public class RouteListActivity extends LicensedActivity {
         Log.d(LOG_TAG, "Obteniendo lista de rutas...");
         routeList = rutaService.findAll();
 
-        //Log.d(LOG_TAG, "Iniciando servicio de comprobaci�n de licencia");
+        //Log.d(LOG_TAG, "Iniciando servicio de comprobación de licencia");
 
         //setupLicenseService();
         
