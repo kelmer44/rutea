@@ -58,7 +58,7 @@ public class ImageFragment extends MultimediaFragment {
 			b.recycle();
 		} else {
 			Log.e(LOG_TAG, "Img not found " + imageURI);
-			imageView.setImageResource(R.drawable.noimage);
+			imageView.setImageResource(R.drawable.imagenenblanco);
 		}
 		textView.setText(imageCaption);
 		nameTextView.setText(getMultimedia().getNombre());

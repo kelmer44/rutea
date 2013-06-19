@@ -26,6 +26,8 @@
             android:paddingRight="20dp"
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:maxLines="200"
+            android:scrollbars="vertical" />
 
 </RelativeLayout>

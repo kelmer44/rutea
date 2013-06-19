@@ -185,7 +185,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 				balloonImage.setImageBitmap(b);
 			}
 			else {
-				balloonImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.noimagesmall));
+				balloonImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.imagenenblancosmall));
 			}
 		} else {
 			balloonImage.setVisibility(View.GONE);

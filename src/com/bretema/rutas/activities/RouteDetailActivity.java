@@ -108,7 +108,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
         if (b != null) {
             mainRouteImage.setImageBitmap(b);
         } else {
-            mainRouteImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.noimage));
+            mainRouteImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.imagenenblanco));
         }
 
         routeDetailDescriptionLabel.setTypeface(Constants.getTextFont(getAssets()));

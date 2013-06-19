@@ -73,7 +73,7 @@ public class ImageGridAdapter extends BaseAdapter {
 			StreamDrawable d = new StreamDrawable(b, 10, 0);
 			linLayout.setBackgroundDrawable(d);
 		} else {
-			linLayout.setBackgroundResource(R.drawable.noimage);
+			linLayout.setBackgroundResource(R.drawable.imagenenblanco);
 		}
 		
 		nombre.setText("" + current.getNombre());

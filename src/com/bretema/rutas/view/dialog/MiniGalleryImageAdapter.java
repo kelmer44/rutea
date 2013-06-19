@@ -59,7 +59,7 @@ public class MiniGalleryImageAdapter extends BaseAdapter {
 		if (b != null)
 			i.setImageBitmap(b);
 		else
-			i.setImageResource(R.drawable.noimage);
+			i.setImageResource(R.drawable.imagenenblanco);
 		
 
 		i.setScaleType(ImageView.ScaleType.FIT_CENTER);

@@ -1,10 +1,12 @@
 package com.bretema.rutas.view.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.bretema.rutas.model.mapimages.MapImage;
 
 import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class GalleryDialogFragment extends DialogFragment {
 	private String 			id;
 	private String			title;
@@ -41,6 +44,7 @@ public class GalleryDialogFragment extends DialogFragment {
 		gallery.setAdapter(new MiniGalleryImageAdapter(id, mapImages, getActivity().getApplicationContext()));
 		final TextView text = (TextView)view.findViewById(R.id.imageCaptionMiniGallery);
 		text.setTypeface(Constants.getTextFont(getActivity().getAssets()));
+		text.setMovementMethod(new ScrollingMovementMethod());
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 			
 			@Override

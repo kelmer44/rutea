@@ -34,7 +34,7 @@ public class ImageAdapter extends BaseAdapter {
 		this.mSelectedPoi = poi;
 		this.mThumbList = mThumbList;
 		assetManager = mContext.getAssets();
-		mDefaultBitmap = BitmapFactory.decodeResource(c.getResources(), R.drawable.noimage);
+		mDefaultBitmap = BitmapFactory.decodeResource(c.getResources(), R.drawable.imagenenblanco);
 	}
 
 	public final int getCount() {
