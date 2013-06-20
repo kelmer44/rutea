@@ -5,13 +5,13 @@ import android.graphics.drawable.Drawable;
 import com.bretema.rutas.R;
 
 /**
- * Restringe los tipos posibles de Puntos de interés
- * @author Gabriel Sanmartín Díaz
+ * Restringe los tipos posibles de Puntos de interï¿½s
+ * @author Gabriel Sanmartï¿½n Dï¿½az
  *
  */
 public enum PoiType {
 	
-	SimplePoi(0,R.drawable.marker_green), FarmaciaPoi(1,R.drawable.red_cross, true), RestaurantePoi(2,R.drawable.restaurant_blue_2_48,true), CentroSaludPoi(3,R.drawable.marker_green), PoliciaPoi(
+	SimplePoi(0,R.drawable.marker_green), FarmaciaPoi(1,R.drawable.red_cross, true), RestaurantePoi(2,R.drawable.restaurant ,true), CentroSaludPoi(3,R.drawable.marker_green), PoliciaPoi(
 			4,R.drawable.marker_green), GasolineraPoi(5,R.drawable.gas), BarPoi(6,R.drawable.marker_green), OITPoi(7,R.drawable.marker_green), SecondaryPoi(8,R.drawable.marker_green_sec);
 
 	PoiType(int position, int drawableresource, boolean center) {

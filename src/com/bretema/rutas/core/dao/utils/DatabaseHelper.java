@@ -47,7 +47,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
 	 * any time you make changes to your database objects, you may have to
 	 * increase the database version
 	 */
-	public static final int			VERSION			= 87;
+	public static final int			VERSION			= 91;
 	/**
 	 * The database type.
 	 */
