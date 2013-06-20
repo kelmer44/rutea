@@ -29,7 +29,7 @@
 
         <receiver
             android:name="com.bretema.rutas.activities.MyBootReceiver"
-            android:enabled="false"
+            android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

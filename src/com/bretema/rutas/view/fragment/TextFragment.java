@@ -71,11 +71,6 @@ public class TextFragment extends MultimediaFragment implements MediaPlayer.OnPr
         return view;
     }
 
-    @Override
-    public void onPageIsChanged() {
-        // TODO Auto-generated method stub
-
-    }
 
     private void loadAudioFile() {
 
@@ -121,4 +116,16 @@ public class TextFragment extends MultimediaFragment implements MediaPlayer.OnPr
         }
     }
 
+    
+    @Override
+    public void onPageIsChanged() {
+        if(mediaPlayer!=null){
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
+            }
+        }
+    }
+
+    
 }
