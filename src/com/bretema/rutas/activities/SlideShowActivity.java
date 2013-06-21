@@ -15,6 +15,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.MotionEvent;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -144,8 +146,45 @@ public class SlideShowActivity extends FragmentActivity {
                 WebView webView = (WebView)layout.findViewById(R.id.webViewDialog);
                 webView.loadDataWithBaseURL(null, m.getMas_info(), "text/html", "utf-8", null);
                 builder.setView(layout);
-                builder.show();
-
+                final AlertDialog dialog = builder.create();
+                webView.setOnTouchListener(new OnTouchListener() {
+                    
+                    private boolean scroll;
+                    private float mDownX;
+                    private float mDownY;
+                    private final float SCROLL_THRESHOLD = 10;
+                    private boolean isOnClick;
+                    
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                            case MotionEvent.ACTION_DOWN:
+                                mDownX = event.getX();
+                                mDownY = event.getY();
+                                isOnClick = true;
+                                break;
+                            case MotionEvent.ACTION_CANCEL:
+                            case MotionEvent.ACTION_UP:
+                                if (isOnClick) {
+                                  dialog.dismiss();
+                                  return true;
+                                }
+                                break;
+                            case MotionEvent.ACTION_MOVE:
+                                if (isOnClick && (Math.abs(mDownX - event.getX()) > SCROLL_THRESHOLD || Math.abs(mDownY - event.getY()) > SCROLL_THRESHOLD)) {
+                                    //Log.i(LOG_TAG, "movement detected");
+                                    isOnClick = false;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                
+                dialog.show();
+                
             }
         });
 
@@ -187,6 +226,10 @@ public class SlideShowActivity extends FragmentActivity {
 
                 if(m.getTipo() != MMType.Video){
                     continuarButton.setVisibility(View.GONE);
+                }
+                else
+                {
+                    continuarButton.setVisibility(View.VISIBLE);
                 }
             }
             
