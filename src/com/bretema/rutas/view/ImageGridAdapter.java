@@ -1,9 +1,11 @@
 package com.bretema.rutas.view;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -68,7 +70,23 @@ public class ImageGridAdapter extends BaseAdapter {
 		 * (position + 1) + "/title.jpg"), null);
 		 */
 
-		Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + current.getListImagePath());
+		//Coger de la SD
+		//Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + current.getListImagePath());
+		
+		//Coger de la app
+		AssetManager mngr = mContext.getAssets();
+		InputStream is;
+		Bitmap b = null;
+        try {
+            is = mngr.open(current.getListImagePath());
+             b = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }      
+        
+        
+        
 		if (b != null) {
 			StreamDrawable d = new StreamDrawable(b, 10, 0);
 			linLayout.setBackgroundDrawable(d);
