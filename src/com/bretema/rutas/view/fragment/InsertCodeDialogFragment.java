@@ -61,6 +61,9 @@ public class InsertCodeDialogFragment extends DialogFragment {
                        String value = input.getText().toString();
                        try {
                            LicenseManager lManager = LicenseManager.getInstance();
+                           if(lManager.isInicializado()){
+                               lManager.init(getActivity().getApplicationContext());
+                           }
                            boolean validCode = lManager.checkLicense(value);
                            if(validCode){
                                //guardamos

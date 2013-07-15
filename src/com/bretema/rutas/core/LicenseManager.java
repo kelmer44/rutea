@@ -20,7 +20,7 @@ import java.util.Date;
 public class LicenseManager {
     private final static String LOG_TAG = LicenseManager.class.getName();
     
-    private boolean debug = false;
+    private boolean debug = true;
     
     private Context mContext;
     private CodigoService codigoService;
@@ -29,6 +29,8 @@ public class LicenseManager {
     private long crc32address;
     
     private SharedPreferences sharedPreferences;
+
+    private boolean inicializado = false;
     
     private static LicenseManager INSTANCE = null;
     
@@ -128,6 +130,7 @@ public class LicenseManager {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         
         Log.d(LOG_TAG, "Done.");
+        inicializado  = true;
     }
    
     /**
@@ -199,5 +202,9 @@ public class LicenseManager {
     public void deleteAllCodes()
     {
         codigoService.resetCodes();
+    }
+
+    public boolean isInicializado() {
+        return inicializado;
     }
 }

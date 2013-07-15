@@ -165,6 +165,9 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
 
         
          LicenseManager lManager = LicenseManager.getInstance();
+         if(lManager.isInicializado()){
+             lManager.init(getApplicationContext());
+         }
          //comprobamos si está autorizado
          boolean authorized = lManager.isCurrentlyAuthorized();
          

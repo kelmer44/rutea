@@ -689,6 +689,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         LicenseManager lManager = LicenseManager.getInstance();
+        if(lManager.isInicializado()){
+            lManager.init(getApplicationContext());
+        }
         //comprobamos si está autorizado, si no salimos de esta activity de vuelta al detalle
         boolean authorized = lManager.isCurrentlyAuthorized();
         if(!authorized){

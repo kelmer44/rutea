@@ -122,6 +122,9 @@ public class RouteListActivity extends LicensedActivity {
                 return true;
             case R.id.menu_myroute:
                 LicenseManager lManager = LicenseManager.getInstance();
+                if(lManager.isInicializado()){
+                    lManager.init(getApplicationContext());
+                }
                 //comprobamos si está autorizado
                 boolean authorized = lManager.isCurrentlyAuthorized();
                 //si no lo está, pedimos código
