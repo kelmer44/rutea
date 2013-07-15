@@ -72,7 +72,6 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		this.routeActivity = activity;
 		this.context = mapView.getContext();
 		this.mapView = mapView;
-
 		this.fullList.add(me_overlay);
 
 		this.balloonLayout = new LinearLayout(context);
@@ -127,7 +126,10 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	public void addOverlay(PoiOverlayItem overlay) {
 
 		m_overlays.add(overlay);
+		fullList.remove(me_overlay);
 		fullList.add(overlay);
+		//hace q el overlay de posicion actual esté siempre de ultimo
+		fullList.add(me_overlay);
 		populate();
 	}
 
@@ -138,7 +140,10 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 			overlay.setMarker(boundCenterBottom(d));
 		}
 		m_overlays.add(overlay);
+        fullList.remove(me_overlay);
 		fullList.add(overlay);
+        //hace q el overlay de posicion actual esté siempre de ultimo
+        fullList.add(me_overlay);
 		populate();
 	}
 
