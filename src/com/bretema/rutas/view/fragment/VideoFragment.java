@@ -69,14 +69,14 @@ public class VideoFragment extends MultimediaFragment {
 		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-				Toast.makeText(getActivity(), "El vídeo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "El vÃ­deo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
 				mVideoView.setBackgroundColor(0);
 				return true;
 			}
 
 		});
 		
-		//icono de play sobre el v�deo
+		//icono de play sobre el vï¿½deo
 		playButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
