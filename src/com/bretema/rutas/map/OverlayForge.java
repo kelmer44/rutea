@@ -223,9 +223,12 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	protected final boolean onTap(int index) {
 		if (index == fullList.indexOf(me_overlay))
 			return true;
-		doShowBallon(index - 1);
+		/*doShowBallon(index - 1);
 		if (m_overlays.get(index - 1).isSelectable())
-			routeActivity.selectPoi(index - 1);
+			routeActivity.selectPoi(index - 1);*/
+		doShowBallon(index);
+        if (m_overlays.get(index).isSelectable())
+            routeActivity.selectPoi(index);
 		return true;
 	}
 

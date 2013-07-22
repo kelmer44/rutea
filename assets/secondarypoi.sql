@@ -1,4 +1,3 @@
-
 INSERT INTO poi(id, nombre, descripcion, latitude, longitude, tipo) VALUES(1000, 'Mauro Carlos Carrillo Val','(Luintra)988201046', 42.410229, -7.726248, 'FarmaciaPoi');
 INSERT INTO poi(id, nombre, descripcion, latitude, longitude, tipo) VALUES(1001, 'Rosa María Álvarez González','(Peares)988200081', 42.454967, -7.732337, 'FarmaciaPoi');
 INSERT INTO poi(id, nombre, descripcion, latitude, longitude, tipo) VALUES(1002, 'Fernando Andreu Fernandez','(Parada de Sil)988208091', 42.383282, -7.569376, 'FarmaciaPoi');
