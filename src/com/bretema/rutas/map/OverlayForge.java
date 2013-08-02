@@ -31,9 +31,11 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
 import com.bretema.rutas.activities.SlideShowActivity;
+import com.bretema.rutas.core.LicenseManager;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.enums.PoiType;
 import com.bretema.rutas.model.poi.Poi;
+import com.bretema.rutas.view.fragment.InsertCodeDialogFragment;
 
 public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
@@ -233,9 +235,27 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	}
 
 	protected boolean onBalloonTap(int index, PoiOverlayItem item) {
+		
+		LicenseManager lManager = LicenseManager.getInstance();
+        if(!lManager.isInicializado()){
+            lManager.init(context);
+        }
+        boolean authorized = lManager.isCurrentlyAuthorized();
+        authorized = false;
+        if(!authorized) {
+            InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
+            //codeDialog.show(this.getSupportFragmentManager(), "missiles");
+        }
+        else {
+    		launchIntent(item);
+        }
+        
+		return true;
+	}
+	
+	private void launchIntent(PoiOverlayItem item)
+	{
 		Poi whichPoi = item.getAssociatedPoi();
-		// Si es un poi turistico entonces abrimos slideshow, si no lanzamos el
-		// navegador ya
 		if (whichPoi.getTipo() == PoiType.SimplePoi || whichPoi.getTipo() == PoiType.SecondaryPoi) {
 
 			Intent in = new Intent(context, SlideShowActivity.class);
@@ -246,8 +266,9 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		} else {
 			context.startActivity(Constants.launchGeoIntent(item.getTitle(), item.getPoint().getLatitude(), item.getPoint().getLongitude()));
 		}
-		return true;
 	}
+	
+	
 
 	private OnTouchListener createBalloonTouchListener() {
 		return new OnTouchListener() {

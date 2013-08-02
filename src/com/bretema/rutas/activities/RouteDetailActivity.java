@@ -171,6 +171,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
          //comprobamos si está autorizado
          boolean authorized = lManager.isCurrentlyAuthorized();
          
+         authorized = true;
          //si no lo está, pedimos código
          if(!authorized) {
              InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();

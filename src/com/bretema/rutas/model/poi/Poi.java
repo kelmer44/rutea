@@ -42,6 +42,17 @@ public class Poi {
 	@DatabaseField
 	private String balloonUrl;
 	
+	@DatabaseField (defaultValue = "true")
+	private boolean requiresAuth;
+	
+	public boolean isRequiresAuth() {
+		return requiresAuth;
+	}
+
+	public void setRequiresAuth(boolean requiresAuth) {
+		this.requiresAuth = requiresAuth;
+	}
+
 	public String getBalloonUrl() {
 		return balloonUrl;
 	}
