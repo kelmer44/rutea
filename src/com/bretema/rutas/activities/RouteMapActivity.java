@@ -535,7 +535,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         // Now that route data are loaded, execute the method to overlay the
         // route on the map
         protected void onPostExecute(Boolean result) {
-
+            Log.i("RouteLoader", "Post Execute");
             // dismiss the dialog after processing
             pDialog.dismiss();
             if (result) {
@@ -565,13 +565,14 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         }
 
         protected void onPreExecute() {
+            Log.i("RouteLoader", "Pre Execute");
             Log.i(LOG_TAG, "Ready to load URL");
             pDialog = new ProgressDialog(RouteMapActivity.this);
             pDialog.setMessage(getResources().getString(R.string.pleasewait));
             pDialog.setIndeterminate(false);
             pDialog.setTitle(getResources().getString(R.string.fetchingdata));
             pDialog.setCancelable(false);
-            pDialog.show();
+            //pDialog.show();
 
             pDialog.setOnCancelListener(new OnCancelListener() {
                 public void onCancel(DialogInterface dialog) {
@@ -688,15 +689,15 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        LicenseManager lManager = LicenseManager.getInstance();
-        if(!lManager.isInicializado()){
-            lManager.init(getApplicationContext());
-        }
-        //comprobamos si está autorizado, si no salimos de esta activity de vuelta al detalle
-        boolean authorized = lManager.isCurrentlyAuthorized();
-        if(!authorized){
-            this.finish();
-        }
-            
+//        LicenseManager lManager = LicenseManager.getInstance();
+//        if(!lManager.isInicializado()){
+//            lManager.init(getApplicationContext());
+//        }
+//        //comprobamos si está autorizado, si no salimos de esta activity de vuelta al detalle
+//        boolean authorized = lManager.isCurrentlyAuthorized();
+//        if(!authorized){
+//            this.finish();
+//        }
+//            
     }
 }

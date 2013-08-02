@@ -235,15 +235,17 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	}
 
 	protected boolean onBalloonTap(int index, PoiOverlayItem item) {
-		
+
+        Poi whichPoi = item.getAssociatedPoi();
+        
 		LicenseManager lManager = LicenseManager.getInstance();
         if(!lManager.isInicializado()){
             lManager.init(context);
         }
         boolean authorized = lManager.isCurrentlyAuthorized();
         authorized = false;
-        if(!authorized) {
-            InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
+        if(whichPoi.isRequiresAuth() && !authorized) {
+           // InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
             //codeDialog.show(this.getSupportFragmentManager(), "missiles");
         }
         else {

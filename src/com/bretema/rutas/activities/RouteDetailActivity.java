@@ -164,7 +164,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
     protected void loadRouteMapActivity() {
 
         
-         LicenseManager lManager = LicenseManager.getInstance();
+        /* LicenseManager lManager = LicenseManager.getInstance();
          if(!lManager.isInicializado()){
              lManager.init(getApplicationContext());
          }
@@ -179,7 +179,8 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
          }
          else{
              launchIntent();
-         }
+         }*/
+        launchIntent();
 
     }
 

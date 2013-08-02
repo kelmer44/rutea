@@ -1,7 +1,7 @@
 DELETE FROM poi;
-INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(100, 'San Pedro de Rocas', 42.341656, -7.71355, 'SimplePoi','SanPedrodeRocas.jpg', true);
-INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(101, 'Mirador de Penedos do Castro', 42.4134292445064, -7.6955258846283, 'SecondaryPoi','PenedosdoCastro.jpg', true);
-INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(102, 'Santo Estevo de Ribas de Sil', 42.417122, -7.686213, 'SimplePoi','SantoEstevo.jpg', true);
+INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(100, 'San Pedro de Rocas', 42.341656, -7.71355, 'SimplePoi','SanPedrodeRocas.jpg', 0);
+INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(101, 'Mirador de Penedos do Castro', 42.4134292445064, -7.6955258846283, 'SecondaryPoi','PenedosdoCastro.jpg', 0);
+INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl, requiresAuth) VALUES(102, 'Santo Estevo de Ribas de Sil', 42.417122, -7.686213, 'SimplePoi','SantoEstevo.jpg', 0);
 INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl) VALUES(103, 'Embarcadero de Santo Estevo', 42.4079278198366, -7.64304578304291, 'SecondaryPoi','EmbarcaderoSantaoEstevo.jpg');
 INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl) VALUES(104, 'Mirador da Columna', 42.3750161391683, -7.61099338531494, 'SecondaryPoi','MiradordaColumna.jpg');
 INSERT INTO poi(id, nombre, latitude, longitude, tipo, balloonUrl) VALUES(105, 'Mirador de Cabezoás', 42.373287, -7.604953, 'SecondaryPoi','MiradordeCabezoas.jpg');
