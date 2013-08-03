@@ -8,12 +8,16 @@ import org.mapsforge.android.maps.overlay.ItemizedOverlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,6 +28,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,14 +36,19 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.activities.RouteMapActivity;
 import com.bretema.rutas.activities.SlideShowActivity;
+import com.bretema.rutas.core.CodeInputterTextWatcher;
 import com.bretema.rutas.core.LicenseManager;
+import com.bretema.rutas.core.exception.CodeAlreadyUsedException;
+import com.bretema.rutas.core.exception.InvalidCodeException;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.enums.PoiType;
+import com.bretema.rutas.model.codigo.Codigo;
 import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.view.fragment.InsertCodeDialogFragment;
 
 public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
+    private static final String         LOG_TAG =  OverlayForge.class.getSimpleName();
 	private RouteMapActivity			routeActivity;
 	private Context						context;
 
@@ -234,7 +244,7 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 		return true;
 	}
 
-	protected boolean onBalloonTap(int index, PoiOverlayItem item) {
+	protected boolean onBalloonTap(int index, final PoiOverlayItem item) {
 
         Poi whichPoi = item.getAssociatedPoi();
         
@@ -243,10 +253,74 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
             lManager.init(context);
         }
         boolean authorized = lManager.isCurrentlyAuthorized();
-        authorized = false;
+        //authorized = false;
         if(whichPoi.isRequiresAuth() && !authorized) {
            // InsertCodeDialogFragment codeDialog = new InsertCodeDialogFragment();
             //codeDialog.show(this.getSupportFragmentManager(), "missiles");
+            
+            //FIXME: esto debería refactorizarse en otra clase
+            AlertDialog.Builder builder = new AlertDialog.Builder(routeActivity);
+            builder.setTitle(R.string.activation_code);
+            builder.setMessage(R.string.enter_activation_code);
+            
+            final EditText input = new EditText(context);
+            input.setInputType(InputType.TYPE_CLASS_PHONE);
+            input.addTextChangedListener(new CodeInputterTextWatcher());
+            
+            builder.setView(input);
+            
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           String value = input.getText().toString();
+                           try {
+                               LicenseManager lManager = LicenseManager.getInstance();
+                               if(lManager.isInicializado()){
+                                   lManager.init(context.getApplicationContext());
+                               }
+                               boolean validCode = lManager.checkLicense(value);
+                               if(validCode){
+                                   //guardamos
+                                   Codigo code = lManager.saveCode(value);
+                                   if(code!=null){
+                                       //autorizamos
+                                       lManager.auth(value);
+                                   }
+                                   else
+                                   {
+                                       
+                                       Log.d(LOG_TAG, "Error al guardar codigo");
+                                   }
+                               }
+                               Log.d(LOG_TAG, "Código correcto");
+                               launchIntent(item);
+                           } catch (InvalidCodeException e) {
+                               Log.d(LOG_TAG, "Invalid code " + e.getCode());
+                               AlertDialog.Builder invalidCodeDialog = new AlertDialog.Builder(routeActivity);
+                               invalidCodeDialog.setMessage(String.format(routeActivity.getResources().getString(R.string.invalid_code), value));
+                               invalidCodeDialog.setPositiveButton(R.string.ok, null);
+                               invalidCodeDialog.show();
+                           } catch (CodeAlreadyUsedException e) {
+                               Log.d(LOG_TAG, "This code was already used: " + e.getCode());
+                               AlertDialog.Builder codeUsedDialog = new AlertDialog.Builder(routeActivity);
+                               codeUsedDialog.setMessage(String.format(routeActivity.getResources().getString(R.string.code_already_used), value));
+                               codeUsedDialog.setPositiveButton(R.string.ok, null);
+                               codeUsedDialog.show();
+                           }
+                       }
+                   });
+            
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           AlertDialog.Builder codeRequiredDialog = new AlertDialog.Builder(routeActivity);
+                           codeRequiredDialog.setMessage(routeActivity.getResources().getString(R.string.valid_code_required));
+                           codeRequiredDialog.setPositiveButton(R.string.ok, null);
+                           codeRequiredDialog.show();
+
+                       }
+                   });
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
         }
         else {
     		launchIntent(item);
