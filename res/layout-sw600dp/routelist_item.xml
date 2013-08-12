@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+    
+    <!-- Line id will be HIDDEN - used to pass to other activity -->
+    <TextView
+        android:id="@+id/id_ruta"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/nombreRouteListLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la ruta"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/azulBotonClaro" />
+
+    <TextView
+        android:id="@+id/descRouteListLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripción de la ruta"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/balloon_main_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/balloon_overlay_bg_selector"
+    android:minWidth="200dip"
+    android:minHeight="85dip"
+    android:orientation="horizontal"
+    android:paddingBottom="23dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="0dip"
+    android:paddingTop="0dip" >
+
+    <ImageView
+        android:id="@+id/balloon_item_image"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_balloon_image"
+        android:contentDescription="foto ruta"
+        android:padding="1dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/balloon_inner_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:id="@+id/balloon_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="balloon_item_title"
+            android:textColor="#FF000000"
+            android:textSize="19sp" >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/balloon_item_snippet"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="5dp"
+            android:fitsSystemWindows="true"
+            android:maxLines="4"
+            android:minWidth="200dp"
+            android:text="balloon_item_snippet otra_mas_largo"
+            android:textSize="16sp" >
+
+        </TextView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close_img_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="8dip"
+        android:paddingTop="8dip"
+        android:src="@drawable/balloon_overlay_close" >
+    </ImageView>
+
+</LinearLayout>
