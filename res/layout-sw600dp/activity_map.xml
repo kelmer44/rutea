@@ -20,8 +20,10 @@
 
         <ImageButton
             android:id="@+id/homeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:layout_gravity="right|bottom"
             android:layout_margin="10dp"
             android:contentDescription="@string/volver_a_casa"
@@ -174,15 +176,15 @@
                 android:textColor="@android:color/primary_text_dark" />
 
             <LinearLayout
-                android:layout_width="130dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" >
 
                 <ImageView
                     android:id="@+id/me_pos_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_maps_indicator_current_position_anim1" />
 
@@ -193,14 +195,14 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:text="@string/mi_posici_n"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" 
-                    android:textSize="20sp" />
+                    android:textSize="35sp"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
                 <ImageView
                     android:id="@+id/marker_imprescindible"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:layout_height="29dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/marker_green" />
 
@@ -211,14 +213,14 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/imprescindibles"
                     android:layout_marginTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" 
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
                 <ImageView
                     android:id="@+id/marker_sec"
                     android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="29dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/marker_green_sec" />
 
@@ -229,8 +231,8 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/secundarios"
                     android:layout_marginTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" 
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
             </LinearLayout>
 
