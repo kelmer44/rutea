@@ -195,7 +195,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:text="@string/mi_posici_n"
-                    android:textSize="35sp"
+                    android:textSize="15sp"
                     android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
                 <ImageView
@@ -213,7 +213,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/imprescindibles"
                     android:layout_marginTop="5dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
                 <ImageView
@@ -231,7 +231,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/secundarios"
                     android:layout_marginTop="5dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
             </LinearLayout>
