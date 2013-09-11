@@ -1,33 +1,13 @@
 
 package com.bretema.rutas.activities;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
-import org.mapsforge.android.maps.overlay.OverlayWay;
-import org.mapsforge.core.GeoPoint;
-import org.mapsforge.map.reader.header.FileOpenResult;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -38,7 +18,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -58,7 +37,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bretema.rutas.R;
-import com.bretema.rutas.core.LicenseManager;
 import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.map.OverlayForge;
 import com.bretema.rutas.map.PoiOverlayItem;
@@ -70,6 +48,27 @@ import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.PoiServiceImpl;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageAdapter;
+
+import org.mapsforge.android.maps.MapActivity;
+import org.mapsforge.android.maps.MapView;
+import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
+import org.mapsforge.android.maps.overlay.OverlayWay;
+import org.mapsforge.core.GeoPoint;
+import org.mapsforge.map.reader.header.FileOpenResult;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Epicentro del proyecto, clase que muestra el mapa de la ruta seleccionada por
@@ -162,7 +161,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         buttonBackToRoute = (Button) findViewById(R.id.buttonBackToRoute);
         volverButton = (Button) findViewById(R.id.botonMapVolver);
         homeButton = (ImageButton) findViewById(R.id.homeButton);
-        
+
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
@@ -186,8 +185,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
                 return true;
             }
         });
-        
-        
+
         nextPoiButton.setOnClickListener(this);
         prevPoiButton.setOnClickListener(this);
         quitRouteButton.setOnClickListener(this);
@@ -204,21 +202,44 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
         TextView myPosText = (TextView) findViewById(R.id.myPosText);
         myPosText.setTypeface(colab);
-        //myPosText.setTextSize(10);
-        
+
         TextView impText = (TextView) findViewById(R.id.text_imprescindible);
         impText.setTypeface(colab);
-       // impText.setTextSize(10);
         TextView secText = (TextView) findViewById(R.id.text_sec);
         secText.setTypeface(colab);
-       //secText.setTextSize(10);
-        
+
+        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) != Configuration.SCREENLAYOUT_SIZE_LARGE) {
+
+            secText.setTextSize(10);
+            myPosText.setTextSize(10);
+            impText.setTextSize(10);
+
+        }
+
         rutaService = new RutaServiceImpl(getApplicationContext());
         poiService = new PoiServiceImpl(getApplicationContext());
 
         // Location manager
         mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        bestProvider = mgr.getBestProvider(new Criteria(), true);
+
+        Criteria criteria = new Criteria();
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(false);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        String providerFine = mgr.getBestProvider(criteria, true);
+
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        String providerCoarse = mgr.getBestProvider(criteria, true);
+
+        bestProvider = providerFine;
+        /*
+         * if (providerFine != null) { bestProvider = providerFine; } else{
+         * bestProvider = providerCoarse; }
+         */
+        // bestProvider = mgr.getBestProvider(criteria, true);
 
         routePoints = new ArrayList<GeoPoint>();
         // If everything went fine...
@@ -237,6 +258,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
             if (bestProvider != null && !bestProvider.equals("")) {
                 mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
             }
+            Location l = mgr.getLastKnownLocation(bestProvider);
+            if (l != null) {
+                itemsOverlay.getMeOverlayItem().setPoint(new GeoPoint(l.getLatitude(), l.getLongitude()));
+            }
+
         } else {
             Log.e(LOG_TAG, "Algo ha ido mal");
             // we set mapview to null so no need to destroy it
@@ -597,9 +623,9 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
             // this.mapView.destroyDrawingCache();
             // this.mapView.removeAllViews();
             // this.mapView.getOverlays().clear();
-           // this.mapView = null;
-            //this.itemsOverlay = null;
-            //this.arrayWayOverlay = null;
+            // this.mapView = null;
+            // this.itemsOverlay = null;
+            // this.arrayWayOverlay = null;
             Log.d(LOG_TAG, "DESTROYED");
         }
     }
@@ -645,18 +671,18 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
             RouteMapActivity.this.finish();
 
         }
-        else if(v == homeButton) {
+        else if (v == homeButton) {
 
             Properties properties = new Properties();
-            
+
             try {
                 properties.load(new FileInputStream(Constants.CONFIG_FILE));
                 String name = properties.getProperty("name");
                 String lat = properties.getProperty("lat");
                 String lon = properties.getProperty("lon");
-                
+
                 startActivity(Constants.launchGeoIntent(name, Double.parseDouble(lat), Double.parseDouble(lon)));
-                
+
             } catch (FileNotFoundException e1) {
                 Toast.makeText(this.getApplicationContext(), "No se encontró el archivo de configuración", Toast.LENGTH_SHORT).show();
                 Log.e(LOG_TAG, e1.getMessage());
@@ -666,7 +692,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
                 Log.e(LOG_TAG, e1.getMessage());
                 e1.printStackTrace();
             }
-            
+
         }
     }
 
@@ -689,15 +715,16 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        LicenseManager lManager = LicenseManager.getInstance();
-//        if(!lManager.isInicializado()){
-//            lManager.init(getApplicationContext());
-//        }
-//        //comprobamos si está autorizado, si no salimos de esta activity de vuelta al detalle
-//        boolean authorized = lManager.isCurrentlyAuthorized();
-//        if(!authorized){
-//            this.finish();
-//        }
-//            
+        // LicenseManager lManager = LicenseManager.getInstance();
+        // if(!lManager.isInicializado()){
+        // lManager.init(getApplicationContext());
+        // }
+        // //comprobamos si está autorizado, si no salimos de esta activity de
+        // vuelta al detalle
+        // boolean authorized = lManager.isCurrentlyAuthorized();
+        // if(!authorized){
+        // this.finish();
+        // }
+        //
     }
 }
