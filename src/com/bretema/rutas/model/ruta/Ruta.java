@@ -1,182 +1,230 @@
+
 package com.bretema.rutas.model.ruta;
 
-import java.io.Serializable;
-
-import com.bretema.rutas.R;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.Locale;
 
 /**
  * Define una instancia de rutas
  * 
- * @author Gabriel Sanmartín Díaz
- * 
+ * @author Gabriel Sanmartï¿½n Dï¿½az
  */
 
 @DatabaseTable
 public class Ruta {
 
-	@DatabaseField(generatedId = true)
-	private Integer	id;
+    @DatabaseField(generatedId = true)
+    private Integer id;
 
-	/**
-	 * Nombre de la ruta
-	 */
-	@DatabaseField
-	private String	nombre;
+    /**
+     * Nombre de la ruta
+     */
+    @DatabaseField
+    private String nombre;
 
-	/**
-	 * Descripción de la ruta (introducción)
-	 */
-	@DatabaseField
-	private String	description;
+    /**
+     * Nombre de la ruta en inglÃ©s
+     */
+    @DatabaseField
+    private String nombre_en;
 
-	/**
-	 * Imagen principal
-	 */
-	@DatabaseField
-	private String	mainImagePath;
+    /**
+     * Descripciï¿½n de la ruta (introducciï¿½n)
+     */
+    @DatabaseField
+    private String description;
 
-	/**
-	 * Descripción corta (en desuso?)
-	 */
-	@DatabaseField
-	private String	shortDescription;
+    /**
+     * DescripciÃ³n de la ruta (introducciÃ³n) en inglÃ©s
+     */
+    @DatabaseField
+    private String desc_en;
 
-	/**
-	 * URI del archivo GPX
-	 */
-	@DatabaseField
-	private String	routeFile;
+    /**
+     * Imagen principal
+     */
+    @DatabaseField
+    private String mainImagePath;
 
-	/**
-	 * imagen de muestreo en la pantalla principal
-	 */
-	@DatabaseField
-	private String	listImagePath;
+    /**
+     * Descripciï¿½n corta (en desuso?)
+     */
+    @DatabaseField
+    private String shortDescription;
 
-	/**
-	 * Archivo de audio con la introducción de la ruta
-	 */
-	@DatabaseField
-	private String	introAudioPath;
+    /**
+     * URI del archivo GPX
+     */
+    @DatabaseField
+    private String routeFile;
 
-	/**
-	 * Duracion temporal de la ruta
-	 */
-	@DatabaseField
-	private String	duracion;
+    /**
+     * imagen de muestreo en la pantalla principal
+     */
+    @DatabaseField
+    private String listImagePath;
 
-	@DatabaseField
-	private String balloonImagePath;
-	/**
-	 * km de longitud de la ruta
-	 */
-	@DatabaseField
-	private float	km;
+    /**
+     * Archivo de audio con la introducciï¿½n de la ruta
+     */
+    @DatabaseField
+    private String introAudioPath;
 
-	public Ruta() {
-		super();
-	}
+    /**
+     * Duracion temporal de la ruta
+     */
+    @DatabaseField
+    private String duracion;
 
-	public Ruta(String nombre, String description, String mainImagePath) {
-		super();
-		this.nombre = nombre;
-		this.description = description;
-		this.mainImagePath = mainImagePath;
-	}
+    @DatabaseField
+    private String balloonImagePath;
+    /**
+     * km de longitud de la ruta
+     */
+    @DatabaseField
+    private float km;
 
-	public String getListImagePath() {
-		return listImagePath;
-	}
+    public Ruta() {
+        super();
+    }
 
-	public void setListImagePath(String listImagePath) {
-		this.listImagePath = listImagePath;
-	}
+    public Ruta(String nombre, String description, String mainImagePath, String nombre_en, String desc_en) {
+        super();
+        this.nombre = nombre;
+        this.description = description;
+        this.mainImagePath = mainImagePath;
+        this.nombre_en = nombre_en;
+        this.desc_en = desc_en;
+    }
 
-	public String getIntroAudioPath() {
-		return introAudioPath;
-	}
+    public String getListImagePath() {
+        return listImagePath;
+    }
 
-	public void setIntroAudioPath(String introAudioPath) {
-		this.introAudioPath = introAudioPath;
-	}
+    public void setListImagePath(String listImagePath) {
+        this.listImagePath = listImagePath;
+    }
 
-	public String getDuracion() {
-		return duracion;
-	}
+    public String getIntroAudioPath() {
+        return introAudioPath;
+    }
 
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
+    public void setIntroAudioPath(String introAudioPath) {
+        this.introAudioPath = introAudioPath;
+    }
 
-	public float getKm() {
-		return km;
-	}
+    public String getDuracion() {
+        return duracion;
+    }
 
-	public void setKm(float km) {
-		this.km = km;
-	}
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
 
-	public String getMainImagePath() {
-		return mainImagePath;
-	}
+    public float getKm() {
+        return km;
+    }
 
-	public void setMainImagePath(String mainImagePath) {
-		this.mainImagePath = mainImagePath;
-	}
+    public void setKm(float km) {
+        this.km = km;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getMainImagePath() {
+        return mainImagePath;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setMainImagePath(String mainImagePath) {
+        this.mainImagePath = mainImagePath;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getShortDescription() {
-		return shortDescription;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getRouteFile() {
-		return routeFile;
-	}
+    public String getShortDescription() {
+        return shortDescription;
+    }
 
-	public void setRouteFile(String routeFile) {
-		this.routeFile = routeFile;
-	}
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
 
-	public Ruta(String nombre, String description, String mainImagePath, String shortDescription, String routeFile, String listImagePath, String introAudioPath, String duracion, float km) {
-		super();
-		this.nombre = nombre;
-		this.description = description;
-		this.mainImagePath = mainImagePath;
-		this.shortDescription = shortDescription;
-		this.routeFile = routeFile;
-		this.listImagePath = listImagePath;
-		this.introAudioPath = introAudioPath;
-		this.duracion = duracion;
-		this.km = km;
-	}
+    public String getRouteFile() {
+        return routeFile;
+    }
+
+    public void setRouteFile(String routeFile) {
+        this.routeFile = routeFile;
+    }
+
+    public Ruta(String nombre, String description, String mainImagePath, String shortDescription, String routeFile, String listImagePath, String introAudioPath, String duracion, float km, String nombre_en, String desc_en) {
+        super();
+        this.nombre = nombre;
+        this.description = description;
+        this.mainImagePath = mainImagePath;
+        this.shortDescription = shortDescription;
+        this.routeFile = routeFile;
+        this.listImagePath = listImagePath;
+        this.introAudioPath = introAudioPath;
+        this.duracion = duracion;
+        this.km = km;
+        this.nombre_en = nombre_en;
+        this.desc_en = desc_en;
+                
+    }
+
+    public String getNombre_en() {
+        return nombre_en;
+    }
+
+    public void setNombre_en(String nombre_en) {
+        this.nombre_en = nombre_en;
+    }
+
+    public String getDesc_en() {
+        return desc_en;
+    }
+
+    public void setDesc_en(String desc_en) {
+        this.desc_en = desc_en;
+    }
+
+    public String getNombreByLocale(Locale locale)
+    {
+        if (locale.getLanguage().equals("en")) {
+            return this.getNombre_en();
+        }
+        return this.getNombre();
+    }
+    
+    public String getDescByLocale(Locale locale)
+    {
+        if (locale.getLanguage().equals("en")) {
+            return this.getDesc_en();
+        }
+        return this.getDescription();
+    }
 
 }

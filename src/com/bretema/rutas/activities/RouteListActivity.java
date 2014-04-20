@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.LicenseManager;
 import com.bretema.rutas.core.LicenseManagerService;
+import com.bretema.rutas.model.poi.Poi;
 import com.bretema.rutas.model.ruta.Ruta;
+import com.bretema.rutas.service.PoiService;
 import com.bretema.rutas.service.RutaService;
 import com.bretema.rutas.service.impl.RutaServiceImpl;
 import com.bretema.rutas.view.ImageGridAdapter;
@@ -53,8 +55,8 @@ public class RouteListActivity extends LicensedActivity {
         super.onCreate(savedInstanceState);
 
         // requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_route_list);
 
         // obtenemos el servicio

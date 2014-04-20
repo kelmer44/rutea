@@ -1,14 +1,15 @@
 
 package com.bretema.rutas.view.fragment;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+
 import com.bretema.rutas.model.media.Multimedia;
 import com.bretema.rutas.service.MMService;
 import com.bretema.rutas.service.impl.MMServiceImpl;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.View;
+import java.util.Locale;
 
 public abstract class MultimediaFragment extends Fragment {
 
@@ -16,6 +17,28 @@ public abstract class MultimediaFragment extends Fragment {
 
     private MMService multimediaService;
     private Multimedia multimedia;
+    private Locale mLocale;
+    
+    
+    public MultimediaFragment()
+    {
+//        if(this.getArguments().containsKey("locale"))
+//        {
+//            this.mLocale = (Locale) this.getArguments().get("locale");
+//        }
+//        else
+//        {
+//            this.mLocale = new Locale("es");
+//        }
+        
+        
+    }
+    
+    
+    protected Locale getLocaleFromMainActivity()
+    {
+        return this.getActivity().getResources().getConfiguration().locale;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

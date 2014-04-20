@@ -14,7 +14,6 @@ public class RutaDaoImpl extends GenericDaoOrmLiteImpl<Ruta, Integer> implements
 	
 	public RutaDaoImpl(final Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 

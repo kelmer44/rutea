@@ -18,17 +18,20 @@ import android.widget.Toast;
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
 
+import java.util.Locale;
+
 public class ImageFragment extends MultimediaFragment {
 	private static final String	LOG_TAG	= ImageFragment.class.getSimpleName();
 	private TextView	textView;
-
 	
 
-	@Override
+
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.image_details, container, false);
 		String imageURI = getMultimedia().getUri();
-		String imageCaption = getMultimedia().getDescripcion();
+		String imageCaption = getMultimedia().getDescByLocale(this.getLocaleFromMainActivity());
 		TextView nameTextView = (TextView) view.findViewById(R.id.imageTitleSlideshow);
 		nameTextView.setTypeface(Constants.getSubtitleFont(getActivity().getAssets()));
 		textView = (TextView) view.findViewById(R.id.imageCaptionSlideshow);
@@ -61,7 +64,7 @@ public class ImageFragment extends MultimediaFragment {
 			imageView.setImageResource(R.drawable.imagenenblanco);
 		}
 		textView.setText(imageCaption);
-		nameTextView.setText(getMultimedia().getNombre());
+		nameTextView.setText(getMultimedia().getNombreByLocale(getLocaleFromMainActivity()));
 		return view;
 	}
 

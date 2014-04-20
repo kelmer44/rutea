@@ -1,6 +1,7 @@
 
 package com.bretema.rutas.activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,10 +9,16 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -146,7 +153,7 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
         // Determinamos si mostramos o no el menu de botones
         showLeftMenu = i.getBooleanExtra("showmenu", true);
 
-        // La galeria estar� oculta por defecto
+        // La galeria estará oculta por defecto
         galleryHidden = true;
         // buttonHideGallery = (ImageButton)
         // findViewById(R.id.buttonHideGallery);
@@ -255,10 +262,11 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
 
             // Nos registramos como lector de localizaci�n
             locationListener = new MyLocationListener(itemsOverlay.getMeOverlayItem());
+            Location l = null;
             if (bestProvider != null && !bestProvider.equals("")) {
                 mgr.requestLocationUpdates(bestProvider, 0, 0, locationListener);
+                 l = mgr.getLastKnownLocation(bestProvider);
             }
-            Location l = mgr.getLastKnownLocation(bestProvider);
             if (l != null) {
                 itemsOverlay.getMeOverlayItem().setPoint(new GeoPoint(l.getLatitude(), l.getLongitude()));
             }
@@ -290,13 +298,20 @@ public class RouteMapActivity extends MapActivity implements OnClickListener {
     }
 
     // Recarga la lista de puntos de inter�s
+    @SuppressLint("NewApi")
     private void loadPoiOverlays(List<Poi> lista) {
+        Integer i = 0;
         for (Poi p : lista) {
-            PoiOverlayItem overlay = new PoiOverlayItem(p);
-            itemsOverlay.addOverlay(overlay, getResources().getDrawable(p.getTipo().getDrawable()),
-                    p.getTipo().isDrawableCenter());
+            PoiOverlayItem overlay = new PoiOverlayItem(this.getResources().getConfiguration().locale, p);
+
+            Bitmap b = Constants.drawTextToBitmap(getApplicationContext(),p.getTipo().getDrawable(), "" + (i+1));
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(b);
+            itemsOverlay.addOverlay(overlay, bitmapDrawable, p.getTipo().isDrawableCenter());
+            i++;
         }
     }
+
+   
 
     private void overlayRoute() {
         Paint wayDefaultPaintFill = new Paint(Paint.ANTI_ALIAS_FLAG);

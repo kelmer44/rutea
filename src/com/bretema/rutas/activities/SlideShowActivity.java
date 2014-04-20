@@ -11,13 +11,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -78,7 +76,7 @@ public class SlideShowActivity extends FragmentActivity {
         setContentView(R.layout.slideshow);
 
 
-        Toast.makeText(this, "Pulse sobre las imágenes para ver la descripción", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.press_for_description, Toast.LENGTH_SHORT).show();
         
         // obtenemos la llamada a esta activity
         Intent i = getIntent();

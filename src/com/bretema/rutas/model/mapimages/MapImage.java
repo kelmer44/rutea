@@ -3,10 +3,12 @@ package com.bretema.rutas.model.mapimages;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Locale;
+
 /**
  * Define imagenes asociadas a los puntos interactivos de otras imagenes
  * 
- * @author Gabriel Sanmartín Díaz
+ * @author Gabriel Sanmartï¿½n Dï¿½az
  * 
  */
 @DatabaseTable
@@ -33,6 +35,13 @@ public class MapImage {
 	@DatabaseField
 	private String descripcion;
 	
+	
+	/**
+     * Descripcion de esta imagen en concreto, en inglÃ©s
+     */
+    @DatabaseField
+    private String desc_en;
+    
 	/**
 	 * URI dentro de la carpeta externa media/maps/<mapa>/
 	 */
@@ -91,6 +100,23 @@ public class MapImage {
 	public MapImage() {
 		super();
 	}
+
+    public String getDesc_en() {
+        return desc_en;
+    }
+
+    public void setDesc_en(String desc_en) {
+        this.desc_en = desc_en;
+    }
+    
+    
+    public String getDescByLocale(Locale locale)
+    {
+        if (locale.getLanguage().equals("en")) {
+            return this.getDesc_en();
+        }
+        return this.getDescripcion();
+    }
 	
 	
 }

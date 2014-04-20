@@ -32,7 +32,7 @@ public class VideoFragment extends MultimediaFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.video_details, container, false);
 		String imageURI = getMultimedia().getUri();
-		String videoCaption = getMultimedia().getDescripcion();
+		String videoCaption = getMultimedia().getDescByLocale(this.getLocaleFromMainActivity());
 		
 		playButton = (ImageView) view.findViewById(R.id.play_button);
 		
@@ -69,7 +69,7 @@ public class VideoFragment extends MultimediaFragment {
 		mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-				Toast.makeText(getActivity(), "El vÃ­deo no se ha encontrado o no es reproducible", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), R.string.error_video, Toast.LENGTH_LONG).show();
 				mVideoView.setBackgroundColor(0);
 				return true;
 			}

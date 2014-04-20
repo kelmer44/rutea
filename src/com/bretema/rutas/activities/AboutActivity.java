@@ -98,7 +98,7 @@ public class AboutActivity extends Activity {
             // TODO Auto-generated catch block
             versionName = "N/A";
         }
-        String sysinfo = "Versión:" + versionName + "\nEspacio libre: " + String.format("%1$,.2f", gigaAvailable) + " Gb \nMAC address: " + address;
+        String sysinfo = getResources().getString(R.string.version) + ": " + versionName + "\n" + getResources().getString(R.string.free_space) + ": " + String.format("%1$,.2f", gigaAvailable) + " Gb \nMAC address: " + address;
 
         textViewSysInfo.setText(sysinfo);
     }

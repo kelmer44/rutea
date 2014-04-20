@@ -35,7 +35,7 @@ public class poiInfoFragment extends MultimediaFragment {
 		
 		View view = inflater.inflate(R.layout.fragment_text, container, false);
 		textView = (TextView) view.findViewById(R.id.poiDetailDescriptionLabel);
-		String imageCaption = getMultimedia().getDescripcion();
+		String imageCaption = getMultimedia().getDescByLocale(getLocaleFromMainActivity());
 		imageCaption = imageCaption.replace("\\n", "\n");
 		imageCaption = imageCaption.replace("\\r", "\r");
 		textView.setTypeface(Constants.getTextFont(getActivity().getAssets()));

@@ -20,7 +20,7 @@ import java.util.Date;
 public class LicenseManager {
     private final static String LOG_TAG = LicenseManager.class.getName();
     
-    private boolean debug = false;
+    private boolean debug = true;
     
     private Context mContext;
     private CodigoService codigoService;

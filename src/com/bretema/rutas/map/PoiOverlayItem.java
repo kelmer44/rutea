@@ -1,22 +1,26 @@
 package com.bretema.rutas.map;
 
+import com.bretema.rutas.enums.PoiType;
+import com.bretema.rutas.model.poi.Poi;
+
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 
-import com.bretema.rutas.enums.PoiType;
-import com.bretema.rutas.model.poi.Poi;
+import java.util.Locale;
 
 public class PoiOverlayItem extends OverlayItem {
 
 	private Poi associatedPoi;
 	boolean selectable = false;
+	private Locale mLocale;
 	
-	public PoiOverlayItem(){
+	public PoiOverlayItem(Locale l){
 		super();
+		this.mLocale = l;
 	}
 	
-	public PoiOverlayItem(Poi poi){
-		super(new GeoPoint(poi.getLatitude(), poi.getLongitude()), poi.getNombre(), poi.getDescripcion());
+	public PoiOverlayItem(Locale l, Poi poi){
+		super(new GeoPoint(poi.getLatitude(), poi.getLongitude()), poi.getNombreByLocale(l), poi.getDescByLocale(l));
 		if(poi.getTipo() == PoiType.SimplePoi || poi.getTipo() == PoiType.SecondaryPoi)
 			selectable = true;
 		associatedPoi = poi;

@@ -83,7 +83,7 @@ public class LabeledImageFragment extends MultimediaFragment {
 			}
 		});
 
-		textView.setText(getMultimedia().getNombre());
+		textView.setText(getMultimedia().getNombreByLocale(this.getLocaleFromMainActivity()));
 
 		return view;
 	}

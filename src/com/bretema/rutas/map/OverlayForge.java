@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.InputType;
@@ -65,14 +66,14 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 
 	private ArrayList<PoiOverlayItem>	m_overlays	= new ArrayList<PoiOverlayItem>();
 	private ArrayList<PoiOverlayItem>	fullList	= new ArrayList<PoiOverlayItem>();
-	private PoiOverlayItem				me_overlay	= new PoiOverlayItem();
+	private PoiOverlayItem				me_overlay;
 	private PoiOverlayItem				currentFocusedItem;
 	private int							currentFocusedIndex;
 
 	public OverlayForge(Drawable defaultMarker, Drawable selectedMarker, Drawable myLocationMarker, MapView mapView, RouteMapActivity activity) {
 		super(boundCenterBottom(defaultMarker));
 
-		me_overlay = new PoiOverlayItem();
+		me_overlay = new PoiOverlayItem(activity.getResources().getConfiguration().locale);
 		me_overlay.setTitle("Mi posición");
 		me_overlay.setSnippet("Usted está aquí");
 		me_overlay.setMarker(boundCenter(myLocationMarker));
@@ -117,12 +118,14 @@ public class OverlayForge extends ItemizedOverlay<PoiOverlayItem> {
 	 */
 	public void selectPOIOverlay(int idx) {
 		for (int i = 0; i < m_overlays.size(); i++) {
-			// Ponemos el marcador verde al resto
-			Drawable d = context.getResources().getDrawable(m_overlays.get(i).getAssociatedPoi().getTipo().getDrawable());
+		    
+		    Bitmap b = Constants.drawTextToBitmap(context,m_overlays.get(i).getAssociatedPoi().getTipo().getDrawable(), "" + (i+1));
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(b);
+            Drawable d = null;
 			if(m_overlays.get(i).getAssociatedPoi().getTipo().isDrawableCenter())
-				d = boundCenter(d);
+			    d = boundCenter(bitmapDrawable);
 			else
-				d = boundCenterBottom(d);
+				d = boundCenterBottom(bitmapDrawable);
 			m_overlays.get(i).setMarker(d);
 		}
 		OverlayItem oi = m_overlays.get(idx);

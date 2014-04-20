@@ -100,8 +100,8 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
         stopButton = (ImageView) findViewById(R.id.stopButton);
 
         // Asignaci�n de valores
-        routeDetailDescriptionLabel.setText(Html.fromHtml(ruta.getDescription()));
-        routeDetailNameLabel.setText(ruta.getNombre());
+        routeDetailDescriptionLabel.setText(Html.fromHtml("" + ruta.getDescByLocale(this.getResources().getConfiguration().locale)));
+        routeDetailNameLabel.setText(ruta.getNombreByLocale(this.getResources().getConfiguration().locale));
         routeDetailNameLabel.setTypeface(Constants.getTitleFont(getAssets()));
 
         Bitmap b = BitmapFactory.decodeFile(Constants.APP_PATH + ruta.getMainImagePath());
@@ -119,7 +119,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
         duracionPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
         distanciaPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
 
-        duracionPlaceholder.setText(ruta.getDuracion());
+        duracionPlaceholder.setText(ruta.getDuracion() + getResources().getString(R.string.hours));
         distanciaPlaceholder.setText(ruta.getKm() + " km");
 
         gotoRouteButton.setOnClickListener(new OnClickListener() {

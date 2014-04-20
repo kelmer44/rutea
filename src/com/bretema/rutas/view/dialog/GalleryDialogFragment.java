@@ -21,6 +21,7 @@ import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.model.mapimages.MapImage;
 
 import java.util.List;
+import java.util.Locale;
 
 @SuppressLint("ValidFragment")
 public class GalleryDialogFragment extends DialogFragment {
@@ -59,7 +60,7 @@ public class GalleryDialogFragment extends DialogFragment {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				text.setText(mapImages.get(position).getDescripcion());
+				text.setText(mapImages.get(position).getDescByLocale(GalleryDialogFragment.this.getLocaleFromMainActivity()));
 			}
 
 			@Override
@@ -71,7 +72,7 @@ public class GalleryDialogFragment extends DialogFragment {
 		builder.setTitle(title);
 		builder.setView(view);
 
-		builder.setNeutralButton("Volver", new DialogInterface.OnClickListener() {
+		builder.setNeutralButton(R.string.volver, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -83,5 +84,10 @@ public class GalleryDialogFragment extends DialogFragment {
 		AlertDialog dialog = builder.create();
 		return dialog;
 	}
+	
+	  protected Locale getLocaleFromMainActivity()
+	    {
+	        return this.getActivity().getResources().getConfiguration().locale;
+	    }
 
 }
