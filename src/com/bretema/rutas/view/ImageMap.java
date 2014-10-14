@@ -16,14 +16,6 @@
 
 package com.bretema.rutas.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -49,6 +41,15 @@ import android.widget.Scroller;
 
 import com.bretema.rutas.R;
 import com.bretema.rutas.core.util.Constants;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 @SuppressLint("WrongCall")
 public class ImageMap extends ImageView {
@@ -148,6 +149,9 @@ public class ImageMap extends ImageView {
 
     int mXOffset = 0;
     int mYOffset = 0;
+    
+    Locale locale;
+    
 
     /*
      * containers for the image map areas
@@ -167,18 +171,21 @@ public class ImageMap extends ImageView {
     public ImageMap(Context context) {
         super(context);
         init();
+        locale = context.getResources().getConfiguration().locale;
     }
 
     public ImageMap(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
         loadAttributes(attrs);
+        locale = context.getResources().getConfiguration().locale;
     }
 
     public ImageMap(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
         loadAttributes(attrs);
+        locale = context.getResources().getConfiguration().locale;
     }
 
     /**
@@ -233,7 +240,8 @@ public class ImageMap extends ImageView {
                             // attributes
                             // name attribute is custom to this impl (not
                             // standard in html area tag)
-                            String name = xpp.getAttributeValue(null, "name");
+                            String name = this.locale.getLanguage().equals("en")?xpp.getAttributeValue(null, "name_en"):xpp.getAttributeValue(null, "name");
+                            
                             if (name == null) {
                                 name = xpp.getAttributeValue(null, "title");
                             }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Rutea</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="title_activity_route_list">Lista de Rutas</string>
+    <string name="title_activity_route_detail">Detalles de ruta</string>
+    <string name="title_activity_map">Vista de mapa</string>
+    <string name="no_map">No se encontró el fichero de mapas</string>
+    <string name="punto_anterior">punto anterior</string>
+    <string name="siguiente_punto">siguiente punto</string>
+    <string name="salir_de_ruta">mapa de servicios</string>
+    <string name="ir_a">Ir a</string>
+    <string name="hide_gallery">Ocultar galería</string>
+    <string name="elija_una_ruta_">Elija una ruta:</string>
+    <string name="nombre_de_la_ruta">Nombre de la ruta</string>
+    <string name="nombre_del_poi">Nombre del punto de interés</string>
+    <string name="desc">Desc</string>
+    <string name="ir_a_ruta">ir a ruta</string>
+    <string name="mainImage">Imagen principal de la ruta</string>
+    <string name="mainVideo">Imagen principal del punto de interés</string>
+    <string name="mi_posici_n">Mi posición</string>
+    <string name="pleasewait">Por favor, espere&#8230;</string>
+    <string name="fetchingdata">Recuperando información</string>
+    <string name="errorfetching">No se pudo recuperar la información. Por favor consulte al proveedor.</string>
+    <string name="title_activity_slide_show">SlideShow</string>
+    <string name="boton_navegar">Ir a GPS</string>
+    <string name="boton_masinfo">más info...</string>
+    <string name="hours">horas</string>
+    
+    <string name="poi_nombre_placeholder">Large Text</string>
+    <string name="poi_desc_placeholder">Descripción del punto</string>
+    <string name="volver">volver</string>
+    <string name="title_activity_about">Acerca de Rutas</string>
+    <string name="volver_a_ruta">Volver a ruta</string>
+    <string name="duracion">Duración:</string>
+    <string name="distancia_">Distancia:</string>
+    <string name="descripcion">Rutea es una aplicación pensada para facilitar la tarea de trazar rutas turísticas por parajes sin conectividad</string>
+
+    <string name="licenseManager">Rutea License Manager</string>
+    
+    <!--  GESTION DE CODIGOS -->
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    
+    <string name="activation_code">Código de activación</string>
+    <string name="enter_activation_code">Introduzca el código de activación proporcionado por su proveedor.</string>
+    <string name="valid_code_required">Debe introducir un código válido para acceder a la ruta.</string>
+    <string name="invalid_code">El código %s no es un código válido</string>
+    <string name="code_already_used">El código %s ya ha sido utilizado.</string>
+    <string name="code_ttl">1440</string>
+<!-- 	<string name="code_ttl">2</string> -->
+    <string name="volver_a_casa">Volver a casa</string>
+    <string name="imprescindibles">Imprescindibles</string>
+    <string name="secundarios">Secundarios</string>
+    <string name="continuar_visita">Continuar visita</string>
+    
+    <!-- ACERCA DE  -->
+    <string name="version">Versión</string>
+    <string name="free_space">Espacio Libre</string>
+    <string name="press_for_description">Pulse sobre las imágenes para ver la descripción</string>
+    
+    <string name="miruta_menu">Mi ruta</string>
+    
+    
+    <string name="error_video">El vídeo no se ha encontrado o no es reproducible</string>
+</resources>
