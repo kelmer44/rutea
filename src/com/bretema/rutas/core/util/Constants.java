@@ -31,7 +31,7 @@ public class Constants {
     public static final Integer GEO_INTENT_NAVIGATE = 0;
     public static final Integer GEO_INTENT_GEO = 1;
     public static final Integer GEO_INTENT_SYGIC = 2;
-    public static final Integer CURRENT_INTENT_TYPE = GEO_INTENT_SYGIC;
+    public static final Integer CURRENT_INTENT_TYPE = GEO_INTENT_NAVIGATE;
 
     private static Intent launchGeoIntent(Integer tipo, String name, double lat, double lon) {
         Intent intent = new Intent();

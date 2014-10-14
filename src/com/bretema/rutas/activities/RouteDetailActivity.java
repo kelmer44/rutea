@@ -119,7 +119,7 @@ public class RouteDetailActivity extends LicensedActivity implements MediaPlayer
         duracionPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
         distanciaPlaceholder.setTypeface(Constants.getSubtitleFont(getAssets()));
 
-        duracionPlaceholder.setText(ruta.getDuracion() + getResources().getString(R.string.hours));
+        duracionPlaceholder.setText(ruta.getDuracion() + " " + getResources().getString(R.string.hours));
         distanciaPlaceholder.setText(ruta.getKm() + " km");
 
         gotoRouteButton.setOnClickListener(new OnClickListener() {

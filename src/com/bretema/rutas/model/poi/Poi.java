@@ -169,6 +169,7 @@ public class Poi {
     public String getNombreByLocale(Locale locale)
     {
         if (locale.getLanguage().equals("en")) {
+            if(null!=this.getNombre_en() && !"".equals(this.getNombre_en()))
             return this.getNombre_en();
         }
         return this.getNombre();
