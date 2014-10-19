@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="adif_pref_root" >
+
+<!--     <PreferenceCategory android:title="@string/idioma_prefs" > -->
+        <ListPreference
+            android:defaultValue="es"
+            android:dialogTitle=""
+            android:entries="@array/idiomas_array"
+            android:entryValues="@array/idiomas_codes"
+            android:key="locale"
+            android:title="@string/idioma_prefs" />
+<!--     </PreferenceCategory> -->
+
+</PreferenceScreen>

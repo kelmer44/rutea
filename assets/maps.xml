@@ -3,143 +3,143 @@
 
         
  <map name="BalconesdeMadrid1">
-        <area shape="rect" coords="204,82,254,132" name="Parroquia de Barantes" id="I"  name_en=""  />
-        <area shape="rect" coords="669,54,719,104"  name="Monforte de Lemos" id="H" />
-        <area shape="rect" coords="1170,60,1219,113" name="Virgen de Cadeiras" id="G"  name_en=""  />
-        <area shape="rect" coords="1104,112,1153,165" name="El desnivel llega en este punto hasta los 450 metros" id="J"  name_en=""  />
-        <area shape="rect" coords="1837,73,1893,120" name="Cristosende" id="A"  name_en=""  />
-        <area shape="rect" coords="1903,58,1959,107" name="Castelo de Castro Caldelas" id="B"  name_en=""  />
-        <area shape="rect" coords="1993,73,2043,120" name="San Lourenzo" id="C"  name_en=""  />
-        <area shape="rect" coords="1903,125,1959,175" name="San Adrián" id="D"  name_en=""  />
-        <area shape="rect" coords="1953,187,2025,254" name="Viñas de la Ribeira" id="F"  name_en=""  />
-        <area shape="rect" coords="2008,106,2150,173" name="Sacardebois" id="E"  name_en=""  />
+        <area shape="rect" coords="204,82,254,132" name="Parroquia de Barantes" id="I"  name_en="Barantes Curch"  />
+        <area shape="rect" coords="669,54,719,104"  name="Monforte de Lemos" id="H" name="Monforte de Lemos" />
+        <area shape="rect" coords="1170,60,1219,113" name="Virgen de Cadeiras" id="G"  name_en="Cadeiras Virgin"  />
+        <area shape="rect" coords="1104,112,1153,165" name="El desnivel llega en este punto hasta los 450 metros" id="J"  name_en="The slope reaches here 450 metres."  />
+        <area shape="rect" coords="1837,73,1893,120" name="Cristosende" id="A"  name_en="Cristosende"  />
+        <area shape="rect" coords="1903,58,1959,107" name="Castelo de Castro Caldelas" id="B"  name_en="Castro Caldelas Castle"  />
+        <area shape="rect" coords="1993,73,2043,120" name="San Lourenzo" id="C"  name_en="San Lourenzo"  />
+        <area shape="rect" coords="1903,125,1959,175" name="San Adrián" id="D"  name_en="San Adrián"  />
+        <area shape="rect" coords="1953,187,2025,254" name="Viñas de la Ribeira" id="F"  name_en="Vineyards in the Ribeira"  />
+        <area shape="rect" coords="2008,106,2150,173" name="Sacardebois" id="E"  name_en="Sacardebois"  />
 </map>
 
 <map name="SantaCristina3">
-        <area shape="rect" coords="219,318,314,436" name="El arco" id="A"  name_en=""  />
-        <area shape="rect" coords="371,244,474,441" name="Entrada de la iglesia" id="B"  name_en=""  />
-        <area shape="rect" coords="399,52,469,184"  name="El rosetón" id="C"  name_en=""  />
-        <area shape="rect" coords="788,117,861,213" name="Lateral de la iglesia" id="D"  name_en=""  />
+        <area shape="rect" coords="219,318,314,436" name="El arco" id="A"  name_en="The arch"  />
+        <area shape="rect" coords="371,244,474,441" name="Entrada de la iglesia" id="B"  name_en="Entrance to the church"  />
+        <area shape="rect" coords="399,52,469,184"  name="El rosetón" id="C"  name_en="The rose window"  />
+        <area shape="rect" coords="788,117,861,213" name="Lateral de la iglesia" id="D"  name_en="The side of the church"  />
 </map>
 
 <map name="SantaCristina7">
-        <area shape="rect" coords="531,270,591,340"  name="El claustro" id="A"  name_en=""  />
-        <area shape="rect" coords="465,2,548,60" name="El campanario" id="B"  name_en=""  />
-        <area shape="rect" coords="503,158,563,216"  name="La torre" id="C"  name_en=""  />
-        <area shape="rect" coords="118,268,188,344" name="Lápidas" id="D"  name_en=""  />
+        <area shape="rect" coords="531,270,591,340"  name="El claustro" id="A"  name_en="Santa Cristina Cluster"  />
+        <area shape="rect" coords="465,2,548,60" name="El campanario" id="B"  name_en="The Bell Tower"  />
+        <area shape="rect" coords="503,158,563,216"  name="La torre" id="C"  name_en="The Tower"  />
+        <area shape="rect" coords="118,268,188,344" name="Lápidas" id="D"  name_en="Tombstones"  />
 </map>
         
 <map name="CastroCaldelas5">
-        <area shape="rect" coords="67,51,89,84" name="El reloj" id="A"  name_en=""  />
-        <area shape="rect" coords="303,105,341,136" name="Entrada a la Torre del Reloj" id="B"  name_en=""  />
-        <area shape="rect" coords="359,161,390,192" name="Museo Etnográfico" id="C"  name_en=""  />
-        <area shape="rect" coords="572,4,603,35" name="Torre del Homenaje" id="D"  name_en=""  />
-        <area shape="rect" coords="525,143,556,174" name="Entrada a Torre del Homenaje" id="E"  name_en=""  />
-        <area shape="rect" coords="566,189,597,220" name="Oficina de Turismo" id="F"  name_en=""  />
-        <area shape="rect" coords="701,185,740,224" name="Acceso a la muralla" id="G"  name_en=""  />
+        <area shape="rect" coords="67,51,89,84" name="El reloj" id="A"  name_en="The clock"  />
+        <area shape="rect" coords="303,105,341,136" name="Entrada a la Torre del Reloj" id="B"  name_en="Entrance to the Clock Tower"  />
+        <area shape="rect" coords="359,161,390,192" name="Museo Etnográfico" id="C"  name_en="Ethnographic Museum"  />
+        <area shape="rect" coords="572,4,603,35" name="Torre del Homenaje" id="D"  name_en="Homage Tower"  />
+        <area shape="rect" coords="525,143,556,174" name="Entrada a Torre del Homenaje" id="E"  name_en="Entrance to the Homage Tower"  />
+        <area shape="rect" coords="566,189,597,220" name="Oficina de Turismo" id="F"  name_en="Tourism Office"  />
+        <area shape="rect" coords="701,185,740,224" name="Acceso a la muralla" id="G"  name_en="Fortress Access"  />
 </map>
 
 <map name="FerreiradePanton9">
-        <area shape="rect" coords="135,146,175,185" name="El dragón" id="A"  name_en=""  />
-        <area shape="rect" coords="301,51,341,90" name="La fiera" id="B"  name_en=""  />
-        <area shape="rect" coords="239,214,279,253" name="Basiliscos" id="C"  name_en=""  />
-        <area shape="rect" coords="370,41,410,80" name="Cacería" id="D"  name_en=""  />
-        <area shape="rect" coords="632,70,672,109" name="El cielo y la tierra" id="E"  name_en=""  />
-        <area shape="rect" coords="652,111,692,150" name="Fiera Apocalíptica" id="F"  name_en=""  />
-        <area shape="rect" coords="688,153,728,192" name="Juglaría" id="G"  name_en=""  />
+        <area shape="rect" coords="135,146,175,185" name="El dragón" id="A"  name_en="The Dragon"  />
+        <area shape="rect" coords="301,51,341,90" name="La fiera" id="B"  name_en="The beast"  />
+        <area shape="rect" coords="239,214,279,253" name="Basiliscos" id="C"  name_en="Basilisks"  />
+        <area shape="rect" coords="370,41,410,80" name="Cacería" id="D"  name_en="Hunt"  />
+        <area shape="rect" coords="632,70,672,109" name="El cielo y la tierra" id="E"  name_en="The Heaven and The Earth"  />
+        <area shape="rect" coords="652,111,692,150" name="Fiera Apocalíptica" id="F"  name_en="Apocalyptic Beast"  />
+        <area shape="rect" coords="688,153,728,192" name="Juglaría" id="G"  name_en="Minstrelsy"  />
 </map>
 
 <map name="MiradordaCividade3">
-        <area shape="rect" coords="167,66,203,102" name="Vilouxe" id="A"  name_en=""  />
-        <area shape="rect" coords="351,69,387,105" name="Cerreda" id="B"  name_en=""  />
-        <area shape="rect" coords="423,68,459,104" name="Albergueria" id="C"  name_en=""  />
-        <area shape="rect" coords="591,67,627,103" name="Vilar de Cerreda" id="D"  name_en=""  />
-        <area shape="rect" coords="691,93,727,129" name="Presa de Santo Estevo" id="E"  name_en=""  />
-        <area shape="rect" coords="62,26,98,62" name="Cabeza de Meda" id="F"  name_en=""  />
+        <area shape="rect" coords="167,66,203,102" name="Vilouxe" id="A"  name_en="Vilouxe"  />
+        <area shape="rect" coords="351,69,387,105" name="Cerreda" id="B"  name_en="Cerreda"  />
+        <area shape="rect" coords="423,68,459,104" name="Albergueria" id="C"  name_en="Albergueria"  />
+        <area shape="rect" coords="591,67,627,103" name="Vilar de Cerreda" id="D"  name_en="Vilar de Cerreda"  />
+        <area shape="rect" coords="691,93,727,129" name="Presa de Santo Estevo" id="E"  name_en="Santo Estevo Dam"  />
+        <area shape="rect" coords="62,26,98,62" name="Cabeza de Meda" id="F"  name_en="Cabeza de Meda"  />
 </map>
 
 <map name="MiradordaColumna2">
-        <area shape="rect" coords="202,18,231,43" name="Alberguería" id="A"  name_en=""  />
-        <area shape="rect" coords="171,21,200,46" name="Cerreda" id="B"  name_en=""  />
-        <area shape="rect" coords="97,33,126,58" name="Vilouxe" id="C"  name_en=""  />
-        <area shape="rect" coords="343,44,372,69" name="Los embarcaderos" id="D"    />
-        <area shape="rect" coords="526,65,555,90" name="El desnivel del cañón alcanza aquí los 525 metros" id="E"  name_en=""  />
-        <area shape="rect" coords="466,17,495,42" name="Mirador de Cividade" id="F"  name_en=""  />
-        <area shape="rect" coords="496,20,525,45" name="Castro da Cividade" id="G"  name_en=""  />
-        <area shape="rect" coords="645,18,674,43" name="Monforte de Lemos" id="H"  name_en=""  />
+        <area shape="rect" coords="202,18,231,43" name="Alberguería" id="A"  name_en="Alberguería"  />
+        <area shape="rect" coords="171,21,200,46" name="Cerreda" id="B"  name_en="Cerreda"  />
+        <area shape="rect" coords="97,33,126,58" name="Vilouxe" id="C"  name_en="Vilouxe"  />
+        <area shape="rect" coords="343,44,372,69" name="Los embarcaderos" id="D"  name_en="The quay"  />
+        <area shape="rect" coords="526,65,555,90" name="El desnivel del cañón alcanza aquí los 525 metros" id="E"  name_en="The slope of the cannon reaches here 525 meters"  />
+        <area shape="rect" coords="466,17,495,42" name="Mirador de Cividade" id="F"  name_en="Cividade Viewpoint"  />
+        <area shape="rect" coords="496,20,525,45" name="Castro da Cividade" id="G"  name_en="Castro da Cividade"  />
+        <area shape="rect" coords="645,18,674,43" name="Monforte de Lemos" id="H"  name_en="Monforte de Lemos"  />
 </map>
 
 <map name="MiradordeCabezoas1">
-        <area shape="rect" coords="247,62,277,90" name="Alberguería" id="A"  name_en=""  />
-        <area shape="rect" coords="207,63,237,91" name="Cerreda" id="B"  name_en=""  />
-        <area shape="rect" coords="549,98,579,126" name="El desnivel del cañón alcanza aquí los 525 metros" id="C"  name_en=""  />
-        <area shape="rect" coords="478,67,508,95" name="Mirador de Cividade" id="D"  name_en=""  />
-        <area shape="rect" coords="507,71,537,99" name="Castro da Cividade" id="E"  name_en=""  />
-        <area shape="rect" coords="574,60,604,88" name="Mirador de Boqueiriño" id="F"  name_en=""  />
+        <area shape="rect" coords="247,62,277,90" name="Alberguería" id="A"  name_en="Alberguería"  />
+        <area shape="rect" coords="207,63,237,91" name="Cerreda" id="B"  name_en="Cerreda"  />
+        <area shape="rect" coords="549,98,579,126" name="El desnivel del cañón alcanza aquí los 525 metros" id="C"  name_en="The slope of the cannon reaches here 525 meters"  />
+        <area shape="rect" coords="478,67,508,95" name="Mirador de Cividade" id="D"  name_en="Cividade Viewpoint"  />
+        <area shape="rect" coords="507,71,537,99" name="Castro da Cividade" id="E"  name_en="Castro da Cividade"  />
+        <area shape="rect" coords="574,60,604,88" name="Mirador de Boqueiriño" id="F"  name_en="Boqueiriño Viewpoint"  />
 </map>
 
 <map name="MiradordeDoade4">
-        <area shape="rect" coords="93,24,134,66" name="Mirador do Castelo" id="A"  name_en=""  />
-        <area shape="rect" coords="329,40,370,82" name="Mirador del Duque" id="B"  name_en=""  />
-        <area shape="rect" coords="542,118,583,160" name="Embarcadero de Doade" id="C"  name_en=""  />
-        <area shape="rect" coords="488,73,529,115" name="Mirador de Matacás" id="D"  name_en=""  />
-        <area shape="rect" coords="537,73,578,115" name="Paradela" id="E"  name_en=""  />
-        <area shape="rect" coords="622,84,663,126" name="Nogueira" id="F"  name_en=""  />
-        <area shape="rect" coords="677,103,718,145" name="Souto de Santa Marta " id="G"  name_en=""  />
+        <area shape="rect" coords="93,24,134,66" name="Mirador do Castelo" id="A"  name_en="Castelo Viewpoint"  />
+        <area shape="rect" coords="329,40,370,82" name="Mirador del Duque" id="B"  name_en="Duque (Duke) Viewpoint"  />
+        <area shape="rect" coords="542,118,583,160" name="Embarcadero de Doade" id="C"  name_en="Doade Quay"  />
+        <area shape="rect" coords="488,73,529,115" name="Mirador de Matacás" id="D"  name_en="Matacás Viewpoint"  />
+        <area shape="rect" coords="537,73,578,115" name="Paradela" id="E"  name_en="Paradela"  />
+        <area shape="rect" coords="622,84,663,126" name="Nogueira" id="F"  name_en="Nogueira"  />
+        <area shape="rect" coords="677,103,718,145" name="Souto de Santa Marta " id="G"  name_en="Souto de Santa Marta "  />
 </map>
 
 <map name="MiradordeGaleana1">
-        <area shape="rect" coords="101,127,133,158" name="El río Mao y sus imponentes desfiladeros" id="A"  name_en=""  />
-        <area shape="rect" coords="68,115,100,146" name="Ruta del Cañón del río Mao" id="B"  name_en=""  />
-        <area shape="rect" coords="308,232,340,263" name="Ruta de las Pasarelas del Mao " id="C"  name_en=""  />
-        <area shape="rect" coords="241,85,273,116" name="Yacimiento de la Necrópolis de San Vitor" id="D"  name_en=""  />
-        <area shape="rect" coords="369,101,401,132" name="San Lourenzo" id="E"  name_en=""  />
-        <area shape="rect" coords="500,142,532,173" name="San Adrián" id="F"  name_en=""  />
-        <area shape="rect" coords="326,135,358,166" name="San Miguel y San Ciprián" id="G"  name_en=""  />
-        <area shape="rect" coords="311,61,343,92" name="Cabeza de Meda" id="H"  name_en=""  />
-        <area shape="rect" coords="572,192,604,223" name="Barxacova" id="I"  name_en=""  />
-        <area shape="rect" coords="533,121,565,152" name="La Ribeira de Amandi" id="J"  name_en=""  />
+        <area shape="rect" coords="101,127,133,158" name="El río Mao y sus imponentes desfiladeros" id="A"  name_en="River Mao and its impressive gorge"  />
+        <area shape="rect" coords="68,115,100,146" name="Ruta del Cañón del río Mao" id="B"  name_en="River Mao Canyon Route"  />
+        <area shape="rect" coords="308,232,340,263" name="Ruta de las Pasarelas del Mao " id="C"  name_en="Route of the Pasarelas del Mao "  />
+        <area shape="rect" coords="241,85,273,116" name="Yacimiento de la Necrópolis de San Vitor" id="D"  name_en="Necropolis of San Vitor Site"  />
+        <area shape="rect" coords="369,101,401,132" name="San Lourenzo" id="E"  name_en="San Lourenzo"  />
+        <area shape="rect" coords="500,142,532,173" name="San Adrián" id="F"  name_en="San Adrián"  />
+        <area shape="rect" coords="326,135,358,166" name="San Miguel y San Ciprián" id="G"  name_en="San Miguel and San Ciprián"  />
+        <area shape="rect" coords="311,61,343,92" name="Cabeza de Meda" id="H"  name_en="Cabeza de Meda"  />
+        <area shape="rect" coords="572,192,604,223" name="Barxacova" id="I"  name_en="Barxacova"  />
+        <area shape="rect" coords="533,121,565,152" name="La Ribeira de Amandi" id="J"  name_en="Ribeira de Amandi"  />
 </map>
 
 <map name="MiradordelDuque1">
-        <area shape="rect" coords="97,80,133,116" name="San Pedro de Baños" id="A"  name_en=""  />
-        <area shape="rect" coords="79,14,115,50" name="O Colado" id="B"  name_en=""  />
-        <area shape="rect" coords="337,62,373,98" name="A Cubela" id="C"  name_en=""  />
-        <area shape="rect" coords="310,21,346,57" name="Torbeo" id="D"  name_en=""  />
-        <area shape="rect" coords="270,14,306,50" name="O Courel" id="E"  name_en=""  />
-        <area shape="rect" coords="690,121,725,157" name="Penas de Matacás" id="F"  name_en=""  />
+        <area shape="rect" coords="97,80,133,116" name="San Pedro de Baños" id="A"  name_en="San Pedro de Baños"  />
+        <area shape="rect" coords="79,14,115,50" name="O Colado" id="B"  name_en="O Colado"  />
+        <area shape="rect" coords="337,62,373,98" name="A Cubela" id="C"  name_en="A Cubela"  />
+        <area shape="rect" coords="310,21,346,57" name="Torbeo" id="D"  name_en="Torbeo"  />
+        <area shape="rect" coords="270,14,306,50" name="O Courel" id="E"  name_en="O Courel"  />
+        <area shape="rect" coords="690,121,725,157" name="Penas de Matacás" id="F"  name_en="Penas de Matacás"  />
 </map>
 
 <map name="MiradordeSantiorxo1">
-        <area shape="rect" coords="85,44,117,76" name="Cadeiras" id="A"  name_en=""  />
-        <area shape="rect" coords="117,59,143,91" name="Chandrexa" id="B"  name_en=""  />
-        <area shape="rect" coords="228,36,261,68" name="Balcones de Madrid" id="C"  name_en=""  />
-        <area shape="rect" coords="557,53,590,85" name="Mirador da Cividade" id="D"  name_en=""  />
-        <area shape="rect" coords="422,54,455,86" name="Portela" id="E"  name_en=""  />
-        <area shape="rect" coords="493,77,526,109" name="Santa Cristina" id="F"  name_en=""  />
+        <area shape="rect" coords="85,44,117,76" name="Cadeiras" id="A"  name_en="Cadeiras"  />
+        <area shape="rect" coords="117,59,143,91" name="Chandrexa" id="B"  name_en="Chandrexa"  />
+        <area shape="rect" coords="228,36,261,68" name="Balcones de Madrid" id="C"  name_en="Madrid Balconies"  />
+        <area shape="rect" coords="557,53,590,85" name="Mirador da Cividade" id="D"  name_en="Cividade Viewpoint"  />
+        <area shape="rect" coords="422,54,455,86" name="Portela" id="E"  name_en="Portela"  />
+        <area shape="rect" coords="493,77,526,109" name="Santa Cristina" id="F"  name_en="Santa Cristina"  />
 </map>
 
 <map name="MiradordosChelos1">
-        <area shape="rect" coords="239,18,266,45" name="San Lourenzo" id="A"  name_en=""  />
-        <area shape="rect" coords="182,47,209,74" name="San Adrián" id="B"  name_en=""  />
-        <area shape="rect" coords="578,25,605,52" name="A Fraga de Chandrexa" id="C"  name_en=""  />
-        <area shape="rect" coords="80,73,107,100" name="Rio Mao" id="D"  name_en=""  />
-        <area shape="rect" coords="171,111,198,138" name="Central de Regueiro" id="E"  name_en=""  />
-        <area shape="rect" coords="537,51,564,78" name="Sacardebois" id="F"  name_en=""  />
-        <area shape="rect" coords="317,44,344,71" name="Bouzas" id="G"  name_en=""  />
-        <area shape="rect" coords="368,81,395,108" name="A Costrela" id="H"  name_en=""  />
-        <area shape="rect" coords="496,142,523,169" name="A Barxa" id="I"  name_en=""  />
-        <area shape="rect" coords="580,90,607,117" name="Leirabella" id="J"  name_en=""  />
-        <area shape="rect" coords="707,70,734,97" name="Calvos" id="K"  name_en=""  />
-        <area shape="rect" coords="276,163,356,188" name="Catamarán" id="L"  name_en=""  />
+        <area shape="rect" coords="239,18,266,45" name="San Lourenzo" id="A"  name_en="San Lourenzo"  />
+        <area shape="rect" coords="182,47,209,74" name="San Adrián" id="B"  name_en="San Adriá"  />
+        <area shape="rect" coords="578,25,605,52" name="A Fraga de Chandrexa" id="C"  name_en="Fraga de Chandrexa (Chandreza forest)"  />
+        <area shape="rect" coords="80,73,107,100" name="Rio Mao" id="D"  name_en="Mao River"  />
+        <area shape="rect" coords="171,111,198,138" name="Central de Regueiro" id="E"  name_en="Regueiro power station"  />
+        <area shape="rect" coords="537,51,564,78" name="Sacardebois" id="F"  name_en="Sacardebois"  />
+        <area shape="rect" coords="317,44,344,71" name="Bouzas" id="G"  name_en="Bouzas"  />
+        <area shape="rect" coords="368,81,395,108" name="A Costrela" id="H"  name_en="A Costrela"  />
+        <area shape="rect" coords="496,142,523,169" name="A Barxa" id="I"  name_en="A Barxa"  />
+        <area shape="rect" coords="580,90,607,117" name="Leirabella" id="J"  name_en="Leirabella"  />
+        <area shape="rect" coords="707,70,734,97" name="Calvos" id="K"  name_en="Calvos"  />
+        <area shape="rect" coords="276,163,356,188" name="Catamarán" id="L"  name_en="Catamaran"  />
 </map>
 
 <map name="Montederramo2">
-        <area shape="rect" coords="163,131,201,165" name="Fachada" id="A"  name_en=""  />
-        <area shape="rect" coords="180,229,211,263" name="La entrada de la iglesia" id="B"  name_en=""  />
-        <area shape="rect" coords="357,236,382,270" name="Entrada al Monasterio" id="C"  name_en=""  />
-        <area shape="rect" coords="411,189,443,223" name="San Bernardo" id="D"  name_en=""  />
-        <area shape="rect" coords="355,169,387,203" name="La fachada del monasterio" id="E"  name_en=""  />
+        <area shape="rect" coords="163,131,201,165" name="Fachada" id="A"  name_en="Façade"  />
+        <area shape="rect" coords="180,229,211,263" name="La entrada de la iglesia" id="B"  name_en="Entrance of the Church"  />
+        <area shape="rect" coords="357,236,382,270" name="Entrada al Monasterio" id="C"  name_en="Entry to the Monastery"  />
+        <area shape="rect" coords="411,189,443,223" name="San Bernardo" id="D"  name_en="San Bernardo"  />
+        <area shape="rect" coords="355,169,387,203" name="La fachada del monasterio" id="E"  name_en="Monastery front"  />
 </map>
 
 <map name="PenedosdoCastro2">
@@ -161,25 +161,25 @@
 </map>
 
 <map name="SanMiguelEire3">
-        <area shape="rect" coords="380,102,448,152" name="El cordero" id="A"  name_en=""  />
-        <area shape="rect" coords="364,235,415,283" name="Los círculos" id="B"  name_en=""  />
-        <area shape="rect" coords="434,302,501,366" name="Los evangelistas" id="C"  name_en=""  />
-        <area shape="rect" coords="233,304,313,368" name="Hombre con barba" id="D"  name_en=""  />
+        <area shape="rect" coords="380,102,448,152" name="El cordero" id="A"  name_en="The lamb"  />
+        <area shape="rect" coords="364,235,415,283" name="Los círculos" id="B"  name_en="The circles"  />
+        <area shape="rect" coords="434,302,501,366" name="Los evangelistas" id="C"  name_en="The Evangelists"  />
+        <area shape="rect" coords="233,304,313,368" name="Hombre con barba" id="D"  name_en="Bearded Man"  />
 </map>
 
 <map name="SanPaiodeDiomondi5">
-        <area shape="rect" coords="637,244,695,301" name="Los centauros" id="A"  name_en=""  />
-        <area shape="rect" coords="141,248,199,305" name="Las sirenas" id="B"  name_en=""  />
-        <area shape="rect" coords="536,267,583,336" name="Las aves" id="C"  name_en=""  />
-        <area shape="rect" coords="284,291,335,348" name="Esfinge o Mantícora" id="D"  name_en=""  />
-        <area shape="rect" coords="337,309,371,361" name="Los leones" id="E"  name_en=""  />
+        <area shape="rect" coords="637,244,695,301" name="Los centauros" id="A"  name_en="The Centaurs"  />
+        <area shape="rect" coords="141,248,199,305" name="Las sirenas" id="B"  name_en="The sirens"  />
+        <area shape="rect" coords="536,267,583,336" name="Las aves" id="C"  name_en="The birds"  />
+        <area shape="rect" coords="284,291,335,348" name="Esfinge o Mantícora" id="D"  name_en="Sphinx"  />
+        <area shape="rect" coords="337,309,371,361" name="Los leones" id="E"  name_en="The lions"  />
 </map>
 
 <map name="SantoEstevodeAtan3">
-        <area shape="rect" coords="577,338,636,397" name="El León" id="A"  name_en=""  />
-        <area shape="rect" coords="527,346,574,405" name="El Paraíso" id="B"  name_en=""  />
-        <area shape="rect" coords="147,346,201,409" name="La serpiente" id="C"  name_en=""  />
-        <area shape="rect" coords="202,347,253,409" name="El olivo" id="D"  name_en=""  />
+        <area shape="rect" coords="577,338,636,397" name="El León" id="A"  name_en="Lion"  />
+        <area shape="rect" coords="527,346,574,405" name="El Paraíso" id="B"  name_en="Heaven"  />
+        <area shape="rect" coords="147,346,201,409" name="La serpiente" id="C"  name_en="Snake"  />
+        <area shape="rect" coords="202,347,253,409" name="El olivo" id="D"  name_en="Olive Tree"  />
 </map>
 
 <map name="SantoEstevoRibasSil2">
@@ -193,26 +193,26 @@
 </map>  
         
 <map name="MiradordeDoade5">
-        <area shape="rect" coords="182,48,232,98"  name="A Teixeira" id="A"  name_en=""  />
-        <area shape="rect" coords="550,133,600,183" name="Barxacova" id="B"  name_en=""  />
-        <area shape="rect" coords="518,94,564,133"  name="San Lourenzo" id="C"  name_en=""  />
-        <area shape="rect" coords="1022,75,1068,123" name="Bodega" id="D"  name_en=""  />
+        <area shape="rect" coords="182,48,232,98"  name="A Teixeira" id="A"  name_en="A Teixeira"  />
+        <area shape="rect" coords="550,133,600,183" name="Barxacova" id="B"  name_en="Barxacova"  />
+        <area shape="rect" coords="518,94,564,133"  name="San Lourenzo" id="C"  name_en="San Lourenzo"  />
+        <area shape="rect" coords="1022,75,1068,123" name="Bodega" id="D"  name_en="Bodega"  />
 </map>
 
 <map name="MiradordelDuque2">
-        <area shape="rect" coords="87,379,137,429"  name="Embarcadero de Doade" id="A"  name_en=""  />
-        <area shape="rect" coords="33,85,83,135" name="Paradela" id="B"  name_en=""  />
-        <area shape="rect" coords="183,80,233,130"  name="Nogueira" id="C"  name_en=""  />
-        <area shape="rect" coords="121,50,171,100" name="Alais" id="D"  name_en=""  />
-        <area shape="rect" coords="200,28,250,78" name="Castro Caldelas" id="E"  name_en=""  />
-        <area shape="rect" coords="492,89,542,139"  name="Abeleda" id="F"  name_en=""  />
-        <area shape="rect" coords="519,292,569,342" name="El Río Edo" id="G"  name_en=""  />
+        <area shape="rect" coords="87,379,137,429"  name="Embarcadero de Doade" id="A"  name_en="Doade Quay"  />
+        <area shape="rect" coords="33,85,83,135" name="Paradela" id="B"  name_en="Paradela"  />
+        <area shape="rect" coords="183,80,233,130"  name="Nogueira" id="C"  name_en="Nogueira"  />
+        <area shape="rect" coords="121,50,171,100" name="Alais" id="D"  name_en="Alais"  />
+        <area shape="rect" coords="200,28,250,78" name="Castro Caldelas" id="E"  name_en="Castro Caldelas"  />
+        <area shape="rect" coords="492,89,542,139"  name="Abeleda" id="F"  name_en="Abeleda"  />
+        <area shape="rect" coords="519,292,569,342" name="El Río Edo" id="G"  name_en="The Edo River"  />
 </map>
 
 <map name="ferreiradepanton11">
-        <area shape="rect" coords="554,225,604,275"  name="Daniel" id="A"  name_en=""  />
-        <area shape="rect" coords="497,290,547,340" name="El ángel" id="B"  name_en=""  />
-        <area shape="rect" coords="198,230,248,280"  name="Los grifos" id="C"  name_en=""  />
-        <area shape="rect" coords="398,327,448,377" name="Las aves" id="D"  name_en=""  />
+        <area shape="rect" coords="554,225,604,275"  name="Daniel" id="A"  name_en="Daniel"  />
+        <area shape="rect" coords="497,290,547,340" name="El ángel" id="B"  name_en="The Angel"  />
+        <area shape="rect" coords="198,230,248,280"  name="Los grifos" id="C"  name_en="The Gryphon"  />
+        <area shape="rect" coords="398,327,448,377" name="Las aves" id="D"  name_en="The Birds"  />
 </map>
 </maps>

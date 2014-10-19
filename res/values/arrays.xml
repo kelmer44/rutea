@@ -1,0 +1,18 @@
+<resources>
+
+     <string-array name="idiomas_array">
+        <item>Castellano</item>
+        <item>English</item>
+    </string-array>
+    
+    <string-array name="idiomas_codes">
+        <item>es</item>
+        <item>en</item>
+    </string-array>
+    
+    <string-array name="locale_codes">
+        <item>es_ES</item>
+        <item>en_US</item>
+    </string-array>
+   
+</resources>
