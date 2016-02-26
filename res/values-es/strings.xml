@@ -7,6 +7,7 @@
     <string name="title_activity_route_list">Lista de Rutas</string>
     <string name="title_activity_route_detail">Detalles de ruta</string>
     <string name="title_activity_map">Vista de mapa</string>
+    <string name="title_activity_settings">Configuración</string>
     <string name="no_map">No se encontró el fichero de mapas</string>
     <string name="punto_anterior">punto anterior</string>
     <string name="siguiente_punto">siguiente punto</string>
@@ -65,4 +66,6 @@
     
     
     <string name="error_video">El vídeo no se ha encontrado o no es reproducible</string>
+    
+    <string name="idioma_prefs">Idioma</string>
 </resources>
