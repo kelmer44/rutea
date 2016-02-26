@@ -3,14 +3,18 @@ package com.bretema.rutas.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.bretema.rutas.R;
+
+import java.util.Locale;
 
 /**
  * Creating splash screen for the app
@@ -34,7 +38,12 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        LanguageActivity.setLocaleFromPreferences(this.getApplicationContext());
+
+
         setContentView(R.layout.splash_layout);
 
         Handler handler = new Handler();

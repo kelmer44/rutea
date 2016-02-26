@@ -3,6 +3,8 @@ package com.bretema.rutas.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -13,8 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -26,11 +28,6 @@ import com.bretema.rutas.core.util.Constants;
 import com.bretema.rutas.service.CodigoService;
 import com.bretema.rutas.service.impl.CodigoServiceImpl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutActivity extends Activity {
 
@@ -38,6 +35,7 @@ public class AboutActivity extends Activity {
     private long crc32address;
     private String address;
     private CodigoService codigoService;
+    public static final int SETTINGS_REQUEST = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +52,6 @@ public class AboutActivity extends Activity {
         ImageView ruteaLogo = (ImageView) findViewById(R.id.info_blue);
         codigoService = new CodigoServiceImpl(getApplicationContext());
 
-        
-        
         bretemaLogo.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -64,7 +60,7 @@ public class AboutActivity extends Activity {
                 startActivity(browserIntent);
             }
         });
-        
+
         ruteaLogo.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -109,4 +105,38 @@ public class AboutActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_about, menu);
         return true;
     }
+
+    // This method is called once the menu is selected
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                // Launch settings activity
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivityForResult(i, SETTINGS_REQUEST);
+                break;
+        // more code...
+        }
+        return true;
+    }
+
+    //
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent
+            data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case SETTINGS_REQUEST:
+                // Esto significa que se ha cambiado el idioma (posiblemente la
+                // accesibilidad también
+                if (resultCode == SettingsActivity.RESULT_CODE_LANGUAGE) {
+                    
+                }
+
+                break;
+        }
+
+    }
+
 }
