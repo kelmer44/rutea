@@ -6,6 +6,9 @@ This README would normally document whatever steps are necessary to get your app
 
 * Rutea mapas, touristic app for rural areas in Galicia with offline maps.
 
+
+### Screencaps ###
+
 ![image.png](https://bitbucket.org/repo/E6ea4k/images/3332278614-image.png)
 ![image2.png](https://bitbucket.org/repo/E6ea4k/images/4111649702-image2.png)
 
